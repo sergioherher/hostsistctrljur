@@ -22,12 +22,22 @@
                         <div class="kt-login__head">
                             <h3 class="kt-login__title">Sistema de Control de Hipotecas</h3>
                         </div>
-                        <form class="kt-form" method="POST" action="{{ route('login') }}">
+                        <form id="kt_login_signin_form" class="kt-form" method="POST" action="{{ url('login') }}">
                             @csrf
-                            <div class="input-group">
+                            @if ($errors->has('email'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                </span>
+                            @endif
+                            <div class="input-group {{ $errors->has('email') ? ' has-error' : '' }}">
                                 <input class="form-control" type="text" placeholder="Email" name="email" autocomplete="off">
                             </div>
-                            <div class="input-group">
+                            @if ($errors->has('password'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('password') }}</strong>
+                                </span>
+                            @endif
+                            <div class="input-group {{ $errors->has('email') ? ' has-error' : '' }}">                                
                                 <input class="form-control" type="password" placeholder="Password" name="password">
                             </div>
                             <div class="row kt-login__extra">
@@ -51,19 +61,39 @@
                             <h3 class="kt-login__title">Registrarse</h3>
                             <div class="kt-login__desc">Ingrese los datos para crear su cuenta:</div>
                         </div>
-                        <form class="kt-form" method="POST" action="{{ route('register') }}">
+                        <form id="kt_login_signup_form" class="kt-form" method="POST" action="{{ url('register') }}">
                             @csrf
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                             <div class="input-group">
-                                <input class="form-control" type="text" placeholder="Nombre" name="fullname">
+                                <input class="form-control" type="text" placeholder="Nombre" name="name">
                             </div>
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                             <div class="input-group">
                                 <input class="form-control" type="text" placeholder="Email" name="email" autocomplete="off">
                             </div>
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                             <div class="input-group">
                                 <input class="form-control" type="password" placeholder="Password" name="password">
                             </div>
+                            @error('password_confirmation')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                             <div class="input-group">
-                                <input class="form-control" type="password" placeholder="Confirme su password" name="rpassword">
+                                <input class="form-control" type="password" placeholder="Confirme su password" name="password_confirmation">
                             </div>
                             <div class="row kt-login__extra">
                                 <div class="col kt-align-left">
@@ -85,7 +115,7 @@
                             <h3 class="kt-login__title">¿Olvidó su password?</h3>
                             <div class="kt-login__desc">Ingrese su email para resetearlo:</div>
                         </div>
-                        <form class="kt-form" method="POST" action="{{ route('password.email') }}">
+                        <form class="kt-form" method="POST" action="{{ url('password/email') }}">
                             @csrf
                             <div class="input-group">
                                 <input class="form-control" type="text" placeholder="Email" name="email" id="kt_email" autocomplete="off">

@@ -88,7 +88,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="{{asset('theme/assets/demo/default/skins/aside/dark.css')}}" rel="stylesheet" type="text/css" />
 
         <!--end::Layout Skins -->
-        <link rel="shortcut icon" href="../assets/media/logos/favicon.ico" />
+        <link rel="shortcut icon" href="{{asset('theme/assets/media/logos/favicon.ico')}}" />
     </head>
 <body  class="kt-header--fixed kt-header-mobile--fixed kt-subheader--enabled kt-subheader--transparent kt-aside--enabled kt-aside--fixed kt-aside--minimize kt-page--loading">
 
@@ -191,10 +191,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <!--end::Global Theme Bundle -->
 
     <!--begin::Page Scripts(used by this page) -->
-    <script src="{{asset('theme/assets/app/custom/login/login-general.js?v=0.0.2')}}" type="text/javascript"></script>
-    <script src="{{asset('theme/assets/vendors/custom/fullcalendar/fullcalendar.bundle.js')}}" type="text/javascript"></script>
-    <script src="//maps.google.com/maps/api/js?key=AIzaSyBTGnKT7dt597vo9QgeQ7BFhvSRP4eiMSM" type="text/javascript"></script>
-    <script src="{{asset('theme/assets/vendors/custom/gmaps/gmaps.js')}}" type="text/javascript"></script>
+    <script src="{{asset('theme/assets/app/custom/login/login-general.js?v=0.0.15')}}" type="text/javascript"></script>
 
     <!--begin::Page Scripts(used by this page) -->
     <script src="{{asset('theme/assets/app/custom/general/dashboard.js')}}" type="text/javascript"></script>

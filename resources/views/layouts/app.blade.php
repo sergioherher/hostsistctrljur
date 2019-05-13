@@ -17,8 +17,8 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- begin::Head -->
     <head>
         <meta charset="utf-8" />
-        <title>Metronic | Login Page v4</title>
-        <meta name="description" content="Login page example">
+        <title>Metronic | Dashboard</title>
+        <meta name="description" content="Latest updates and statistic charts">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!--begin::Fonts -->
@@ -35,68 +35,77 @@ License: You must have a valid license purchased only from themeforest(the above
         <!--end::Fonts -->
 
         <!--begin::Page Vendors Styles(used by this page) -->
-        <link href="{{asset('theme/assets/vendors/custom/fullcalendar/fullcalendar.bundle.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/vendors/custom/fullcalendar/fullcalendar.bundle.css')}}" rel="stylesheet" type="text/css" />
 
-        <!--begin::Page Custom Styles(used by this page) -->
-        <link href="{{asset('theme/assets/app/custom/login/login-v4.default.css')}}" rel="stylesheet" type="text/css" />
-
-        <!--end::Page Custom Styles -->
+        <!--end::Page Vendors Styles -->
 
         <!--begin:: Global Mandatory Vendors -->
-        <link href="{{asset('theme/assets/vendors/general/perfect-scrollbar/css/perfect-scrollbar.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/vendors/general/perfect-scrollbar/css/perfect-scrollbar.css')}}" rel="stylesheet" type="text/css" />
 
         <!--end:: Global Mandatory Vendors -->
 
         <!--begin:: Global Optional Vendors -->
-        <link href="{{asset('theme/assets/vendors/general/tether/dist/css/tether.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('theme/assets/vendors/general/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('theme/assets/vendors/general/bootstrap-datetime-picker/css/bootstrap-datetimepicker.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('theme/assets/vendors/general/bootstrap-timepicker/css/bootstrap-timepicker.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('theme/assets/vendors/general/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('theme/assets/vendors/general/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('theme/assets/vendors/general/bootstrap-select/dist/css/bootstrap-select.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('theme/assets/vendors/general/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('theme/assets/vendors/general/select2/dist/css/select2.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('theme/assets/vendors/general/ion-rangeslider/css/ion.rangeSlider.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('theme/assets/vendors/general/nouislider/distribute/nouislider.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('theme/assets/vendors/general/owl.carousel/dist/assets/owl.carousel.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('theme/assets/vendors/general/owl.carousel/dist/assets/owl.theme.default.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('theme/assets/vendors/general/dropzone/dist/dropzone.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('theme/assets/vendors/general/summernote/dist/summernote.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('theme/assets/vendors/general/bootstrap-markdown/css/bootstrap-markdown.min.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('theme/assets/vendors/general/animate.css/animate.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('theme/assets/vendors/general/toastr/build/toastr.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('theme/assets/vendors/general/morris.js/morris.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('theme/assets/vendors/general/sweetalert2/dist/sweetalert2.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('theme/assets/vendors/general/socicon/css/socicon.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('theme/assets/vendors/custom/vendors/line-awesome/css/line-awesome.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('theme/assets/vendors/custom/vendors/flaticon/flaticon.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('theme/assets/vendors/custom/vendors/flaticon2/flaticon.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('theme/assets/vendors/custom/vendors/fontawesome5/css/all.min.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/vendors/general/tether/dist/css/tether.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/vendors/general/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/vendors/general/bootstrap-datetime-picker/css/bootstrap-datetimepicker.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/vendors/general/bootstrap-timepicker/css/bootstrap-timepicker.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/vendors/general/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/vendors/general/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/vendors/general/bootstrap-select/dist/css/bootstrap-select.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/vendors/general/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/vendors/general/select2/dist/css/select2.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/vendors/general/ion-rangeslider/css/ion.rangeSlider.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/vendors/general/nouislider/distribute/nouislider.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/vendors/general/owl.carousel/dist/assets/owl.carousel.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/vendors/general/owl.carousel/dist/assets/owl.theme.default.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/vendors/general/dropzone/dist/dropzone.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/vendors/general/summernote/dist/summernote.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/vendors/general/bootstrap-markdown/css/bootstrap-markdown.min.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/vendors/general/animate.css/animate.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/vendors/general/toastr/build/toastr.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/vendors/general/morris.js/morris.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/vendors/general/sweetalert2/dist/sweetalert2.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/vendors/general/socicon/css/socicon.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/vendors/custom/vendors/line-awesome/css/line-awesome.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/vendors/custom/vendors/flaticon/flaticon.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/vendors/custom/vendors/flaticon2/flaticon.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/vendors/custom/vendors/fontawesome5/css/all.min.css')}}" rel="stylesheet" type="text/css" />
 
         <!--end:: Global Optional Vendors -->
 
         <!--begin::Global Theme Styles(used by all pages) -->
-        <link href="{{asset('theme/assets/demo/default/base/style.bundle.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/demo/demo7/base/style.bundle.css')}}" rel="stylesheet" type="text/css" />
 
         <!--end::Global Theme Styles -->
 
         <!--begin::Layout Skins(used by all pages) -->
-        <link href="{{asset('theme/assets/demo/default/skins/header/base/light.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('theme/assets/demo/default/skins/header/menu/light.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('theme/assets/demo/default/skins/brand/dark.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('theme/assets/demo/default/skins/aside/dark.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/demo/default/skins/header/base/light.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/demo/default/skins/header/menu/light.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/demo/default/skins/brand/light.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('theme/assets/demo/default/skins/aside/light.css')}}" rel="stylesheet" type="text/css" />
 
         <!--end::Layout Skins -->
-        <link rel="shortcut icon" href="{{asset('theme/assets/media/logos/favicon.ico" />
+        <link rel="shortcut icon" href="{{ asset('theme/assets/media/logos/favicon.ico')}}" />
     </head>
-    
-    <body  class="kt-header--fixed kt-header-mobile--fixed kt-subheader--enabled kt-subheader--transparent kt-aside--enabled kt-aside--fixed kt-aside--minimize kt-page--loading">
+
+    <!-- end::Head -->
+
+    <!-- begin::Body -->
+    <body class="kt-header--fixed kt-header-mobile--fixed kt-subheader--enabled kt-subheader--transparent kt-aside--enabled kt-aside--fixed kt-aside--minimize kt-page--loading">
+
+        <!-- begin:: Page -->
+
         <!-- begin:: Header Mobile -->
         <div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
             <div class="kt-header-mobile__logo">
-                <a href="index.html">
-                    <img alt="Logo" src="{{asset('theme/assets/media/logos/logo-6.png" />
+                <a href="{{ url('home') }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48px" height="48px" viewBox="0 0 24 24" version="1.1">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <rect id="bound" x="0" y="0" width="24" height="24"/>
+                            <path d="M13.6855025,18.7082217 C15.9113859,17.8189707 18.682885,17.2495635 22,17 C22,16.9325178 22,13.1012863 22,5.50630526 L21.9999762,5.50630526 C21.9999762,5.23017604 21.7761292,5.00632908 21.5,5.00632908 C21.4957817,5.00632908 21.4915635,5.00638247 21.4873465,5.00648922 C18.658231,5.07811173 15.8291155,5.74261533 13,7 C13,7.04449645 13,10.79246 13,18.2438906 L12.9999854,18.2438906 C12.9999854,18.520041 13.2238496,18.7439052 13.5,18.7439052 C13.5635398,18.7439052 13.6264972,18.7317946 13.6855025,18.7082217 Z" id="Combined-Shape" fill="#5d78ff"/>
+                            <path d="M10.3144829,18.7082217 C8.08859955,17.8189707 5.31710038,17.2495635 1.99998542,17 C1.99998542,16.9325178 1.99998542,13.1012863 1.99998542,5.50630526 L2.00000925,5.50630526 C2.00000925,5.23017604 2.22385621,5.00632908 2.49998542,5.00632908 C2.50420375,5.00632908 2.5084219,5.00638247 2.51263888,5.00648922 C5.34175439,5.07811173 8.17086991,5.74261533 10.9999854,7 C10.9999854,7.04449645 10.9999854,10.79246 10.9999854,18.2438906 L11,18.2438906 C11,18.520041 10.7761358,18.7439052 10.4999854,18.7439052 C10.4364457,18.7439052 10.3734882,18.7317946 10.3144829,18.7082217 Z" id="Path-41-Copy" fill="#5d78ff" opacity="0.3"/>
+                        </g>
+                    </svg>
                 </a>
             </div>
             <div class="kt-header-mobile__toolbar">
@@ -118,7 +127,13 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="kt-aside__brand kt-grid__item " id="kt_aside_brand">
                         <div class="kt-aside__brand-logo">
                             <a href="index.html">
-                                <img alt="Logo" src="{{asset('theme/assets/media/logos/logo-7.png" />
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48px" height="48px" viewBox="0 0 24 24" version="1.1">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect id="bound" x="0" y="0" width="24" height="24"/>
+                                        <path d="M13.6855025,18.7082217 C15.9113859,17.8189707 18.682885,17.2495635 22,17 C22,16.9325178 22,13.1012863 22,5.50630526 L21.9999762,5.50630526 C21.9999762,5.23017604 21.7761292,5.00632908 21.5,5.00632908 C21.4957817,5.00632908 21.4915635,5.00638247 21.4873465,5.00648922 C18.658231,5.07811173 15.8291155,5.74261533 13,7 C13,7.04449645 13,10.79246 13,18.2438906 L12.9999854,18.2438906 C12.9999854,18.520041 13.2238496,18.7439052 13.5,18.7439052 C13.5635398,18.7439052 13.6264972,18.7317946 13.6855025,18.7082217 Z" id="Combined-Shape" fill="#5d78ff"/>
+                                        <path d="M10.3144829,18.7082217 C8.08859955,17.8189707 5.31710038,17.2495635 1.99998542,17 C1.99998542,16.9325178 1.99998542,13.1012863 1.99998542,5.50630526 L2.00000925,5.50630526 C2.00000925,5.23017604 2.22385621,5.00632908 2.49998542,5.00632908 C2.50420375,5.00632908 2.5084219,5.00638247 2.51263888,5.00648922 C5.34175439,5.07811173 8.17086991,5.74261533 10.9999854,7 C10.9999854,7.04449645 10.9999854,10.79246 10.9999854,18.2438906 L11,18.2438906 C11,18.520041 10.7761358,18.7439052 10.4999854,18.7439052 C10.4364457,18.7439052 10.3734882,18.7317946 10.3144829,18.7082217 Z" id="Path-41-Copy" fill="#5d78ff" opacity="0.3"/>
+                                    </g>
+                                </svg>
                             </a>
                         </div>
                     </div>
@@ -129,65 +144,38 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="kt-aside-menu-wrapper kt-grid__item kt-grid__item--fluid" id="kt_aside_menu_wrapper">
                         <div id="kt_aside_menu" class="kt-aside-menu  kt-aside-menu--dropdown " data-ktmenu-vertical="1" data-ktmenu-dropdown="1" data-ktmenu-scroll="0">
                             <ul class="kt-menu__nav ">
-                                <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--submenu-fullheight kt-menu__item--open kt-menu__item--here" aria-haspopup="true" data-ktmenu-submenu-toggle="click" data-ktmenu-dropdown-toggle-class="kt-aside-menu-overlay--on"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-protection"></i><span class="kt-menu__link-text">Applications</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                                <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--submenu-fullheight kt-menu__item--open kt-menu__item--here" aria-haspopup="true" data-ktmenu-submenu-toggle="click" data-ktmenu-dropdown-toggle-class="kt-aside-menu-overlay--on"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-protection"></i><span class="kt-menu__link-text">Administrar</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
                                     <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                                         <div class="kt-menu__wrapper">
                                             <ul class="kt-menu__subnav">
-                                                <li class="kt-menu__item  kt-menu__item--parent kt-menu__item--submenu-fullheight" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Applications</span></span></li>
-                                                <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--open kt-menu__item--here" aria-haspopup="true" data-ktmenu-submenu-toggle="click" data-ktmenu-submenu-mode="accordion"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><span class="kt-menu__link-text">Resources</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
-                                                    <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
-                                                        <ul class="kt-menu__subnav">
-                                                            <li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="index.html" class="kt-menu__link "><span class="kt-menu__link-text">Timesheet</span></a></li>
-                                                            <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><span class="kt-menu__link-text">Payroll</span></a></li>
-                                                            <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><span class="kt-menu__link-text">Contacts</span></a></li>
-                                                            <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><span class="kt-menu__link-text">Members</span></a></li>
-                                                            <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><span class="kt-menu__link-text">Clients</span></a></li>
-                                                        </ul>
-                                                    </div>
+                                                <li class="kt-menu__item  kt-menu__item--parent kt-menu__item--submenu-fullheight" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Administrar</span></span></li>
+                                                <li class="kt-menu__item " aria-haspopup="true">
+                                                    <a href="#" class="kt-menu__link ">
+                                                        <i class="kt-menu__link-icon la la-user"></i><span class="kt-menu__link-text">Clientes</span>
+                                                        <span class="kt-menu__link-badge">
+                                                            <span class="kt-badge kt-badge--brand">2</span>
+                                                        </span>
+                                                    </a>
                                                 </li>
-                                                <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><span class="kt-menu__link-text">Finance</span></a></li>
-                                                <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><span class="kt-menu__link-text">Support</span></a></li>
-                                                <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><span class="kt-menu__link-text">Administration</span></a></li>
-                                                <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><span class="kt-menu__link-text">Management</span></a></li>
-                                                <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><span class="kt-menu__link-text">Order Management</span></a></li>
-                                                <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><span class="kt-menu__link-text">Delivery</span><span class="kt-menu__link-badge"><span class="kt-badge kt-badge--brand">2</span></span></a></li>
-                                                <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><span class="kt-menu__link-text">Products</span></a></li>
-                                                <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><span class="kt-menu__link-text">Support</span></a></li>
+                                                <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-icon la la-users"></i><span class="kt-menu__link-text">Internos</span><span class="kt-menu__link-badge">
+                                                            <span class="kt-badge kt-badge--danger">2</span>
+                                                        </span></a></li>
+                                                <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-icon la la-institution"></i><span class="kt-menu__link-text">Juzgados</span></a></li>
+                                                <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-icon la la-balance-scale"></i><span class="kt-menu__link-text">Tipos de Juicio</span></a></li>
+                                                <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-icon la la-tachometer"></i><span class="kt-menu__link-text">Macro Etapas</span></a></li>
                                             </ul>
                                         </div>
                                     </div>
                                 </li>
-                                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="click"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-calendar-5"></i><span class="kt-menu__link-text">Add</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                                <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="click"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i style="font-size: 30px" class="kt-menu__link-icon la la-gavel"></i><span class="kt-menu__link-text">Juicios</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
                                     <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                                         <ul class="kt-menu__subnav">
-                                            <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Add</span></span></li>
-                                            <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-icon la la-commenting"></i><span class="kt-menu__link-text">Post</span></a></li>
-                                            <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-icon la la-user"></i><span class="kt-menu__link-text">Member</span></a></li>
-                                            <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-icon la la-cart-arrow-down"></i><span class="kt-menu__link-text">Order</span></a></li>
-                                            <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-icon la la-coffee"></i><span class="kt-menu__link-text">Entry</span></a></li>
+                                            <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Juicios</span></span></li>
+                                            <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-icon la la-edit"></i><span class="kt-menu__link-text">Revisar / Editar</span></a></li>
+                                            <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-icon la la-plus"></i><span class="kt-menu__link-text">Cargar</span></a></li>
                                         </ul>
                                     </div>
-                                </li>
-                                <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--bottom" aria-haspopup="true" data-ktmenu-submenu-toggle="click" data-ktmenu-link-redirect="1"><a target="_blank" href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-analytics-2"></i><span class="kt-menu__link-text">Customers</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
-                                    <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
-                                        <ul class="kt-menu__subnav">
-                                            <li class="kt-menu__item  kt-menu__item--parent kt-menu__item--bottom" aria-haspopup="true" data-ktmenu-link-redirect="1"><span class="kt-menu__link"><span class="kt-menu__link-text">Customers</span></span></li>
-                                            <li class="kt-menu__item " aria-haspopup="true" data-ktmenu-link-redirect="1"><a href="#" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Reports</span></a></li>
-                                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Cases</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
-                                                <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
-                                                    <ul class="kt-menu__subnav">
-                                                        <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-icon flaticon-computer"></i><span class="kt-menu__link-text">Pending</span><span class="kt-menu__link-badge"><span class="kt-badge kt-badge--warning">10</span></span></a></li>
-                                                        <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-icon flaticon-signs-2"></i><span class="kt-menu__link-text">Urgent</span><span class="kt-menu__link-badge"><span class="kt-badge kt-badge--danger">6</span></span></a></li>
-                                                        <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-icon flaticon-clipboard"></i><span class="kt-menu__link-text">Done</span><span class="kt-menu__link-badge"><span class="kt-badge kt-badge--success">2</span></span></a></li>
-                                                        <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-icon flaticon-multimedia-2"></i><span class="kt-menu__link-text">Archive</span><span class="kt-menu__link-badge"><span class="kt-badge kt-badge--info kt-badge--inline">245</span></span></a></li>
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                            <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Clients</span></a></li>
-                                            <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Audit</span></a></li>
-                                        </ul>
-                                    </div>
-                                </li>
+                                </li>                                
                                 <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--bottom-2" aria-haspopup="true" data-ktmenu-submenu-toggle="click"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-gear"></i><span class="kt-menu__link-text">Settings</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
                                     <div class="kt-menu__submenu kt-menu__submenu--up"><span class="kt-menu__arrow"></span>
                                         <ul class="kt-menu__subnav">
@@ -898,7 +886,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                         </div>
                                                         <a href="#" class="kt-mycart__pic">
-                                                            <img src="{{asset('theme/assets/media/products/product9.jpg" title="">
+                                                            <img src="{{ asset('theme/assets/media/products/product9.jpg')}}" title="">
                                                         </a>
                                                     </div>
                                                 </div>
@@ -920,7 +908,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                         </div>
                                                         <a href="#" class="kt-mycart__pic">
-                                                            <img src="{{asset('theme/assets/media/products/product13.jpg" title="">
+                                                            <img src="{{ asset('theme/assets/media/products/product13.jpg')}}" title="">
                                                         </a>
                                                     </div>
                                                 </div>
@@ -942,7 +930,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                         </div>
                                                         <a href="#" class="kt-mycart__pic">
-                                                            <img src="{{asset('theme/assets/media/products/product16.jpg" title="">
+                                                            <img src="{{ asset('theme/assets/media/products/product16.jpg')}}" title="">
                                                         </a>
                                                     </div>
                                                 </div>
@@ -964,7 +952,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                         </div>
                                                         <a href="#" class="kt-mycart__pic">
-                                                            <img src="{{asset('theme/assets/media/products/product15.jpg" title="" alt="">
+                                                            <img src="{{ asset('theme/assets/media/products/product15.jpg')}}" title="" alt="">
                                                         </a>
                                                     </div>
                                                 </div>
@@ -999,26 +987,26 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="kt-header__topbar-item kt-header__topbar-item--langs">
                                 <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
                                     <span class="kt-header__topbar-icon kt-header__topbar-icon--brand">
-                                        <img class="" src="{{asset('theme/assets/media/flags/012-uk.svg" alt="" />
+                                        <img class="" src="{{ asset('theme/assets/media/flags/012-uk.svg') }}" alt="" />
                                     </span>
                                 </div>
                                 <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim">
                                     <ul class="kt-nav kt-margin-t-10 kt-margin-b-10">
                                         <li class="kt-nav__item kt-nav__item--active">
                                             <a href="#" class="kt-nav__link">
-                                                <span class="kt-nav__link-icon"><img src="{{asset('theme/assets/media/flags/020-flag.svg" alt="" /></span>
+                                                <span class="kt-nav__link-icon"><img src="{{ asset('theme/assets/media/flags/020-flag.svg') }}" alt="" /></span>
                                                 <span class="kt-nav__link-text">English</span>
                                             </a>
                                         </li>
                                         <li class="kt-nav__item">
                                             <a href="#" class="kt-nav__link">
-                                                <span class="kt-nav__link-icon"><img src="{{asset('theme/assets/media/flags/016-spain.svg" alt="" /></span>
+                                                <span class="kt-nav__link-icon"><img src="{{ asset('theme/assets/media/flags/016-spain.svg') }}" alt="" /></span>
                                                 <span class="kt-nav__link-text">Spanish</span>
                                             </a>
                                         </li>
                                         <li class="kt-nav__item">
                                             <a href="#" class="kt-nav__link">
-                                                <span class="kt-nav__link-icon"><img src="{{asset('theme/assets/media/flags/017-germany.svg" alt="" /></span>
+                                                <span class="kt-nav__link-icon"><img src="{{ asset('theme/assets/media/flags/017-germany.svg') }}" alt="" /></span>
                                                 <span class="kt-nav__link-text">German</span>
                                             </a>
                                         </li>
@@ -1033,7 +1021,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
                                     <span class="kt-hidden kt-header__topbar-welcome">Hi,</span>
                                     <span class="kt-hidden kt-header__topbar-username">Nick</span>
-                                    <img class="kt-hidden" alt="Pic" src="{{asset('theme/assets/media/users/300_21.jpg" />
+                                    <img class="kt-hidden" alt="Pic" src="{{ asset('theme/assets/media/users/300_21.jpg')}}" />
                                     <span class="kt-header__topbar-icon"><i class="flaticon2-user-outline-symbol"></i></span>
                                 </div>
                                 <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-xl">
@@ -1041,7 +1029,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <!--begin: Head -->
                                     <div class="kt-user-card kt-user-card--skin-light kt-notification-item-padding-x">
                                         <div class="kt-user-card__avatar">
-                                            <img class="kt-hidden-" alt="Pic" src="{{asset('theme/assets/media/users/300_25.jpg" />
+                                            <img class="kt-hidden-" alt="Pic" src="{{ asset('theme/assets/media/users/300_25.jpg')}}" />
 
                                             <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
                                             <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">S</span>
@@ -1141,73 +1129,10 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="kt-subheader   kt-grid__item" id="kt_subheader">
                             <div class="kt-subheader__main">
                                 <h3 class="kt-subheader__title">
-                                    Dashboard </h3>
+                                    Escritorio </h3>
                             </div>
                             <div class="kt-subheader__toolbar">
-                                <div class="kt-subheader__wrapper">
-                                    <a href="#" class="btn kt-subheader__btn-daterange" id="kt_dashboard_daterangepicker" data-toggle="kt-tooltip" title="Select dashboard daterange" data-placement="left">
-                                        <span class="kt-subheader__btn-daterange-title" id="kt_dashboard_daterangepicker_title">Today</span>&nbsp;
-                                        <span class="kt-subheader__btn-daterange-date" id="kt_dashboard_daterangepicker_date">Aug 16</span>
-
-                                        <!--<i class="flaticon2-calendar-1"></i>-->
-                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--sm">
-                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                <rect id="bound" x="0" y="0" width="24" height="24" />
-                                                <path d="M4.875,20.75 C4.63541667,20.75 4.39583333,20.6541667 4.20416667,20.4625 L2.2875,18.5458333 C1.90416667,18.1625 1.90416667,17.5875 2.2875,17.2041667 C2.67083333,16.8208333 3.29375,16.8208333 3.62916667,17.2041667 L4.875,18.45 L8.0375,15.2875 C8.42083333,14.9041667 8.99583333,14.9041667 9.37916667,15.2875 C9.7625,15.6708333 9.7625,16.2458333 9.37916667,16.6291667 L5.54583333,20.4625 C5.35416667,20.6541667 5.11458333,20.75 4.875,20.75 Z" id="check" fill="#000000" fill-rule="nonzero" opacity="0.3" />
-                                                <path d="M2,11.8650466 L2,6 C2,4.34314575 3.34314575,3 5,3 L19,3 C20.6568542,3 22,4.34314575 22,6 L22,15 C22,15.0032706 21.9999948,15.0065399 21.9999843,15.009808 L22.0249378,15 L22.0249378,19.5857864 C22.0249378,20.1380712 21.5772226,20.5857864 21.0249378,20.5857864 C20.7597213,20.5857864 20.5053674,20.4804296 20.317831,20.2928932 L18.0249378,18 L12.9835977,18 C12.7263047,14.0909841 9.47412135,11 5.5,11 C4.23590829,11 3.04485894,11.3127315 2,11.8650466 Z M6,7 C5.44771525,7 5,7.44771525 5,8 C5,8.55228475 5.44771525,9 6,9 L15,9 C15.5522847,9 16,8.55228475 16,8 C16,7.44771525 15.5522847,7 15,7 L6,7 Z" id="Combined-Shape" fill="#000000" />
-                                            </g>
-                                        </svg> </a>
-                                    <div class="dropdown dropdown-inline" data-toggle="kt-tooltip" title="Quick actions" data-placement="left">
-                                        <a href="#" class="btn btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--success kt-svg-icon--md">
-                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                    <polygon id="Shape" points="0 0 24 0 24 24 0 24" />
-                                                    <path d="M5.85714286,2 L13.7364114,2 C14.0910962,2 14.4343066,2.12568431 14.7051108,2.35473959 L19.4686994,6.3839416 C19.8056532,6.66894833 20,7.08787823 20,7.52920201 L20,20.0833333 C20,21.8738751 19.9795521,22 18.1428571,22 L5.85714286,22 C4.02044787,22 4,21.8738751 4,20.0833333 L4,3.91666667 C4,2.12612489 4.02044787,2 5.85714286,2 Z" id="Combined-Shape" fill="#000000" fill-rule="nonzero" opacity="0.3" />
-                                                    <path d="M11,14 L9,14 C8.44771525,14 8,13.5522847 8,13 C8,12.4477153 8.44771525,12 9,12 L11,12 L11,10 C11,9.44771525 11.4477153,9 12,9 C12.5522847,9 13,9.44771525 13,10 L13,12 L15,12 C15.5522847,12 16,12.4477153 16,13 C16,13.5522847 15.5522847,14 15,14 L13,14 L13,16 C13,16.5522847 12.5522847,17 12,17 C11.4477153,17 11,16.5522847 11,16 L11,14 Z" id="Combined-Shape" fill="#000000" />
-                                                </g>
-                                            </svg>
-
-                                            <!--<i class="flaticon2-plus"></i>-->
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <ul class="kt-nav">
-                                                <li class="kt-nav__section kt-nav__section--first">
-                                                    <span class="kt-nav__section-text">Add new:</span>
-                                                </li>
-                                                <li class="kt-nav__item">
-                                                    <a href="#" class="kt-nav__link">
-                                                        <i class="kt-nav__link-icon flaticon2-graph-1"></i>
-                                                        <span class="kt-nav__link-text">Order</span>
-                                                    </a>
-                                                </li>
-                                                <li class="kt-nav__item">
-                                                    <a href="#" class="kt-nav__link">
-                                                        <i class="kt-nav__link-icon flaticon2-calendar-4"></i>
-                                                        <span class="kt-nav__link-text">Event</span>
-                                                    </a>
-                                                </li>
-                                                <li class="kt-nav__item">
-                                                    <a href="#" class="kt-nav__link">
-                                                        <i class="kt-nav__link-icon flaticon2-layers-1"></i>
-                                                        <span class="kt-nav__link-text">Report</span>
-                                                    </a>
-                                                </li>
-                                                <li class="kt-nav__item">
-                                                    <a href="#" class="kt-nav__link">
-                                                        <i class="kt-nav__link-icon flaticon2-calendar-4"></i>
-                                                        <span class="kt-nav__link-text">Post</span>
-                                                    </a>
-                                                </li>
-                                                <li class="kt-nav__item">
-                                                    <a href="#" class="kt-nav__link">
-                                                        <i class="kt-nav__link-icon flaticon2-file-1"></i>
-                                                        <span class="kt-nav__link-text">File</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                             </div>
                         </div>
 
@@ -1220,1728 +1145,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
                             <!--Begin::Dashboard 7-->
 
-                            <!--Begin::Section-->
-                            <div class="row">
-                                <div class="col-xl-8">
-                                    <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
-                                        <div class="kt-portlet__head kt-portlet__head--lg kt-portlet__head--noborder kt-portlet__head--break-sm">
-                                            <div class="kt-portlet__head-label">
-                                                <h3 class="kt-portlet__head-title">
-                                                    Exclusive Datatable Plugin
-                                                </h3>
-                                            </div>
-                                            <div class="kt-portlet__head-toolbar">
-                                                <div class="dropdown dropdown-inline">
-                                                    <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <i class="flaticon-more-1"></i>
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <ul class="kt-nav">
-                                                            <li class="kt-nav__item">
-                                                                <a href="#" class="kt-nav__link">
-                                                                    <i class="kt-nav__link-icon flaticon2-line-chart"></i>
-                                                                    <span class="kt-nav__link-text">Reports</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="kt-nav__item">
-                                                                <a href="#" class="kt-nav__link">
-                                                                    <i class="kt-nav__link-icon flaticon2-send"></i>
-                                                                    <span class="kt-nav__link-text">Messages</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="kt-nav__item">
-                                                                <a href="#" class="kt-nav__link">
-                                                                    <i class="kt-nav__link-icon flaticon2-pie-chart-1"></i>
-                                                                    <span class="kt-nav__link-text">Charts</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="kt-nav__item">
-                                                                <a href="#" class="kt-nav__link">
-                                                                    <i class="kt-nav__link-icon flaticon2-avatar"></i>
-                                                                    <span class="kt-nav__link-text">Members</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="kt-nav__item">
-                                                                <a href="#" class="kt-nav__link">
-                                                                    <i class="kt-nav__link-icon flaticon2-settings"></i>
-                                                                    <span class="kt-nav__link-text">Settings</span>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="kt-portlet__body kt-portlet__body--fit">
-
-                                            <!--begin: Datatable -->
-                                            <div class="kt-datatable" id="kt_datatable_latest_orders"></div>
-
-                                            <!--end: Datatable -->
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4">
-
-                                    <!--begin:: Widgets/Inbound Bandwidth-->
-                                    <div class="kt-portlet kt-portlet--fit kt-portlet--head-noborder kt-portlet--height-fluid-half">
-                                        <div class="kt-portlet__head kt-portlet__space-x">
-                                            <div class="kt-portlet__head-label">
-                                                <h3 class="kt-portlet__head-title">
-                                                    Inbound Bandwidth
-                                                </h3>
-                                            </div>
-                                            <div class="kt-portlet__head-toolbar">
-                                                <a href="#" class="btn btn-label-success btn-sm btn-bold dropdown-toggle" data-toggle="dropdown">
-                                                    Export
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right">
-                                                    <ul class="kt-nav">
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-line-chart"></i>
-                                                                <span class="kt-nav__link-text">Reports</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-send"></i>
-                                                                <span class="kt-nav__link-text">Messages</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-pie-chart-1"></i>
-                                                                <span class="kt-nav__link-text">Charts</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-avatar"></i>
-                                                                <span class="kt-nav__link-text">Members</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-settings"></i>
-                                                                <span class="kt-nav__link-text">Settings</span>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="kt-portlet__body kt-portlet__body--fluid">
-                                            <div class="kt-widget20">
-                                                <div class="kt-widget20__content kt-portlet__space-x">
-                                                    <span class="kt-widget20__number kt-font-brand">670+</span>
-                                                    <span class="kt-widget20__desc">Successful transactions</span>
-                                                </div>
-                                                <div class="kt-widget20__chart" style="height:130px;">
-                                                    <canvas id="kt_chart_bandwidth1"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!--end:: Widgets/Inbound Bandwidth-->
-                                    <div class="kt-space-20"></div>
-
-                                    <!--begin:: Widgets/Outbound Bandwidth-->
-                                    <div class="kt-portlet kt-portlet--fit kt-portlet--head-noborder kt-portlet--height-fluid-half">
-                                        <div class="kt-portlet__head kt-portlet__space-x">
-                                            <div class="kt-portlet__head-label">
-                                                <h3 class="kt-portlet__head-title">
-                                                    Outbound Bandwidth
-                                                </h3>
-                                            </div>
-                                            <div class="kt-portlet__head-toolbar">
-                                                <a href="#" class="btn btn-label-warning btn-sm  btn-bold dropdown-toggle" data-toggle="dropdown">
-                                                    Download
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right">
-                                                    <ul class="kt-nav">
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-line-chart"></i>
-                                                                <span class="kt-nav__link-text">Reports</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-send"></i>
-                                                                <span class="kt-nav__link-text">Messages</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-pie-chart-1"></i>
-                                                                <span class="kt-nav__link-text">Charts</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-avatar"></i>
-                                                                <span class="kt-nav__link-text">Members</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-settings"></i>
-                                                                <span class="kt-nav__link-text">Settings</span>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="kt-portlet__body kt-portlet__body--fluid">
-                                            <div class="kt-widget20">
-                                                <div class="kt-widget20__content kt-portlet__space-x">
-                                                    <span class="kt-widget20__number kt-font-danger">1340+</span>
-                                                    <span class="kt-widget20__desc">Completed orders</span>
-                                                </div>
-                                                <div class="kt-widget20__chart" style="height:130px;">
-                                                    <canvas id="kt_chart_bandwidth2"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!--end:: Widgets/Outbound Bandwidth-->
-                                </div>
-                            </div>
-
-                            <!--End::Section-->
-
-                            <!--Begin::Section-->
-                            <div class="row">
-                                <div class="col-xl-4">
-
-                                    <!--begin:: Widgets/Trends-->
-                                    <div class="kt-portlet kt-portlet--head--noborder kt-portlet--height-fluid">
-                                        <div class="kt-portlet__head kt-portlet__head--noborder">
-                                            <div class="kt-portlet__head-label">
-                                                <h3 class="kt-portlet__head-title">
-                                                    Trends
-                                                </h3>
-                                            </div>
-                                            <div class="kt-portlet__head-toolbar">
-                                                <div class="dropdown dropdown-inline">
-                                                    <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <i class="flaticon-more-1"></i>
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <ul class="kt-nav">
-                                                            <li class="kt-nav__item">
-                                                                <a href="#" class="kt-nav__link">
-                                                                    <i class="kt-nav__link-icon flaticon2-line-chart"></i>
-                                                                    <span class="kt-nav__link-text">Reports</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="kt-nav__item">
-                                                                <a href="#" class="kt-nav__link">
-                                                                    <i class="kt-nav__link-icon flaticon2-send"></i>
-                                                                    <span class="kt-nav__link-text">Messages</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="kt-nav__item">
-                                                                <a href="#" class="kt-nav__link">
-                                                                    <i class="kt-nav__link-icon flaticon2-pie-chart-1"></i>
-                                                                    <span class="kt-nav__link-text">Charts</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="kt-nav__item">
-                                                                <a href="#" class="kt-nav__link">
-                                                                    <i class="kt-nav__link-icon flaticon2-avatar"></i>
-                                                                    <span class="kt-nav__link-text">Members</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="kt-nav__item">
-                                                                <a href="#" class="kt-nav__link">
-                                                                    <i class="kt-nav__link-icon flaticon2-settings"></i>
-                                                                    <span class="kt-nav__link-text">Settings</span>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="kt-portlet__body kt-portlet__body--fluid kt-portlet__body--fit">
-                                            <div class="kt-widget4 kt-widget4--sticky">
-                                                <div class="kt-widget4__chart">
-                                                    <canvas id="kt_chart_trends_stats" style="height: 240px;"></canvas>
-                                                </div>
-                                                <div class="kt-widget4__items kt-widget4__items--bottom kt-portlet__space-x kt-margin-b-20">
-                                                    <div class="kt-widget4__item">
-                                                        <div class="kt-widget4__img kt-widget4__img--logo">
-                                                            <img src="{{asset('theme/assets/media/client-logos/logo3.png" alt="">
-                                                        </div>
-                                                        <div class="kt-widget4__info">
-                                                            <a href="#" class="kt-widget4__title">
-                                                                Phyton
-                                                            </a>
-                                                            <span class="kt-widget4__sub">
-                                                                A Programming Language
-                                                            </span>
-                                                        </div>
-                                                        <span class="kt-widget4__ext">
-                                                            <span class="kt-widget4__number kt-font-danger">+$17</span>
-                                                        </span>
-                                                    </div>
-                                                    <div class="kt-widget4__item">
-                                                        <div class="kt-widget4__img kt-widget4__img--logo">
-                                                            <img src="{{asset('theme/assets/media/client-logos/logo1.png" alt="">
-                                                        </div>
-                                                        <div class="kt-widget4__info">
-                                                            <a href="#" class="kt-widget4__title">
-                                                                FlyThemes
-                                                            </a>
-                                                            <span class="kt-widget4__sub">
-                                                                A Let's Fly Fast Again Language
-                                                            </span>
-                                                        </div>
-                                                        <span class="kt-widget4__ext">
-                                                            <span class="kt-widget4__number kt-font-danger">+$300</span>
-                                                        </span>
-                                                    </div>
-                                                    <div class="kt-widget4__item">
-                                                        <div class="kt-widget4__img kt-widget4__img--logo">
-                                                            <img src="{{asset('theme/assets/media/client-logos/logo2.png" alt="">
-                                                        </div>
-                                                        <div class="kt-widget4__info">
-                                                            <a href="#" class="kt-widget4__title">
-                                                                AirApp
-                                                            </a>
-                                                            <span class="kt-widget4__sub">
-                                                                Awesome App For Project Management
-                                                            </span>
-                                                        </div>
-                                                        <span class="kt-widget4__ext">
-                                                            <span class="kt-widget4__number kt-font-danger">+$6700</span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!--end:: Widgets/Trends-->
-                                </div>
-                                <div class="col-xl-4">
-
-                                    <!--begin:: Widgets/Sales Stats-->
-                                    <div class="kt-portlet kt-portlet--head--noborder kt-portlet--height-fluid">
-                                        <div class="kt-portlet__head kt-portlet__head--noborder">
-                                            <div class="kt-portlet__head-label">
-                                                <h3 class="kt-portlet__head-title">
-                                                    Sales Stats
-                                                </h3>
-                                            </div>
-                                            <div class="kt-portlet__head-toolbar">
-                                                <div class="dropdown dropdown-inline">
-                                                    <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <i class="flaticon-more-1"></i>
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <ul class="kt-nav">
-                                                            <li class="kt-nav__section kt-nav__section--first">
-                                                                <span class="kt-nav__section-text">Finance</span>
-                                                            </li>
-                                                            <li class="kt-nav__item">
-                                                                <a href="#" class="kt-nav__link">
-                                                                    <i class="kt-nav__link-icon flaticon2-graph-1"></i>
-                                                                    <span class="kt-nav__link-text">Statistics</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="kt-nav__item">
-                                                                <a href="#" class="kt-nav__link">
-                                                                    <i class="kt-nav__link-icon flaticon2-calendar-4"></i>
-                                                                    <span class="kt-nav__link-text">Events</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="kt-nav__item">
-                                                                <a href="#" class="kt-nav__link">
-                                                                    <i class="kt-nav__link-icon flaticon2-layers-1"></i>
-                                                                    <span class="kt-nav__link-text">Reports</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="kt-nav__section kt-nav__section--first">
-                                                                <span class="kt-nav__section-text">HR</span>
-                                                            </li>
-                                                            <li class="kt-nav__item">
-                                                                <a href="#" class="kt-nav__link">
-                                                                    <i class="kt-nav__link-icon flaticon2-calendar-4"></i>
-                                                                    <span class="kt-nav__link-text">Notifications</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="kt-nav__item">
-                                                                <a href="#" class="kt-nav__link">
-                                                                    <i class="kt-nav__link-icon flaticon2-file-1"></i>
-                                                                    <span class="kt-nav__link-text">Files</span>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="kt-portlet__body">
-
-                                            <!--begin::Widget 6-->
-                                            <div class="kt-widget15">
-                                                <div class="kt-widget15__chart">
-                                                    <canvas id="kt_chart_sales_stats" style="height:160px;"></canvas>
-                                                </div>
-                                                <div class="kt-widget15__items kt-margin-t-40">
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="kt-widget15__item">
-                                                                <span class="kt-widget15__stats">
-                                                                    63%
-                                                                </span>
-                                                                <span class="kt-widget15__text">
-                                                                    Sales Grow
-                                                                </span>
-                                                                <div class="kt-space-10"></div>
-                                                                <div class="progress kt-widget15__chart-progress--sm">
-                                                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col">
-                                                            <div class="kt-widget15__item">
-                                                                <span class="kt-widget15__stats">
-                                                                    54%
-                                                                </span>
-                                                                <span class="kt-widget15__text">
-                                                                    Orders Grow
-                                                                </span>
-                                                                <div class="kt-space-10"></div>
-                                                                <div class="progress kt-progress--sm">
-                                                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 40%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="kt-widget15__item">
-                                                                <span class="kt-widget15__stats">
-                                                                    41%
-                                                                </span>
-                                                                <span class="kt-widget15__text">
-                                                                    Profit Grow
-                                                                </span>
-                                                                <div class="kt-space-10"></div>
-                                                                <div class="progress kt-progress--sm">
-                                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 55%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col">
-                                                            <div class="kt-widget15__item">
-                                                                <span class="kt-widget15__stats">
-                                                                    79%
-                                                                </span>
-                                                                <span class="kt-widget15__text">
-                                                                    Member Grow
-                                                                </span>
-                                                                <div class="kt-space-10"></div>
-                                                                <div class="progress kt-progress--sm">
-                                                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 60%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="kt-widget15__desc">
-                                                                * lorem ipsum dolor sit amet consectetuer sediat elit
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!--end::Widget 6-->
-                                        </div>
-                                    </div>
-
-                                    <!--end:: Widgets/Sales Stats-->
-                                </div>
-                                <div class="col-xl-4">
-
-                                    <!--begin:: Widgets/Top Locations-->
-                                    <div class="kt-portlet kt-portlet--head--noborder kt-portlet--height-fluid">
-                                        <div class="kt-portlet__head">
-                                            <div class="kt-portlet__head-label">
-                                                <h3 class="kt-portlet__head-title">
-                                                    Top Locations
-                                                </h3>
-                                            </div>
-                                            <div class="kt-portlet__head-toolbar">
-                                                <div class="dropdown dropdown-inline">
-                                                    <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <i class="flaticon-more-1"></i>
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <ul class="kt-nav">
-                                                            <li class="kt-nav__section kt-nav__section--first">
-                                                                <span class="kt-nav__section-text">Finance</span>
-                                                            </li>
-                                                            <li class="kt-nav__item">
-                                                                <a href="#" class="kt-nav__link">
-                                                                    <i class="kt-nav__link-icon flaticon2-graph-1"></i>
-                                                                    <span class="kt-nav__link-text">Statistics</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="kt-nav__item">
-                                                                <a href="#" class="kt-nav__link">
-                                                                    <i class="kt-nav__link-icon flaticon2-calendar-4"></i>
-                                                                    <span class="kt-nav__link-text">Events</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="kt-nav__item">
-                                                                <a href="#" class="kt-nav__link">
-                                                                    <i class="kt-nav__link-icon flaticon2-layers-1"></i>
-                                                                    <span class="kt-nav__link-text">Reports</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="kt-nav__section kt-nav__section--first">
-                                                                <span class="kt-nav__section-text">HR</span>
-                                                            </li>
-                                                            <li class="kt-nav__item">
-                                                                <a href="#" class="kt-nav__link">
-                                                                    <i class="kt-nav__link-icon flaticon2-calendar-4"></i>
-                                                                    <span class="kt-nav__link-text">Notifications</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="kt-nav__item">
-                                                                <a href="#" class="kt-nav__link">
-                                                                    <i class="kt-nav__link-icon flaticon2-file-1"></i>
-                                                                    <span class="kt-nav__link-text">Files</span>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="kt-portlet__body">
-                                            <div class="kt-widget15">
-                                                <div class="kt-widget15__map">
-                                                    <div id="kt_chart_latest_trends_map" style="height:320px;"></div>
-                                                </div>
-                                                <div class="kt-widget15__items kt-margin-t-30">
-                                                    <div class="row">
-                                                        <div class="col">
-
-                                                            <!--begin::widget item-->
-                                                            <div class="kt-widget15__item">
-                                                                <span class="kt-widget15__stats">
-                                                                    63%
-                                                                </span>
-                                                                <span class="kt-widget15__text">
-                                                                    London
-                                                                </span>
-                                                                <div class="kt-space-10"></div>
-                                                                <div class="progress m-progress--sm">
-                                                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                </div>
-                                                            </div>
-
-                                                            <!--end::widget item-->
-                                                        </div>
-                                                        <div class="col">
-
-                                                            <!--begin::widget item-->
-                                                            <div class="kt-widget15__item">
-                                                                <span class="kt-widget15__stats">
-                                                                    54%
-                                                                </span>
-                                                                <span class="kt-widget15__text">
-                                                                    Glasgow
-                                                                </span>
-                                                                <div class="kt-space-10"></div>
-                                                                <div class="progress m-progress--sm">
-                                                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 40%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                </div>
-                                                            </div>
-
-                                                            <!--end::widget item-->
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col">
-
-                                                            <!--begin::widget item-->
-                                                            <div class="kt-widget15__item">
-                                                                <span class="kt-widget15__stats">
-                                                                    41%
-                                                                </span>
-                                                                <span class="kt-widget15__text">
-                                                                    Dublin
-                                                                </span>
-                                                                <div class="kt-space-10"></div>
-                                                                <div class="progress m-progress--sm">
-                                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 55%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                </div>
-                                                            </div>
-
-                                                            <!--end::widget item-->
-                                                        </div>
-                                                        <div class="col">
-
-                                                            <!--begin::widget item-->
-                                                            <div class="kt-widget15__item">
-                                                                <span class="kt-widget15__stats">
-                                                                    79%
-                                                                </span>
-                                                                <span class="kt-widget15__text">
-                                                                    Edinburgh
-                                                                </span>
-                                                                <div class="kt-space-10"></div>
-                                                                <div class="progress m-progress--sm">
-                                                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 60%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                </div>
-
-                                                                <!--end::widget item-->
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!--end:: Widgets/Top Locations-->
-                                </div>
-                            </div>
-
-                            <!--End::Section-->
-
-                            <!--Begin::Section-->
-                            <div class="row">
-                                <div class="col-xl-4">
-
-                                    <!--begin:: Widgets/Download Files-->
-                                    <div class="kt-portlet kt-portlet--height-fluid">
-                                        <div class="kt-portlet__head">
-                                            <div class="kt-portlet__head-label">
-                                                <h3 class="kt-portlet__head-title">
-                                                    Download Files
-                                                </h3>
-                                            </div>
-                                            <div class="kt-portlet__head-toolbar">
-                                                <a href="#" class="btn btn-label-brand btn-bold btn-sm dropdown-toggle" data-toggle="dropdown">
-                                                    Latest
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right">
-                                                    <ul class="kt-nav">
-                                                        <li class="kt-nav__section kt-nav__section--first">
-                                                            <span class="kt-nav__section-text">Choose an action:</span>
-                                                        </li>
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-graph-1"></i>
-                                                                <span class="kt-nav__link-text">Export</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-calendar-4"></i>
-                                                                <span class="kt-nav__link-text">Save</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-layers-1"></i>
-                                                                <span class="kt-nav__link-text">Import</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-calendar-4"></i>
-                                                                <span class="kt-nav__link-text">Update</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-file-1"></i>
-                                                                <span class="kt-nav__link-text">Customize</span>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="kt-portlet__body">
-
-                                            <!--begin::k-widget4-->
-                                            <div class="kt-widget4">
-                                                <div class="kt-widget4__item">
-                                                    <div class="kt-widget4__pic kt-widget4__pic--icon">
-                                                        <img src="{{asset('theme/assets/media/files/doc.svg" alt="">
-                                                    </div>
-                                                    <a href="#" class="kt-widget4__title">
-                                                        Metronic Documentation
-                                                    </a>
-                                                    <div class="kt-widget4__tools">
-                                                        <a href="#" class="btn btn-clean btn-icon btn-sm">
-                                                            <i class="flaticon2-download-symbol-of-down-arrow-in-a-rectangle"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="kt-widget4__item">
-                                                    <div class="kt-widget4__pic kt-widget4__pic--icon">
-                                                        <img src="{{asset('theme/assets/media/files/jpg.svg" alt="">
-                                                    </div>
-                                                    <a href="#" class="kt-widget4__title">
-                                                        Project Launch Event
-                                                    </a>
-                                                    <div class="kt-widget4__tools">
-                                                        <a href="#" class="btn btn-clean btn-icon btn-sm">
-                                                            <i class="flaticon2-download-symbol-of-down-arrow-in-a-rectangle"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="kt-widget4__item">
-                                                    <div class="kt-widget4__pic kt-widget4__pic--icon">
-                                                        <img src="{{asset('theme/assets/media/files/pdf.svg" alt="">
-                                                    </div>
-                                                    <a href="#" class="kt-widget4__title">
-                                                        Full Developer Manual For 4.7
-                                                    </a>
-                                                    <div class="kt-widget4__tools">
-                                                        <a href="#" class="btn btn-clean btn-icon btn-sm">
-                                                            <i class="flaticon2-download-symbol-of-down-arrow-in-a-rectangle"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="kt-widget4__item">
-                                                    <div class="kt-widget4__pic kt-widget4__pic--icon">
-                                                        <img src="{{asset('theme/assets/media/files/javascript.svg" alt="">
-                                                    </div>
-                                                    <a href="#" class="kt-widget4__title">
-                                                        Make JS Great Again
-                                                    </a>
-                                                    <div class="kt-widget4__tools">
-                                                        <a href="#" class="btn btn-clean btn-icon btn-sm">
-                                                            <i class="flaticon2-download-symbol-of-down-arrow-in-a-rectangle"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="kt-widget4__item">
-                                                    <div class="kt-widget4__pic kt-widget4__pic--icon">
-                                                        <img src="{{asset('theme/assets/media/files/zip.svg" alt="">
-                                                    </div>
-                                                    <a href="#" class="kt-widget4__title">
-                                                        Download Ziped version OF 5.0
-                                                    </a>
-                                                    <div class="kt-widget4__tools">
-                                                        <a href="#" class="btn btn-clean btn-icon btn-sm">
-                                                            <i class="flaticon2-download-symbol-of-down-arrow-in-a-rectangle"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="kt-widget4__item">
-                                                    <div class="kt-widget4__pic kt-widget4__pic--icon">
-                                                        <img src="{{asset('theme/assets/media/files/pdf.svg" alt="">
-                                                    </div>
-                                                    <a href="#" class="kt-widget4__title">
-                                                        Finance Report 2016/2017
-                                                    </a>
-                                                    <div class="kt-widget4__tools">
-                                                        <a href="#" class="btn btn-clean btn-icon btn-sm">
-                                                            <i class="flaticon2-download-symbol-of-down-arrow-in-a-rectangle"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!--end::Widget 9-->
-                                        </div>
-                                    </div>
-
-                                    <!--end:: Widgets/Download Files-->
-                                </div>
-                                <div class="col-xl-4">
-
-                                    <!--begin:: Widgets/New Users-->
-                                    <div class="kt-portlet kt-portlet--tabs kt-portlet--height-fluid">
-                                        <div class="kt-portlet__head">
-                                            <div class="kt-portlet__head-label">
-                                                <h3 class="kt-portlet__head-title">
-                                                    New Users
-                                                </h3>
-                                            </div>
-                                            <div class="kt-portlet__head-toolbar">
-                                                <ul class="nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-brand" role="tablist">
-                                                    <li class="nav-item">
-                                                        <a class="nav-link active" data-toggle="tab" href="#kt_widget4_tab1_content" role="tab">
-                                                            Today
-                                                        </a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" data-toggle="tab" href="#kt_widget4_tab2_content" role="tab">
-                                                            Month
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="kt-portlet__body">
-                                            <div class="tab-content">
-                                                <div class="tab-pane active" id="kt_widget4_tab1_content">
-                                                    <div class="kt-widget4">
-                                                        <div class="kt-widget4__item">
-                                                            <div class="kt-widget4__pic kt-widget4__pic--pic">
-                                                                <img src="{{asset('theme/assets/media/users/100_4.jpg" alt="">
-                                                            </div>
-                                                            <div class="kt-widget4__info">
-                                                                <a href="#" class="kt-widget4__username">
-                                                                    Anna Strong
-                                                                </a>
-                                                                <p class="kt-widget4__text">
-                                                                    Visual Designer,Google Inc
-                                                                </p>
-                                                            </div>
-                                                            <a href="#" class="btn btn-sm btn-label-brand btn-bold">Follow</a>
-                                                        </div>
-                                                        <div class="kt-widget4__item">
-                                                            <div class="kt-widget4__pic kt-widget4__pic--pic">
-                                                                <img src="{{asset('theme/assets/media/users/100_14.jpg" alt="">
-                                                            </div>
-                                                            <div class="kt-widget4__info">
-                                                                <a href="#" class="kt-widget4__username">
-                                                                    Milano Esco
-                                                                </a>
-                                                                <p class="kt-widget4__text">
-                                                                    Product Designer, Apple Inc
-                                                                </p>
-                                                            </div>
-                                                            <a href="#" class="btn btn-sm btn-label-warning btn-bold">Follow</a>
-                                                        </div>
-                                                        <div class="kt-widget4__item">
-                                                            <div class="kt-widget4__pic kt-widget4__pic--pic">
-                                                                <img src="{{asset('theme/assets/media/users/100_11.jpg" alt="">
-                                                            </div>
-                                                            <div class="kt-widget4__info">
-                                                                <a href="#" class="kt-widget4__username">
-                                                                    Nick Bold
-                                                                </a>
-                                                                <p class="kt-widget4__text">
-                                                                    Web Developer, Facebook Inc
-                                                                </p>
-                                                            </div>
-                                                            <a href="#" class="btn btn-sm btn-label-danger btn-bold">Follow</a>
-                                                        </div>
-                                                        <div class="kt-widget4__item">
-                                                            <div class="kt-widget4__pic kt-widget4__pic--pic">
-                                                                <img src="{{asset('theme/assets/media/users/100_1.jpg" alt="">
-                                                            </div>
-                                                            <div class="kt-widget4__info">
-                                                                <a href="#" class="kt-widget4__username">
-                                                                    Wiltor Delton
-                                                                </a>
-                                                                <p class="kt-widget4__text">
-                                                                    Project Manager, Amazon Inc
-                                                                </p>
-                                                            </div>
-                                                            <a href="#" class="btn btn-sm btn-label-success btn-bold">Follow</a>
-                                                        </div>
-                                                        <div class="kt-widget4__item">
-                                                            <div class="kt-widget4__pic kt-widget4__pic--pic">
-                                                                <img src="{{asset('theme/assets/media/users/100_5.jpg" alt="">
-                                                            </div>
-                                                            <div class="kt-widget4__info">
-                                                                <a href="#" class="kt-widget4__username">
-                                                                    Nick Stone
-                                                                </a>
-                                                                <p class="kt-widget4__text">
-                                                                    Visual Designer, Github Inc
-                                                                </p>
-                                                            </div>
-                                                            <a href="#" class="btn btn-sm btn-label-primary btn-bold">Follow</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="tab-pane" id="kt_widget4_tab2_content">
-                                                    <div class="kt-widget4">
-                                                        <div class="kt-widget4__item">
-                                                            <div class="kt-widget4__pic kt-widget4__pic--pic">
-                                                                <img src="{{asset('theme/assets/media/users/100_2.jpg" alt="">
-                                                            </div>
-                                                            <div class="kt-widget4__info">
-                                                                <a href="#" class="kt-widget4__username">
-                                                                    Kristika Bold
-                                                                </a>
-                                                                <p class="kt-widget4__text">
-                                                                    Product Designer,Apple Inc
-                                                                </p>
-                                                            </div>
-                                                            <a href="#" class="btn btn-sm btn-label-success">Follow</a>
-                                                        </div>
-                                                        <div class="kt-widget4__item">
-                                                            <div class="kt-widget4__pic kt-widget4__pic--pic">
-                                                                <img src="{{asset('theme/assets/media/users/100_13.jpg" alt="">
-                                                            </div>
-                                                            <div class="kt-widget4__info">
-                                                                <a href="#" class="kt-widget4__username">
-                                                                    Ron Silk
-                                                                </a>
-                                                                <p class="kt-widget4__text">
-                                                                    Release Manager, Loop Inc
-                                                                </p>
-                                                            </div>
-                                                            <a href="#" class="btn btn-sm btn-label-brand">Follow</a>
-                                                        </div>
-                                                        <div class="kt-widget4__item">
-                                                            <div class="kt-widget4__pic kt-widget4__pic--pic">
-                                                                <img src="{{asset('theme/assets/media/users/100_9.jpg" alt="">
-                                                            </div>
-                                                            <div class="kt-widget4__info">
-                                                                <a href="#" class="kt-widget4__username">
-                                                                    Nick Bold
-                                                                </a>
-                                                                <p class="kt-widget4__text">
-                                                                    Web Developer, Facebook Inc
-                                                                </p>
-                                                            </div>
-                                                            <a href="#" class="btn btn-sm btn-label-danger">Follow</a>
-                                                        </div>
-                                                        <div class="kt-widget4__item">
-                                                            <div class="kt-widget4__pic kt-widget4__pic--pic">
-                                                                <img src="{{asset('theme/assets/media/users/100_2.jpg" alt="">
-                                                            </div>
-                                                            <div class="kt-widget4__info">
-                                                                <a href="#" class="kt-widget4__username">
-                                                                    Wiltor Delton
-                                                                </a>
-                                                                <p class="kt-widget4__text">
-                                                                    Project Manager, Amazon Inc
-                                                                </p>
-                                                            </div>
-                                                            <a href="#" class="btn btn-sm btn-label-success">Follow</a>
-                                                        </div>
-                                                        <div class="kt-widget4__item">
-                                                            <div class="kt-widget4__pic kt-widget4__pic--pic">
-                                                                <img src="{{asset('theme/assets/media/users/100_8.jpg" alt="">
-                                                            </div>
-                                                            <div class="kt-widget4__info">
-                                                                <a href="#" class="kt-widget4__username">
-                                                                    Nick Bold
-                                                                </a>
-                                                                <p class="kt-widget4__text">
-                                                                    Web Developer, Facebook Inc
-                                                                </p>
-                                                            </div>
-                                                            <a href="#" class="btn btn-sm btn-label-info">Follow</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!--end:: Widgets/New Users-->
-                                </div>
-                                <div class="col-xl-4">
-
-                                    <!--begin:: Widgets/Last Updates-->
-                                    <div class="kt-portlet kt-portlet--height-fluid">
-                                        <div class="kt-portlet__head">
-                                            <div class="kt-portlet__head-label">
-                                                <h3 class="kt-portlet__head-title">
-                                                    Latest Updates
-                                                </h3>
-                                            </div>
-                                            <div class="kt-portlet__head-toolbar">
-                                                <a href="#" class="btn btn-label-brand btn-bold btn-sm dropdown-toggle" data-toggle="dropdown">
-                                                    Today
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right">
-                                                    <ul class="kt-nav">
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-line-chart"></i>
-                                                                <span class="kt-nav__link-text">Reports</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-send"></i>
-                                                                <span class="kt-nav__link-text">Messages</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-pie-chart-1"></i>
-                                                                <span class="kt-nav__link-text">Charts</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-avatar"></i>
-                                                                <span class="kt-nav__link-text">Members</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-settings"></i>
-                                                                <span class="kt-nav__link-text">Settings</span>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="kt-portlet__body">
-
-                                            <!--begin::widget 12-->
-                                            <div class="kt-widget4">
-                                                <div class="kt-widget4__item">
-                                                    <span class="kt-widget4__icon">
-                                                        <i class="flaticon-pie-chart-1 kt-font-info"></i>
-                                                    </span>
-                                                    <a href="#" class="kt-widget4__title kt-widget4__title--light">
-                                                        Metronic v6 has been arrived!
-                                                    </a>
-                                                    <span class="kt-widget4__number kt-font-info">+500</span>
-                                                </div>
-                                                <div class="kt-widget4__item">
-                                                    <span class="kt-widget4__icon">
-                                                        <i class="flaticon-safe-shield-protection  kt-font-success"></i>
-                                                    </span>
-                                                    <a href="#" class="kt-widget4__title kt-widget4__title--light">
-                                                        Metronic community meet-up 2019 in Rome.
-                                                    </a>
-                                                    <span class="kt-widget4__number kt-font-success">+1260</span>
-                                                </div>
-                                                <div class="kt-widget4__item">
-                                                    <span class="kt-widget4__icon">
-                                                        <i class="flaticon2-line-chart kt-font-danger"></i>
-                                                    </span>
-                                                    <a href="#" class="kt-widget4__title kt-widget4__title--light">
-                                                        Metronic Angular 7 version will be landing soon...
-                                                    </a>
-                                                    <span class="kt-widget4__number kt-font-danger">+1080</span>
-                                                </div>
-                                                <div class="kt-widget4__item">
-                                                    <span class="kt-widget4__icon">
-                                                        <i class="flaticon2-pie-chart-1 kt-font-primary"></i>
-                                                    </span>
-                                                    <a href="#" class="kt-widget4__title kt-widget4__title--light">
-                                                        ale! Purchase Metronic at 70% off for limited time
-                                                    </a>
-                                                    <span class="kt-widget4__number kt-font-primary">70% Off!</span>
-                                                </div>
-                                                <div class="kt-widget4__item">
-                                                    <span class="kt-widget4__icon">
-                                                        <i class="flaticon2-rocket kt-font-brand"></i>
-                                                    </span>
-                                                    <a href="#" class="kt-widget4__title kt-widget4__title--light">
-                                                        Metronic VueJS version is in progress. Stay tuned!
-                                                    </a>
-                                                    <span class="kt-widget4__number kt-font-brand">+134</span>
-                                                </div>
-                                                <div class="kt-widget4__item">
-                                                    <span class="kt-widget4__icon">
-                                                        <i class="flaticon2-notification kt-font-warning"></i>
-                                                    </span>
-                                                    <a href="#" class="kt-widget4__title kt-widget4__title--light">
-                                                        Black Friday! Purchase Metronic at ever lowest 90% off for limited time
-                                                    </a>
-                                                    <span class="kt-widget4__number kt-font-warning">70% Off!</span>
-                                                </div>
-                                                <div class="kt-widget4__item">
-                                                    <span class="kt-widget4__icon">
-                                                        <i class="flaticon2-file kt-font-success"></i>
-                                                    </span>
-                                                    <a href="#" class="kt-widget4__title kt-widget4__title--light">
-                                                        Metronic React version is in progress.
-                                                    </a>
-                                                    <span class="kt-widget4__number kt-font-success">+13%</span>
-                                                </div>
-                                            </div>
-
-                                            <!--end::Widget 12-->
-                                        </div>
-                                    </div>
-
-                                    <!--end:: Widgets/Last Updates-->
-                                </div>
-                            </div>
-
-                            <!--End::Section-->
-
-                            <!--Begin::Section-->
-                            <div class="row">
-                                <div class="col-xl-8">
-
-                                    <!--begin:: Widgets/Best Sellers-->
-                                    <div class="kt-portlet kt-portlet--height-fluid">
-                                        <div class="kt-portlet__head">
-                                            <div class="kt-portlet__head-label">
-                                                <h3 class="kt-portlet__head-title">
-                                                    Best Sellers
-                                                </h3>
-                                            </div>
-                                            <div class="kt-portlet__head-toolbar">
-                                                <ul class="nav nav-pills nav-pills-sm nav-pills-label nav-pills-bold" role="tablist">
-                                                    <li class="nav-item">
-                                                        <a class="nav-link active" data-toggle="tab" href="#kt_widget5_tab1_content" role="tab">
-                                                            Latest
-                                                        </a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" data-toggle="tab" href="#kt_widget5_tab2_content" role="tab">
-                                                            Month
-                                                        </a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" data-toggle="tab" href="#kt_widget5_tab3_content" role="tab">
-                                                            All time
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="kt-portlet__body">
-                                            <div class="tab-content">
-                                                <div class="tab-pane active" id="kt_widget5_tab1_content" aria-expanded="true">
-                                                    <div class="kt-widget5">
-                                                        <div class="kt-widget5__item">
-                                                            <div class="kt-widget5__content">
-                                                                <div class="kt-widget5__pic">
-                                                                    <img class="kt-widget7__img" src="{{asset('theme/assets/media//products/product27.jpg" alt="">
-                                                                </div>
-                                                                <div class="kt-widget5__section">
-                                                                    <a href="#" class="kt-widget5__title">
-                                                                        Great Logo Designn
-                                                                    </a>
-                                                                    <p class="kt-widget5__desc">
-                                                                        Metronic admin themes.
-                                                                    </p>
-                                                                    <div class="kt-widget5__info">
-                                                                        <span>Author:</span>
-                                                                        <span class="kt-font-info">Keenthemes</span>
-                                                                        <span>Released:</span>
-                                                                        <span class="kt-font-info">23.08.17</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="kt-widget5__content">
-                                                                <div class="kt-widget5__stats">
-                                                                    <span class="kt-widget5__number">19,200</span>
-                                                                    <span class="kt-widget5__sales">sales</span>
-                                                                </div>
-                                                                <div class="kt-widget5__stats">
-                                                                    <span class="kt-widget5__number">1046</span>
-                                                                    <span class="kt-widget5__votes">votes</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="kt-widget5__item">
-                                                            <div class="kt-widget5__content">
-                                                                <div class="kt-widget5__pic">
-                                                                    <img class="kt-widget7__img" src="{{asset('theme/assets/media//products/product22.jpg" alt="">
-                                                                </div>
-                                                                <div class="kt-widget5__section">
-                                                                    <a href="#" class="kt-widget5__title">
-                                                                        Branding Mockup
-                                                                    </a>
-                                                                    <p class="kt-widget5__desc">
-                                                                        Metronic bootstrap themes.
-                                                                    </p>
-                                                                    <div class="kt-widget5__info">
-                                                                        <span>Author:</span>
-                                                                        <span class="kt-font-info">Fly themes</span>
-                                                                        <span>Released:</span>
-                                                                        <span class="kt-font-info">23.08.17</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="kt-widget5__content">
-                                                                <div class="kt-widget5__stats">
-                                                                    <span class="kt-widget5__number">24,583</span>
-                                                                    <span class="kt-widget5__sales">sales</span>
-                                                                </div>
-                                                                <div class="kt-widget5__stats">
-                                                                    <span class="kt-widget5__number">3809</span>
-                                                                    <span class="kt-widget5__votes">votes</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="kt-widget5__item">
-                                                            <div class="kt-widget5__content">
-                                                                <div class="kt-widget5__pic">
-                                                                    <img class="kt-widget7__img" src="{{asset('theme/assets/media//products/product15.jpg" alt="">
-                                                                </div>
-                                                                <div class="kt-widget5__section">
-                                                                    <a href="#" class="kt-widget5__title">
-                                                                        Awesome Mobile App
-                                                                    </a>
-                                                                    <p class="kt-widget5__desc">
-                                                                        Metronic admin themes.Lorem Ipsum Amet
-                                                                    </p>
-                                                                    <div class="kt-widget5__info">
-                                                                        <span>Author:</span>
-                                                                        <span class="kt-font-info">Fly themes</span>
-                                                                        <span>Released:</span>
-                                                                        <span class="kt-font-info">23.08.17</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="kt-widget5__content">
-                                                                <div class="kt-widget5__stats">
-                                                                    <span class="kt-widget5__number">210,054</span>
-                                                                    <span class="kt-widget5__sales">sales</span>
-                                                                </div>
-                                                                <div class="kt-widget5__stats">
-                                                                    <span class="kt-widget5__number">1103</span>
-                                                                    <span class="kt-widget5__votes">votes</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="tab-pane" id="kt_widget5_tab2_content">
-                                                    <div class="kt-widget5">
-                                                        <div class="kt-widget5__item">
-                                                            <div class="kt-widget5__content">
-                                                                <div class="kt-widget5__pic">
-                                                                    <img class="kt-widget7__img" src="{{asset('theme/assets/media//products/product10.jpg" alt="">
-                                                                </div>
-                                                                <div class="kt-widget5__section">
-                                                                    <a href="#" class="kt-widget5__title">
-                                                                        Branding Mockup
-                                                                    </a>
-                                                                    <p class="kt-widget5__desc">
-                                                                        Metronic bootstrap themes.
-                                                                    </p>
-                                                                    <div class="kt-widget5__info">
-                                                                        <span>Author:</span>
-                                                                        <span class="kt-font-info">Fly themes</span>
-                                                                        <span>Released:</span>
-                                                                        <span class="kt-font-info">23.08.17</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="kt-widget5__content">
-                                                                <div class="kt-widget5__stats">
-                                                                    <span class="kt-widget5__number">24,583</span>
-                                                                    <span class="kt-widget5__sales">sales</span>
-                                                                </div>
-                                                                <div class="kt-widget5__stats">
-                                                                    <span class="kt-widget5__number">3809</span>
-                                                                    <span class="kt-widget5__votes">votes</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="kt-widget5__item">
-                                                            <div class="kt-widget5__content">
-                                                                <div class="kt-widget5__pic">
-                                                                    <img class="kt-widget7__img" src="{{asset('theme/assets/media//products/product11.jpg" alt="">
-                                                                </div>
-                                                                <div class="kt-widget5__section">
-                                                                    <a href="#" class="kt-widget5__title">
-                                                                        Awesome Mobile App
-                                                                    </a>
-                                                                    <p class="kt-widget5__desc">
-                                                                        Metronic admin themes.Lorem Ipsum Amet
-                                                                    </p>
-                                                                    <div class="kt-widget5__info">
-                                                                        <span>Author:</span>
-                                                                        <span class="kt-font-info">Fly themes</span>
-                                                                        <span>Released:</span>
-                                                                        <span class="kt-font-info">23.08.17</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="kt-widget5__content">
-                                                                <div class="kt-widget5__stats">
-                                                                    <span class="kt-widget5__number">210,054</span>
-                                                                    <span class="kt-widget5__sales">sales</span>
-                                                                </div>
-                                                                <div class="kt-widget5__stats">
-                                                                    <span class="kt-widget5__number">1103</span>
-                                                                    <span class="kt-widget5__votes">votes</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="kt-widget5__item">
-                                                            <div class="kt-widget5__content">
-                                                                <div class="kt-widget5__pic">
-                                                                    <img class="kt-widget7__img" src="{{asset('theme/assets/media//products/product6.jpg" alt="">
-                                                                </div>
-                                                                <div class="kt-widget5__section">
-                                                                    <a href="#" class="kt-widget5__title">
-                                                                        Great Logo Designn
-                                                                    </a>
-                                                                    <p class="kt-widget5__desc">
-                                                                        Metronic admin themes.
-                                                                    </p>
-                                                                    <div class="kt-widget5__info">
-                                                                        <span>Author:</span>
-                                                                        <span class="kt-font-info">Keenthemes</span>
-                                                                        <span>Released:</span>
-                                                                        <span class="kt-font-info">23.08.17</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="kt-widget5__content">
-                                                                <div class="kt-widget5__stats">
-                                                                    <span class="kt-widget5__number">19,200</span>
-                                                                    <span class="kt-widget5__sales">sales</span>
-                                                                </div>
-                                                                <div class="kt-widget5__stats">
-                                                                    <span class="kt-widget5__number">1046</span>
-                                                                    <span class="kt-widget5__votes">votes</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="tab-pane" id="kt_widget5_tab3_content">
-                                                    <div class="kt-widget5">
-                                                        <div class="kt-widget5__item">
-                                                            <div class="kt-widget5__content">
-                                                                <div class="kt-widget5__pic">
-                                                                    <img class="kt-widget7__img" src="{{asset('theme/assets/media//products/product11.jpg" alt="">
-                                                                </div>
-                                                                <div class="kt-widget5__section">
-                                                                    <a href="#" class="kt-widget5__title">
-                                                                        Awesome Mobile App
-                                                                    </a>
-                                                                    <p class="kt-widget5__desc">
-                                                                        Metronic admin themes.Lorem Ipsum Amet
-                                                                    </p>
-                                                                    <div class="kt-widget5__info">
-                                                                        <span>Author:</span>
-                                                                        <span class="kt-font-info">Fly themes</span>
-                                                                        <span>Released:</span>
-                                                                        <span class="kt-font-info">23.08.17</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="kt-widget5__content">
-                                                                <div class="kt-widget5__stats">
-                                                                    <span class="kt-widget5__number">210,054</span>
-                                                                    <span class="kt-widget5__sales">sales</span>
-                                                                </div>
-                                                                <div class="kt-widget5__stats">
-                                                                    <span class="kt-widget5__number">1103</span>
-                                                                    <span class="kt-widget5__votes">votes</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="kt-widget5__item">
-                                                            <div class="kt-widget5__content">
-                                                                <div class="kt-widget5__pic">
-                                                                    <img class="kt-widget7__img" src="{{asset('theme/assets/media//products/product6.jpg" alt="">
-                                                                </div>
-                                                                <div class="kt-widget5__section">
-                                                                    <a href="#" class="kt-widget5__title">
-                                                                        Great Logo Designn
-                                                                    </a>
-                                                                    <p class="kt-widget5__desc">
-                                                                        Metronic admin themes.
-                                                                    </p>
-                                                                    <div class="kt-widget5__info">
-                                                                        <span>Author:</span>
-                                                                        <span class="kt-font-info">Keenthemes</span>
-                                                                        <span>Released:</span>
-                                                                        <span class="kt-font-info">23.08.17</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="kt-widget5__content">
-                                                                <div class="kt-widget5__stats">
-                                                                    <span class="kt-widget5__number">19,200</span>
-                                                                    <span class="kt-widget5__sales">sales</span>
-                                                                </div>
-                                                                <div class="kt-widget5__stats">
-                                                                    <span class="kt-widget5__number">1046</span>
-                                                                    <span class="kt-widget5__votes">votes</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="kt-widget5__item">
-                                                            <div class="kt-widget5__content">
-                                                                <div class="kt-widget5__pic">
-                                                                    <img class="kt-widget7__img" src="{{asset('theme/assets/media//products/product10.jpg" alt="">
-                                                                </div>
-                                                                <div class="kt-widget5__section">
-                                                                    <a href="#" class="kt-widget5__title">
-                                                                        Branding Mockup
-                                                                    </a>
-                                                                    <p class="kt-widget5__desc">
-                                                                        Metronic bootstrap themes.
-                                                                    </p>
-                                                                    <div class="kt-widget5__info">
-                                                                        <span>Author:</span>
-                                                                        <span class="kt-font-info">Fly themes</span>
-                                                                        <span>Released:</span>
-                                                                        <span class="kt-font-info">23.08.17</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="kt-widget5__content">
-                                                                <div class="kt-widget5__stats">
-                                                                    <span class="kt-widget5__number">24,583</span>
-                                                                    <span class="kt-widget5__sales">sales</span>
-                                                                </div>
-                                                                <div class="kt-widget5__stats">
-                                                                    <span class="kt-widget5__number">3809</span>
-                                                                    <span class="kt-widget5__votes">votes</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!--end:: Widgets/Best Sellers-->
-                                </div>
-                                <div class="col-xl-4">
-
-                                    <!--begin:: Widgets/Authors Profit-->
-                                    <div class="kt-portlet kt-portlet--bordered-semi kt-portlet--height-fluid">
-                                        <div class="kt-portlet__head">
-                                            <div class="kt-portlet__head-label">
-                                                <h3 class="kt-portlet__head-title">
-                                                    Authors Profit
-                                                </h3>
-                                            </div>
-                                            <div class="kt-portlet__head-toolbar">
-                                                <a href="#" class="btn btn-label-brand btn-bold btn-sm dropdown-toggle" data-toggle="dropdown">
-                                                    All
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right">
-                                                    <ul class="kt-nav">
-                                                        <li class="kt-nav__section kt-nav__section--first">
-                                                            <span class="kt-nav__section-text">Finance</span>
-                                                        </li>
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-graph-1"></i>
-                                                                <span class="kt-nav__link-text">Statistics</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-calendar-4"></i>
-                                                                <span class="kt-nav__link-text">Events</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-layers-1"></i>
-                                                                <span class="kt-nav__link-text">Reports</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="kt-nav__section kt-nav__section--first">
-                                                            <span class="kt-nav__section-text">HR</span>
-                                                        </li>
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-calendar-4"></i>
-                                                                <span class="kt-nav__link-text">Notifications</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-file-1"></i>
-                                                                <span class="kt-nav__link-text">Files</span>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="kt-portlet__body">
-                                            <div class="kt-widget4">
-                                                <div class="kt-widget4__item">
-                                                    <div class="kt-widget4__pic kt-widget4__pic--logo">
-                                                        <img src="{{asset('theme/assets/media/client-logos/logo5.png" alt="">
-                                                    </div>
-                                                    <div class="kt-widget4__info">
-                                                        <a href="#" class="kt-widget4__title">
-                                                            Trump Themes
-                                                        </a>
-                                                        <p class="kt-widget4__text">
-                                                            Make Metronic Great Again
-                                                        </p>
-                                                    </div>
-                                                    <span class="kt-widget4__number kt-font-brand">+$2500</span>
-                                                </div>
-                                                <div class="kt-widget4__item">
-                                                    <div class="kt-widget4__pic kt-widget4__pic--logo">
-                                                        <img src="{{asset('theme/assets/media/client-logos/logo4.png" alt="">
-                                                    </div>
-                                                    <div class="kt-widget4__info">
-                                                        <a href="#" class="kt-widget4__title">
-                                                            StarBucks
-                                                        </a>
-                                                        <p class="kt-widget4__text">
-                                                            Good Coffee & Snacks
-                                                        </p>
-                                                    </div>
-                                                    <span class="kt-widget4__number kt-font-brand">-$290</span>
-                                                </div>
-                                                <div class="kt-widget4__item">
-                                                    <div class="kt-widget4__pic kt-widget4__pic--logo">
-                                                        <img src="{{asset('theme/assets/media/client-logos/logo3.png" alt="">
-                                                    </div>
-                                                    <div class="kt-widget4__info">
-                                                        <a href="#" class="kt-widget4__title">
-                                                            Phyton
-                                                        </a>
-                                                        <p class="kt-widget4__text">
-                                                            A Programming Language
-                                                        </p>
-                                                    </div>
-                                                    <span class="kt-widget4__number kt-font-brand">+$17</span>
-                                                </div>
-                                                <div class="kt-widget4__item">
-                                                    <div class="kt-widget4__pic kt-widget4__pic--logo">
-                                                        <img src="{{asset('theme/assets/media/client-logos/logo2.png" alt="">
-                                                    </div>
-                                                    <div class="kt-widget4__info">
-                                                        <a href="#" class="kt-widget4__title">
-                                                            GreenMakers
-                                                        </a>
-                                                        <p class="kt-widget4__text">
-                                                            Make Green Great Again
-                                                        </p>
-                                                    </div>
-                                                    <span class="kt-widget4__number kt-font-brand">-$2.50</span>
-                                                </div>
-                                                <div class="kt-widget4__item">
-                                                    <div class="kt-widget4__pic kt-widget4__pic--logo">
-                                                        <img src="{{asset('theme/assets/media/client-logos/logo1.png" alt="">
-                                                    </div>
-                                                    <div class="kt-widget4__info">
-                                                        <a href="#" class="kt-widget4__title">
-                                                            FlyThemes
-                                                        </a>
-                                                        <p class="kt-widget4__text">
-                                                            A Let's Fly Fast Again Language
-                                                        </p>
-                                                    </div>
-                                                    <span class="kt-widget4__number kt-font-brand">+$200</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!--end:: Widgets/Authors Profit-->
-                                </div>
-                            </div>
-
-                            <!--End::Section-->
-
-                            <!--Begin::Section-->
-                            <div class="row">
-                                <div class="col-xl-6">
-
-                                    <!--begin:: Widgets/Finance Summary-->
-                                    <div class="kt-portlet kt-portlet--fit kt-portlet--height-fluid">
-                                        <div class="kt-portlet__head kt-portlet__space-x">
-                                            <div class="kt-portlet__head-label">
-                                                <h3 class="kt-portlet__head-title">
-                                                    Finance Summary
-                                                </h3>
-                                            </div>
-                                            <div class="kt-portlet__head-toolbar">
-                                                <div class="dropdown dropdown-inline">
-                                                    <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <i class="flaticon-more-1"></i>
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <ul class="kt-nav">
-                                                            <li class="kt-nav__section kt-nav__section--first">
-                                                                <span class="kt-nav__section-text">Finance</span>
-                                                            </li>
-                                                            <li class="kt-nav__item">
-                                                                <a href="#" class="kt-nav__link">
-                                                                    <i class="kt-nav__link-icon flaticon2-graph-1"></i>
-                                                                    <span class="kt-nav__link-text">Statistics</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="kt-nav__item">
-                                                                <a href="#" class="kt-nav__link">
-                                                                    <i class="kt-nav__link-icon flaticon2-calendar-4"></i>
-                                                                    <span class="kt-nav__link-text">Events</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="kt-nav__item">
-                                                                <a href="#" class="kt-nav__link">
-                                                                    <i class="kt-nav__link-icon flaticon2-layers-1"></i>
-                                                                    <span class="kt-nav__link-text">Reports</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="kt-nav__section kt-nav__section--first">
-                                                                <span class="kt-nav__section-text">HR</span>
-                                                            </li>
-                                                            <li class="kt-nav__item">
-                                                                <a href="#" class="kt-nav__link">
-                                                                    <i class="kt-nav__link-icon flaticon2-calendar-4"></i>
-                                                                    <span class="kt-nav__link-text">Notifications</span>
-                                                                </a>
-                                                            </li>
-                                                            <li class="kt-nav__item">
-                                                                <a href="#" class="kt-nav__link">
-                                                                    <i class="kt-nav__link-icon flaticon2-file-1"></i>
-                                                                    <span class="kt-nav__link-text">Files</span>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="kt-portlet__body kt-portlet__body--fluid">
-                                            <div class="kt-widget12">
-                                                <div class="kt-widget12__content kt-portlet__space-x kt-portlet__space-y">
-                                                    <div class="kt-widget12__item">
-                                                        <div class="kt-widget12__info">
-                                                            <span class="kt-widget12__desc">Annual Companies Taxes EMS</span>
-                                                            <span class="kt-widget12__value">$500,000</span>
-                                                        </div>
-                                                        <div class="kt-widget12__info">
-                                                            <span class="kt-widget12__desc">Next Tax Review Date</span>
-                                                            <span class="kt-widget12__value">July 24,2017</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="kt-widget12__item">
-                                                        <div class="kt-widget12__info">
-                                                            <span class="kt-widget12__desc">Avarage Product Price</span>
-                                                            <span class="kt-widget12__value">$60,70</span>
-                                                        </div>
-                                                        <div class="kt-widget12__info">
-                                                            <span class="kt-widget12__desc">Satisfication Rate</span>
-                                                            <div class="kt-widget12__progress">
-                                                                <div class="progress kt-progress--sm">
-                                                                    <div class="progress-bar bg-brand" role="progressbar" style="width: 60%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                </div>
-                                                                <span class="kt-widget12__stat">
-                                                                    63%
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="kt-widget12__chart" style="height:290px;">
-                                                    <canvas id="kt_chart_finance_summary"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!--end:: Widgets/Finance Summary-->
-                                </div>
-                                <div class="col-xl-6">
-
-                                    <!--begin:: Widgets/Order Statistics-->
-                                    <div class="kt-portlet kt-portlet--height-fluid">
-                                        <div class="kt-portlet__head">
-                                            <div class="kt-portlet__head-label">
-                                                <h3 class="kt-portlet__head-title">
-                                                    Order Statistics
-                                                </h3>
-                                            </div>
-                                            <div class="kt-portlet__head-toolbar">
-                                                <a href="#" class="btn btn-label-brand btn-bold btn-sm dropdown-toggle" data-toggle="dropdown">
-                                                    Export
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right">
-                                                    <ul class="kt-nav">
-                                                        <li class="kt-nav__section kt-nav__section--first">
-                                                            <span class="kt-nav__section-text">Choose an action:</span>
-                                                        </li>
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-graph-1"></i>
-                                                                <span class="kt-nav__link-text">Export</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-calendar-4"></i>
-                                                                <span class="kt-nav__link-text">Save</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-layers-1"></i>
-                                                                <span class="kt-nav__link-text">Import</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-calendar-4"></i>
-                                                                <span class="kt-nav__link-text">Update</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="kt-nav__item">
-                                                            <a href="#" class="kt-nav__link">
-                                                                <i class="kt-nav__link-icon flaticon2-file-1"></i>
-                                                                <span class="kt-nav__link-text">Customize</span>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="kt-portlet__body kt-portlet__body--fluid">
-                                            <div class="kt-widget12">
-                                                <div class="kt-widget12__content">
-                                                    <div class="kt-widget12__item">
-                                                        <div class="kt-widget12__info">
-                                                            <span class="kt-widget12__desc">Annual Taxes EMS</span>
-                                                            <span class="kt-widget12__value">$400,000</span>
-                                                        </div>
-                                                        <div class="kt-widget12__info">
-                                                            <span class="kt-widget12__desc">Finance Review Date</span>
-                                                            <span class="kt-widget12__value">July 24,2019</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="kt-widget12__item">
-                                                        <div class="kt-widget12__info">
-                                                            <span class="kt-widget12__desc">Avarage Revenue</span>
-                                                            <span class="kt-widget12__value">$60M</span>
-                                                        </div>
-                                                        <div class="kt-widget12__info">
-                                                            <span class="kt-widget12__desc">Revenue Margin</span>
-                                                            <div class="kt-widget12__progress">
-                                                                <div class="progress kt-progress--sm">
-                                                                    <div class="progress-bar kt-bg-brand" role="progressbar" style="width: 40%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                </div>
-                                                                <span class="kt-widget12__stat">
-                                                                    40%
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="kt-widget12__chart" style="height:250px;">
-                                                    <canvas id="kt_chart_order_statistics"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!--end:: Widgets/Order Statistics-->
-                                </div>
-                            </div>
-
-                            <!--End::Section-->
+                            @yield('content')
 
                             <!--End::Dashboard 7-->
                         </div>
@@ -3408,7 +1612,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         Default
                     </div>
                     <div class="kt-demo-panel__item-preview">
-                        <img src="{{asset('theme/assets/media/demos/Demo-_Default.jpg" alt="" />
+                        <img src="{{ asset('theme/assets/media/demos/Demo-_Default.jpg')}}" alt="" />
                         <div class="kt-demo-panel__item-preview-overlay">
                             <a href="../default/index.html" class="btn btn-brand btn-elevate " target="_blank">Preview</a>
                         </div>
@@ -3419,7 +1623,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         Demo 2
                     </div>
                     <div class="kt-demo-panel__item-preview">
-                        <img src="{{asset('theme/assets/media/demos/Demo-2.jpg" alt="" />
+                        <img src="{{ asset('theme/assets/media/demos/Demo-2.jpg')}}" alt="" />
                         <div class="kt-demo-panel__item-preview-overlay">
                             <a href="../demo2/index.html" class="btn btn-brand btn-elevate " target="_blank">Preview</a>
                         </div>
@@ -3430,7 +1634,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         Demo 3
                     </div>
                     <div class="kt-demo-panel__item-preview">
-                        <img src="{{asset('theme/assets/media/demos/Demo-3.jpg" alt="" />
+                        <img src="{{ asset('theme/assets/media/demos/Demo-3.jpg')}}" alt="" />
                         <div class="kt-demo-panel__item-preview-overlay">
                             <a href="../demo3/index.html" class="btn btn-brand btn-elevate " target="_blank">Preview</a>
                         </div>
@@ -3441,7 +1645,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         Demo 4
                     </div>
                     <div class="kt-demo-panel__item-preview">
-                        <img src="{{asset('theme/assets/media/demos/Demo-4.jpg" alt="" />
+                        <img src="{{ asset('theme/assets/media/demos/Demo-4.jpg')}}" alt="" />
                         <div class="kt-demo-panel__item-preview-overlay">
                             <a href="../demo4/index.html" class="btn btn-brand btn-elevate " target="_blank">Preview</a>
                         </div>
@@ -3452,7 +1656,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         Demo 5
                     </div>
                     <div class="kt-demo-panel__item-preview">
-                        <img src="{{asset('theme/assets/media/demos/Demo-5.jpg" alt="" />
+                        <img src="{{ asset('theme/assets/media/demos/Demo-5.jpg')}}" alt="" />
                         <div class="kt-demo-panel__item-preview-overlay">
                             <a href="../demo5/index.html" class="btn btn-brand btn-elevate " target="_blank">Preview</a>
                         </div>
@@ -3463,7 +1667,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         Demo 6
                     </div>
                     <div class="kt-demo-panel__item-preview">
-                        <img src="{{asset('theme/assets/media/demos/Demo-6.jpg" alt="" />
+                        <img src="{{ asset('theme/assets/media/demos/Demo-6.jpg')}}" alt="" />
                         <div class="kt-demo-panel__item-preview-overlay">
                             <a href="../demo6/index.html" class="btn btn-brand btn-elevate " target="_blank">Preview</a>
                         </div>
@@ -3474,7 +1678,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         Demo 7
                     </div>
                     <div class="kt-demo-panel__item-preview">
-                        <img src="{{asset('theme/assets/media/demos/Demo-7.jpg" alt="" />
+                        <img src="{{ asset('theme/assets/media/demos/Demo-7.jpg')}}" alt="" />
                         <div class="kt-demo-panel__item-preview-overlay">
                             <a href="../demo7/index.html" class="btn btn-brand btn-elevate " target="_blank">Preview</a>
                         </div>
@@ -3485,7 +1689,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         Demo 8
                     </div>
                     <div class="kt-demo-panel__item-preview">
-                        <img src="{{asset('theme/assets/media/demos/Demo-8.jpg" alt="" />
+                        <img src="{{ asset('theme/assets/media/demos/Demo-8.jpg')}}" alt="" />
                         <div class="kt-demo-panel__item-preview-overlay">
                             <a href="../demo8/index.html" class="btn btn-brand btn-elevate " target="_blank">Preview</a>
                         </div>
@@ -3496,7 +1700,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         Demo 9
                     </div>
                     <div class="kt-demo-panel__item-preview">
-                        <img src="{{asset('theme/assets/media/demos/Demo-9.jpg" alt="" />
+                        <img src="{{ asset('theme/assets/media/demos/Demo-9.jpg')}}" alt="" />
                         <div class="kt-demo-panel__item-preview-overlay">
                             <a href="../demo9/index.html" class="btn btn-brand btn-elevate " target="_blank">Preview</a>
                         </div>
@@ -3507,7 +1711,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         Demo 10
                     </div>
                     <div class="kt-demo-panel__item-preview">
-                        <img src="{{asset('theme/assets/media/demos/Demo-10.jpg" alt="" />
+                        <img src="{{ asset('theme/assets/media/demos/Demo-10.jpg')}}" alt="" />
                         <div class="kt-demo-panel__item-preview-overlay">
                             <a href="../demo10/index.html" class="btn btn-brand btn-elevate " target="_blank">Preview</a>
                         </div>
@@ -3518,7 +1722,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         Demo 11
                     </div>
                     <div class="kt-demo-panel__item-preview">
-                        <img src="{{asset('theme/assets/media/demos/Demo-11.jpg" alt="" />
+                        <img src="{{ asset('theme/assets/media/demos/Demo-11.jpg')}}" alt="" />
                         <div class="kt-demo-panel__item-preview-overlay">
                             <a href="../demo11/index.html" class="btn btn-brand btn-elevate " target="_blank">Preview</a>
                         </div>
@@ -3529,7 +1733,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         Demo 12
                     </div>
                     <div class="kt-demo-panel__item-preview">
-                        <img src="{{asset('theme/assets/media/demos/Demo-12.jpg" alt="" />
+                        <img src="{{ asset('theme/assets/media/demos/Demo-12.jpg')}}" alt="" />
                         <div class="kt-demo-panel__item-preview-overlay">
                             <a href="../demo12/index.html" class="btn btn-brand btn-elevate " target="_blank">Preview</a>
                         </div>
@@ -3540,7 +1744,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         Demo 13
                     </div>
                     <div class="kt-demo-panel__item-preview">
-                        <img src="{{asset('theme/assets/media/demos/Demo-13.jpg" alt="" />
+                        <img src="{{ asset('theme/assets/media/demos/Demo-13.jpg')}}" alt="" />
                         <div class="kt-demo-panel__item-preview-overlay">
                             <a href="#" class="btn btn-brand btn-elevate disabled">Coming soon</a>
                         </div>
@@ -3551,7 +1755,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         Demo 14
                     </div>
                     <div class="kt-demo-panel__item-preview">
-                        <img src="{{asset('theme/assets/media/demos/Demo-14.jpg" alt="" />
+                        <img src="{{ asset('theme/assets/media/demos/Demo-14.jpg')}}" alt="" />
                         <div class="kt-demo-panel__item-preview-overlay">
                             <a href="#" class="btn btn-brand btn-elevate disabled">Coming soon</a>
                         </div>
@@ -3564,14 +1768,15 @@ License: You must have a valid license purchased only from themeforest(the above
         </div>
 
         <!-- end::Demo Panel -->
+
         <!-- begin::Global Config(global config for global JS sciprts) -->
         <script>
             var KTAppOptions = {
                 "colors": {
                     "state": {
-                        "brand": "#5d78ff",
-                        "dark": "#282a3c",
+                        "brand": "#22b9ff",
                         "light": "#ffffff",
+                        "dark": "#282a3c",
                         "primary": "#5867dd",
                         "success": "#34bfa3",
                         "info": "#36a3f7",
@@ -3589,94 +1794,97 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- end::Global Config -->
 
         <!--begin:: Global Mandatory Vendors -->
-        <script src="{{asset('theme/assets/vendors/general/jquery/dist/jquery.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/popper.js/dist/umd/popper.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/bootstrap/dist/js/bootstrap.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/js-cookie/src/js.cookie.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/moment/min/moment.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/tooltip.js/dist/umd/tooltip.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/perfect-scrollbar/dist/perfect-scrollbar.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/sticky-js/dist/sticky.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/wnumb/wNumb.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/jquery/dist/jquery.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/popper.js/dist/umd/popper.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/bootstrap/dist/js/bootstrap.min.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/js-cookie/src/js.cookie.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/moment/min/moment.min.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/tooltip.js/dist/umd/tooltip.min.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/perfect-scrollbar/dist/perfect-scrollbar.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/sticky-js/dist/sticky.min.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/wnumb/wNumb.js')}}" type="text/javascript"></script>
 
         <!--end:: Global Mandatory Vendors -->
 
         <!--begin:: Global Optional Vendors -->
-        <script src="{{asset('theme/assets/vendors/general/jquery-form/dist/jquery.form.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/block-ui/jquery.blockUI.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/custom/components/vendors/bootstrap-datepicker/init.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/bootstrap-datetime-picker/js/bootstrap-datetimepicker.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/bootstrap-timepicker/js/bootstrap-timepicker.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/custom/components/vendors/bootstrap-timepicker/init.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/bootstrap-daterangepicker/daterangepicker.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/bootstrap-maxlength/src/bootstrap-maxlength.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/custom/vendors/bootstrap-multiselectsplitter/bootstrap-multiselectsplitter.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/bootstrap-select/dist/js/bootstrap-select.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/bootstrap-switch/dist/js/bootstrap-switch.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/custom/components/vendors/bootstrap-switch/init.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/select2/dist/js/select2.full.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/ion-rangeslider/js/ion.rangeSlider.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/typeahead.js/dist/typeahead.bundle.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/handlebars/dist/handlebars.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/inputmask/dist/jquery.inputmask.bundle.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/inputmask/dist/inputmask/inputmask.date.extensions.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/inputmask/dist/inputmask/inputmask.numeric.extensions.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/nouislider/distribute/nouislider.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/owl.carousel/dist/owl.carousel.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/autosize/dist/autosize.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/clipboard/dist/clipboard.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/dropzone/dist/dropzone.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/summernote/dist/summernote.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/markdown/lib/markdown.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/bootstrap-markdown/js/bootstrap-markdown.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/custom/components/vendors/bootstrap-markdown/init.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/bootstrap-notify/bootstrap-notify.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/custom/components/vendors/bootstrap-notify/init.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/jquery-validation/dist/jquery.validate.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/jquery-validation/dist/additional-methods.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/custom/components/vendors/jquery-validation/init.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/toastr/build/toastr.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/raphael/raphael.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/morris.js/morris.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/chart.js/dist/Chart.bundle.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/custom/vendors/bootstrap-session-timeout/dist/bootstrap-session-timeout.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/custom/vendors/jquery-idletimer/idle-timer.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/waypoints/lib/jquery.waypoints.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/counterup/jquery.counterup.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/es6-promise-polyfill/promise.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/sweetalert2/dist/sweetalert2.min.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/custom/components/vendors/sweetalert2/init.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/jquery.repeater/src/lib.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/jquery.repeater/src/jquery.input.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/jquery.repeater/src/repeater.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/general/dompurify/dist/purify.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/jquery-form/dist/jquery.form.min.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/block-ui/jquery.blockUI.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/custom/components/vendors/bootstrap-datepicker/init.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/bootstrap-datetime-picker/js/bootstrap-datetimepicker.min.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/bootstrap-timepicker/js/bootstrap-timepicker.min.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/custom/components/vendors/bootstrap-timepicker/init.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/bootstrap-daterangepicker/daterangepicker.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/bootstrap-maxlength/src/bootstrap-maxlength.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/custom/vendors/bootstrap-multiselectsplitter/bootstrap-multiselectsplitter.min.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/bootstrap-select/dist/js/bootstrap-select.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/bootstrap-switch/dist/js/bootstrap-switch.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/custom/components/vendors/bootstrap-switch/init.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/select2/dist/js/select2.full.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/ion-rangeslider/js/ion.rangeSlider.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/typeahead.js/dist/typeahead.bundle.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/handlebars/dist/handlebars.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/inputmask/dist/jquery.inputmask.bundle.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/inputmask/dist/inputmask/inputmask.date.extensions.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/inputmask/dist/inputmask/inputmask.numeric.extensions.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/nouislider/distribute/nouislider.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/owl.carousel/dist/owl.carousel.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/autosize/dist/autosize.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/clipboard/dist/clipboard.min.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/dropzone/dist/dropzone.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/summernote/dist/summernote.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/markdown/lib/markdown.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/bootstrap-markdown/js/bootstrap-markdown.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/custom/components/vendors/bootstrap-markdown/init.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/bootstrap-notify/bootstrap-notify.min.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/custom/components/vendors/bootstrap-notify/init.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/jquery-validation/dist/jquery.validate.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/jquery-validation/dist/additional-methods.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/custom/components/vendors/jquery-validation/init.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/toastr/build/toastr.min.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/raphael/raphael.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/morris.js/morris.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/chart.js/dist/Chart.bundle.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/custom/vendors/bootstrap-session-timeout/dist/bootstrap-session-timeout.min.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/custom/vendors/jquery-idletimer/idle-timer.min.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/waypoints/lib/jquery.waypoints.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/counterup/jquery.counterup.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/es6-promise-polyfill/promise.min.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/sweetalert2/dist/sweetalert2.min.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/custom/components/vendors/sweetalert2/init.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/jquery.repeater/src/lib.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/jquery.repeater/src/jquery.input.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/jquery.repeater/src/repeater.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/vendors/general/dompurify/dist/purify.js')}}" type="text/javascript"></script>
 
         <!--end:: Global Optional Vendors -->
 
         <!--begin::Global Theme Bundle(used by all pages) -->
-        <script src="{{asset('theme/assets/demo/default/base/scripts.bundle.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/demo/demo7/base/scripts.bundle.js')}}" type="text/javascript"></script>
 
         <!--end::Global Theme Bundle -->
 
-        <!--begin::Page Scripts(used by this page) -->
-        <script src="{{asset('theme/assets/app/custom/login/login-general.js')}}" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/custom/fullcalendar/fullcalendar.bundle.js')}}" type="text/javascript"></script>
-        <script src="//maps.google.com/maps/api/js?key=AIzaSyBTGnKT7dt597vo9QgeQ7BFhvSRP4eiMSM" type="text/javascript"></script>
-        <script src="{{asset('theme/assets/vendors/custom/gmaps/gmaps.js')}}" type="text/javascript"></script>
+        <!--begin::Page Vendors(used by this page) -->
+        <script src="{{ asset('theme/assets/vendors/custom/fullcalendar/fullcalendar.bundle.js')}}" type="text/javascript"></script>
+
+        <!--end::Page Vendors -->
 
         <!--begin::Page Scripts(used by this page) -->
-        <script src="{{asset('theme/assets/app/custom/general/dashboard.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/app/custom/general/dashboard.js')}}" type="text/javascript"></script>
 
         <!--end::Page Scripts -->
 
         <!--begin::Global App Bundle(used by all pages) -->
-        <script src="{{asset('theme/assets/app/bundle/app.bundle.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('theme/assets/app/bundle/app.bundle.js')}}" type="text/javascript"></script>
 
         <!--end::Global App Bundle -->
 
+        <!--begin::Particular files scripts -->
+        @yield('scripts')
+        
+        <!--end::Particular files scripts -->
     </body>
 
-<!-- end::Body -->
+    <!-- end::Body -->
 </html>

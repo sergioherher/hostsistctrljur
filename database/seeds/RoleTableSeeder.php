@@ -12,10 +12,9 @@ class RoleTableSeeder extends Seeder
      */
     public function run()
     {
-        $administrador_cargar_juicios_permission = Permission::where('slug','cargar-juicios')->first();
-        $administrador_ver_juicios_permission = Permission::where('slug', 'ver-juicios')->first();
-        $administrador_editar_juicios_permission = Permission::where('slug','editar-juicios')->first();
-		$colaborador_ver_juicios_permission = Permission::where('slug', 'ver-juicios')->first();
+        $cargar_juicios_permission = Permission::where('slug','cargar-juicios')->first();
+        $editar_juicios_permission = Permission::where('slug','editar-juicios')->first();
+		$ver_juicios_permission = Permission::where('slug', 'ver-juicios')->first();
 
 
 		//RoleTableSeeder.php
@@ -23,14 +22,14 @@ class RoleTableSeeder extends Seeder
 		$administrador_role->slug = 'administrador';
 		$administrador_role->name = 'Administrador';
 		$administrador_role->save();
-		$administrador_role->permissions()->attach($administrador_cargar_juicios_permission);
-		$administrador_role->permissions()->attach($administrador_editar_juicios_permission);
-		$administrador_role->permissions()->attach($administrador_ver_juicios_permission);
+		$administrador_role->permissions()->attach($cargar_juicios_permission);
+		$administrador_role->permissions()->attach($editar_juicios_permission);
+		$administrador_role->permissions()->attach($ver_juicios_permission);
 
 		$colaborador_role = new Role();
 		$colaborador_role->slug = 'colaborador';
 		$colaborador_role->name = 'Colaborador';
 		$colaborador_role->save();
-		$colaborador_role->permissions()->attach($colaborador_ver_juicios_permission);
+		$colaborador_role->permissions()->attach($ver_juicios_permission);
     }
 }

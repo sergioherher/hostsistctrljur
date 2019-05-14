@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Juicio;
 
 class JuiciosController extends Controller
 {
@@ -23,6 +24,7 @@ class JuiciosController extends Controller
      */
     public function detalleJuicio($juicio_id)
     {
-        return view('juicio');
+        $juicio = Juicio::where('id', $juicio_id)->first();
+        return view('juicios.verDetalleJuicio')->with('juicio', $juicio);
     }
 }

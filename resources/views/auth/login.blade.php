@@ -1,4 +1,4 @@
-@extends('auth.app')
+@extends('layouts.auth.app')
 
 @section('content')
 <!-- begin:: Page -->

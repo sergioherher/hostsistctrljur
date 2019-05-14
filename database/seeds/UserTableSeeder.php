@@ -14,10 +14,9 @@ class UserTableSeeder extends Seeder
     {
         $administrador_role = Role::where('slug','administrador')->first();
 		$colaborador_role = Role::where('slug', 'colaborador')->first();
-		$administrador_create_juicios_perm = Permission::where('slug','create-juicios')->first();
-		$administrador_editar_juicios_perm = Permission::where('slug','editar-juicios')->first();
-		$administrador_ver_juicios_perm = Permission::where('slug','ver-juicios')->first();
-		$colaborador_ver_juicios_perm = Permission::where('slug','ver-juicios')->first();
+		$create_juicios_perm = Permission::where('slug','cargar-juicios')->first();
+		$editar_juicios_perm = Permission::where('slug','editar-juicios')->first();
+		$ver_juicios_perm = Permission::where('slug','ver-juicios')->first();
 
 		$administrador = new User();
 		$administrador->name = 'Sergio Hernandez';
@@ -25,9 +24,9 @@ class UserTableSeeder extends Seeder
 		$administrador->password = bcrypt('123456');
 		$administrador->save();
 		$administrador->roles()->attach($administrador_role);
-		$administrador->permissions()->attach($administrador_create_juicios_perm);
-		$administrador->permissions()->attach($administrador_editar_juicios_perm);
-		$administrador->permissions()->attach($administrador_ver_juicios_perm);
+		$administrador->permissions()->attach($create_juicios_perm);
+		$administrador->permissions()->attach($editar_juicios_perm);
+		$administrador->permissions()->attach($ver_juicios_perm);
 
 
 		$colaborador = new User();
@@ -36,6 +35,6 @@ class UserTableSeeder extends Seeder
 		$colaborador->password = bcrypt('123456');
 		$colaborador->save();
 		$colaborador->roles()->attach($colaborador_role);
-		$colaborador->permissions()->attach($colaborador_ver_juicios_perm);
+		$colaborador->permissions()->attach($ver_juicios_perm);
     }
 }

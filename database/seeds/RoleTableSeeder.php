@@ -12,20 +12,25 @@ class RoleTableSeeder extends Seeder
      */
     public function run()
     {
-        $dev_permission = Permission::where('slug','create-tasks')->first();
-		$manager_permission = Permission::where('slug', 'edit-users')->first();
+        $administrador_cargar_juicios_permission = Permission::where('slug','cargar-juicios')->first();
+        $administrador_ver_juicios_permission = Permission::where('slug', 'ver-juicios')->first();
+        $administrador_editar_juicios_permission = Permission::where('slug','editar-juicios')->first();
+		$colaborador_ver_juicios_permission = Permission::where('slug', 'ver-juicios')->first();
+
 
 		//RoleTableSeeder.php
-		$dev_role = new Role();
-		$dev_role->slug = 'developer';
-		$dev_role->name = 'Front-end Developer';
-		$dev_role->save();
-		$dev_role->permissions()->attach($dev_permission);
+		$administrador_role = new Role();
+		$administrador_role->slug = 'administrador';
+		$administrador_role->name = 'Administrador';
+		$administrador_role->save();
+		$administrador_role->permissions()->attach($administrador_cargar_juicios_permission);
+		$administrador_role->permissions()->attach($administrador_editar_juicios_permission);
+		$administrador_role->permissions()->attach($administrador_ver_juicios_permission);
 
-		$manager_role = new Role();
-		$manager_role->slug = 'manager';
-		$manager_role->name = 'Assistant Manager';
-		$manager_role->save();
-		$manager_role->permissions()->attach($manager_permission);
+		$colaborador_role = new Role();
+		$colaborador_role->slug = 'colaborador';
+		$colaborador_role->name = 'Colaborador';
+		$colaborador_role->save();
+		$colaborador_role->permissions()->attach($colaborador_ver_juicios_permission);
     }
 }

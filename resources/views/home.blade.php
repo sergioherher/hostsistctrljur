@@ -53,6 +53,41 @@
                         </div>
                     </div>
                 </div>
+                <div class="kt-portlet__body">
+
+                    <!--begin: Search Form -->
+                    <div class="kt-form kt-form--label-right">
+                        <div class="row align-items-center">
+                            <div class="col-xl-8 order-2 order-xl-1">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
+                                        <div class="kt-input-icon kt-input-icon--left">
+                                            <input type="text" class="form-control" placeholder="Buscar..." id="generalSearch">
+                                            <span class="kt-input-icon__icon kt-input-icon__icon--left">
+                                                <span><i class="la la-search"></i></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 kt-margin-b-20-tablet-and-mobile">
+                                        <div class="kt-form__group kt-form__group--inline">
+                                            <div class="kt-form__label">
+                                                <label>Estado:</label>
+                                            </div>
+                                            <div class="kt-form__control">
+                                                <select class="form-control bootstrap-select" id="kt_form_status">
+                                                    <option value="">Todos</option>
+                                                    <option value="activa">Activa</option>
+                                                    <option value="vencida">Vencida</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end: Search Form -->
+                </div>
                 <div class="kt-portlet__body kt-portlet__body--fit">
 
                     <!--begin: Datatable -->
@@ -70,7 +105,7 @@
 
                         <tbody>
                             <tr>
-                                <td>2249/2017</td>
+                                <td><a href="{{url('juicio/1')}}">2249/2017</a></td>
                                 <td>ARREDONDO TIZNADO LUIS ALEJANDRO</td>
                                 <td>1C</td>
                                 <td>06/Abr/2019</td>
@@ -1780,7 +1815,7 @@
 
 <!-- Javascript Section -->
 
-@section('scipts')
+@section('scripts')
 
 <script type="text/javascript" src="{{asset('js/datatables/juicios-html.js')}}"></script>
 

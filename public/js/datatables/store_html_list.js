@@ -16,30 +16,38 @@ var KTDatatableHtmlTableDemo = function() {
 			},
 			columns: [
 				{
-					field: 'Expediente',
-					title: 'Expediente',
+					field: 'Tienda',
+					title: 'Tienda',
 					autoHide: false,
 				}, {
-					field: 'Demandado',
-					title: 'Demandado',
+					field: 'Creada',
+					title: 'Fecha de Creación',
 					autoHide: false,
 				}, {
-					field: 'Juzgado',
-					title: 'Juzgado',
+					field: 'Vencimiento',
+					title: 'Fecha de Expiración',
 					autoHide: false,
 				}, {
-					field: 'Última Fecha de Boletín',
-					title: 'Última Fecha de Boletín',
+					field: 'Revendedor',
+					title: 'Fecha de Expiración Licencia de Origen',
 					autoHide: false,
+				}, {
+					field: 'Telefono',
+					title: 'Teléfono',
+					autoHide: true,
 				},  {
-					field: 'Próxima Acción',
-					title: 'Próxima Acción',
+					field: 'Estado',
+					title: 'Estado',
 					autoHide: false,
 					// callback function support for column rendering
 					/* template: function(row) {
 						return true;
 					},*/
-				}, 
+				}, {
+					field: 'Acciones',
+					title: 'Acciones',
+					autoHide: false,
+				},  
 			],
 			translate: {
 				records: {

@@ -12,19 +12,32 @@ class PermissionTableSeeder extends Seeder
      */
     public function run()
     {
-        $dev_role = Role::where('slug','developer')->first();
-		$manager_role = Role::where('slug', 'manager')->first();
+        $administrador_role = Role::where('slug','administrador')->first();
+		$colaborador_role = Role::where('slug', 'colaborador')->first();
 
-		$createTasks = new Permission();
-		$createTasks->slug = 'create-tasks';
-		$createTasks->name = 'Create Tasks';
-		$createTasks->save();
-		$createTasks->roles()->attach($dev_role);
+		$createJuicios = new Permission();
+		$createJuicios->slug = 'crear-juicios';
+		$createJuicios->name = 'Crear Juicios';
+		$createJuicios->save();
+		$createJuicios->roles()->attach($administrador_role);
 
-		$editUsers = new Permission();
-		$editUsers->slug = 'edit-users';
-		$editUsers->name = 'Edit Users';
-		$editUsers->save();
-		$editUsers->roles()->attach($manager_role);
+		$editJuicios = new Permission();
+		$editJuicios->slug = 'editar-juicios';
+		$editJuicios->name = 'Editar Juicios';
+		$editJuicios->save();
+		$editJuicios->roles()->attach($administrador_role);
+
+		$verJuicios = new Permission();
+		$verJuicios->slug = 'ver-juicios';
+		$verJuicios->name = 'Ver Juicios';
+		$verJuicios->save();
+		$verJuicios->roles()->attach($colaborador_role);
+
+		$verJuicios = new Permission();
+		$verJuicios->slug = 'ver-juicios';
+		$verJuicios->name = 'Ver Juicios';
+		$verJuicios->save();
+		$verJuicios->roles()->attach($administrador_role);
+
     }
 }

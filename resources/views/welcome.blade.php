@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Sistema de Control de Hipotecas
+                    Sistema de Control <br>de Hipotecas
                 </div>
             </div>
         </div>

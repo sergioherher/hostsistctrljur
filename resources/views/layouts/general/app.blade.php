@@ -658,8 +658,8 @@ License: You must have a valid license purchased only from themeforest(the above
                             <!--begin: User bar -->
                             <div class="kt-header__topbar-item kt-header__topbar-item--user">
                                 <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
-                                    <span class="kt-hidden kt-header__topbar-welcome">Hi,</span>
-                                    <span class="kt-hidden kt-header__topbar-username">Nick</span>
+                                    <span class="kt-hidden kt-header__topbar-welcome">Hola,</span>
+                                    <span class="kt-hidden kt-header__topbar-username">{{ Auth::user()->name }}</span>
                                     <img class="kt-hidden" alt="Pic" src="{{ asset('theme/assets/media/users/300_21.jpg')}}" />
                                     <span class="kt-header__topbar-icon"><i class="flaticon2-user-outline-symbol"></i></span>
                                 </div>
@@ -674,10 +674,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">S</span>
                                         </div>
                                         <div class="kt-user-card__name">
-                                            Sean Stone
-                                        </div>
-                                        <div class="kt-user-card__badge">
-                                            <span class="btn btn-label-primary btn-sm btn-bold btn-font-md">23 messages</span>
+                                            {{ Auth::user()->name }}
                                         </div>
                                     </div>
 
@@ -685,60 +682,15 @@ License: You must have a valid license purchased only from themeforest(the above
 
                                     <!--begin: Navigation -->
                                     <div class="kt-notification">
-                                        <a href="#" class="kt-notification__item">
-                                            <div class="kt-notification__item-icon">
-                                                <i class="flaticon2-calendar-3 kt-font-success"></i>
-                                            </div>
-                                            <div class="kt-notification__item-details">
-                                                <div class="kt-notification__item-title kt-font-bold">
-                                                    My Profile
-                                                </div>
-                                                <div class="kt-notification__item-time">
-                                                    Account settings and more
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="kt-notification__item">
-                                            <div class="kt-notification__item-icon">
-                                                <i class="flaticon2-mail kt-font-warning"></i>
-                                            </div>
-                                            <div class="kt-notification__item-details">
-                                                <div class="kt-notification__item-title kt-font-bold">
-                                                    My Messages
-                                                </div>
-                                                <div class="kt-notification__item-time">
-                                                    Inbox and tasks
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="kt-notification__item">
-                                            <div class="kt-notification__item-icon">
-                                                <i class="flaticon2-rocket-1 kt-font-danger"></i>
-                                            </div>
-                                            <div class="kt-notification__item-details">
-                                                <div class="kt-notification__item-title kt-font-bold">
-                                                    My Activities
-                                                </div>
-                                                <div class="kt-notification__item-time">
-                                                    Logs and notifications
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#" class="kt-notification__item">
-                                            <div class="kt-notification__item-icon">
-                                                <i class="flaticon2-hourglass kt-font-brand"></i>
-                                            </div>
-                                            <div class="kt-notification__item-details">
-                                                <div class="kt-notification__item-title kt-font-bold">
-                                                    My Tasks
-                                                </div>
-                                                <div class="kt-notification__item-time">
-                                                    latest tasks and projects
-                                                </div>
-                                            </div>
-                                        </a>
                                         <div class="kt-notification__custom">
-                                            <a href="custom_user_login-v2.html" target="_blank" class="btn btn-label-brand btn-sm btn-bold">Sign Out</a>
+                                            <a class="btn btn-label-danger" href="{{ url('/logout') }}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                                Salir
+                                            </a>
+                                            <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                                {{ csrf_field() }}
+                                            </form>
                                         </div>
                                     </div>
 

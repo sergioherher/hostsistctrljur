@@ -1,1 +1,1 @@
-web: vendor/bin/sis-ctrl-hipotecario public/
+web: vendor/bin/sist-ctrl-hipotecas public/

@@ -63,35 +63,7 @@ class JuzgadoTableSeeder extends Seeder
 		$juzgado = new Juzgado();
 		$juzgado->juzgado = '13C';
 		$juzgado->save();
-
-		$juzgado = new Juzgado();
-		$juzgado->juzgado = '1C';
-		$juzgado->save();
-
-		$juzgado = new Juzgado();
-		$juzgado->juzgado = '1C';
-		$juzgado->save();
-
-		$juzgado = new Juzgado();
-		$juzgado->juzgado = '1C';
-		$juzgado->save();
-
-		$juzgado = new Juzgado();
-		$juzgado->juzgado = '1C';
-		$juzgado->save();
-
-		$juzgado = new Juzgado();
-		$juzgado->juzgado = '1C';
-		$juzgado->save();
-
-		$juzgado = new Juzgado();
-		$juzgado->juzgado = '1C';
-		$juzgado->save();
-
-		$juzgado = new Juzgado();
-		$juzgado->juzgado = '1C';
-		$juzgado->save();
-
+		
 		$juzgado = new Juzgado();
 		$juzgado->juzgado = '1M';
 		$juzgado->save();

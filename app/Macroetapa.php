@@ -11,6 +11,6 @@ class Macroetapa extends Model
      */
     public function juicio()
     {
-        return $this->belongsTo('App\Juicio');
+        return $this->hasOne('App\Juicio');
     }
 }

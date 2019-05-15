@@ -11,7 +11,7 @@ class Juicio extends Model
      */
     public function client()
     {
-        return $this->hasOne('App\Client');
+        return $this->belongsTo('App\Client');
     }
 
     /**
@@ -19,7 +19,7 @@ class Juicio extends Model
      */
     public function intern()
     {
-        return $this->hasOne('App\Intern');
+        return $this->belongsTo('App\Intern');
     }
 
     /**
@@ -27,7 +27,7 @@ class Juicio extends Model
      */
     public function juzgado()
     {
-        return $this->hasOne('App\Juzgado');
+        return $this->belongsTo('App\Juzgado');
     }
 
     /**
@@ -35,7 +35,7 @@ class Juicio extends Model
      */
     public function juztipo()
     {
-        return $this->hasOne('App\Juztipo');
+        return $this->belongsTo('App\Juztipo');
     }
 
     /**
@@ -43,7 +43,7 @@ class Juicio extends Model
      */
     public function macroetapa()
     {
-        return $this->hasOne('App\Macroetapa');
+        return $this->belongsTo('App\Macroetapa');
     }
 
     /**
@@ -52,5 +52,13 @@ class Juicio extends Model
     public function demandados()
     {
         return $this->hasMany('App\Demandado');
+    }
+
+    /**
+     * Obtiene los documentos del juicio
+     */
+    public function doc_juicios()
+    {
+        return $this->hasMany('App\DocJuicio');
     }
 }

@@ -18,6 +18,10 @@ class DatabaseSeeder extends Seeder
         $this->call(InternsTableSeeder::class);
         $this->call(JuztipoTableSeeder::class);
         $this->call(MacroetapaTableSeeder::class);
+        $this->call(ClientTableSeeder::class);
         $this->call(JuicioTableSeeder::class);
+        $this->call(DemandadoTableSeeder::class);
+        $this->call(DocTipoTableSeeder::class);
+        $this->call(DocJuicioTableSeeder::class);
     }
 }

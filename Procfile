@@ -1,1 +1,1 @@
-web: vendor/bin/sist-ctrl-hipotecas public/
+web: https://sist-ctrl-hipotecas.herokuapp.com public/

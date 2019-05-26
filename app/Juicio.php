@@ -7,22 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Juicio extends Model
 {
     /**
-     * Obtiene el cliente del juicio
-     */
-    public function client()
-    {
-        return $this->belongsTo('App\Client');
-    }
-
-    /**
-     * Obtiene el interno del juicio
-     */
-    public function intern()
-    {
-        return $this->belongsTo('App\Intern');
-    }
-
-    /**
      * Obtiene el juzgado del juicio
      */
     public function juzgado()
@@ -33,9 +17,9 @@ class Juicio extends Model
     /**
      * Obtiene el juzgado del juicio
      */
-    public function juztipo()
+    public function juiciotipo()
     {
-        return $this->belongsTo('App\Juztipo');
+        return $this->belongsTo('App\Juiciotipo');
     }
 
     /**
@@ -44,6 +28,11 @@ class Juicio extends Model
     public function macroetapa()
     {
         return $this->belongsTo('App\Macroetapa');
+    }
+
+    public function estado()
+    {
+        return $this->belongsTo('App\Estado');
     }
 
     /**
@@ -60,5 +49,10 @@ class Juicio extends Model
     public function doc_juicios()
     {
         return $this->hasMany('App\DocJuicio');
+    }
+
+    public function juiciousers()
+    {
+        return $this->hasMany('App\Juiciouser');
     }
 }

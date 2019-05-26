@@ -149,6 +149,16 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <div class="kt-menu__wrapper">
                                             <ul class="kt-menu__subnav">
                                                 <li class="kt-menu__item  kt-menu__item--parent kt-menu__item--submenu-fullheight" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Administrar</span></span></li>
+                                                @role('administrador')
+                                                <li class="kt-menu__item " aria-haspopup="true">
+                                                    <a href="{{url('listUsers')}}" class="kt-menu__link ">
+                                                        <i class="kt-menu__link-icon la la-user"></i><span class="kt-menu__link-text">Perfiles de usuario</span>
+                                                        <span class="kt-menu__link-badge">
+                                                            <span class="kt-badge kt-badge--primary">2</span>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                @endrole
                                                 <li class="kt-menu__item " aria-haspopup="true">
                                                     <a href="#" class="kt-menu__link ">
                                                         <i class="kt-menu__link-icon la la-user"></i><span class="kt-menu__link-text">Clientes</span>
@@ -157,7 +167,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                         </span>
                                                     </a>
                                                 </li>
-                                                <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-icon la la-users"></i><span class="kt-menu__link-text">Internos</span><span class="kt-menu__link-badge">
+                                                <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-icon la la-users"></i><span class="kt-menu__link-text">Colaboradores</span><span class="kt-menu__link-badge">
                                                             <span class="kt-badge kt-badge--danger">2</span>
                                                         </span></a></li>
                                                 <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-icon la la-institution"></i><span class="kt-menu__link-text">Juzgados</span></a></li>

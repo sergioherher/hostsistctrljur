@@ -31,5 +31,12 @@ class RoleTableSeeder extends Seeder
 		$colaborador_role->name = 'Colaborador';
 		$colaborador_role->save();
 		$colaborador_role->permissions()->attach($ver_juicios_permission);
+		$administrador_role->permissions()->attach($editar_juicios_permission);
+
+		$cliente_role = new Role();
+		$cliente_role->slug = 'cliente';
+		$cliente_role->name = 'Cliente';
+		$cliente_role->save();
+		$cliente_role->permissions()->attach($ver_juicios_permission);
     }
 }

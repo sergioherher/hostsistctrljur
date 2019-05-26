@@ -19,3 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/juicio/{juicio_id}', 'JuiciosController@detalleJuicio');
+
+Route::group(['middleware' => 'role:administrador'], function() {
+   Route::get('/listUsers', 'ProfilesController@listUsers');
+});

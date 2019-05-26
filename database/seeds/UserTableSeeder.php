@@ -14,6 +14,7 @@ class UserTableSeeder extends Seeder
     {
         $administrador_role = Role::where('slug','administrador')->first();
 		$colaborador_role = Role::where('slug', 'colaborador')->first();
+		$cliente_role = Role::where('slug', 'cliente')->first();
 		$create_juicios_perm = Permission::where('slug','cargar-juicios')->first();
 		$editar_juicios_perm = Permission::where('slug','editar-juicios')->first();
 		$ver_juicios_perm = Permission::where('slug','ver-juicios')->first();
@@ -34,7 +35,16 @@ class UserTableSeeder extends Seeder
 		$colaborador->email = 'jorgeAMJ@gmail.com';
 		$colaborador->password = bcrypt('123456');
 		$colaborador->save();
-		$colaborador->roles()->attach($colaborador_role);
+		$colaborador->roles()->attach($colaborador_role);	
+		$colaborador->permissions()->attach($editar_juicios_perm);
 		$colaborador->permissions()->attach($ver_juicios_perm);
+
+		$cliente = new User();
+		$cliente->name = 'BANORTE';
+		$cliente->email = 'cliente@banorte.com';
+		$cliente->password = bcrypt('123456');
+		$cliente->save();
+		$cliente->roles()->attach($cliente_role);
+		$cliente->permissions()->attach($ver_juicios_perm);
     }
 }

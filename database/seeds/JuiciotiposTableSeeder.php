@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Juztipo;
+use App\Juiciotipo;
 
-class JuztipoTableSeeder extends Seeder
+class JuiciotiposTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,19 +12,19 @@ class JuztipoTableSeeder extends Seeder
      */
     public function run()
     {
-		$juztipo = new Juztipo();
+		$juztipo = new Juiciotipo();
 		$juztipo->juztipo = 'CIVIL';
 		$juztipo->save();
 
-		$juztipo = new Juztipo();
+		$juztipo = new Juiciotipo();
 		$juztipo->juztipo = 'MERCANTIL';
 		$juztipo->save();
 
-		$juztipo = new Juztipo();
+		$juztipo = new Juiciotipo();
 		$juztipo->juztipo = 'MERC. ORAL';
 		$juztipo->save();
 
-		$juztipo = new Juztipo();
+		$juztipo = new Juiciotipo();
 		$juztipo->juztipo = 'JURISVOL';
 		$juztipo->save();
     }

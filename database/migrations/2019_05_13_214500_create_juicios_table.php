@@ -15,12 +15,11 @@ class CreateJuiciosTable extends Migration
     {
         Schema::create('juicios', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('client_id');
-            $table->unsignedBigInteger('intern_id');
+            $table->unsignedBigInteger('estado_id');
             $table->bigInteger('numero_credito');
             $table->unsignedBigInteger('juzgado_id');
             $table->text('expediente');
-            $table->unsignedBigInteger('juztipo_id');
+            $table->unsignedBigInteger('juiciotipo_id');
             $table->dateTime('ultima_fecha_boletin');
             $table->text('extracto');
             $table->text('notas_seguimiento');
@@ -34,10 +33,9 @@ class CreateJuiciosTable extends Migration
             $table->text('otros_domicilios');
             $table->timestamps();
 
-            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
-            $table->foreign('intern_id')->references('id')->on('interns')->onDelete('cascade');
+            $table->foreign('estado_id')->references('id')->on('estados')->onDelete('cascade');
             $table->foreign('juzgado_id')->references('id')->on('juzgados')->onDelete('cascade');
-            $table->foreign('juztipo_id')->references('id')->on('juztipos')->onDelete('cascade');
+            $table->foreign('juiciotipo_id')->references('id')->on('juiciotipos')->onDelete('cascade');
             $table->foreign('macroetapa_id')->references('id')->on('macroetapas')->onDelete('cascade');
         });
     }

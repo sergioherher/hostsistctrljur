@@ -14,12 +14,11 @@ class JuicioTableSeeder extends Seeder
     {
 
 		$juicio = new Juicio();
-		$juicio->client_id = 1;
-		$juicio->intern_id = 1;
+		$juicio->estado_id = 1;
 		$juicio->numero_credito = 12345678;
 		$juicio->juzgado_id = 10;
 		$juicio->expediente = '2249/2017';
-		$juicio->juztipo_id = 2;
+		$juicio->juiciotipo_id = 2;
 		$juicio->ultima_fecha_boletin = '2019-05-13 00:00:00';
 		$juicio->extracto = 'Extracto de prueba';
 		$juicio->notas_seguimiento = 'Nota de seguimiento de prueba';
@@ -34,12 +33,11 @@ class JuicioTableSeeder extends Seeder
 		$juicio->save();
 
 		$juicio = new Juicio();
-		$juicio->client_id = 1;
-		$juicio->intern_id = 4;
+		$juicio->estado_id = 2;
 		$juicio->numero_credito = 87654321;
 		$juicio->juzgado_id = 9;
 		$juicio->expediente = '123/2019';
-		$juicio->juztipo_id = 4;
+		$juicio->juiciotipo_id = 4;
 		$juicio->ultima_fecha_boletin = '2019-05-13 00:00:00';
 		$juicio->extracto = 'Extracto de prueba';
 		$juicio->notas_seguimiento = 'Nota de seguimiento de prueba';

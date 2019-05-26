@@ -119,25 +119,25 @@
 								{{$errors->first('cliente')}}
 							</div>
 							<input autofocus type="text" class="form-control" id="cliente" name="cliente" value="@if(null !== old('cliente')){{ old('cliente') }}@else{{ $cliente->name }}@endif" placeholder="Nombre de cliente ...">
-							<input type="hidden" name="cliente_id" value="$cliente->id">
+							<input type="hidden" name="cliente_id" value="">
 							<span class="form-text text-muted">Si desea agregar el cliente a la base de datos seleccione la opción añadir</span>
 						</div>
 						<div class="col-lg-6">
 							<label>Interno</label>
 							<div style="color:red;">
-								{{$errors->first('intern')}}
+								{{$errors->first('colaborator')}}
 							</div>
-							<select id="intern" name="intern" class="form-control">
+							<select id="colaborator" name="colaborator" class="form-control">
 								<option value="">Seleccione</option>
-								@foreach ($internos as $intern)
-									@if (old('intern') == $intern->id || $interno->id == $intern->id)
-										<option value="{{ $intern->id }}" selected="selected">{{ $intern->name }}</option>
+								@foreach ($colaborators as $colaborat)
+									@if (old('colaborat') == $colaborat->id || $colaborator->id == $colaborat->id)
+										<option value="{{ $colaborat->name }}" selected="selected">{{ $colaborat->name }}</option>
 									@else
-										<option value="{{ $intern->id }}">{{ $intern->name }}</option>
+										<option value="{{ $colaborat->name }}">{{ $colaborat->name }}</option>
 									@endif
 								@endforeach
 							</select>
-							<span class="form-text text-muted">Seleccione al interno responsable de este juicio</span>
+							<span class="form-text text-muted">Seleccione al colaborador responsable de este juicio</span>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -181,15 +181,15 @@
 						<div class="col-lg-4">
 							<label>Tipo de Juicio</label>
 							<div style="color:red;">
-								{{$errors->first('juztipo')}}
+								{{$errors->first('juiciotipo')}}
 							</div>
-							<select id="juztipo" name="juztipo" class="form-control">
+							<select id="juiciotipo" name="juiciotipo" class="form-control">
 								<option value="">Seleccione</option>
-								@foreach ($juztipos as $juztip)
-									@if (old('juztipo') == $juztip->id || $juztipo->id == $juztip->id)
-										<option value="{{ $juztip->id }}" selected="selected">{{ $juztip->juztipo }}</option>
+								@foreach ($juiciotipos as $juiciotip)
+									@if (old('juiciotip') == $juiciotip->id || $juiciotipo->id == $juiciotip->id)
+										<option value="{{ $juiciotip->id }}" selected="selected">{{ $juiciotip->juztipo }}</option>
 									@else
-										<option value="{{ $juztip->id }}">{{ $juztip->juztipo }}</option>
+										<option value="{{ $juiciotip->id }}">{{ $juiciotip->juztipo }}</option>
 									@endif
 								@endforeach
 							</select>

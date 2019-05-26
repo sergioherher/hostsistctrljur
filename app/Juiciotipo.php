@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Intern extends Model
+class Juiciotipo extends Model
 {
     /**
-     * Establece la relación de un interno a juicios
+     * Establece la relación de los tipos de juicio a juicios
      */
     public function juicio()
     {

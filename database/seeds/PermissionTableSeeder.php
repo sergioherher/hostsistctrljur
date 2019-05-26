@@ -14,6 +14,7 @@ class PermissionTableSeeder extends Seeder
     {
         $administrador_role = Role::where('slug','administrador')->first();
 		$colaborador_role = Role::where('slug', 'colaborador')->first();
+		$cliente_role = Role::where('slug', 'cliente')->first();
 
 		$createJuicios = new Permission();
 		$createJuicios->slug = 'cargar-juicios';
@@ -26,6 +27,7 @@ class PermissionTableSeeder extends Seeder
 		$editJuicios->name = 'Editar Juicios';
 		$editJuicios->save();
 		$editJuicios->roles()->attach($administrador_role);
+		$editJuicios->roles()->attach($colaborador_role);
 
 		$verJuicios = new Permission();
 		$verJuicios->slug = 'ver-juicios';
@@ -33,6 +35,7 @@ class PermissionTableSeeder extends Seeder
 		$verJuicios->save();
 		$verJuicios->roles()->attach($colaborador_role);
 		$verJuicios->roles()->attach($administrador_role);
+		$verJuicios->roles()->attach($cliente_role);
 
     }
 }

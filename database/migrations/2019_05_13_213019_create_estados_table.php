@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInternsTable extends Migration
+class CreateEstadosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateInternsTable extends Migration
      */
     public function up()
     {
-        Schema::create('interns', function (Blueprint $table) {
+        Schema::create('estados', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('name');
+            $table->text('estado');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateInternsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('interns');
+        Schema::dropIfExists('estados');
     }
 }

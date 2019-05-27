@@ -143,6 +143,19 @@
 							<span class="form-text text-muted">Seleccione al colaborador responsable de este juicio</span>
 						</div>
 					</div>
+                	<div class="form-group row">
+						<div class="col-lg-6">
+							<label>Información de contacto del cliente</label>
+							<div style="color:red;">
+								{{$errors->first('cliente_contact_info')}}
+							</div>
+							<input type="text" class="form-control" id="cliente_contact_info" name="cliente_contact_info" value="@if(null !== old('cliente_contact_info')){{ old('cliente_contact_info') }}@endif" placeholder="Información de contacto ...">
+							<span class="form-text text-muted">Escriba información adicional de contacto del cliente</span>
+						</div>
+						<div class="col-lg-6">
+							
+						</div>
+					</div>
 					<div class="form-group row">
 						<div class="col-lg-6">
 							<label>Número de Crédito</label>
@@ -168,24 +181,43 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<div class="col-lg-4">
+						<div class="col-lg-6">
+							<label>Tipo de Juzgado</label>
+							<div style="color:red;">
+								{{$errors->first('juzgadotipo')}}
+							</div>
+							<select id="juzgadotipo" name="juzgadotipo" class="form-control">
+								<option value="">Seleccione</option>
+								@foreach ($juzgadotipos as $juzgadotipo)
+									@if (old('juzgadotipo') == $juzgadotipo->id)
+										<option value="{{ $juzgadotipo->id }}" selected="selected">{{ $juzgadotipo->juztipo }}</option>
+									@else
+										<option value="{{ $juzgadotipo->id }}">{{ $juzgadotipo->juztipo }}</option>
+									@endif
+								@endforeach
+							</select>
+							<span class="form-text text-muted">Seleccione el tipo de juzgado donde se desarrolla el juicio</span>
+						</div>
+						<div class="col-lg-6">
 							<label>Juzgado</label>
 							<div style="color:red;">
 								{{$errors->first('juzgado')}}
 							</div>
-							<select id="juzgado" name="juzgado" class="form-control">
+							<select id="juzgado" name="juzgado" class="form-control" disabled>
 								<option value="">Seleccione</option>
 								@foreach ($juzgados as $juzgado)
 									@if (old('juzgado') == $juzgado->id)
-										<option value="{{ $juzgado->id }}" selected="selected">{{ $juzgado->juzgado }}</option>
+										<option value="{{ $juzgado->id }}" data-id="{{ $juzgado->juzgadotipo_id }}" selected="selected">{{ $juzgado->juzgado }}</option>
 									@else
-										<option value="{{ $juzgado->id }}">{{ $juzgado->juzgado }}</option>
+										<option value="{{ $juzgado->id }}" data-id="{{ $juzgado->juzgadotipo_id }}" >{{ $juzgado->juzgado }}</option>
 									@endif
 								@endforeach
 							</select>
-							<span class="form-text text-muted">Seleccione el juzgado donde se desarrolla el juicio</span>
+							<span class="form-text text-muted">Para habilitar este campo debe seleccionar primero un tipo de juzgado</span>
 						</div>
-						<div class="col-lg-4">
+					</div>
+					<div class="form-group row">
+						<div class="col-lg-6">
 							<label>Tipo de Juicio</label>
 							<div style="color:red;">
 								{{$errors->first('juiciotipo')}}
@@ -202,7 +234,7 @@
 							</select>
 							<span class="form-text text-muted">Seleccione el tipo de juicio</span>
 						</div>
-						<div class="col-lg-4">
+						<div class="col-lg-6">
 							<label>Expediente</label>
 							<div style="color:red;">
 								{{$errors->first('expediente')}}
@@ -303,7 +335,7 @@
 					</div>
 
 					<div class="form-group row">
-						<div class="col-lg-6">
+						<div class="col-lg-4">
 							<label>Procesos asociados</label>
 							<div style="color:red;">
 								{{$errors->first('procesos_asociados')}}
@@ -311,22 +343,62 @@
 							<input type="text" class="form-control" id="procesos_asociados" name="procesos_asociados" value="@if(null !== old('procesos_asociados')){{ old('procesos_asociados') }}@endif" placeholder="Procesos asociados ...">
 							<span class="form-text text-muted">Escriba procesos asociados al presente juicio</span>
 						</div>
-						<div class="col-lg-6">
+						<div class="col-lg-4">
 							<label>Sala de Apelación</label>
 							<div style="color:red;">
 								{{$errors->first('sala_apelacion')}}
 							</div>
-							<select id="sala_apelacion" name="sala_apelacion" class="form-control">
-								<option value="">Seleccione</option>
-								@foreach ($macroetapas as $macroetap)
-									@if (old('macroetapa') == $macroetap->id)
-										<option value="{{ $macroetap->id }}" selected="selected">{{ $macroetap->macroetapa }}</option>
+							<select id="salaapela" name="salaapela" class="form-control">
+								@foreach ($salaapelas as $salaapela)
+									@if (old('salaapela') == $salaapela->id)
+										<option value="{{ $salaapela->id }}" selected="selected">{{ $salaapela->sala }}</option>
 									@else
-										<option value="{{ $macroetap->id }}">{{ $macroetap->macroetapa }}</option>
+										<option value="{{ $salaapela->id }}">{{ $salaapela->sala }}</option>
 									@endif
 								@endforeach
 							</select>
-							<span class="form-text text-muted">Escirba los datos de algún otro domicilio del demandado</span>
+							<span class="form-text text-muted">Seleccione la sala de apelación en la que se encuentra el juicio</span>
+						</div>
+						<div class="col-lg-4">
+							<label>Toca:</label>
+							<div style="color:red;">
+								{{$errors->first('toca')}}
+							</div>
+							<input type="text" class="form-control" id="toca" name="toca" value="@if(null !== old('toca')){{ old('toca') }}@endif" placeholder="Toca ...">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<div class="col-lg-6">
+							<label>Autoridad Amparo</label>
+							<div style="color:red;">
+								{{$errors->first('autoridad_amparo')}}
+							</div>
+							<input type="text" class="form-control" id="autoridad_amparo" name="autoridad_amparo" value="@if(null !== old('autoridad_amparo')){{ old('autoridad_amparo') }}@endif" placeholder="Autoridad amparo ...">
+						</div>
+						<div class="col-lg-6">
+							<label>Expediente Amparo</label>
+							<div style="color:red;">
+								{{$errors->first('expediente_amparo')}}
+							</div>
+							<input type="text" class="form-control" id="expediente_amparo" name="expediente_amparo" value="@if(null !== old('expediente_amparo')){{ old('expediente_amparo') }}@endif" placeholder="Expediente amparo ...">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<div class="col-lg-6">
+							<label>Autoridad Recurso de Amparo</label>
+							<div style="color:red;">
+								{{$errors->first('autoridad_recurso_amparo')}}
+							</div>
+							<input type="text" class="form-control" id="autoridad_recurso_amparo" name="autoridad_recurso_amparo" value="@if(null !== old('autoridad_recurso_amparo')){{ old('autoridad_recurso_amparo') }}@endif" placeholder="Autoridad Recurso de Amparo ...">
+						</div>
+						<div class="col-lg-6">
+							<label>Expediente Recurso de Amparo</label>
+							<div style="color:red;">
+								{{$errors->first('expediente_recurso_amparo')}}
+							</div>
+							<input type="text" class="form-control" id="expediente_recurso_amparo" name="expediente_recurso_amparo" value="@if(null !== old('expediente_recurso_amparo')){{ old('expediente_recurso_amparo') }}@endif" placeholder="Expediente Recurso de Amparo ...">
 						</div>
 					</div>
 
@@ -345,10 +417,10 @@
 									<button class="file-upload-btn" type="button" onclick="$('#file-upload-input-{{ $doc_tipo->id }}').trigger( 'click' )">Cargar Documento</button>
 
 									<div class="image-upload-wrap">
-										<input class="file-upload-input" id="file-upload-input-{{ $doc_tipo->id }}" type='file' onchange="readURL(this);" accept="pdf/*" style="display: none;" />
+										<input class="file-upload-input" id="file-upload-input-{{ $doc_tipo->id }}" type='file' onchange="readURL(this);" accept="application/pdf" style="display: none;" />
 									</div>
 									<div class="file-upload-content" id="file-upload-content-{{ $doc_tipo->id }}">
-									    <img class="file-upload-image" id="file-upload-image-{{ $doc_tipo->id }}" src="#" alt="your image" />
+									    <img data-pdf-thumbnail-file="" class="file-upload-image" id="file-upload-image-{{ $doc_tipo->id }}" src="#" alt="your image" />
 									    <div class="image-title-wrap" id="image-title-wrap-{{ $doc_tipo->id }}">
 									      <button type="button" class="remove-image" id="remove-image-{{ $doc_tipo->id }}" onclick="event.preventDefault(); removeUpload(this);">Eliminar <span class="image-title" id="image-title-{{ $doc_tipo->id }}">Imagen cargada</span></button>
 									    </div>
@@ -384,7 +456,7 @@
 		    var reader = new FileReader();
 
 		    reader.onload = function(e) {
-				$('#file-upload-image-'+id).attr('src', e.target.result);
+				$('#file-upload-image-'+id).attr('data-pdf-thumbnail-file', e.target.result);
 				$('#file-upload-content-'+id).show();
 				$('#image-title-'+id).html(input.files[0].name);
 		    };
@@ -406,6 +478,19 @@
 
 	$(document).ready(function(e){
 		$("#fecha_proxima_accion").datepicker();
+		$('#juzgadotipo').change(function(e){
+			e.preventDefault();
+			var tipojuzgado = $("#juzgadotipo").val();
+			if(tipojuzgado != "") {
+				$("#juzgado option").show();
+				$("#juzgado option[data-id!=" + tipojuzgado + "]").hide();
+				$("#juzgado").attr("disabled", false);
+			} else {
+				$("#juzgado option").show();
+				$("#juzgado").attr("disabled", true);
+				$("#juzgado").val("");
+			}
+		});
 	});
 </script>
 

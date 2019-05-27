@@ -902,11 +902,14 @@ License: You must have a valid license purchased only from themeforest(the above
 
         <!--begin::Global App Bundle(used by all pages) -->
         <script src="{{ asset('theme/assets/app/bundle/app.bundle.js')}}" type="text/javascript"></script>
-
+        <
         <!--end::Global App Bundle -->
 
+        <script type="text/javascript" src="{{ asset('js/pdfjs/build/pdf.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('js/pdfThumbnails/pdfThumbnails.js')}}"></script>
+
         <!--begin::Particular files scripts -->
-        @yield('scripts')
+        
         <script type="text/javascript">
             $.ajaxSetup({
                 headers: {
@@ -914,6 +917,8 @@ License: You must have a valid license purchased only from themeforest(the above
                 }
             });
         </script>
+
+        @yield('scripts')
         
         <!--end::Particular files scripts -->
     </body>

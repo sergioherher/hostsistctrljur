@@ -17,6 +17,8 @@ class CreateJuiciousersTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('juicio_id');
             $table->unsignedBigInteger('user_id');
+            $table->text('user_name')->nullable();
+            $table->text('user_contact_info')->nullable();
             $table->unsignedBigInteger('role_id');
             $table->timestamps();
 

@@ -12,6 +12,10 @@ class SalaapelasTableSeeder extends Seeder
      */
     public function run()
     {
+    	$salaapela = new Salaapela();
+		$salaapela->sala = 'NO APLICA';
+		$salaapela->save();
+
 		$salaapela = new Salaapela();
 		$salaapela->sala = 'TERCERA SALA';
 		$salaapela->save();

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Juicio, App\Colaborator, App\Juzgado, App\Juiciotipo, App\Macroetapa, App\DocTipo, App\User, App\Estado;
+use App\Juicio, App\Colaborator, App\Juzgado, App\Juiciotipo, App\Macroetapa, App\DocTipo, App\User, App\Estado, App\Salaapela, App\Juzgadotipo;
 
 class JuiciosController extends Controller
 {
@@ -88,11 +88,16 @@ class JuiciosController extends Controller
             $query->where('slug', '=', 'cliente');
         })->get();
 
+        $salaapelas = Salaapela::all();
+        $juzgadotipos = Juzgadotipo::all();
+
         return view('juicios.cargarJuicio')->with('colaborators', $users)
                                            ->with('juzgados', $juzgados)
                                            ->with('juiciotipos', $juiciotipos)
                                            ->with('macroetapas', $macroetapas)
                                            ->with('clientes', $clientes)
-                                           ->with('doc_tipos', $doc_tipos);
+                                           ->with('doc_tipos', $doc_tipos)
+                                           ->with('juzgadotipos',$juzgadotipos)
+                                           ->with('salaapelas',$salaapelas);
     }
 }

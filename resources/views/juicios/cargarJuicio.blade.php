@@ -1,90 +1,7 @@
 @extends('layouts.general.app')
 
 @section('content')
-<style type="text/css">
-	.file-upload {
-	  background-color: #ffffff;
-	  width: 100%;
-	  margin: 0 auto;
-	  padding: 20px;
-	}
 
-	.file-upload-btn {
-	  width: 100%;
-	  margin: 0;
-	  color: #fff;
-	  background: #34bfa3;
-	  border: none;
-	  padding: 10px;
-	  border-radius: 4px;
-	  border-bottom: 2px solid #22b9ff;
-	  transition: all .2s ease;
-	  outline: none;
-	  font-weight: 700;
-	}
-
-	.file-upload-btn:hover {
-	  background: #22b9ff;
-	  color: #ffffff;
-	  transition: all .2s ease;
-	  cursor: pointer;
-	}
-
-	.file-upload-btn:active {
-	  border: 0;
-	  transition: all .2s ease;
-	}
-
-	.file-upload-content {
-	  display: none;
-	  text-align: center;
-	}
-
-	.file-upload-input {
-	  position: absolute;
-	  margin: 0;
-	  padding: 0;
-	  width: 100%;
-	  height: 100%;
-	  outline: none;
-	  opacity: 0;
-	  cursor: pointer;
-	}
-
-	.file-upload-image {
-	  max-height: 200px;
-	  max-width: 200px;
-	  margin: auto;
-	  padding: 20px;
-	}
-
-	.remove-image {
-	  width: 200px;
-	  margin: 0;
-	  color: #fff;
-	  background: #cd4535;
-	  border: none;
-	  padding: 10px;
-	  border-radius: 4px;
-	  border-bottom: 4px solid #b02818;
-	  transition: all .2s ease;
-	  outline: none;
-	  text-transform: uppercase;
-	  font-weight: 700;
-	}
-
-	.remove-image:hover {
-	  background: #c13b2a;
-	  color: #ffffff;
-	  transition: all .2s ease;
-	  cursor: pointer;
-	}
-
-	.remove-image:active {
-	  border: 0;
-	  transition: all .2s ease;
-	}
-</style>
 <!--Begin::Section-->
     <div class="row">
         <div class="col-xl-8">
@@ -411,26 +328,17 @@
 
 					<div class="form-group row">
 						@foreach($doc_tipos as $doc_tipo)
-							<div class="col-lg-4">
-								<h6 class="kt-align-center">{{ $doc_tipo->tipo }}</h6>
-								<div class="file-upload">
-									<button class="file-upload-btn" type="button" onclick="$('#file-upload-input-{{ $doc_tipo->id }}').trigger( 'click' )">Cargar Documento</button>
-
-									<div class="image-upload-wrap">
-										<input class="file-upload-input" id="file-upload-input-{{ $doc_tipo->id }}" type='file' onchange="readURL(this);" accept="application/pdf" style="display: none;" />
-									</div>
-									<div class="file-upload-content" id="file-upload-content-{{ $doc_tipo->id }}">
-									    <img data-pdf-thumbnail-file="" class="file-upload-image" id="file-upload-image-{{ $doc_tipo->id }}" src="#" alt="your image" />
-									    <div class="image-title-wrap" id="image-title-wrap-{{ $doc_tipo->id }}">
-									      <button type="button" class="remove-image" id="remove-image-{{ $doc_tipo->id }}" onclick="event.preventDefault(); removeUpload(this);">Eliminar <span class="image-title" id="image-title-{{ $doc_tipo->id }}">Imagen cargada</span></button>
-									    </div>
-									</div>
-								</div>
+							<div class="col-lg-4 kt-align-center">
+								<h5 class="kt-align-center" style="height: 30px">{{ $doc_tipo->tipo }}</h5>
+								<button class="btn btn-label-success" id="upload-dialog-{{ $doc_tipo->id }}" onclick="configurarUploader({{ $doc_tipo->id }})"><i class="fa fa-plus"></i>Cargar PDF</button>
+								<input type="file" id="pdf-file-{{ $doc_tipo->id }}" accept="application/pdf" style="display:none" />
+								<div id="pdf-loader-{{ $doc_tipo->id }}" style="display:none">Cargando PDF ..</div>
+								<canvas id="pdf-preview-{{ $doc_tipo->id }}" width="150" style="display:none"></canvas>
+								<br>
+								<button class="btn btn-label-danger undo-upload" id="undo-upload-{{ $doc_tipo->id }}" style="display:none"><i class="fa fa-times"></i> Deshacer</button>
 							</div>
 						@endforeach
-					</div>
-
-					
+					</div>					
                 </div>
             </div>
         </div>
@@ -446,38 +354,9 @@
 <script type="text/javascript" src="{{asset('js/datatables/juicios-html.js')}}"></script>
 <script type="text/javascript">
 
-	function readURL(input) {
-
-		var array_id = input.id.split('-');
-		var id = array_id[3];
-
-		if (input.files && input.files[0]) {
-
-		    var reader = new FileReader();
-
-		    reader.onload = function(e) {
-				$('#file-upload-image-'+id).attr('data-pdf-thumbnail-file', e.target.result);
-				$('#file-upload-content-'+id).show();
-				$('#image-title-'+id).html(input.files[0].name);
-		    };
-
-		    reader.readAsDataURL(input.files[0]);
-
-		  } else {
-		    removeUpload($("#remove-image-"+id));
-		  }
-	}
-
-	function removeUpload(boton) {
-		alert(boton.id);
-		var array_id = boton.id.split('-');
-		var id = array_id[2];
-	  	$('#file-upload-input-'+id).replaceWith($('#file-upload-input-'+id).clone());
-	  	$('#file-upload-content-'+id).hide();
-	}
-
 	$(document).ready(function(e){
 		$("#fecha_proxima_accion").datepicker();
+
 		$('#juzgadotipo').change(function(e){
 			e.preventDefault();
 			var tipojuzgado = $("#juzgadotipo").val();
@@ -491,7 +370,125 @@
 				$("#juzgado").val("");
 			}
 		});
+
+		$(".undo-upload").click(function(e){
+			e.preventDefault();
+			var array_undo_upload_id = this.id.split("-");
+			var undo_upload_id = array_undo_upload_id[2];
+			$("#pdf-file-"+undo_upload_id).val("").hide();
+			$("#pdf-preview-"+undo_upload_id).hide().html("");
+			$("#undo-upload-"+undo_upload_id).hide();
+			$("#upload-dialog-"+undo_upload_id).show();
+		});
 	});
+
+	// load the PDF
+	function showPDF(pdf_url, _PDF_DOC, _CANVAS, identificador) {
+
+		var _CANVAS_SHOW_PDF = _CANVAS;
+		var _PDF_DOC_SHOW_PDF = _PDF_DOC;
+		var identificador_SHOW_PDF = identificador
+
+	    pdfjsLib.getDocument({ url: pdf_url }).then(function(pdf_doc) {
+	        _PDF_DOC_SHOW_PDF = pdf_doc;
+
+	        // show the first page of PDF
+	        showPage(1, _PDF_DOC_SHOW_PDF, _CANVAS_SHOW_PDF, identificador_SHOW_PDF);
+
+	        // destroy previous object url
+	        URL.revokeObjectURL(pdf_url);
+	    }).catch(function(error) {
+	        // error reason
+	        alert(error.message);
+	    });;
+	}
+
+	// show page of PDF
+	function showPage(page_no, _PDF_DOC, _CANVAS, identificador) {
+
+		var _CANVAS_SHOW_PAGE = _CANVAS;
+		var _PDF_DOC_SHOW_PAGE = _PDF_DOC;
+		var identificador_SHOW_PAGE = identificador
+
+	    _PDF_DOC_SHOW_PAGE.getPage(page_no).then(function(page){
+	        // set the scale of viewport
+	        var scale_required = _CANVAS_SHOW_PAGE.width / page.getViewport(1).width;
+
+	        // get viewport of the page at required scale
+	        var viewport = page.getViewport(scale_required);
+
+	        // set canvas height
+	        _CANVAS_SHOW_PAGE.height = viewport.height;
+
+	        var renderContext = {
+	            canvasContext: _CANVAS_SHOW_PAGE.getContext('2d'),
+	            viewport: viewport
+	        };
+
+	        var identificador_SHOW_PAGE_render = identificador_SHOW_PAGE;
+	        
+	        // render the page contents in the canvas
+	        page.render(renderContext).then(function() {
+	            document.querySelector("#pdf-preview-"+identificador_SHOW_PAGE_render).style.display = 'inline-block';
+	            document.querySelector("#undo-upload-"+identificador_SHOW_PAGE_render).style.display = 'inline-block';
+	            document.querySelector("#pdf-loader-"+identificador_SHOW_PAGE_render).style.display = 'none';
+	        });
+	    });
+	}
+
+	function configurarUploader(id) {
+
+		var identificador = id;
+
+		// will hold the PDF handle returned by PDF.JS API
+		var _PDF_DOC;
+
+		// PDF.JS renders PDF in a <canvas> element
+		var _CANVAS = document.querySelector('#pdf-preview-'+identificador);
+
+		// will hold object url of chosen PDF
+		var _OBJECT_URL;
+
+
+		document.querySelector("#pdf-file-"+identificador).click();
+		
+		/* when users selects a file */
+		document.querySelector("#pdf-file-"+identificador).addEventListener('change', function() {
+		    // user selected PDF
+		    var file = this.files[0];
+
+		    // allowed MIME types
+		    var mime_types = [ 'application/pdf' ];
+		    
+		    // validate whether PDF
+		    if(mime_types.indexOf(file.type) == -1) {
+		        alert('Error : Incorrect file type');
+		        return;
+		    }
+
+		    // validate file size
+		    if(file.size > 10*1024*1024) {
+		        alert('Error : Exceeded size 10MB');
+		        return;
+		    }
+
+		    // validation is successful
+
+		    // hide upload dialog
+		    document.querySelector("#upload-dialog-"+identificador).style.display = 'none';
+		    
+		    // show the PDF preview loader
+		    document.querySelector("#pdf-loader-"+identificador).style.display = 'inline-block';
+
+		    // object url of PDF 
+		    _OBJECT_URL = URL.createObjectURL(file)
+
+		    // send the object url of the pdf to the PDF preview function
+		    showPDF(_OBJECT_URL, _PDF_DOC, _CANVAS, identificador);
+		});
+
+	}
+
 </script>
 
 @endsection

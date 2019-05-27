@@ -906,7 +906,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <!--end::Global App Bundle -->
 
         <script type="text/javascript" src="{{ asset('js/pdfjs/build/pdf.js')}}"></script>
-        <script type="text/javascript" src="{{ asset('js/pdfThumbnails/pdfThumbnails.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('js/pdfjs/build/pdf.worker.js')}}"></script>
 
         <!--begin::Particular files scripts -->
         

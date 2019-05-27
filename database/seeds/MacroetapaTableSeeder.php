@@ -13,11 +13,27 @@ class MacroetapaTableSeeder extends Seeder
     public function run()
     {
 		$macroetapa = new Macroetapa();
+		$macroetapa->macroetapa = 'POR DEMANDAR';
+		$macroetapa->save();
+
+		$macroetapa = new Macroetapa();
+		$macroetapa->macroetapa = 'JURISDICCION VOLUNTARIA';
+		$macroetapa->save();
+
+		$macroetapa = new Macroetapa();
 		$macroetapa->macroetapa = 'DEMANDA';
 		$macroetapa->save();
 
 		$macroetapa = new Macroetapa();
+		$macroetapa->macroetapa = 'EMPLAZADO';
+		$macroetapa->save();
+
+		$macroetapa = new Macroetapa();
 		$macroetapa->macroetapa = 'ADMISION';
+		$macroetapa->save();
+
+		$macroetapa = new Macroetapa();
+		$macroetapa->macroetapa = 'AUD. PRELIMINAR';
 		$macroetapa->save();
 
 		$macroetapa = new Macroetapa();
@@ -29,7 +45,23 @@ class MacroetapaTableSeeder extends Seeder
 		$macroetapa->save();
 
 		$macroetapa = new Macroetapa();
+		$macroetapa->macroetapa = 'AUD. JUICIO';
+		$macroetapa->save();
+
+		$macroetapa = new Macroetapa();
 		$macroetapa->macroetapa = 'SENTENCIA';
+		$macroetapa->save();
+
+		$macroetapa = new Macroetapa();
+		$macroetapa->macroetapa = 'APELACIÓN';
+		$macroetapa->save();
+
+		$macroetapa = new Macroetapa();
+		$macroetapa->macroetapa = 'AMPARO';
+		$macroetapa->save();
+
+		$macroetapa = new Macroetapa();
+		$macroetapa->macroetapa = 'AMPARO EN REVISIÓN';
 		$macroetapa->save();
 
 		$macroetapa = new Macroetapa();
@@ -42,6 +74,14 @@ class MacroetapaTableSeeder extends Seeder
 
 		$macroetapa = new Macroetapa();
 		$macroetapa->macroetapa = 'TOMA POSESION';
+		$macroetapa->save();
+
+		$macroetapa = new Macroetapa();
+		$macroetapa->macroetapa = 'ESCRITURACIÓN';
+		$macroetapa->save();
+
+		$macroetapa = new Macroetapa();
+		$macroetapa->macroetapa = 'ATIPICA VER NOTAS';
 		$macroetapa->save();
     }
 }

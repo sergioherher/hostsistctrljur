@@ -105,7 +105,7 @@
 
                         <tbody>
                             <tr>
-                                <td><a href="{{url('juicio/1')}}">2249/2017</a></td>
+                                <td><a href="{{url('juicios/1')}}">2249/2017</a></td>
                                 <td>ARREDONDO TIZNADO LUIS ALEJANDRO</td>
                                 <td>1C</td>
                                 <td>06/Abr/2019</td>
@@ -113,7 +113,7 @@
                             </tr>
 
                             <tr>
-                                <td><a href="{{url('juicio/2')}}">123/2019</a></td>
+                                <td><a href="{{url('juicios/2')}}">123/2019</a></td>
                                 <td>AVILA CARRIZALES JANETTE</td>
                                 <td>3M</td>
                                 <td>10/May/2019</td>
@@ -121,7 +121,7 @@
                             </tr>
 
                             <tr>
-                                <td><a href="{{url('juicio/2')}}">937/2018</a></td>
+                                <td><a href="{{url('juicios/2')}}">937/2018</a></td>
                                 <td>BECERRA CAMACHO ANTONIO </td>
                                 <td>4C</td>
                                 <td>-</td>
@@ -129,7 +129,7 @@
                             </tr>
 
                             <tr>
-                                <td><a href="{{url('juicio/2')}}">234/2019</a></td>
+                                <td><a href="{{url('juicios/2')}}">234/2019</a></td>
                                 <td>BUCIO BEJAR J. ELI</td>
                                 <td>8C</td>
                                 <td>-</td>
@@ -137,7 +137,7 @@
                             </tr>
 
                             <tr>
-                                <td><a href="{{url('juicio/2')}}">2349/2015</a></td>
+                                <td><a href="{{url('juicios/2')}}">2349/2015</a></td>
                                 <td>BUSTOS SILVA ARMANDO </td>
                                 <td>2MO</td>
                                 <td>-</td>

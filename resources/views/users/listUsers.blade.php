@@ -30,8 +30,8 @@
                 </div>
             </div>
             <div class="kt-portlet__body">  
-                <table>
-                    <thead>
+                <table class="table">
+                    <thead align="center">
                         <tr>
                             <th>
                                 Usuario
@@ -47,7 +47,7 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody align="center">
                         @foreach ($users as $user)
                         <tr id="fila_user-{{ $user->id }}">
                             <td>
@@ -335,7 +335,7 @@
             var array_user = this.id.split("-");
             var user = array_user[1];
 
-            if(confirm("Está seguro de querer cambiar el rol de este usuario")) {           
+            if(confirm("Está seguro de querer eliminar este usuario")) {           
 
                 $.ajax({
                     type: "POST",
@@ -345,6 +345,7 @@
                     success: function(data) {
                         console.log(data);
                         toastr.success("Se eliminó correctamente el usuario", "Eliminar usuario");
+                        $("#fila_user-"+data.message).remove();
                     },
                     error: function(data) {
                         console.log(data);

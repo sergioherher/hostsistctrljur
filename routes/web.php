@@ -18,10 +18,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/juicio/{juicio_id}', 'JuiciosController@detalleJuicio');
+Route::get('/juicios/{juicio_id}', 'JuiciosController@detalleJuicio');
 
 Route::group(['middleware' => 'role:administrador'], function() {
    Route::get('/listUsers', 'ProfilesController@listUsers');
    Route::post('/users/changeUserRoles', 'ProfilesController@changeUserRoles');
    Route::post('/users/registerUser', 'ProfilesController@registerUser');
+   Route::post('/users/deleteUser', 'ProfilesController@deleteUser');
+
+   Route::get('/juicio/cargarJuicio', 'JuiciosController@cargarJuicio');
 });

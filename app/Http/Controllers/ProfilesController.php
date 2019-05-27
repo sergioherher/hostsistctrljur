@@ -92,4 +92,16 @@ class ProfilesController extends Controller
 
         return json_encode($result);
     }
+
+    public function deleteUser(Request $request) {
+      $usuario_id = $request->input('user');
+      try {
+        $usaurio = User::find($usuario_id)->delete();
+        $result = array('operacion' => true, 'message' => $usuario_id);
+      } catch (Exception $e) {
+        $result = array('operacion' => false, 'message' => $e->getMessage());
+      }
+       return json_encode($result);
+      
+    }
 }

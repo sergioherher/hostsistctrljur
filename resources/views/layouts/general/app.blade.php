@@ -17,7 +17,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <!-- begin::Head -->
     <head>
         <meta charset="utf-8" />
-        <title>Sistema de Control de Hipotecas | Escritorio</title>
+        <title>Sistema de Control Jurídico | Escritorio</title>
         <meta name="description" content="Latest updates and statistic charts">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -145,12 +145,12 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="kt-aside-menu-wrapper kt-grid__item kt-grid__item--fluid" id="kt_aside_menu_wrapper">
                         <div id="kt_aside_menu" class="kt-aside-menu  kt-aside-menu--dropdown " data-ktmenu-vertical="1" data-ktmenu-dropdown="1" data-ktmenu-scroll="0">
                             <ul class="kt-menu__nav ">
+                                @role('administrador')
                                 <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--submenu-fullheight kt-menu__item--open kt-menu__item--here" aria-haspopup="true" data-ktmenu-submenu-toggle="click" data-ktmenu-dropdown-toggle-class="kt-aside-menu-overlay--on"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-protection"></i><span class="kt-menu__link-text">Administrar</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
                                     <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                                         <div class="kt-menu__wrapper">
                                             <ul class="kt-menu__subnav">
                                                 <li class="kt-menu__item  kt-menu__item--parent kt-menu__item--submenu-fullheight" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Administrar</span></span></li>
-                                                @role('administrador')
                                                 <li class="kt-menu__item " aria-haspopup="true">
                                                     <a href="{{url('listUsers')}}" class="kt-menu__link ">
                                                         <i class="kt-menu__link-icon la la-user"></i><span class="kt-menu__link-text">Perfiles de usuario</span>
@@ -159,18 +159,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                                         </span>
                                                     </a>
                                                 </li>
-                                                @endrole
-                                                <li class="kt-menu__item " aria-haspopup="true">
-                                                    <a href="#" class="kt-menu__link ">
-                                                        <i class="kt-menu__link-icon la la-user"></i><span class="kt-menu__link-text">Clientes</span>
-                                                        <span class="kt-menu__link-badge">
-                                                            <span class="kt-badge kt-badge--brand">2</span>
-                                                        </span>
-                                                    </a>
-                                                </li>
-                                                <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-icon la la-users"></i><span class="kt-menu__link-text">Colaboradores</span><span class="kt-menu__link-badge">
-                                                            <span class="kt-badge kt-badge--danger">2</span>
-                                                        </span></a></li>
                                                 <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-icon la la-institution"></i><span class="kt-menu__link-text">Juzgados</span></a></li>
                                                 <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-icon la la-balance-scale"></i><span class="kt-menu__link-text">Tipos de Juicio</span></a></li>
                                                 <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-icon la la-tachometer"></i><span class="kt-menu__link-text">Macro Etapas</span></a></li>
@@ -178,12 +166,15 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </div>
                                     </div>
                                 </li>
+                                @endrole
                                 <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="click"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i style="font-size: 30px" class="kt-menu__link-icon la la-gavel"></i><span class="kt-menu__link-text">Juicios</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
                                     <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                                         <ul class="kt-menu__subnav">
                                             <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Juicios</span></span></li>
                                             <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-icon la la-edit"></i><span class="kt-menu__link-text">Revisar / Editar</span></a></li>
-                                            <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-icon la la-plus"></i><span class="kt-menu__link-text">Cargar</span></a></li>
+                                            @role('administrador')
+                                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{ url('/juicio/cargarJuicio') }}" class="kt-menu__link "><i class="kt-menu__link-icon la la-plus"></i><span class="kt-menu__link-text">Cargar</span></a></li>
+                                            @endrole
                                         </ul>
                                     </div>
                                 </li>                                

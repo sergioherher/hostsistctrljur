@@ -16,7 +16,10 @@ class CreateJuzgadosTable extends Migration
         Schema::create('juzgados', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('juzgado');
+            $table->unsignedBigInteger('juzgadotipo_id');
             $table->timestamps();
+
+            $table->foreign('juzgadotipo_id')->references('id')->on('juzgadotipos')->onDelete('cascade');
         });
     }
 

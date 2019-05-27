@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Juicio, App\Colaborator, App\Juzgado, App\Juiciotipo, App\Macroetapa, App\DocTipo, App\User;
+use App\Juicio, App\Colaborator, App\Juzgado, App\Juiciotipo, App\Macroetapa, App\DocTipo, App\User, App\Estado;
 
 class JuiciosController extends Controller
 {
@@ -66,5 +66,33 @@ class JuiciosController extends Controller
                                                ->with('demandados', $demandados)
                                                ->with('documentos', $documentos)
                                                ->with('doc_tipos', $doc_tipos);
+    }
+
+    /**
+     * Muestra el detalle de un juicio
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function cargarJuicio()
+    {
+        $estados = Estado::all();
+        $juzgados = Juzgado::all();
+        $juiciotipos = Juiciotipo::all();
+        $macroetapas = Macroetapa::all();
+        $doc_tipos = DocTipo::all();
+        $users = User::whereHas('roles', function ($query) {
+            $query->where('slug', '=', 'colaborador');
+        })->get();
+
+        $clientes = User::whereHas('roles', function ($query) {
+            $query->where('slug', '=', 'cliente');
+        })->get();
+
+        return view('juicios.cargarJuicio')->with('colaborators', $users)
+                                           ->with('juzgados', $juzgados)
+                                           ->with('juiciotipos', $juiciotipos)
+                                           ->with('macroetapas', $macroetapas)
+                                           ->with('clientes', $clientes)
+                                           ->with('doc_tipos', $doc_tipos);
     }
 }

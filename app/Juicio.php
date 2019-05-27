@@ -14,6 +14,11 @@ class Juicio extends Model
         return $this->belongsTo('App\Juzgado');
     }
 
+    public function juzgadotipo()
+    {
+        return $this->belongsTo('App\Juzgadotipo');
+    }
+
     /**
      * Obtiene el juzgado del juicio
      */
@@ -33,6 +38,11 @@ class Juicio extends Model
     public function estado()
     {
         return $this->belongsTo('App\Estado');
+    }
+
+    public function salaapela()
+    {
+        return $this->belongsTo('App\Salaapela');
     }
 
     /**

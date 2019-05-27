@@ -17,6 +17,7 @@ class JuicioTableSeeder extends Seeder
 		$juicio->estado_id = 1;
 		$juicio->numero_credito = 12345678;
 		$juicio->juzgado_id = 10;
+		$juicio->juzgadotipo_id = 1;
 		$juicio->expediente = '2249/2017';
 		$juicio->juiciotipo_id = 2;
 		$juicio->ultima_fecha_boletin = '2019-05-13 00:00:00';
@@ -30,12 +31,20 @@ class JuicioTableSeeder extends Seeder
 		$juicio->garantia = "Garantias de Prueba";
 		$juicio->datos_rpp = "Datos RPP de prueba";
 		$juicio->otros_domicilios = "Otros domicilios de prueba";
+		$juicio->procesos_asoc = "Procesos asociados de prueba";
+		$juicio->salaapela_id = 3;
+		$juicio->toca = "Toca de prueba";
+        $juicio->autoridad_amparo = "Autoridad amparo de prueba";
+        $juicio->expediente_amparo = "Expediente amparo de prueba";
+        $juicio->autoridad_recurso_amparo = "Autoridad recurso de amparo de prueba";
+        $juicio->expediente_recurso_amparo = "Expediente recurso de amparo de prueba";
 		$juicio->save();
 
 		$juicio = new Juicio();
 		$juicio->estado_id = 2;
 		$juicio->numero_credito = 87654321;
-		$juicio->juzgado_id = 9;
+		$juicio->juzgado_id = 45;
+		$juicio->juzgadotipo_id = 2;
 		$juicio->expediente = '123/2019';
 		$juicio->juiciotipo_id = 4;
 		$juicio->ultima_fecha_boletin = '2019-05-13 00:00:00';
@@ -49,6 +58,13 @@ class JuicioTableSeeder extends Seeder
 		$juicio->garantia = "Garantias de Prueba";
 		$juicio->datos_rpp = "Datos RPP de prueba";
 		$juicio->otros_domicilios = "Otros domicilios de prueba";
+		$juicio->procesos_asoc = "Procesos asociados de prueba";
+		$juicio->salaapela_id = 1;
+		$juicio->toca = "Toca de prueba";
+        $juicio->autoridad_amparo = "Autoridad amparo de prueba";
+        $juicio->expediente_amparo = "Expediente amparo de prueba";
+        $juicio->autoridad_recurso_amparo = "Autoridad recurso de amparo de prueba";
+        $juicio->expediente_recurso_amparo = "Expediente recurso de amparo de prueba";
 		$juicio->save();
     }
 }

@@ -13,4 +13,9 @@ class Juzgado extends Model
     {
         return $this->hasOne('App\Juicio');
     }
+
+    public function juzgadotipo()
+    {
+        return $this->belongsTo('App\Juzgadotipo');
+    }
 }

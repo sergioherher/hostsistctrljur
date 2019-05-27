@@ -12,20 +12,24 @@ class JuiciotiposTableSeeder extends Seeder
      */
     public function run()
     {
-		$juztipo = new Juiciotipo();
-		$juztipo->juztipo = 'CIVIL';
-		$juztipo->save();
+		$juiciotipo = new Juiciotipo();
+		$juiciotipo->juiciotipo = 'CIVIL';
+		$juiciotipo->save();
 
-		$juztipo = new Juiciotipo();
-		$juztipo->juztipo = 'MERCANTIL';
-		$juztipo->save();
+		$juiciotipo = new Juiciotipo();
+		$juiciotipo->juiciotipo = 'MERCANTIL';
+		$juiciotipo->save();
 
-		$juztipo = new Juiciotipo();
-		$juztipo->juztipo = 'MERC. ORAL';
-		$juztipo->save();
+		$juiciotipo = new Juiciotipo();
+		$juiciotipo->juiciotipo = 'MERC. ORAL';
+		$juiciotipo->save();
 
-		$juztipo = new Juiciotipo();
-		$juztipo->juztipo = 'JURISVOL';
-		$juztipo->save();
+		$juiciotipo = new Juiciotipo();
+		$juiciotipo->juiciotipo = 'JURISVOL';
+		$juiciotipo->save();
+
+		$juiciotipo = new Juiciotipo();
+		$juiciotipo->juiciotipo = 'OTRO';
+		$juiciotipo->save();
     }
 }

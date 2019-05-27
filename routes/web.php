@@ -22,4 +22,6 @@ Route::get('/juicio/{juicio_id}', 'JuiciosController@detalleJuicio');
 
 Route::group(['middleware' => 'role:administrador'], function() {
    Route::get('/listUsers', 'ProfilesController@listUsers');
+   Route::post('/users/changeUserRoles', 'ProfilesController@changeUserRoles');
+   Route::post('/users/registerUser', 'ProfilesController@registerUser');
 });

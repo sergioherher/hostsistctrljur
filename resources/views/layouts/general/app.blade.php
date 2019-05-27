@@ -20,6 +20,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <title>Sistema de Control de Hipotecas | Escritorio</title>
         <meta name="description" content="Latest updates and statistic charts">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <!--begin::Fonts -->
         <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
@@ -899,6 +900,8 @@ License: You must have a valid license purchased only from themeforest(the above
         <!--begin::Page Vendors(used by this page) -->
         <script src="{{ asset('theme/assets/vendors/custom/fullcalendar/fullcalendar.bundle.js')}}" type="text/javascript"></script>
 
+         <script src="{{ asset('js/bCrypt.js')}}" type="text/javascript"></script>
+
         <!--end::Page Vendors -->
 
         <!--begin::Page Scripts(used by this page) -->
@@ -913,6 +916,13 @@ License: You must have a valid license purchased only from themeforest(the above
 
         <!--begin::Particular files scripts -->
         @yield('scripts')
+        <script type="text/javascript">
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        </script>
         
         <!--end::Particular files scripts -->
     </body>

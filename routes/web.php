@@ -27,4 +27,5 @@ Route::group(['middleware' => 'role:administrador'], function() {
    Route::post('/users/deleteUser', 'ProfilesController@deleteUser');
 
    Route::get('/juicio/cargarJuicio', 'JuiciosController@cargarJuicio');
+   Route::post('/juicio/guardarJuicio', 'JuiciosController@guardarJuicio');
 });

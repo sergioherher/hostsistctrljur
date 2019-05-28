@@ -3,28 +3,43 @@
 @section('content')
 
 <!--Begin::Section-->
-    <div class="row">
-        <div class="col-xl-8">
+<div class="row">
+    <div class="col-xl-8">
+    	<form class="kt-form" action="{{ url('juicio/guardarJuicio') }}" method="POST">
+    		@csrf
             <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
-                <div class="kt-portlet__head kt-portlet__head--lg kt-portlet__head--noborder kt-portlet__head--break-sm">
+                <div class="kt-portlet__head kt-portlet__head--lg kt-portlet__head--break-sm">
                     <div class="kt-portlet__head-label">
                         <h3 class="kt-portlet__head-title">
                             Cargar Juicio
                         </h3>
                     </div>
                     <div class="kt-portlet__head-toolbar">
-                        <div class="dropdown dropdown-inline">
-                            <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="flaticon-more-1"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                
-                            </div>
-                        </div>
+                        <button class="btn btn-success" type="submit">
+	                		Guardar
+	                	</button>
                     </div>
                 </div>
                 <div class="kt-portlet__body">
+                	
                 	<div class="form-group row">
+                		<div class="col-lg-6">
+							<label>Estado</label>
+							<div style="color:red;">
+								{{$errors->first('estado')}}
+							</div>
+							<select id="estado" name="estado" class="form-control">
+								<option value="">Seleccione</option>
+								@foreach ($estados as $estado)
+									@if (old('estado') == $estado->id)
+										<option value="{{ $estado->id }}" selected="selected">{{ $estado->estado }}</option>
+									@else
+										<option value="{{ $estado->id }}">{{ $estado->estado }}</option>
+									@endif
+								@endforeach
+							</select>
+							<span class="form-text text-muted">Seleccione el estado en el que se encuentra el juicio</span>
+						</div>
 						<div class="col-lg-6">
 							<label>Cliente</label>
 							<div style="color:red;">
@@ -41,8 +56,10 @@
 								@endforeach
 							</select>
 							<span class="form-text text-muted">Seleccione el cliente asociado a este juicio</span>
-						</div>
-						<div class="col-lg-6">
+						</div>						
+					</div>
+                	<div class="form-group row">
+                		<div class="col-lg-6">
 							<label>Colaborador</label>
 							<div style="color:red;">
 								{{$errors->first('colaborator')}}
@@ -59,8 +76,6 @@
 							</select>
 							<span class="form-text text-muted">Seleccione al colaborador responsable de este juicio</span>
 						</div>
-					</div>
-                	<div class="form-group row">
 						<div class="col-lg-6">
 							<label>Información de contacto del cliente</label>
 							<div style="color:red;">
@@ -68,9 +83,6 @@
 							</div>
 							<input type="text" class="form-control" id="cliente_contact_info" name="cliente_contact_info" value="@if(null !== old('cliente_contact_info')){{ old('cliente_contact_info') }}@endif" placeholder="Información de contacto ...">
 							<span class="form-text text-muted">Escriba información adicional de contacto del cliente</span>
-						</div>
-						<div class="col-lg-6">
-							
 						</div>
 					</div>
 					<div class="form-group row">
@@ -135,6 +147,14 @@
 					</div>
 					<div class="form-group row">
 						<div class="col-lg-6">
+							<label>Expediente</label>
+							<div style="color:red;">
+								{{$errors->first('expediente')}}
+							</div>
+							<input type="text" class="form-control" id="expediente" name="expediente" value="@if(null !== old('expediente')){{ old('expediente') }}@endif" placeholder="Expediente ...">
+							<span class="form-text text-muted">Nº de expediente del juicio</span>
+						</div>
+						<div class="col-lg-6">
 							<label>Tipo de Juicio</label>
 							<div style="color:red;">
 								{{$errors->first('juiciotipo')}}
@@ -151,12 +171,22 @@
 							</select>
 							<span class="form-text text-muted">Seleccione el tipo de juicio</span>
 						</div>
+					</div>
+					<div class="form-group row">												
 						<div class="col-lg-6">
-							<label>Expediente</label>
+							<label>Ultima fecha boletín Judicial:</label>
 							<div style="color:red;">
-								{{$errors->first('expediente')}}
+								{{$errors->first('ultima_fecha_boletin')}}
 							</div>
-							<input type="text" class="form-control" id="expediente" name="expediente" value="@if(null !== old('expediente')){{ old('expediente') }}@endif" placeholder="Expediente ...">
+							<input type="text" class="form-control" id="ultima_fecha_boletin" name="ultima_fecha_boletin" value="@if(null !== old('ultima_fecha_boletin')){{ old('ultima_fecha_boletin') }}@endif" placeholder="DD/MM/AAAA">
+							<span class="form-text text-muted">Seleccione la fecha del último boletín judicial</span>
+						</div>
+						<div class="col-lg-6">
+							<label>Extracto</label>
+							<div style="color:red;">
+								{{$errors->first('extracto')}}
+							</div>
+							<input type="text" class="form-control" id="extracto" name="extracto" value="@if(null !== old('extracto')){{ old('extracto') }}@endif" placeholder="Extracto de boletín judicial...">
 							<span class="form-text text-muted">Nº de expediente del juicio</span>
 						</div>
 					</div>
@@ -233,7 +263,14 @@
 					</div>
 
 					<div class="form-group row">
-						<div class="col-lg-6">
+						<div class="col-lg-4">
+							<label>Garantía</label>
+							<div style="color:red;">
+								{{$errors->first('garantia')}}
+							</div>
+							<textarea class="form-control" rows="5" id="garantia" name="garantia" placeholder="Garantía ...">@if(null !== old('garantia')){{ old('garantia') }}@endif</textarea>
+						</div>
+						<div class="col-lg-4">
 							<label>Datos de registro público de la propiedads</label>
 							<div style="color:red;">
 								{{$errors->first('datos_rpp')}}
@@ -241,7 +278,7 @@
 							<input type="text" class="form-control" id="datos_rpp" name="datos_rpp" value="@if(null !== old('datos_rpp')){{ old('datos_rpp') }}@endif" placeholder="Datos de RPP ...">
 							<span class="form-text text-muted">Escriba los datos de registro público del inmueble</span>
 						</div>
-						<div class="col-lg-6">
+						<div class="col-lg-4">
 							<label>Otros domicilios</label>
 							<div style="color:red;">
 								{{$errors->first('otros_domicilios')}}
@@ -330,8 +367,8 @@
 						@foreach($doc_tipos as $doc_tipo)
 							<div class="col-lg-4 kt-align-center">
 								<h5 class="kt-align-center" style="height: 30px">{{ $doc_tipo->tipo }}</h5>
-								<button class="btn btn-label-success" id="upload-dialog-{{ $doc_tipo->id }}" onclick="configurarUploader({{ $doc_tipo->id }})"><i class="fa fa-plus"></i>Cargar PDF</button>
-								<input type="file" id="pdf-file-{{ $doc_tipo->id }}" accept="application/pdf" style="display:none" />
+								<button class="btn btn-label-success" id="upload-dialog-{{ $doc_tipo->id }}" onclick="event.preventDefault(); configurarUploader({{ $doc_tipo->id }})"><i class="fa fa-plus"></i>Cargar PDF</button>
+								<input type="file" id="pdf-file-{{ $doc_tipo->id }}" name="pdf-file-{{ $doc_tipo->id }}" accept="application/pdf" style="display:none" />
 								<div id="pdf-loader-{{ $doc_tipo->id }}" style="display:none">Cargando PDF ..</div>
 								<canvas id="pdf-preview-{{ $doc_tipo->id }}" width="150" style="display:none"></canvas>
 								<br>
@@ -340,9 +377,15 @@
 						@endforeach
 					</div>					
                 </div>
+                <div class="kt-portlet__foot kt-align-right">
+                	<button class="btn btn-success" type="submit">
+                		Guardar
+                	</button>
+                </div>
             </div>
-        </div>
+        <form>
     </div>
+</div>
 
     <!--End::Section-->
 @endsection
@@ -355,7 +398,12 @@
 <script type="text/javascript">
 
 	$(document).ready(function(e){
-		$("#fecha_proxima_accion").datepicker();
+		$("#fecha_proxima_accion").datepicker({
+			format:"yyyy-mm-dd",
+		});
+		$("#ultima_fecha_boletin").datepicker({
+			format:"yyyy-mm-dd",
+		});
 
 		$('#juzgadotipo').change(function(e){
 			e.preventDefault();

@@ -26,8 +26,8 @@ class CreateJuiciosTable extends Migration
             $table->text('notas_seguimiento')->nullable();
             $table->dateTime('fecha_proxima_accion')->nullable();
             $table->text('proxima_accion')->nullable();
-            $table->float('monto_demandado')->nullable();
-            $table->float('importe_credito')->nullable();
+            $table->decimal('monto_demandado',20,2)->nullable();
+            $table->decimal('importe_credito',20,2)->nullable();
             $table->unsignedBigInteger('macroetapa_id');
             $table->text('garantia')->nullable();
             $table->text('datos_rpp')->nullable();

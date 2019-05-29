@@ -76,8 +76,9 @@
                                             <div class="kt-form__control">
                                                 <select class="form-control bootstrap-select" id="kt_form_status">
                                                     <option value="">Todos</option>
-                                                    <option value="activa">Activa</option>
-                                                    <option value="vencida">Vencida</option>
+                                                    @foreach($estados as $estado)
+                                                    <option value="{{ $estado->estado }}">{{ $estado->estado }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -100,49 +101,23 @@
                                 <th title="Field #3">Juzgado</th>
                                 <th title="Field #4">Última Fecha de Boletín</th>
                                 <th title="Field #5">Próxima Acción</th>
+                                <th title="Field #6">Acciones</th>
+                                <th title="Field #7">Estado</th>
                             </tr>
                         </thead>
 
                         <tbody>
+                            @foreach($juicios as $juicio)
                             <tr>
-                                <td><a href="{{url('juicios/1')}}">2249/2017</a></td>
-                                <td>ARREDONDO TIZNADO LUIS ALEJANDRO</td>
-                                <td>1C</td>
-                                <td>06/Abr/2019</td>
-                                <td>14/may/2019</td>
+                                <td><a href="{{url('juicios/'.$juicio->id)}}">{{ $juicio->expediente }}</a></td>
+                                <td>{{ $juicio->demandados()->where('codemandado', 0)->first()["name"] }}</td>
+                                <td>{{ $juicio->juzgado()->first()->juzgado }}</td>
+                                <td>{{ date("d/M/Y",strtotime($juicio->ultima_fecha_boletin)) }}</td>
+                                <td>{{ date("d/M/Y",strtotime($juicio->fecha_proxima_accion)) }}</td>
+                                <td>Acciones</td>
+                                <td>{{ $juicio->estado()->first()->estado }}</td>
                             </tr>
-
-                            <tr>
-                                <td><a href="{{url('juicios/2')}}">123/2019</a></td>
-                                <td>AVILA CARRIZALES JANETTE</td>
-                                <td>3M</td>
-                                <td>10/May/2019</td>
-                                <td>12/may/2019</td>
-                            </tr>
-
-                            <tr>
-                                <td><a href="{{url('juicios/2')}}">937/2018</a></td>
-                                <td>BECERRA CAMACHO ANTONIO </td>
-                                <td>4C</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-
-                            <tr>
-                                <td><a href="{{url('juicios/2')}}">234/2019</a></td>
-                                <td>BUCIO BEJAR J. ELI</td>
-                                <td>8C</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-
-                            <tr>
-                                <td><a href="{{url('juicios/2')}}">2349/2015</a></td>
-                                <td>BUSTOS SILVA ARMANDO </td>
-                                <td>2MO</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
+                            @endforeach
                         </tbody>
 
                     </table>

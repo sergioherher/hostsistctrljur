@@ -5,7 +5,7 @@
 <!--Begin::Section-->
 <div class="row">
     <div class="col-xl-8">
-    	<form class="kt-form" action="{{ url('juicio/guardarJuicio') }}" method="POST">
+    	<form class="kt-form" action="{{ url('juicio/guardarJuicio') }}" method="POST" enctype="multipart/form-data">
     		@csrf
             <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
                 <div class="kt-portlet__head kt-portlet__head--lg kt-portlet__head--break-sm">
@@ -368,7 +368,7 @@
 							<div class="col-lg-4 kt-align-center">
 								<h5 class="kt-align-center" style="height: 30px">{{ $doc_tipo->tipo }}</h5>
 								<button class="btn btn-label-success" id="upload-dialog-{{ $doc_tipo->id }}" onclick="event.preventDefault(); configurarUploader({{ $doc_tipo->id }})"><i class="fa fa-plus"></i>Cargar PDF</button>
-								<input type="file" id="pdf-file-{{ $doc_tipo->id }}" name="pdf-file-{{ $doc_tipo->id }}" accept="application/pdf" style="display:none" />
+								<input type="file" id="pdf-file-{{ $doc_tipo->id }}" name="pdf_file_{{ $doc_tipo->id }}" accept="application/pdf" style="display:none" />
 								<div id="pdf-loader-{{ $doc_tipo->id }}" style="display:none">Cargando PDF ..</div>
 								<canvas id="pdf-preview-{{ $doc_tipo->id }}" width="150" style="display:none"></canvas>
 								<br>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Juicio, App\Colaborator, App\Juzgado, App\Juiciotipo, App\Macroetapa, App\DocTipo, App\User, App\Estado, App\Salaapela, App\Juzgadotipo;
+use App\Juicio, App\Colaborator, App\Juzgado, App\Juiciotipo, App\Macroetapa, App\DocTipo, App\User, App\Estado, App\Salaapela, App\Juzgadotipo, App\Juiciouser, App\Demandado, App\DocJuicio;
 use Validator;
 
 class JuiciosController extends Controller
@@ -142,8 +142,8 @@ class JuiciosController extends Controller
             $colaborador = $request->input("colaborator");
             $cliente_contact_info = $request->input("cliente_contact_info");
             $numero_credito = $request->input("numero_credito");
-            $demandado = $request->input("demandado");
-            $codemandado = $request->input("codemandado");
+            $demandado_name = $request->input("demandado");
+            $codemandado_name = $request->input("codemandado");
             $juzgadotipo = $request->input("juzgadotipo");
             $juzgado = $request->input("juzgado");
             $juiciotipo = $request->input("juiciotipo");
@@ -200,7 +200,7 @@ class JuiciosController extends Controller
                 $user_cliente = User::find($cliente)->first();
                 $user_colaborador = User::find($colaborador)->first();
 
-                $juiciousuario = new Juiciousuario;
+                $juiciousuario = new Juiciouser;
                 $juiciousuario->juicio_id = $juicio->id;
                 $juiciousuario->user_id = $cliente;
                 $juiciousuario->user_name = $user_cliente->name;
@@ -208,7 +208,7 @@ class JuiciosController extends Controller
                 $juiciousuario->role_id = $user_cliente->roles()->first()->id;
                 $juiciousuario->save();
 
-                $juiciousuario = new Juiciousuario;
+                $juiciousuario = new Juiciouser;
                 $juiciousuario->juicio_id = $juicio->id;
                 $juiciousuario->user_id = $colaborador;
                 $juiciousuario->user_name = $user_colaborador->name;
@@ -217,22 +217,23 @@ class JuiciosController extends Controller
 
                 $demandado = new Demandado;
                 $demandado->juicio_id = $juicio->id;
-                $demandado->name = $demandado;
+                $demandado->name = $demandado_name;
                 $demandado->codemandado = 0;
                 $demandado->save();
 
-                if($codemandado != "") {
-                    $demandado = new Demandado;
-                    $demandado->juicio_id = $juicio->id;
-                    $demandado->name = $codemandado;
-                    $demandado->codemandado = 1;
-                    $demandado->save();
+                if($codemandado_name != "") {
+                    $codemandado = new Demandado;
+                    $codemandado->juicio_id = $juicio->id;
+                    $codemandado->name = $codemandado_name;
+                    $codemandado->codemandado = 1;
+                    $codemandado->save();
                 }
 
-                if ($request->hasFile('pdf-file-1') && $request->file('pdf-file-1')->isValid()) {
+                if ($request->hasFile('pdf_file_1') && $request->file('pdf_file_1')->isValid()) {
 
-                    $filename_fundatorio = $juicio->id."/fundatorio-".$juicio->id.".pdf";
-                    if($request->file('pdf-file-1')->store($filename_fundatorio, 'juicios')) {
+                    $filename_fundatorio = "fundatorio-".$juicio->id.".pdf";
+
+                    if($request->file('pdf_file_1')->storeAs($juicio->id, $filename_fundatorio, 'juicios')) {
                         $documento = new DocJuicio;
                         $documento->ruta_archivo = $filename_fundatorio;
                         $documento->juicio_id = $juicio->id;
@@ -241,10 +242,11 @@ class JuiciosController extends Controller
                     }
                 }
 
-                if ($request->hasFile('pdf-file-2') && $request->file('pdf-file-2')->isValid()) {
+                if ($request->hasFile('pdf_file_2') && $request->file('pdf_file_2')->isValid()) {
 
-                    $filename_expediente = $juicio->id."/expediente-".$juicio->id.".pdf";
-                    if($request->file('pdf-file-2')->store($filename_expediente, 'juicios')) {
+                    $filename_expediente = "expediente-".$juicio->id.".pdf";
+                    
+                    if($request->file('pdf_file_2')->storeAs($juicio->id, $filename_expediente, 'juicios')) {
                         $documento = new DocJuicio;
                         $documento->ruta_archivo = $filename_expediente;
                         $documento->juicio_id = $juicio->id;
@@ -253,10 +255,11 @@ class JuiciosController extends Controller
                     }
                 }
 
-                if ($request->hasFile('pdf-file-3') && $request->file('pdf-file-3')->isValid()) {
+                if ($request->hasFile('pdf_file_3') && $request->file('pdf_file_3')->isValid()) {
 
-                    $filename_otros = $juicio->id."/otros-".$juicio->id.".pdf";
-                    if($request->file('pdf-file-3')->store($filename_otros, 'juicios')){
+                    $filename_otros = "otros-".$juicio->id.".pdf";
+                    
+                    if($request->file('pdf_file_3')->storeAs($juicio->id, $filename_otros, 'juicios')){
                         $documento = new DocJuicio;
                         $documento->ruta_archivo = $filename_otros;
                         $documento->juicio_id = $juicio->id;

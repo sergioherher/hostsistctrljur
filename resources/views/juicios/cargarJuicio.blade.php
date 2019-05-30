@@ -92,7 +92,7 @@
 								{{$errors->first('numero_credito')}}
 							</div>
 							<input type="text" class="form-control" id="numero_credito" name="numero_credito" value="@if(null !== old('numero_credito')){{ old('numero_credito') }}@endif" placeholder="Nº Crédito ...">
-							<span class="form-text text-muted">Escriba el nombre del demandado en este juicio</span>
+							<span class="form-text text-muted">Escriba el numero de crédito de ser el caso</span>
 						</div>
 						<div class="col-lg-6">
 							<label>Demandado</label>
@@ -428,6 +428,14 @@
 			$("#undo-upload-"+undo_upload_id).hide();
 			$("#upload-dialog-"+undo_upload_id).show();
 		});
+
+		$("#monto_demandado").inputmask('decimal', {
+            rightAlignNumerics: false
+        }); 
+
+        $("#importe_credito").inputmask('decimal', {
+            rightAlignNumerics: false
+        });
 	});
 
 	// load the PDF

@@ -1,143 +1,88 @@
 @extends('layouts.general.app')
 
 @section('content')
-<style type="text/css">
-	.file-upload {
-	  background-color: #ffffff;
-	  width: 100%;
-	  margin: 0 auto;
-	  padding: 20px;
-	}
 
-	.file-upload-btn {
-	  width: 100%;
-	  margin: 0;
-	  color: #fff;
-	  background: #34bfa3;
-	  border: none;
-	  padding: 10px;
-	  border-radius: 4px;
-	  border-bottom: 2px solid #22b9ff;
-	  transition: all .2s ease;
-	  outline: none;
-	  font-weight: 700;
-	}
-
-	.file-upload-btn:hover {
-	  background: #22b9ff;
-	  color: #ffffff;
-	  transition: all .2s ease;
-	  cursor: pointer;
-	}
-
-	.file-upload-btn:active {
-	  border: 0;
-	  transition: all .2s ease;
-	}
-
-	.file-upload-content {
-	  display: none;
-	  text-align: center;
-	}
-
-	.file-upload-input {
-	  position: absolute;
-	  margin: 0;
-	  padding: 0;
-	  width: 100%;
-	  height: 100%;
-	  outline: none;
-	  opacity: 0;
-	  cursor: pointer;
-	}
-
-	.file-upload-image {
-	  max-height: 200px;
-	  max-width: 200px;
-	  margin: auto;
-	  padding: 20px;
-	}
-
-	.remove-image {
-	  width: 200px;
-	  margin: 0;
-	  color: #fff;
-	  background: #cd4535;
-	  border: none;
-	  padding: 10px;
-	  border-radius: 4px;
-	  border-bottom: 4px solid #b02818;
-	  transition: all .2s ease;
-	  outline: none;
-	  text-transform: uppercase;
-	  font-weight: 700;
-	}
-
-	.remove-image:hover {
-	  background: #c13b2a;
-	  color: #ffffff;
-	  transition: all .2s ease;
-	  cursor: pointer;
-	}
-
-	.remove-image:active {
-	  border: 0;
-	  transition: all .2s ease;
-	}
-</style>
 <!--Begin::Section-->
-    <div class="row">
-        <div class="col-xl-8">
+<div class="row">
+    <div class="col-xl-8">
+    	<form class="kt-form" action="{{ url('juicio/guardarJuicio') }}" method="POST" enctype="multipart/form-data">
+    		@csrf
             <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
-                <div class="kt-portlet__head kt-portlet__head--lg kt-portlet__head--noborder kt-portlet__head--break-sm">
+                <div class="kt-portlet__head kt-portlet__head--lg kt-portlet__head--break-sm">
                     <div class="kt-portlet__head-label">
                         <h3 class="kt-portlet__head-title">
-                            Juicio {{ $juicio->expediente }} - Demandado: 
-                            @foreach($demandados as $key => $demandado) 
-                            	@if($demandado->codemandado == 0)
-                            		{{ $demandado->name }}
-                            	@endif
-							@endforeach
+                            Cargar Juicio
                         </h3>
                     </div>
                     <div class="kt-portlet__head-toolbar">
-                        <div class="dropdown dropdown-inline">
-                            <button type="button" class="btn btn-clean btn-sm btn-icon btn-icon-md" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="flaticon-more-1"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                
-                            </div>
-                        </div>
+                        <button class="btn btn-success" type="submit">
+	                		Guardar
+	                	</button>
                     </div>
                 </div>
                 <div class="kt-portlet__body">
+                	
                 	<div class="form-group row">
+                		<div class="col-lg-6">
+							<label>Estado</label>
+							<div style="color:red;">
+								{{$errors->first('estado')}}
+							</div>
+							<select id="estado" name="estado" class="form-control" @role("colaborador") disabled @endrole>
+								<option value="">Seleccione</option>
+								@foreach ($estados as $estad)
+									@if (old('estado') == $estad->id || $estado->id == $estad->id)
+										<option value="{{ $estad->id }}" selected="selected">{{ $estad->estado }}</option>
+									@else
+										<option value="{{ $estad->id }}">{{ $estad->estado }}</option>
+									@endif
+								@endforeach
+							</select>
+							<span class="form-text text-muted">Seleccione el estado en el que se encuentra el juicio</span>
+						</div>
 						<div class="col-lg-6">
 							<label>Cliente</label>
 							<div style="color:red;">
 								{{$errors->first('cliente')}}
 							</div>
-							<input autofocus type="text" class="form-control" id="cliente" name="cliente" value="@if(null !== old('cliente')){{ old('cliente') }}@else{{ $cliente->name }}@endif" placeholder="Nombre de cliente ...">
-							<input type="hidden" name="cliente_id" value="">
-							<span class="form-text text-muted">Si desea agregar el cliente a la base de datos seleccione la opción añadir</span>
-						</div>
-						<div class="col-lg-6">
-							<label>Interno</label>
+							<select id="cliente" name="cliente" class="form-control" @role("colaborador") disabled @endrole>
+								<option value="">Seleccione</option>
+								@foreach ($clientes as $client)
+									@if (old('cliente') == $client->id || $cliente->id == $client->id)
+										<option value="{{ $client->id }}" selected="selected">{{ $client->name }}</option>
+									@else
+										<option value="{{ $client->id }}">{{ $client->name }}</option>
+									@endif
+								@endforeach
+							</select>
+							<span class="form-text text-muted">Seleccione el cliente asociado a este juicio</span>
+						</div>						
+					</div>
+                	<div class="form-group row">
+                		<div class="col-lg-6">
+							<label>Colaborador</label>
 							<div style="color:red;">
 								{{$errors->first('colaborator')}}
 							</div>
-							<select id="colaborator" name="colaborator" class="form-control">
+							<select id="colaborator" name="colaborator" class="form-control" @role("colaborador") disabled @endrole>
 								<option value="">Seleccione</option>
 								@foreach ($colaborators as $colaborat)
-									@if (old('colaborat') == $colaborat->id || $colaborator->id == $colaborat->id)
-										<option value="{{ $colaborat->name }}" selected="selected">{{ $colaborat->name }}</option>
+									@if (old('colaborator') == $colaborat->id || $colaborator->id )
+										<option value="{{ $colaborat->id }}" selected="selected">{{ $colaborat->name }}</option>
 									@else
-										<option value="{{ $colaborat->name }}">{{ $colaborat->name }}</option>
+										<option value="{{ $colaborat->id }}">{{ $colaborat->name }}</option>
 									@endif
 								@endforeach
 							</select>
 							<span class="form-text text-muted">Seleccione al colaborador responsable de este juicio</span>
+						</div>
+						<div class="col-lg-6">
+							<label>Información de contacto del cliente</label>
+							<div style="color:red;">
+								{{$errors->first('cliente_contact_info')}}
+							</div>
+							<input type="text" class="form-control" id="cliente_contact_info" name="cliente_contact_info" value="@if(null !== old('cliente_contact_info')){{ old('cliente_contact_info') }}@else{{ $juicio->cliente_contact_info }}@endif" placeholder="Información de contacto ...">
+							<span class="form-text text-muted">Escriba información adicional de contacto del cliente</span>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -146,61 +91,113 @@
 							<div style="color:red;">
 								{{$errors->first('numero_credito')}}
 							</div>
-							<input type="text" class="form-control" id="numero_credito" name="numero_credito" value="@if(null !== old('numero_credito')){{ old('numero_credito') }}@else{{ $juicio->numero_credito }}@endif" placeholder="Nº Crédito ...">
-							<span class="form-text text-muted">Escriba el nombre del demandado en este juicio</span>
+							<input type="text" class="form-control" id="numero_credito" name="numero_credito" value="@if(null !== old('numero_credito')){{ old('numero_credito') }}}@else{{ $juicio->numero_credito }}@endif" placeholder="Nº Crédito ...">
+							<span class="form-text text-muted">Escriba el numero de crédito de ser el caso</span>
 						</div>
 						<div class="col-lg-6">
-							@foreach($demandados as $key => $demandado)
-							<label>@if($demandado->codemandado == 1) Codemandado @else Demandado @endif</label>
-							<div style="color:red;">
-								{{$errors->first('intern')}}
-							</div>
-							<input type="text" class="form-control" id="demandados[]" name="demandados[]" value="@if(null !== old('demandado')){{ old('demandado') }}@else{{ $demandado->name }}@endif" placeholder="Nº Crédito ...">
-							<span class="form-text text-muted">Escriba el nombre del codemandado en este juicio</span>
+							@foreach($demandados as $demandado)
+								@if($demandado->codemandado == 0)
+									<label>Demandado</label>
+									<div style="color:red;">
+										{{$errors->first('demandado')}}
+									</div>
+									<input type="text" class="form-control" id="demandado" name="demandado" value="@if(null !== old('demandado')){{ old('demandado') }}@else{{ $demandado->name }}@endif" placeholder="Demandado...">
+									<span class="form-text text-muted">Escriba el nombre del demandado en este juicio</span>
+									<label>Codemandado</label>
+									<div style="color:red;">
+										{{$errors->first('codemandado')}}
+									</div>
+									<input type="text" class="form-control" id="codemandado" name="codemandado" value="@if(null !== old('codemandado')){{ old('codemandado') }}@endif" placeholder="Codemandado...">
+									<span class="form-text text-muted">Escriba el nombre del codemandado en este juicio</span>
+								@else
+									<label>Codemandado</label>
+									<div style="color:red;">
+										{{$errors->first('codemandado')}}
+									</div>
+									<input type="text" class="form-control" id="codemandado" name="codemandado" value="@if(null !== old('codemandado')){{ old('codemandado') }}@else{{ $demandado->name }}@endif" placeholder="Codemandado...">
+									<span class="form-text text-muted">Escriba el nombre del codemandado en este juicio</span>
+								@endif
 							@endforeach
 						</div>
 					</div>
 					<div class="form-group row">
-						<div class="col-lg-4">
+						<div class="col-lg-6">
+							<label>Tipo de Juzgado</label>
+							<div style="color:red;">
+								{{$errors->first('juzgadotipo')}}
+							</div>
+							<select id="juzgadotipo" name="juzgadotipo" class="form-control">
+								<option value="">Seleccione</option>
+								@foreach ($juzgadotipos as $juzgadotip)
+									@if (old('juzgadotipo') == $juzgadotip->id || $juzgadotipo->id == $juzgadotip->id)
+										<option value="{{ $juzgadotip->id }}" selected="selected">{{ $juzgadotip->juztipo }}</option>
+									@else
+										<option value="{{ $juzgadotip->id }}">{{ $juzgadotip->juztipo }}</option>
+									@endif
+								@endforeach
+							</select>
+							<span class="form-text text-muted">Seleccione el tipo de juzgado donde se desarrolla el juicio</span>
+						</div>
+						<div class="col-lg-6">
 							<label>Juzgado</label>
 							<div style="color:red;">
 								{{$errors->first('juzgado')}}
 							</div>
-							<select id="juzgado" name="juzgado" class="form-control">
+							<select id="juzgado" name="juzgado" class="form-control" >
 								<option value="">Seleccione</option>
-								@foreach ($juzgados as $juzga)
-									@if (old('juzgado') == $juzga->id || $juzgado->id == $juzga->id)
-										<option value="{{ $juzga->id }}" selected="selected">{{ $juzga->juzgado }}</option>
+								@foreach ($juzgados as $juzgad)
+									@if (old('juzgado') == $juzgad->id || $juzgad->id == $juzgado->id)
+										<option value="{{ $juzgad->id }}" data-id="{{ $juzgad->juzgadotipo_id }}" selected="selected">{{ $juzgad->juzgado }}</option>
 									@else
-										<option value="{{ $juzga->id }}">{{ $juzga->juzgado }}</option>
+										<option value="{{ $juzgad->id }}" data-id="{{ $juzgad->juzgadotipo_id }}" >{{ $juzgad->juzgado }}</option>
 									@endif
 								@endforeach
 							</select>
-							<span class="form-text text-muted">Seleccione el juzgado donde se desarrolla el juicio</span>
+							<span class="form-text text-muted">Para habilitar este campo debe seleccionar primero un tipo de juzgado</span>
 						</div>
-						<div class="col-lg-4">
+					</div>
+					<div class="form-group row">
+						<div class="col-lg-6">
+							<label>Expediente</label>
+							<div style="color:red;">
+								{{$errors->first('expediente')}}
+							</div>
+							<input type="text" class="form-control" id="expediente" name="expediente" value="@if(null !== old('expediente')){{ old('expediente') }}@else{{ $juicio->expediente }}@endif" placeholder="Expediente ...">
+							<span class="form-text text-muted">Nº de expediente del juicio</span>
+						</div>
+						<div class="col-lg-6">
 							<label>Tipo de Juicio</label>
 							<div style="color:red;">
 								{{$errors->first('juiciotipo')}}
 							</div>
 							<select id="juiciotipo" name="juiciotipo" class="form-control">
 								<option value="">Seleccione</option>
-								@foreach ($juiciotipos as $juiciotip)
-									@if (old('juiciotip') == $juiciotip->id || $juiciotipo->id == $juiciotip->id)
-										<option value="{{ $juiciotip->id }}" selected="selected">{{ $juiciotip->juiciotipo }}</option>
+								@foreach ($juiciotipos as $juiciotipo)
+									@if (old('juiciotipo') == $juiciotipo->id)
+										<option value="{{ $juiciotipo->id }}" selected="selected">{{ $juiciotipo->juiciotipo }}</option>
 									@else
-										<option value="{{ $juiciotip->id }}">{{ $juiciotip->juiciotipo }}</option>
+										<option value="{{ $juiciotipo->id }}">{{ $juiciotipo->juiciotipo }}</option>
 									@endif
 								@endforeach
 							</select>
-							<span class="form-text text-muted">Seleccione el juzgado donde se desarrolla el juicio</span>
+							<span class="form-text text-muted">Seleccione el tipo de juicio</span>
 						</div>
-						<div class="col-lg-4">
-							<label>Expediente</label>
+					</div>
+					<div class="form-group row">												
+						<div class="col-lg-6">
+							<label>Ultima fecha boletín Judicial:</label>
 							<div style="color:red;">
-								{{$errors->first('juzgado')}}
+								{{$errors->first('ultima_fecha_boletin')}}
 							</div>
-							<input type="text" class="form-control" id="expediente" name="expediente" value="@if(null !== old('expediente')){{ old('expediente') }}@else{{ $juicio->expediente }}@endif" placeholder="Expediente ...">
+							<input type="text" class="form-control" id="ultima_fecha_boletin" name="ultima_fecha_boletin" value="@if(null !== old('ultima_fecha_boletin')){{ old('ultima_fecha_boletin') }}@else{{ $juicio->ultima_fecha_boletin }}@endif" placeholder="DD/MM/AAAA">
+							<span class="form-text text-muted">Seleccione la fecha del último boletín judicial</span>
+						</div>
+						<div class="col-lg-6">
+							<label>Extracto</label>
+							<div style="color:red;">
+								{{$errors->first('extracto')}}
+							</div>
+							<input type="text" class="form-control" id="extracto" name="extracto" value="@if(null !== old('extracto')){{ old('extracto') }}@else{{ $juicio->extracto }}@endif" placeholder="Extracto de boletín judicial...">
 							<span class="form-text text-muted">Nº de expediente del juicio</span>
 						</div>
 					</div>
@@ -228,7 +225,7 @@
 							<div style="color:red;">
 								{{$errors->first('proxima_accion')}}
 							</div>
-							<textarea class="form-control" rows="5" id="notas_seguimiento" name="notas_seguimiento" placeholder="Próxima acción ...">@if(null !== old('proxima_accion')){{ old('proxima_accion') }}@else{{ $juicio->proxima_accion }}@endif</textarea>
+							<textarea class="form-control" rows="5" id="proxima_accion" name="proxima_accion" placeholder="Próxima acción ...">@if(null !== old('proxima_accion')){{ old('proxima_accion') }}@else{{ $juicio->proxima_accion }}@endif</textarea>
 							<span class="form-text text-muted">Escriba la próxima acción a ejecutar</span>
 						</div>
 					</div>
@@ -277,21 +274,96 @@
 					</div>
 
 					<div class="form-group row">
-						<div class="col-lg-6">
+						<div class="col-lg-4">
+							<label>Garantía</label>
+							<div style="color:red;">
+								{{$errors->first('garantia')}}
+							</div>
+							<textarea class="form-control" rows="5" id="garantia" name="garantia" placeholder="Garantía ...">@if(null !== old('garantia')){{ old('garantia') }}@endif</textarea>
+						</div>
+						<div class="col-lg-4">
 							<label>Datos de registro público de la propiedads</label>
 							<div style="color:red;">
 								{{$errors->first('datos_rpp')}}
 							</div>
-							<input type="text" class="form-control" id="datos_rpp" name="datos_rpp" value="@if(null !== old('datos_rpp')){{ old('datos_rpp') }}@else{{ $juicio->datos_rpp }}@endif" placeholder="Datos de RPP ...">
+							<input type="text" class="form-control" id="datos_rpp" name="datos_rpp" value="@if(null !== old('datos_rpp')){{ old('datos_rpp') }}}@else{{ $juicio->datos_rpp }}@endif" placeholder="Datos de RPP ...">
 							<span class="form-text text-muted">Escriba los datos de registro público del inmueble</span>
 						</div>
-						<div class="col-lg-6">
+						<div class="col-lg-4">
 							<label>Otros domicilios</label>
 							<div style="color:red;">
 								{{$errors->first('otros_domicilios')}}
 							</div>
 							<textarea class="form-control" rows="5" id="otros_domicilios" name="otros_domicilios" placeholder="Domiciolios ...">@if(null !== old('otros_domicilios')){{ old('otros_domicilios') }}@else{{ $juicio->otros_domicilios }}@endif</textarea>
 							<span class="form-text text-muted">Escirba los datos de algún otro domicilio del demandado</span>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<div class="col-lg-4">
+							<label>Procesos asociados</label>
+							<div style="color:red;">
+								{{$errors->first('procesos_asociados')}}
+							</div>
+							<input type="text" class="form-control" id="procesos_asociados" name="procesos_asociados" value="@if(null !== old('procesos_asociados')){{ old('procesos_asociados') }}@else{{ $juicio->procesos_asociados }}@endif" placeholder="Procesos asociados ...">
+							<span class="form-text text-muted">Escriba procesos asociados al presente juicio</span>
+						</div>
+						<div class="col-lg-4">
+							<label>Sala de Apelación</label>
+							<div style="color:red;">
+								{{$errors->first('sala_apelacion')}}
+							</div>
+							<select id="salaapela" name="salaapela" class="form-control">
+								@foreach ($salaapelas as $salaapel)
+									@if (old('salaapela') == $salaapel->id || $salaapel->id == $salaapela->id)
+										<option value="{{ $salaapel->id }}" selected="selected">{{ $salaapel->sala }}</option>
+									@else
+										<option value="{{ $salaapel->id }}">{{ $salaapel->sala }}</option>
+									@endif
+								@endforeach
+							</select>
+							<span class="form-text text-muted">Seleccione la sala de apelación en la que se encuentra el juicio</span>
+						</div>
+						<div class="col-lg-4">
+							<label>Toca:</label>
+							<div style="color:red;">
+								{{$errors->first('toca')}}
+							</div>
+							<input type="text" class="form-control" id="toca" name="toca" value="@if(null !== old('toca')){{ old('toca') }}@else{{ $juicio->toca }}@endif" placeholder="Toca ...">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<div class="col-lg-6">
+							<label>Autoridad Amparo</label>
+							<div style="color:red;">
+								{{$errors->first('autoridad_amparo')}}
+							</div>
+							<input type="text" class="form-control" id="autoridad_amparo" name="autoridad_amparo" value="@if(null !== old('autoridad_amparo')){{ old('autoridad_amparo') }}@else{{ $juicio->autoridad_amparo }}@endif" placeholder="Autoridad amparo ...">
+						</div>
+						<div class="col-lg-6">
+							<label>Expediente Amparo</label>
+							<div style="color:red;">
+								{{$errors->first('expediente_amparo')}}
+							</div>
+							<input type="text" class="form-control" id="expediente_amparo" name="expediente_amparo" value="@if(null !== old('expediente_amparo')){{ old('expediente_amparo') }}@else{{ $juicio->expediente_amparo }}@endif" placeholder="Expediente amparo ...">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<div class="col-lg-6">
+							<label>Autoridad Recurso de Amparo</label>
+							<div style="color:red;">
+								{{$errors->first('autoridad_recurso_amparo')}}
+							</div>
+							<input type="text" class="form-control" id="autoridad_recurso_amparo" name="autoridad_recurso_amparo" value="@if(null !== old('autoridad_recurso_amparo')){{ old('autoridad_recurso_amparo') }}@else{{ $juicio->autoridad_recurso_amparo }}@endif" placeholder="Autoridad Recurso de Amparo ...">
+						</div>
+						<div class="col-lg-6">
+							<label>Expediente Recurso de Amparo</label>
+							<div style="color:red;">
+								{{$errors->first('expediente_recurso_amparo')}}
+							</div>
+							<input type="text" class="form-control" id="expediente_recurso_amparo" name="expediente_recurso_amparo" value="@if(null !== old('expediente_recurso_amparo')){{ old('expediente_recurso_amparo') }}@else{{ $juicio->expediente_recurso_amparo }}@endif" placeholder="Expediente Recurso de Amparo ...">
 						</div>
 					</div>
 
@@ -304,39 +376,27 @@
 
 					<div class="form-group row">
 						@foreach($doc_tipos as $doc_tipo)
-							<div class="col-lg-4">
-								<h6 class="kt-align-center">{{ $doc_tipo->tipo }}</h6>
-								<div class="file-upload">
-									<button class="file-upload-btn" type="button" onclick="$('#file-upload-input-{{ $doc_tipo->id }}').trigger( 'click' )">Cargar Documento</button>
-
-									<div class="image-upload-wrap">
-										<input class="file-upload-input" id="file-upload-input-{{ $doc_tipo->id }}" type='file' onchange="readURL(this);" accept="pdf/*" style="display: none;" />
-									</div>
-									<div class="file-upload-content" id="file-upload-content-{{ $doc_tipo->id }}">
-									    <img class="file-upload-image" id="file-upload-image-{{ $doc_tipo->id }}" src="#" alt="your image" />
-									    <div class="image-title-wrap" id="image-title-wrap-{{ $doc_tipo->id }}">
-									      <button type="button" class="remove-image" id="remove-image-{{ $doc_tipo->id }}" onclick="event.preventDefault(); removeUpload(this);">Eliminar <span class="image-title" id="image-title-{{ $doc_tipo->id }}">Imagen cargada</span></button>
-									    </div>
-									</div>
-								</div>
-								@foreach($documentos as $documento)
-									@if($documento->doc_tipo_id == $doc_tipo->id)
-									<div class="row">
-										<div class="col-12">
-											<a href="{{ $documento->ruta_archivo }}">{{ $documento->ruta_archivo }}</a>
-										</div>
-									</div>
-									@endif
-								@endforeach
+							<div class="col-lg-4 kt-align-center">
+								<h5 class="kt-align-center" style="height: 30px">{{ $doc_tipo->tipo }}</h5>
+								<button class="btn btn-label-success" id="upload-dialog-{{ $doc_tipo->id }}" onclick="event.preventDefault(); configurarUploader({{ $doc_tipo->id }})"><i class="fa fa-plus"></i>Cargar PDF</button>
+								<input type="file" id="pdf-file-{{ $doc_tipo->id }}" name="pdf_file_{{ $doc_tipo->id }}" accept="application/pdf" style="display:none" />
+								<div id="pdf-loader-{{ $doc_tipo->id }}" style="display:none">Cargando PDF ..</div>
+								<canvas id="pdf-preview-{{ $doc_tipo->id }}" width="150" style="display:none"></canvas>
+								<br>
+								<button class="btn btn-label-danger undo-upload" id="undo-upload-{{ $doc_tipo->id }}" style="display:none"><i class="fa fa-times"></i> Deshacer</button>
 							</div>
 						@endforeach
-					</div>
-
-					
+					</div>					
+                </div>
+                <div class="kt-portlet__foot kt-align-right">
+                	<button class="btn btn-success" type="submit">
+                		Guardar
+                	</button>
                 </div>
             </div>
-        </div>
+        <form>
     </div>
+</div>
 
     <!--End::Section-->
 @endsection
@@ -348,39 +408,154 @@
 <script type="text/javascript" src="{{asset('js/datatables/juicios-html.js')}}"></script>
 <script type="text/javascript">
 
-	function readURL(input) {
-
-		var array_id = input.id.split('-');
-		var id = array_id[3];
-
-		if (input.files && input.files[0]) {
-
-		    var reader = new FileReader();
-
-		    reader.onload = function(e) {
-				$('#file-upload-image-'+id).attr('src', e.target.result);
-				$('#file-upload-content-'+id).show();
-				$('#image-title-'+id).html(input.files[0].name);
-		    };
-
-		    reader.readAsDataURL(input.files[0]);
-
-		  } else {
-		    removeUpload($("#remove-image-"+id));
-		  }
-	}
-
-	function removeUpload(boton) {
-		alert(boton.id);
-		var array_id = boton.id.split('-');
-		var id = array_id[2];
-	  	$('#file-upload-input-'+id).replaceWith($('#file-upload-input-'+id).clone());
-	  	$('#file-upload-content-'+id).hide();
-	}
-
 	$(document).ready(function(e){
-		$("#fecha_proxima_accion").datepicker();
+		$("#fecha_proxima_accion").datepicker({
+			format:"yyyy-mm-dd",
+		});
+		$("#ultima_fecha_boletin").datepicker({
+			format:"yyyy-mm-dd",
+		});
+
+		$('#juzgadotipo').change(function(e){
+			e.preventDefault();
+			var tipojuzgado = $("#juzgadotipo").val();
+			if(tipojuzgado != "") {
+				$("#juzgado option").show();
+				$("#juzgado option[data-id!=" + tipojuzgado + "]").hide();
+				$("#juzgado").attr("disabled", false);
+			} else {
+				$("#juzgado option").show();
+				$("#juzgado").attr("disabled", true);
+				$("#juzgado").val("");
+			}
+		});
+
+		$(".undo-upload").click(function(e){
+			e.preventDefault();
+			var array_undo_upload_id = this.id.split("-");
+			var undo_upload_id = array_undo_upload_id[2];
+			$("#pdf-file-"+undo_upload_id).val("").hide();
+			$("#pdf-preview-"+undo_upload_id).hide().html("");
+			$("#undo-upload-"+undo_upload_id).hide();
+			$("#upload-dialog-"+undo_upload_id).show();
+		});
+
+		$("#monto_demandado").inputmask('decimal', {
+            rightAlignNumerics: false
+        }); 
+
+        $("#importe_credito").inputmask('decimal', {
+            rightAlignNumerics: false
+        });
 	});
+
+	// load the PDF
+	function showPDF(pdf_url, _PDF_DOC, _CANVAS, identificador) {
+
+		var _CANVAS_SHOW_PDF = _CANVAS;
+		var _PDF_DOC_SHOW_PDF = _PDF_DOC;
+		var identificador_SHOW_PDF = identificador
+
+	    pdfjsLib.getDocument({ url: pdf_url }).then(function(pdf_doc) {
+	        _PDF_DOC_SHOW_PDF = pdf_doc;
+
+	        // show the first page of PDF
+	        showPage(1, _PDF_DOC_SHOW_PDF, _CANVAS_SHOW_PDF, identificador_SHOW_PDF);
+
+	        // destroy previous object url
+	        URL.revokeObjectURL(pdf_url);
+	    }).catch(function(error) {
+	        // error reason
+	        alert(error.message);
+	    });;
+	}
+
+	// show page of PDF
+	function showPage(page_no, _PDF_DOC, _CANVAS, identificador) {
+
+		var _CANVAS_SHOW_PAGE = _CANVAS;
+		var _PDF_DOC_SHOW_PAGE = _PDF_DOC;
+		var identificador_SHOW_PAGE = identificador
+
+	    _PDF_DOC_SHOW_PAGE.getPage(page_no).then(function(page){
+	        // set the scale of viewport
+	        var scale_required = _CANVAS_SHOW_PAGE.width / page.getViewport(1).width;
+
+	        // get viewport of the page at required scale
+	        var viewport = page.getViewport(scale_required);
+
+	        // set canvas height
+	        _CANVAS_SHOW_PAGE.height = viewport.height;
+
+	        var renderContext = {
+	            canvasContext: _CANVAS_SHOW_PAGE.getContext('2d'),
+	            viewport: viewport
+	        };
+
+	        var identificador_SHOW_PAGE_render = identificador_SHOW_PAGE;
+	        
+	        // render the page contents in the canvas
+	        page.render(renderContext).then(function() {
+	            document.querySelector("#pdf-preview-"+identificador_SHOW_PAGE_render).style.display = 'inline-block';
+	            document.querySelector("#undo-upload-"+identificador_SHOW_PAGE_render).style.display = 'inline-block';
+	            document.querySelector("#pdf-loader-"+identificador_SHOW_PAGE_render).style.display = 'none';
+	        });
+	    });
+	}
+
+	function configurarUploader(id) {
+
+		var identificador = id;
+
+		// will hold the PDF handle returned by PDF.JS API
+		var _PDF_DOC;
+
+		// PDF.JS renders PDF in a <canvas> element
+		var _CANVAS = document.querySelector('#pdf-preview-'+identificador);
+
+		// will hold object url of chosen PDF
+		var _OBJECT_URL;
+
+
+		document.querySelector("#pdf-file-"+identificador).click();
+		
+		/* when users selects a file */
+		document.querySelector("#pdf-file-"+identificador).addEventListener('change', function() {
+		    // user selected PDF
+		    var file = this.files[0];
+
+		    // allowed MIME types
+		    var mime_types = [ 'application/pdf' ];
+		    
+		    // validate whether PDF
+		    if(mime_types.indexOf(file.type) == -1) {
+		        alert('Error : Incorrect file type');
+		        return;
+		    }
+
+		    // validate file size
+		    if(file.size > 10*1024*1024) {
+		        alert('Error : Exceeded size 10MB');
+		        return;
+		    }
+
+		    // validation is successful
+
+		    // hide upload dialog
+		    document.querySelector("#upload-dialog-"+identificador).style.display = 'none';
+		    
+		    // show the PDF preview loader
+		    document.querySelector("#pdf-loader-"+identificador).style.display = 'inline-block';
+
+		    // object url of PDF 
+		    _OBJECT_URL = URL.createObjectURL(file)
+
+		    // send the object url of the pdf to the PDF preview function
+		    showPDF(_OBJECT_URL, _PDF_DOC, _CANVAS, identificador);
+		});
+
+	}
+
 </script>
 
 @endsection

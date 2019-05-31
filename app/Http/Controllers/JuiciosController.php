@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Juicio, App\Colaborator, App\Juzgado, App\Juiciotipo, App\Macroetapa, App\DocTipo, App\User, App\Estado, App\Salaapela, App\Juzgadotipo, App\Juiciouser, App\Demandado, App\DocJuicio;
-use Validator;
+use Validator, Mail;
 
 class JuiciosController extends Controller
 {
@@ -27,12 +27,18 @@ class JuiciosController extends Controller
     {
         $juicio  = Juicio::where('id', $juicio_id)->first();
         $juzgado = Juicio::find($juicio_id)->juzgado()->first();
+        $juzgadotipo = Juicio::find($juicio_id)->juzgadotipo()->first();
         $juiciotipo = Juicio::find($juicio_id)->juiciotipo()->first();
         $juiciousers = Juicio::find($juicio_id)->juiciousers()->get();
         $macroetapa = Juicio::find($juicio_id)->macroetapa()->first();
         $demandados = Juicio::find($juicio_id)->demandados()->get();
         $documentos = Juicio::find($juicio_id)->doc_juicios()->get();
+        $estado = Juicio::find($juicio_id)->estado()->first();
+        $salaapela = Juicio::find($juicio_id)->salaapela()->first();
 
+        $salaapelas = Salaapela::all();
+        $juzgadotipos = Juzgadotipo::all();
+        $estados = Estado::all();
         $juzgados = Juzgado::all();
         $juiciotipos = Juiciotipo::all();
         $macroetapas = Macroetapa::all();
@@ -55,18 +61,25 @@ class JuiciosController extends Controller
         }
 
         return view('juicios.verDetalleJuicio')->with('juicio', $juicio)
+                                               ->with('estado', $estado)
+                                               ->with('estados', $estados)
                                                ->with('colaborators', $users)
                                                ->with('colaborator', $colaborator)
                                                ->with('juzgado', $juzgado)
                                                ->with('juzgados', $juzgados)
+                                               ->with('juzgadotipos', $juzgadotipos)
+                                               ->with('juzgadotipo', $juzgadotipo)
                                                ->with('juiciotipo', $juiciotipo)
                                                ->with('juiciotipos', $juiciotipos)
                                                ->with('cliente', $cliente)
+                                               ->with('clientes', $clientes)
                                                ->with('macroetapa', $macroetapa)
                                                ->with('macroetapas', $macroetapas)
                                                ->with('demandados', $demandados)
                                                ->with('documentos', $documentos)
-                                               ->with('doc_tipos', $doc_tipos);
+                                               ->with('doc_tipos', $doc_tipos)
+                                               ->with('salaapelas', $salaapelas)
+                                               ->with('salaapela', $salaapela);
     }
 
     /**
@@ -197,23 +210,23 @@ class JuiciosController extends Controller
                 $juicio->expediente_recurso_amparo = $expediente_recurso_amparo;
                 $juicio->save();
 
-                $user_cliente = User::find($cliente)->first();
-                $user_colaborador = User::find($colaborador)->first();
+                $user_cliente = User::where("id",$cliente)->first();
+                $user_colaborador = User::where("id",$colaborador)->first();
 
-                $juiciousuario = new Juiciouser;
-                $juiciousuario->juicio_id = $juicio->id;
-                $juiciousuario->user_id = $cliente;
-                $juiciousuario->user_name = $user_cliente->name;
-                $juiciousuario->user_contact_info = $cliente_contact_info;
-                $juiciousuario->role_id = $user_cliente->roles()->first()->id;
-                $juiciousuario->save();
+                $juiciousuario_cliente = new Juiciouser;
+                $juiciousuario_cliente->juicio_id = $juicio->id;
+                $juiciousuario_cliente->user_id = $cliente;
+                $juiciousuario_cliente->user_name = $user_cliente->name;
+                $juiciousuario_cliente->user_contact_info = $cliente_contact_info;
+                $juiciousuario_cliente->role_id = $user_cliente->roles()->first()->id;
+                $juiciousuario_cliente->save();
 
-                $juiciousuario = new Juiciouser;
-                $juiciousuario->juicio_id = $juicio->id;
-                $juiciousuario->user_id = $colaborador;
-                $juiciousuario->user_name = $user_colaborador->name;
-                $juiciousuario->role_id = $user_colaborador->roles()->first()->id;
-                $juiciousuario->save();
+                $juiciousuario_colaborador = new Juiciouser;
+                $juiciousuario_colaborador->juicio_id = $juicio->id;
+                $juiciousuario_colaborador->user_id = $colaborador;
+                $juiciousuario_colaborador->user_name = $user_colaborador->name;
+                $juiciousuario_colaborador->role_id = $user_colaborador->roles()->first()->id;
+                $juiciousuario_colaborador->save();
 
                 $demandado = new Demandado;
                 $demandado->juicio_id = $juicio->id;
@@ -270,6 +283,18 @@ class JuiciosController extends Controller
 
                 $resultado = array('operacion' => true, 'message' => "Juicio creado exitosamente");
 
+                $email = $user_colaborador->email;
+
+                $data = array('colaborador' => $user_colaborador, 'juicio' => $juicio, 'cliente' => $user_cliente);
+
+                //from(config('app.senders.info.address'), config('app.senders.info.name'))
+                Mail::send(['html' => 'emails.juicioCreado'], $data, function($msj) use ($email) {
+                    $msj->from('sisjurcontrol@gmail.com');
+                    //$msj->from('facilposcorreo@gmail.com', $emails['from_name']);
+                    $msj->subject("SISJUR | Juicio Creado");
+                    $msj->to($email);
+                });
+
                 return redirect("home")->with("resultado", json_encode($resultado));
 
             } catch (Exception $e) {
@@ -279,6 +304,11 @@ class JuiciosController extends Controller
                 return redirect()->back()->with("resultado", json_encode($resultado))
                                          ->withInput($request->all());
 
+            } catch (\Swift_TransportException $e) {
+
+                $resultado = array("operacion"=>true, "error_email"=>$e->getMessage());
+
+                return redirect("home")->with("resultado", json_encode($resultado));
             }
 
         }

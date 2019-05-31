@@ -126,13 +126,13 @@
                             </div>
                         </form>
                     </div>
-                    <div class="kt-login__account">
+                    <!--<div class="kt-login__account">
                         <span class="kt-login__account-msg">
                             ¿Aún no tiene una cuenta?
                         </span>
                         &nbsp;&nbsp;
                         <a href="javascript:;" id="kt_login_signup" class="kt-login__account-link">¡Creela!</a>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>

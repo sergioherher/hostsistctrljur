@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Juicio, App\Colaborator, App\Juzgado, App\Juiciotipo, App\Macroetapa, App\DocTipo, App\User, App\Estado, App\Salaapela, App\Juzgadotipo, App\Juiciouser, App\Demandado, App\DocJuicio;
 use Validator, Mail;
+use App\Traits\MpdfTrait;
 
 class JuiciosController extends Controller
 {
+    use MpdfTrait;
     /**
      * Create a new controller instance.
      *
@@ -132,11 +134,7 @@ class JuiciosController extends Controller
                   'cliente'           => 'required',
                   'colaborator'       => 'required',
                   'demandado'         => 'required',
-                  'juzgadotipo'       => 'required',
-                  'juzgado'           => 'required',
                   'juiciotipo'        => 'required',
-                  'numero_credito'    => 'numeric',
-                  'expediente'        => 'required',
                   'macroetapa'        => 'required',
                   'salaapela'         => 'required',
               ];
@@ -312,5 +310,56 @@ class JuiciosController extends Controller
             }
 
         }
+    }
+
+    public function  testPdf() {
+      
+      $output_file = 'pdf_test/resultado.pdf';
+      $url = 'pdf_test/Pago Rosnill.pdf';
+      $technical_drawing = 'pdf_test/Pago panes dulces.pdf';
+
+      $html = file_get_contents($url);
+
+
+      if(!file_exists($technical_drawing)) {
+        $mpdf = $this->MpdfObject();
+      } else {
+        $mpdf = $this->MpdfObject();
+
+        $pagecount = $mpdf->SetSourceFile($technical_drawing);
+        $import_page = $mpdf->ImportPage(1);
+
+        $mpdf->UseTemplate($import_page);
+
+        // Add Last page
+        $mpdf->AddPageByArray(array(
+          'orientation' => 'P',
+          'ohvalue' => 1,
+          'ehvalue' => -1,
+          'ofvalue' => -1,
+          'efvalue' => -1,
+          'newformat' => 'Letter'
+        ));
+      }
+
+      $mpdf->WriteHTML($html);
+      $mpdf->Output($output_file, 'D');
+
+      exit;
+    }
+
+    public function getDocuments($jucio_id, $doc_tipo_id) {
+
+      if($doc_tipo_id == 1) {
+        $path = storage_path("app/juicios/".$jucio_id."/fundatorios-".$jucio_id.".pdf");  
+      } elseif ($doc_tipo_id == 2) {
+        $path = storage_path("app/juicios/".$jucio_id."/expediente-".$jucio_id.".pdf");  
+      } else {
+        $path = storage_path("app/juicios/".$jucio_id."/otros-".$jucio_id.".pdf");  
+      }
+      
+      header('Content-Type:aplication/pdf');
+      header('Content-Length: ' . filesize($path));
+      readfile($path);
     }
 }

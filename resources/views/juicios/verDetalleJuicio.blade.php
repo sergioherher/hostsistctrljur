@@ -11,7 +11,7 @@
                 <div class="kt-portlet__head kt-portlet__head--lg kt-portlet__head--break-sm">
                     <div class="kt-portlet__head-label">
                         <h3 class="kt-portlet__head-title">
-                            Cargar Juicio
+                            Editar Juicio: Expediente {{ $juicio->expediente }}
                         </h3>
                     </div>
                     <div class="kt-portlet__head-toolbar">
@@ -95,20 +95,29 @@
 							<span class="form-text text-muted">Escriba el numero de crédito de ser el caso</span>
 						</div>
 						<div class="col-lg-6">
-							@foreach($demandados as $demandado)
+							@foreach($demandados as $key => $demandado)
 								@if($demandado->codemandado == 0)
-									<label>Demandado</label>
-									<div style="color:red;">
-										{{$errors->first('demandado')}}
-									</div>
-									<input type="text" class="form-control" id="demandado" name="demandado" value="@if(null !== old('demandado')){{ old('demandado') }}@else{{ $demandado->name }}@endif" placeholder="Demandado...">
-									<span class="form-text text-muted">Escriba el nombre del demandado en este juicio</span>
-									<label>Codemandado</label>
-									<div style="color:red;">
-										{{$errors->first('codemandado')}}
-									</div>
-									<input type="text" class="form-control" id="codemandado" name="codemandado" value="@if(null !== old('codemandado')){{ old('codemandado') }}@endif" placeholder="Codemandado...">
-									<span class="form-text text-muted">Escriba el nombre del codemandado en este juicio</span>
+									@if($demandados->count() == 1)
+										<label>Demandado</label>
+										<div style="color:red;">
+											{{$errors->first('demandado')}}
+										</div>
+										<input type="text" class="form-control" id="demandado" name="demandado" value="@if(null !== old('demandado')){{ old('demandado') }}@else{{ $demandado->name }}@endif" placeholder="Demandado...">
+										<span class="form-text text-muted">Escriba el nombre del demandado en este juicio</span>
+										<label>Codemandado</label>
+										<div style="color:red;">
+											{{$errors->first('codemandado')}}
+										</div>
+										<input type="text" class="form-control" id="codemandado" name="codemandado" value="@if(null !== old('codemandado')){{ old('codemandado') }}@endif" placeholder="Codemandado...">
+										<span class="form-text text-muted">Escriba el nombre del codemandado en este juicio</span>
+									@else
+										<label>Demandado</label>
+										<div style="color:red;">
+											{{$errors->first('demandado')}}
+										</div>
+										<input type="text" class="form-control" id="demandado" name="demandado" value="@if(null !== old('demandado')){{ old('demandado') }}@else{{ $demandado->name }}@endif" placeholder="Demandado...">
+										<span class="form-text text-muted">Escriba el nombre del demandado en este juicio</span>
+									@endif
 								@else
 									<label>Codemandado</label>
 									<div style="color:red;">
@@ -377,13 +386,28 @@
 					<div class="form-group row">
 						@foreach($doc_tipos as $doc_tipo)
 							<div class="col-lg-4 kt-align-center">
-								<h5 class="kt-align-center" style="height: 30px">{{ $doc_tipo->tipo }}</h5>
-								<button class="btn btn-label-success" id="upload-dialog-{{ $doc_tipo->id }}" onclick="event.preventDefault(); configurarUploader({{ $doc_tipo->id }})"><i class="fa fa-plus"></i>Cargar PDF</button>
-								<input type="file" id="pdf-file-{{ $doc_tipo->id }}" name="pdf_file_{{ $doc_tipo->id }}" accept="application/pdf" style="display:none" />
-								<div id="pdf-loader-{{ $doc_tipo->id }}" style="display:none">Cargando PDF ..</div>
-								<canvas id="pdf-preview-{{ $doc_tipo->id }}" width="150" style="display:none"></canvas>
-								<br>
-								<button class="btn btn-label-danger undo-upload" id="undo-upload-{{ $doc_tipo->id }}" style="display:none"><i class="fa fa-times"></i> Deshacer</button>
+								<div class="row">
+									<div class="col-12">
+										<h5 class="kt-align-center" style="height: 30px">{{ $doc_tipo->tipo }}</h5>
+										<button class="btn btn-label-success" id="upload-dialog-{{ $doc_tipo->id }}" onclick="event.preventDefault(); configurarUploader({{ $doc_tipo->id }})"><i class="fa fa-plus"></i>Cargar PDF</button>
+										<input type="file" id="pdf-file-{{ $doc_tipo->id }}" name="pdf_file_{{ $doc_tipo->id }}" accept="application/pdf" style="display:none" />
+										<div id="pdf-loader-{{ $doc_tipo->id }}" style="display:none">Cargando PDF ..</div>
+										<canvas id="pdf-preview-{{ $doc_tipo->id }}" width="150" style="display:none"></canvas>
+										<br>
+										<button class="btn btn-label-danger undo-upload" id="undo-upload-{{ $doc_tipo->id }}" style="display:none"><i class="fa fa-times"></i> Deshacer</button>
+									</div>
+								</div>
+								@foreach($documentos as $documento)
+								@if($documento->doc_tipo_id == $doc_tipo->id)
+								<div class="row">
+									<div class="col-12" id="contenedor_doc_{{ $documento->id }}">
+										
+										<div id="doc_{{ $documento->id }}" style="display: none;">{{ url("/doc_juicios/".$documento->juicio_id."/".$documento->doc_tipo_id) }}</div>
+										
+									</div>									
+								</div>
+								@endif
+								@endforeach
 							</div>
 						@endforeach
 					</div>					
@@ -555,6 +579,48 @@
 		});
 
 	}
+
+	function makeThumb(page) {
+	  // draw page to fit into 96x96 canvas
+	  var vp = page.getViewport(1);
+	  var canvas = document.createElement("canvas");
+	  canvas.width = canvas.height = 300;
+	  var scale = Math.min(canvas.width / vp.width, canvas.height / vp.height);
+	  return page.render({canvasContext: canvas.getContext("2d"), viewport: page.getViewport(scale)}).promise.then(function () {
+	    return canvas;
+	  });
+	}
+
+	function generarThumpnail(doc_juicio, doc_tipo_id) {
+
+		var doc_juicio_id = doc_juicio;
+		var archivo = document.getElementById("doc_"+doc_juicio_id).innerHTML;
+
+		pdfjsLib.getDocument(archivo).promise.then(function (doc) {
+		  var pages = [1]; //while (pages.length < doc.numPages) pages.push(pages.length + 1);
+		  var doc_juicio_id_interno = doc_juicio_id;
+
+		  return Promise.all(pages.map(function (num) {
+		    // create a div for each page and build a small canvas for it
+		    var div = document.getElementById('contenedor_doc_'+doc_juicio_id_interno);
+		    return doc.getPage(num).then(makeThumb)
+		      .then(function (canvas) {
+		      	var vinculo = document.createElement("a");
+		      	vinculo.href = "{{ url("/doc_juicios/".$documento->juicio_id."/".$documento->doc_tipo_id) }}"
+		        div.appendChild(canvas);
+		    });
+		  }));
+		}).catch(console.error);
+
+	}
+
+	@foreach($doc_tipos as $doc_tipo)
+		@foreach($documentos as $documento)
+			@if($documento->doc_tipo_id == $doc_tipo->id)
+			generarThumpnail({{$documento->id}}, {{$documento->doc_tipo_id}});
+			@endif
+		@endforeach
+	@endforeach
 
 </script>
 

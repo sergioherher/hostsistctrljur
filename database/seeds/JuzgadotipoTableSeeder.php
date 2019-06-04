@@ -12,20 +12,24 @@ class JuzgadotipoTableSeeder extends Seeder
      */
     public function run()
     {
-		$juzgadotipo = new Juzgadotipo();
-		$juzgadotipo->juztipo = '-- Primer Partido Judicial';
+    	$juzgadotipo = new Juzgadotipo();
+		$juzgadotipo->juztipo = 'No Definido';
 		$juzgadotipo->save();
 
 		$juzgadotipo = new Juzgadotipo();
-		$juzgadotipo->juztipo = '-- Juzgados Foráneos';
+		$juzgadotipo->juztipo = 'Primer Partido Judicial';
 		$juzgadotipo->save();
 
 		$juzgadotipo = new Juzgadotipo();
-		$juzgadotipo->juztipo = '-- Juzgados Federales';
+		$juzgadotipo->juztipo = 'Juzgados Foráneos';
 		$juzgadotipo->save();
 
 		$juzgadotipo = new Juzgadotipo();
-		$juzgadotipo->juztipo = '-- Otros';
+		$juzgadotipo->juztipo = 'Juzgados Federales';
+		$juzgadotipo->save();
+
+		$juzgadotipo = new Juzgadotipo();
+		$juzgadotipo->juztipo = 'Otros';
 		$juzgadotipo->save();
     }
 }

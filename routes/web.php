@@ -15,9 +15,12 @@ Route::get('/', function () {
     return redirect("login");
 });
 
+Route::get('/testPdf', 'JuiciosController@testPdf');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+Route::get('/doc_juicios/{juicio_id}/{doc_tipo_id}','JuiciosController@getDocuments');
 
 Route::group(['middleware' => 'role:administrador'], function() {
    Route::get('/listUsers', 'ProfilesController@listUsers');
@@ -27,11 +30,9 @@ Route::group(['middleware' => 'role:administrador'], function() {
 
    Route::get('/juicio/cargarJuicio', 'JuiciosController@cargarJuicio');
    Route::post('/juicio/guardarJuicio', 'JuiciosController@guardarJuicio');
-
-   Route::get('/juicios/{juicio_id}', 'JuiciosController@detalleJuicio');
 });
 
-Route::group(['middleware' => 'role:colaborador'], function() {
+Route::group(['middleware' => 'role:colaborador', 'middleware' => 'role:administrador'], function() {
    Route::get('/juicio/editarJuicio', 'HomeController@index');
    Route::get('/juicios/{juicio_id}', 'JuiciosController@detalleJuicio');
 });

@@ -29,6 +29,23 @@ class UserTableSeeder extends Seeder
 		$administrador->permissions()->attach($editar_juicios_perm);
 		$administrador->permissions()->attach($ver_juicios_perm);
 
+		$colaborador = new User();
+		$colaborador->name = 'Pedro Colaborador';
+		$colaborador->email = 'pedro.colaborador@mailtrap.io';
+		$colaborador->password = bcrypt('123456');
+		$colaborador->save();
+		$colaborador->roles()->attach($colaborador_role);	
+		$colaborador->permissions()->attach($editar_juicios_perm);
+		$colaborador->permissions()->attach($ver_juicios_perm);
+
+		$colaborador = new User();
+		$colaborador->name = 'Colaborador Prueba';
+		$colaborador->email = 'colaborador.prueba@mailtrap.io';
+		$colaborador->password = bcrypt('123456');
+		$colaborador->save();
+		$colaborador->roles()->attach($colaborador_role);	
+		$colaborador->permissions()->attach($editar_juicios_perm);
+		$colaborador->permissions()->attach($ver_juicios_perm);
 
 		$colaborador = new User();
 		$colaborador->name = 'Jorge AMJ';
@@ -41,7 +58,31 @@ class UserTableSeeder extends Seeder
 
 		$cliente = new User();
 		$cliente->name = 'BANORTE';
-		$cliente->email = 'cliente@banorte.com';
+		$cliente->email = 'banorte@mailtrap.io';
+		$cliente->password = bcrypt('123456');
+		$cliente->save();
+		$cliente->roles()->attach($cliente_role);
+		$cliente->permissions()->attach($ver_juicios_perm);
+
+		$cliente = new User();
+		$cliente->name = 'BANESCO';
+		$cliente->email = 'banesco@mailtrap.io';
+		$cliente->password = bcrypt('123456');
+		$cliente->save();
+		$cliente->roles()->attach($cliente_role);
+		$cliente->permissions()->attach($ver_juicios_perm);
+
+		$cliente = new User();
+		$cliente->name = 'Juan Perez';
+		$cliente->email = 'juan.perez@mailtrap.io';
+		$cliente->password = bcrypt('123456');
+		$cliente->save();
+		$cliente->roles()->attach($cliente_role);
+		$cliente->permissions()->attach($ver_juicios_perm);
+
+		$cliente = new User();
+		$cliente->name = 'Fulanito de Tal';
+		$cliente->email = 'fulanito@mailtrap.io';
 		$cliente->password = bcrypt('123456');
 		$cliente->save();
 		$cliente->roles()->attach($cliente_role);

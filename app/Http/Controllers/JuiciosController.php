@@ -178,6 +178,7 @@ class JuiciosController extends Controller
             $expediente_amparo = $request->input("expediente_amparo");
             $autoridad_recurso_amparo = $request->input("autoridad_recurso_amparo");
             $expediente_recurso_amparo = $request->input("expediente_recurso_amparo");
+            $audiencia_juicio = $request->input("audiencia_juicio");
 
             $editar_o_crear = $request->input("editar_o_crear");
 
@@ -214,6 +215,7 @@ class JuiciosController extends Controller
                 $juicio->expediente_amparo = $expediente_amparo;
                 $juicio->autoridad_recurso_amparo = $autoridad_recurso_amparo;
                 $juicio->expediente_recurso_amparo = $expediente_recurso_amparo;
+                $juicio->audiencia_juicio = $audiencia_juicio;
                 $juicio->save();
 
                 $juiciousuario_cliente = new Juiciouser;
@@ -328,6 +330,7 @@ class JuiciosController extends Controller
                 $juicio->expediente_amparo = $expediente_amparo;
                 $juicio->autoridad_recurso_amparo = $autoridad_recurso_amparo;
                 $juicio->expediente_recurso_amparo = $expediente_recurso_amparo;
+                $juicio->audiencia_juicio = $audiencia_juicio;
                 $juicio->save();
 
                 $juiciousuario_cliente = Juiciouser::where("juicio_id", $juicio_id)->where("role_id", 3)->first();

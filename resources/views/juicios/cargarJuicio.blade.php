@@ -358,6 +358,16 @@
 
 					<div class="form-group row">
 						<div class="col-lg-12">
+							<label>Audiencias de juicio</label>
+							<div style="color:red;">
+								{{$errors->first('audiencia_juicio')}}
+							</div>
+							<textarea class="form-control" rows="5" id="audiencia_juicio" name="audiencia_juicio" placeholder="Videos de audiencias de juicio ...">@if(null !== old('audiencia_juicio')){{ old('audiencia_juicio') }}@endif</textarea>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<div class="col-lg-12">
 							<hr>
 							<h5 class="kt-align-center">Expediente electrónico</h5>
 						</div>

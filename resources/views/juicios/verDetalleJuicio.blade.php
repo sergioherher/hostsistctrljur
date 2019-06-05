@@ -13,7 +13,12 @@
                 <div class="kt-portlet__head kt-portlet__head--lg kt-portlet__head--break-sm">
                     <div class="kt-portlet__head-label">
                         <h3 class="kt-portlet__head-title">
-                            Editar Juicio: Expediente {{ $juicio->expediente }}
+                            Editar Juicio Expediente: {{ $juicio->expediente }},  Demandado: 
+                            @foreach($demandados as $key => $demandado)
+								@if($demandado->codemandado == 0)
+									{{ $demandado->name }}
+								@endif
+							@endforeach
                         </h3>
                     </div>
                     <div class="kt-portlet__head-toolbar">
@@ -375,6 +380,16 @@
 								{{$errors->first('expediente_recurso_amparo')}}
 							</div>
 							<input type="text" class="form-control" id="expediente_recurso_amparo" name="expediente_recurso_amparo" value="@if(null !== old('expediente_recurso_amparo')){{ old('expediente_recurso_amparo') }}@else{{ $juicio->expediente_recurso_amparo }}@endif" placeholder="Expediente Recurso de Amparo ...">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<div class="col-lg-12">
+							<label>Audiencias de juicio</label>
+							<div style="color:red;">
+								{{$errors->first('audiencia_juicio')}}
+							</div>
+							<textarea class="form-control" rows="5" id="audiencia_juicio" name="audiencia_juicio" placeholder="Videos de audiencias de juicio ...">@if(null !== old('audiencia_juicio')){{ old('audiencia_juicio') }}@else{{ $juicio->audiencia_juicio }}@endif</textarea>
 						</div>
 					</div>
 

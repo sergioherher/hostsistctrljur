@@ -35,5 +35,6 @@ Route::group(['middleware' => 'role:administrador'], function() {
 Route::group(['middleware' => 'role:colaborador', 'middleware' => 'role:administrador'], function() {
    Route::get('/juicio/editarJuicio', 'HomeController@index');
    Route::get('/juicios/{juicio_id}', 'JuiciosController@detalleJuicio');
+   Route::post('/doc_juicio/deleteDocument', 'JuiciosController@deleteDocument');
 });
 

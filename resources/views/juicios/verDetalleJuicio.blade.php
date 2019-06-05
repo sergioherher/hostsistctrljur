@@ -7,6 +7,8 @@
     <div class="col-xl-8">
     	<form class="kt-form" action="{{ url('juicio/guardarJuicio') }}" method="POST" enctype="multipart/form-data">
     		@csrf
+    		<input type="hidden" name="editar_o_crear" value="1">
+    		<input type="hidden" name="juicio_id" value="{{ $juicio->id }}">
             <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
                 <div class="kt-portlet__head kt-portlet__head--lg kt-portlet__head--break-sm">
                     <div class="kt-portlet__head-label">
@@ -48,7 +50,7 @@
 							<select id="cliente" name="cliente" class="form-control" @role("colaborador") disabled @endrole>
 								<option value="">Seleccione</option>
 								@foreach ($clientes as $client)
-									@if (old('cliente') == $client->id || $cliente->id == $client->id)
+									@if (old('cliente') == $client->id || $cliente->user_id == $client->user_id)
 										<option value="{{ $client->id }}" selected="selected">{{ $client->name }}</option>
 									@else
 										<option value="{{ $client->id }}">{{ $client->name }}</option>
@@ -181,11 +183,11 @@
 							</div>
 							<select id="juiciotipo" name="juiciotipo" class="form-control">
 								<option value="">Seleccione</option>
-								@foreach ($juiciotipos as $juiciotipo)
-									@if (old('juiciotipo') == $juiciotipo->id)
-										<option value="{{ $juiciotipo->id }}" selected="selected">{{ $juiciotipo->juiciotipo }}</option>
+								@foreach ($juiciotipos as $juiciotip)
+									@if (old('juiciotipo') == $juiciotip->id || $juiciotipo->id == $juiciotip->id)
+										<option value="{{ $juiciotip->id }}" selected="selected">{{ $juiciotip->juiciotipo }}</option>
 									@else
-										<option value="{{ $juiciotipo->id }}">{{ $juiciotipo->juiciotipo }}</option>
+										<option value="{{ $juiciotip->id }}">{{ $juiciotip->juiciotipo }}</option>
 									@endif
 								@endforeach
 							</select>
@@ -386,27 +388,34 @@
 					<div class="form-group row">
 						@foreach($doc_tipos as $doc_tipo)
 							<div class="col-lg-4 kt-align-center">
-								<div class="row">
-									<div class="col-12">
-										<h5 class="kt-align-center" style="height: 30px">{{ $doc_tipo->tipo }}</h5>
+								<h5 class="kt-align-center" style="height: 30px">{{ $doc_tipo->tipo }}</h5>
+								<div class="row" id="contenedor-agregar-documento-{{ $doc_tipo->id }}" style="display: @if($documentos->contains('doc_tipo_id', $doc_tipo->id)) {{ "none" }} @endif" id="contenedor-boton-agregar-{{ $doc_tipo->id }}" >
+									<div class="col-12">										
 										<button class="btn btn-label-success" id="upload-dialog-{{ $doc_tipo->id }}" onclick="event.preventDefault(); configurarUploader({{ $doc_tipo->id }})"><i class="fa fa-plus"></i>Cargar PDF</button>
 										<input type="file" id="pdf-file-{{ $doc_tipo->id }}" name="pdf_file_{{ $doc_tipo->id }}" accept="application/pdf" style="display:none" />
 										<div id="pdf-loader-{{ $doc_tipo->id }}" style="display:none">Cargando PDF ..</div>
-										<canvas id="pdf-preview-{{ $doc_tipo->id }}" width="150" style="display:none"></canvas>
+										<canvas id="pdf-preview-{{ $doc_tipo->id }}" width="210" style="display:none"></canvas>
 										<br>
-										<button class="btn btn-label-danger undo-upload" id="undo-upload-{{ $doc_tipo->id }}" style="display:none"><i class="fa fa-times"></i> Deshacer</button>
+										<button class="btn btn-label-danger undo-upload" id="undo-upload-{{ $doc_tipo->id }}" style="display:none"><i class="fa fa-times"></i></button>
 									</div>
 								</div>
 								@foreach($documentos as $documento)
-								@if($documento->doc_tipo_id == $doc_tipo->id)
-								<div class="row">
-									<div class="col-12" id="contenedor_doc_{{ $documento->id }}">
-										
-										<div id="doc_{{ $documento->id }}" style="display: none;">{{ url("/doc_juicios/".$documento->juicio_id."/".$documento->doc_tipo_id) }}</div>
-										
-									</div>									
+									@if($documento->doc_tipo_id == $doc_tipo->id)
+								<div class="row" id="contenedor-a-borrar-doc-{{ $documento->id }}">
+									<div class="col-12">
+										<div class="row kt-align-center">
+											<div class="col-12" id="contenedor_doc_{{ $documento->id }}">
+												<div id="doc_{{ $documento->id }}" style="display: none;">{{ url("/doc_juicios/".$documento->juicio_id."/".$documento->doc_tipo_id) }}</div>
+											</div>								
+										</div>
+										<div class="row">
+											<div class="col-12">
+												<button class="btn btn-label-danger borrar-documento" id="doc_id-{{ $documento->id }}-juicio_id-{{ $documento->juicio_id }}-doc_tipo_id-{{ $documento->doc_tipo_id }}"><i class="fa fa-times"></i></button>
+											</div>											
+										</div>
+									</div>
 								</div>
-								@endif
+									@endif
 								@endforeach
 							</div>
 						@endforeach
@@ -470,6 +479,38 @@
 
         $("#importe_credito").inputmask('decimal', {
             rightAlignNumerics: false
+        });
+
+        $(".borrar-documento").click(function(e){
+        	e.preventDefault();
+        	var array_ids = this.id.split("-");
+        	var doc_id = array_ids[1];
+        	var juicio_id = array_ids[3];
+        	var doc_tipo_id = array_ids[5];
+        	$.ajax({
+                type: "POST",
+                data: {
+                	doc_id:doc_id,
+                	juicio_id:juicio_id,
+                	doc_tipo_id:doc_tipo_id,
+                },
+                url: "{{ url('/doc_juicio/deleteDocument') }}",
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data);
+                    if(data.operacion) {
+                    	$("#contenedor-a-borrar-doc-"+data.doc_id).remove();
+                    	$("#contenedor-agregar-documento-"+data.doc_tipo_id).show();
+                    	toastr.success("Se eliminó correctamente el documento", "Eliminar documento");
+                    } else {
+						toastr.error("Ocurrió un error al intentar eliminar el documento", "Eliminar documento");
+                    }
+                },
+                error: function(data) {
+                    console.log(data);
+                    toastr.error("Ocurrió un error al intentar eliminar el documento", "Eliminar documento");
+                },
+            });
         });
 	});
 
@@ -591,23 +632,36 @@
 	  });
 	}
 
-	function generarThumpnail(doc_juicio, doc_tipo_id) {
+	function generarThumpnail(doc, doc_juicio, doc_tipo) {
 
 		var doc_juicio_id = doc_juicio;
-		var archivo = document.getElementById("doc_"+doc_juicio_id).innerHTML;
+		var doc_tipo_id = doc_tipo;
+		var doc_id = doc;
+		var archivo = document.getElementById("doc_"+doc_id).innerHTML;
 
 		pdfjsLib.getDocument(archivo).promise.then(function (doc) {
 		  var pages = [1]; //while (pages.length < doc.numPages) pages.push(pages.length + 1);
+		  var doc_id_interno = doc_id;
 		  var doc_juicio_id_interno = doc_juicio_id;
+		  var doc_tipo_id_interno = doc_tipo_id;
+
 
 		  return Promise.all(pages.map(function (num) {
 		    // create a div for each page and build a small canvas for it
-		    var div = document.getElementById('contenedor_doc_'+doc_juicio_id_interno);
+		    var div = document.getElementById('contenedor_doc_'+doc_id_interno);
 		    return doc.getPage(num).then(makeThumb)
 		      .then(function (canvas) {
 		      	var vinculo = document.createElement("a");
-		      	vinculo.href = "{{ url("/doc_juicios/".$documento->juicio_id."/".$documento->doc_tipo_id) }}"
-		        div.appendChild(canvas);
+		      	if(doc_tipo_id_interno == 1) {
+		      		vinculo.href = "{{ url('doc_juicios') }}/"+doc_juicio_id_interno+"/fundatorios-"+doc_juicio_id_interno+".pdf";
+		      	} else if(doc_tipo_id_interno == 2) {
+		      		vinculo.href = "{{ url('doc_juicios') }}/"+doc_juicio_id_interno+"/expediente-"+doc_juicio_id_interno+".pdf";
+		      	} else {
+		      		vinculo.href = "{{ url('doc_juicios') }}/"+doc_juicio_id_interno+"/otros-"+doc_juicio_id_interno+".pdf";
+		      	}
+		      	
+		        div.appendChild(vinculo);
+		        vinculo.appendChild(canvas);
 		    });
 		  }));
 		}).catch(console.error);
@@ -617,7 +671,7 @@
 	@foreach($doc_tipos as $doc_tipo)
 		@foreach($documentos as $documento)
 			@if($documento->doc_tipo_id == $doc_tipo->id)
-			generarThumpnail({{$documento->id}}, {{$documento->doc_tipo_id}});
+			generarThumpnail({{$documento->id}}, {{$documento->juicio_id}}, {{$documento->doc_tipo_id}});
 			@endif
 		@endforeach
 	@endforeach

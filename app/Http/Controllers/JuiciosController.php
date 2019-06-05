@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Juicio, App\Colaborator, App\Juzgado, App\Juiciotipo, App\Macroetapa, App\DocTipo, App\User, App\Estado, App\Salaapela, App\Juzgadotipo, App\Juiciouser, App\Demandado, App\DocJuicio;
 use Validator, Mail;
 use App\Traits\MpdfTrait;
+use Illuminate\Support\Facades\Storage;
 
 class JuiciosController extends Controller
 {
@@ -178,7 +179,14 @@ class JuiciosController extends Controller
             $autoridad_recurso_amparo = $request->input("autoridad_recurso_amparo");
             $expediente_recurso_amparo = $request->input("expediente_recurso_amparo");
 
+            $editar_o_crear = $request->input("editar_o_crear");
+
+            $user_cliente = User::where("id",$cliente)->first();
+            $user_colaborador = User::where("id",$colaborador)->first();
+
             try {
+
+              if($editar_o_crear == 0) {
 
                 $juicio = new Juicio;
                 $juicio->estado_id = $estado;
@@ -207,9 +215,6 @@ class JuiciosController extends Controller
                 $juicio->autoridad_recurso_amparo = $autoridad_recurso_amparo;
                 $juicio->expediente_recurso_amparo = $expediente_recurso_amparo;
                 $juicio->save();
-
-                $user_cliente = User::where("id",$cliente)->first();
-                $user_colaborador = User::where("id",$colaborador)->first();
 
                 $juiciousuario_cliente = new Juiciouser;
                 $juiciousuario_cliente->juicio_id = $juicio->id;
@@ -293,7 +298,103 @@ class JuiciosController extends Controller
                     $msj->to($email);
                 });
 
-                return redirect("home")->with("resultado", json_encode($resultado));
+              } else {
+
+                $juicio_id = $request->input("juicio_id");
+
+                $juicio = Juicio::where("id", $juicio_id)->first();
+                $juicio->estado_id = $estado;
+                $juicio->numero_credito = $numero_credito;
+                $juicio->juzgado_id = $juzgado;
+                $juicio->juzgadotipo_id = $juzgadotipo;
+                $juicio->expediente = $expediente;
+                $juicio->juiciotipo_id = $juiciotipo;
+                $juicio->ultima_fecha_boletin = $ultima_fecha_boletin;
+                $juicio->extracto = $extracto;
+                $juicio->expediente= $expediente;
+                $juicio->notas_seguimiento = $notas_seguimiento;
+                $juicio->fecha_proxima_accion = $fecha_proxima_accion;
+                $juicio->proxima_accion = $proxima_accion;
+                $juicio->monto_demandado = $monto_demandado;
+                $juicio->importe_credito = $importe_credito;
+                $juicio->macroetapa_id = $macroetapa;
+                $juicio->garantia = $garantia;
+                $juicio->datos_rpp = $datos_rpp;
+                $juicio->otros_domicilios = $otros_domicilios;
+                $juicio->procesos_asoc = $procesos_asociados;
+                $juicio->salaapela_id = $salaapela;
+                $juicio->toca = $toca;
+                $juicio->autoridad_amparo = $autoridad_amparo;
+                $juicio->expediente_amparo = $expediente_amparo;
+                $juicio->autoridad_recurso_amparo = $autoridad_recurso_amparo;
+                $juicio->expediente_recurso_amparo = $expediente_recurso_amparo;
+                $juicio->save();
+
+                $juiciousuario_cliente = Juiciouser::where("juicio_id", $juicio_id)->where("role_id", 3)->first();
+                $juiciousuario_cliente->user_name = $user_cliente->name;
+                $juiciousuario_cliente->user_contact_info = $cliente_contact_info;
+                $juiciousuario_cliente->role_id = $user_cliente->roles()->first()->id;
+                $juiciousuario_cliente->save();
+
+                $juiciousuario_colaborador = Juiciouser::where("juicio_id", $juicio_id)->where("role_id", 2)->first();
+                $juiciousuario_colaborador->user_name = $user_colaborador->name;
+                $juiciousuario_colaborador->role_id = $user_colaborador->roles()->first()->id;
+                $juiciousuario_colaborador->save();
+
+                $demandado = Demandado::where("juicio_id", $juicio_id)->where("codemandado", 0)->first();
+                $demandado->name = $demandado_name;
+                $demandado->save();
+
+                if($codemandado_name != "") {
+                    $codemandado = Demandado::where("juicio_id", $juicio_id)->where("codemandado", 1)->first();
+                    $codemandado->name = $codemandado_name;
+                    $codemandado->save();
+                }
+
+                if ($request->hasFile('pdf_file_1') && $request->file('pdf_file_1')->isValid()) {
+
+                    $filename_fundatorio = "fundatorio-".$juicio->id.".pdf";
+
+                    if($request->file('pdf_file_1')->storeAs($juicio->id, $filename_fundatorio, 'juicios')) {
+                        $documento = new DocJuicio;
+                        $documento->ruta_archivo = $filename_fundatorio;
+                        $documento->juicio_id = $juicio->id;
+                        $documento->doc_tipo_id = 2;
+                        $documento->save();
+                    }
+                }
+
+                if ($request->hasFile('pdf_file_2') && $request->file('pdf_file_2')->isValid()) {
+
+                    $filename_expediente = "expediente-".$juicio->id.".pdf";
+                    
+                    if($request->file('pdf_file_2')->storeAs($juicio->id, $filename_expediente, 'juicios')) {
+                        $documento = new DocJuicio;
+                        $documento->ruta_archivo = $filename_expediente;
+                        $documento->juicio_id = $juicio->id;
+                        $documento->doc_tipo_id = 2;
+                        $documento->save();
+                    }
+                }
+
+                if ($request->hasFile('pdf_file_3') && $request->file('pdf_file_3')->isValid()) {
+
+                    $filename_otros = "otros-".$juicio->id.".pdf";
+                    
+                    if($request->file('pdf_file_3')->storeAs($juicio->id, $filename_otros, 'juicios')){
+                        $documento = new DocJuicio;
+                        $documento->ruta_archivo = $filename_otros;
+                        $documento->juicio_id = $juicio->id;
+                        $documento->doc_tipo_id = 3;
+                        $documento->save();
+                    }
+                }
+
+              }
+
+              $resultado = array('operacion' => true, 'message' => "Juicio editado exitosamente");
+
+              return redirect("home")->with("resultado", json_encode($resultado));
 
             } catch (Exception $e) {
 
@@ -361,5 +462,48 @@ class JuiciosController extends Controller
       header('Content-Type:aplication/pdf');
       header('Content-Length: ' . filesize($path));
       readfile($path);
+    }
+
+    public function deleteDocument(Request $request) {
+      $doc_id = $request->input("doc_id");
+      $juicio_id = $request->input("juicio_id");
+      $doc_tipo_id = $request->input("doc_tipo_id");
+
+      try {
+        $url_fund = storage_path('app/juicios/'.$juicio_id.'/fundatorios-'.$juicio_id.'.pdf');
+        $url_expe = storage_path('app/juicios/'.$juicio_id.'/expediente-'.$juicio_id.'.pdf');
+        $url_otro = storage_path('app/juicios/'.$juicio_id.'/otros-'.$juicio_id.'.pdf');
+        if($doc_tipo_id == 1) {
+          if(unlink($url_fund)) {
+            $doc_juicio = DocJuicio::where('id', $doc_id)->first();
+            $doc_juicio->delete();
+            $result = array('operacion' => true, 'message' => "exitoso", "doc_id" => $doc_id, "doc_tipo_id" => $doc_tipo_id);
+          } else {
+            $result = array('operacion' => false, 'message' => $url_fund);
+          }
+        } elseif ($doc_tipo_id == 2) {
+          if(unlink($url_expe)) {
+            $doc_juicio = DocJuicio::where('id', $doc_id)->first();
+            $doc_juicio->delete();
+            $result = array('operacion' => true, 'message' => "exitoso", "doc_id" => $doc_id, "doc_tipo_id" => $doc_tipo_id);
+          } else {
+            $result = array('operacion' => false, 'message' => $url_expe);
+          }
+        } else {
+          if(unlink($url_otro)) {
+            $doc_juicio = DocJuicio::where('id', $doc_id)->first();
+            $doc_juicio->delete();
+            $result = array('operacion' => true, 'message' => "exitoso", "doc_id" => $doc_id, "doc_tipo_id" => $doc_tipo_id);
+          } else {
+            $result = array('operacion' => false, 'message' => $url_otro);
+          }
+        }       
+
+      } catch (Exception $e) {
+        $result = array('operacion' => false, 'message' => "Falló");
+      }
+      
+      return json_encode($result);
+
     }
 }

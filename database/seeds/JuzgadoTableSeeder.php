@@ -178,6 +178,71 @@ class JuzgadoTableSeeder extends Seeder
 		$juzgado->save();
 
 		$juzgado = new Juzgado();
+		$juzgado->juzgado = '1° Familiar';
+		$juzgado->juzgadotipo_id = 2;
+		$juzgado->save();
+
+		$juzgado = new Juzgado();
+		$juzgado->juzgado = '2° Familiar';
+		$juzgado->juzgadotipo_id = 2;
+		$juzgado->save();
+
+		$juzgado = new Juzgado();
+		$juzgado->juzgado = '3° Familiar';
+		$juzgado->juzgadotipo_id = 2;
+		$juzgado->save();
+
+		$juzgado = new Juzgado();
+		$juzgado->juzgado = '4° Familiar';
+		$juzgado->juzgadotipo_id = 2;
+		$juzgado->save();
+
+		$juzgado = new Juzgado();
+		$juzgado->juzgado = '5° Familiar';
+		$juzgado->juzgadotipo_id = 2;
+		$juzgado->save();
+
+		$juzgado = new Juzgado();
+		$juzgado->juzgado = '6° Familiar';
+		$juzgado->juzgadotipo_id = 2;
+		$juzgado->save();
+
+		$juzgado = new Juzgado();
+		$juzgado->juzgado = '7° Familiar';
+		$juzgado->juzgadotipo_id = 2;
+		$juzgado->save();
+
+		$juzgado = new Juzgado();
+		$juzgado->juzgado = '8° Familiar';
+		$juzgado->juzgadotipo_id = 2;
+		$juzgado->save();
+
+		$juzgado = new Juzgado();
+		$juzgado->juzgado = '9° Familiar';
+		$juzgado->juzgadotipo_id = 2;
+		$juzgado->save();
+
+		$juzgado = new Juzgado();
+		$juzgado->juzgado = '10° Familiar';
+		$juzgado->juzgadotipo_id = 2;
+		$juzgado->save();
+
+		$juzgado = new Juzgado();
+		$juzgado->juzgado = '11° Familiar';
+		$juzgado->juzgadotipo_id = 2;
+		$juzgado->save();
+
+		$juzgado = new Juzgado();
+		$juzgado->juzgado = '12° Familiar';
+		$juzgado->juzgadotipo_id = 2;
+		$juzgado->save();
+
+		$juzgado = new Juzgado();
+		$juzgado->juzgado = '13° Familiar';
+		$juzgado->juzgadotipo_id = 2;
+		$juzgado->save();
+
+		$juzgado = new Juzgado();
 		$juzgado->juzgado = '1° Civil Autlán de Navarro';
 		$juzgado->juzgadotipo_id = 3;
 		$juzgado->save();

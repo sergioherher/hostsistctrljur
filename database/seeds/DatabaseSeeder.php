@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(MacroetapaTableSeeder::class);
         $this->call(EstadoTableSeeder::class);
         $this->call(SalaapelasTableSeeder::class);
+        $this->call(MonedaTableSeeder::class);
         $this->call(JuicioTableSeeder::class);
         $this->call(JuiciouserTableSeeder::class);
         $this->call(DemandadoTableSeeder::class);

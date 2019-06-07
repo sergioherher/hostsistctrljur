@@ -19,6 +19,11 @@ class Juicio extends Model
         return $this->belongsTo('App\Juzgadotipo');
     }
 
+    public function moneda()
+    {
+        return $this->belongsTo('App\Moneda');
+    }
+
     /**
      * Obtiene el juzgado del juicio
      */

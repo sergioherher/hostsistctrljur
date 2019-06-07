@@ -16,16 +16,16 @@ var KTDatatableHtmlTableDemo = function() {
 			},
 			columns: [
 				{
+					field: 'Juzgado',
+					title: 'Juzgado',
+					autoHide: false,
+				},  {
 					field: 'Expediente',
 					title: 'Expediente',
 					autoHide: false,
 				},  {
 					field: 'Demandado',
 					title: 'Demandado',
-					autoHide: false,
-				},  {
-					field: 'Juzgado',
-					title: 'Juzgado',
 					autoHide: false,
 				},  {
 					field: 'Última Fecha de Boletín',

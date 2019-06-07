@@ -26,6 +26,7 @@ class CreateJuiciosTable extends Migration
             $table->text('notas_seguimiento')->nullable();
             $table->dateTime('fecha_proxima_accion')->nullable();
             $table->text('proxima_accion')->nullable();
+            $table->unsignedBigInteger('moneda_id');
             $table->decimal('monto_demandado',20,2)->nullable();
             $table->decimal('importe_credito',20,2)->nullable();
             $table->unsignedBigInteger('macroetapa_id');
@@ -42,6 +43,7 @@ class CreateJuiciosTable extends Migration
             $table->text('audiencia_juicio')->nullable();
             $table->timestamps();
 
+            $table->foreign('moneda_id')->references('id')->on('monedas')->onDelete('cascade');
             $table->foreign('estado_id')->references('id')->on('estados')->onDelete('cascade');
             $table->foreign('juzgado_id')->references('id')->on('juzgados')->onDelete('cascade');
             $table->foreign('juzgadotipo_id')->references('id')->on('juzgadotipos')->onDelete('cascade');

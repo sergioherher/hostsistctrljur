@@ -30,7 +30,8 @@ class HomeController extends Controller
         $user = \Auth::user();
 
         if($user->hasRole('administrador')) {
-            $juicios = Juicio::all();
+            $juicios_all = Juicio::all();
+            $juicios = $juicios_all->sortBy('fecha_proxima_accion');
         } elseif ($user->hasRole('colaborador')) {
             $juicios_all = Juicio::all();
             $juicios = $juicios_all->filter(function($key,$value) use ($user){

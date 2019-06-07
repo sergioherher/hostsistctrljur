@@ -5,7 +5,7 @@
 <!--Begin::Section-->
 <div class="row">
     <div class="col-xl-8">
-    	<form class="kt-form" action="{{ url('juicio/guardarJuicio') }}" method="POST" enctype="multipart/form-data">
+    	<form class="kt-form" name="guardarJuicio" action="{{ url('juicio/guardarJuicio') }}" method="POST" enctype="multipart/form-data">
     		@csrf
             <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
                 <div class="kt-portlet__head kt-portlet__head--lg kt-portlet__head--break-sm">
@@ -227,7 +227,24 @@
 					</div>
 
 					<div class="form-group row">
-						<div class="col-lg-4">
+						<div class="col-lg-3">
+							<label>Moneda</label>
+							<div style="color:red;">
+								{{$errors->first('moneda')}}
+							</div>
+							<select id="moneda" name="moneda" class="form-control">
+								<option value="">Seleccione</option>
+								@foreach ($monedas as $moneda)
+									@if (old('moneda') == $moneda->id)
+										<option value="{{ $moneda->id }}" selected="selected">{{ $moneda->desc_moneda }}</option>
+									@else
+										<option value="{{ $moneda->id }}">{{ $moneda->desc_moneda }}</option>
+									@endif
+								@endforeach
+							</select>
+							<span class="form-text text-muted">Seleccione la moneda en la que se maneja la demanda</span>
+						</div>
+						<div class="col-lg-3">
 							<label>Monto demandado</label>
 							<div style="color:red;">
 								{{$errors->first('monto_demandado')}}
@@ -235,7 +252,7 @@
 							<input type="text" class="form-control" id="monto_demandado" name="monto_demandado" value="@if(null !== old('monto_demandado')){{ old('monto_demandado') }}@endif" placeholder="Monto demandado ...">
 							<span class="form-text text-muted">Escriba el monto por el que se está demandando</span>
 						</div>
-						<div class="col-lg-4">
+						<div class="col-lg-3">
 							<label>Importe del Crédito</label>
 							<div style="color:red;">
 								{{$errors->first('importe_credito')}}
@@ -243,7 +260,7 @@
 							<input type="text" class="form-control" id="importe_credito" name="importe_credito" value="@if(null !== old('importe_credito')){{ old('importe_credito') }}@endif" placeholder="Importe del crédito ...">
 							<span class="form-text text-muted">Escriba el importe del crédito</span>
 						</div>
-						<div class="col-lg-4">
+						<div class="col-lg-3">
 							<label>Macro etapa</label>
 							<div style="color:red;">
 								{{$errors->first('macroetapa')}}
@@ -446,6 +463,7 @@
         $("#importe_credito").inputmask('decimal', {
             rightAlignNumerics: false
         });
+        
 	});
 
 	// load the PDF
@@ -553,6 +571,15 @@
 		    showPDF(_OBJECT_URL, _PDF_DOC, _CANVAS, identificador);
 		});
 
+	}
+
+	var needToConfirm = true;
+
+	window.onbeforeunload = confirmExit;
+
+	function confirmExit()
+	{
+	    return "Si cierra esta ventana se perderán los datos que ha modificado";
 	}
 
 </script>

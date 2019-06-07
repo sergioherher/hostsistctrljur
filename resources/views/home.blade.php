@@ -96,9 +96,9 @@
 
                         <thead>
                             <tr>
-                                <th title="Field #1">Expediente</th>
-                                <th title="Field #2">Demandado</th>
-                                <th title="Field #3">Juzgado</th>
+                                <th title="Field #1">Juzgado</th>
+                                <th title="Field #2">Expediente</th>
+                                <th title="Field #3">Demandado</th>
                                 <th title="Field #4">Última Fecha de Boletín</th>
                                 <th title="Field #5">Próxima Acción</th>
                                 <th title="Field #6">Acciones</th>
@@ -109,9 +109,9 @@
                         <tbody>
                             @foreach($juicios as $juicio)
                             <tr>
+                                <td>{{ $juicio->juzgado()->first()->juzgado }}</td>
                                 <td><a href="{{url('juicios/'.$juicio->id)}}">{{ $juicio->expediente }}</a></td>
                                 <td>{{ $juicio->demandados()->where('codemandado', 0)->first()["name"] }}</td>
-                                <td>{{ $juicio->juzgado()->first()->juzgado }}</td>
                                 <td>{{ date("d/M/Y",strtotime($juicio->ultima_fecha_boletin)) }}</td>
                                 <td>{{ date("d/M/Y",strtotime($juicio->fecha_proxima_accion)) }}</td>
                                 <td>Acciones</td>

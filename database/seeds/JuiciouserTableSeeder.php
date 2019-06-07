@@ -37,5 +37,29 @@ class JuiciouserTableSeeder extends Seeder
 		$juiciouser->role_id = 3;
 		$juiciouser->save();
 
+		$juiciouser = new Juiciouser();
+		$juiciouser->juicio_id = 3;
+		$juiciouser->user_id = 2;
+		$juiciouser->role_id = 2;
+		$juiciouser->save();
+
+		$juiciouser = new Juiciouser();
+		$juiciouser->juicio_id = 3;
+		$juiciouser->user_id = 5;
+		$juiciouser->role_id = 3;
+		$juiciouser->save();
+
+		$juiciouser = new Juiciouser();
+		$juiciouser->juicio_id = 4;
+		$juiciouser->user_id = 2;
+		$juiciouser->role_id = 2;
+		$juiciouser->save();
+
+		$juiciouser = new Juiciouser();
+		$juiciouser->juicio_id = 4;
+		$juiciouser->user_id = 5;
+		$juiciouser->role_id = 3;
+		$juiciouser->save();
+
     }
 }

@@ -254,7 +254,24 @@
 					</div>
 
 					<div class="form-group row">
-						<div class="col-lg-4">
+						<div class="col-lg-3">
+							<label>Moneda</label>
+							<div style="color:red;">
+								{{$errors->first('moneda')}}
+							</div>
+							<select id="moneda" name="moneda" class="form-control">
+								<option value="">Seleccione</option>
+								@foreach ($monedas as $moned)
+									@if (old('moneda') == $moned->id || $moneda->id == $moned->id)
+										<option value="{{ $moned->id }}" selected="selected">{{ $moned->desc_moneda }}</option>
+									@else
+										<option value="{{ $moned->id }}">{{ $moned->desc_moneda }}</option>
+									@endif
+								@endforeach
+							</select>
+							<span class="form-text text-muted">Seleccione la moneda en la que se maneja la demanda</span>
+						</div>
+						<div class="col-lg-3">
 							<label>Monto demandado</label>
 							<div style="color:red;">
 								{{$errors->first('monto_demandado')}}
@@ -262,7 +279,7 @@
 							<input type="text" class="form-control" id="monto_demandado" name="monto_demandado" value="@if(null !== old('monto_demandado')){{ old('monto_demandado') }}@else{{ $juicio->monto_demandado }}@endif" placeholder="Monto demandado ...">
 							<span class="form-text text-muted">Escriba el monto por el que se está demandando</span>
 						</div>
-						<div class="col-lg-4">
+						<div class="col-lg-3">
 							<label>Importe del Crédito</label>
 							<div style="color:red;">
 								{{$errors->first('importe_credito')}}
@@ -270,7 +287,7 @@
 							<input type="text" class="form-control" id="importe_credito" name="importe_credito" value="@if(null !== old('importe_credito')){{ old('importe_credito') }}@else{{ $juicio->importe_credito }}@endif" placeholder="Importe del crédito ...">
 							<span class="form-text text-muted">Escriba el importe del crédito</span>
 						</div>
-						<div class="col-lg-4">
+						<div class="col-lg-3">
 							<label>Macro etapa</label>
 							<div style="color:red;">
 								{{$errors->first('macroetapa')}}

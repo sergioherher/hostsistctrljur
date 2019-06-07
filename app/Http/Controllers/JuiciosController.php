@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Juicio, App\Colaborator, App\Juzgado, App\Juiciotipo, App\Macroetapa, App\DocTipo, App\User, App\Estado, App\Salaapela, App\Juzgadotipo, App\Juiciouser, App\Demandado, App\DocJuicio;
+use App\Juicio, App\Colaborator, App\Juzgado, App\Juiciotipo, App\Macroetapa, App\DocTipo, App\User, App\Estado, App\Salaapela, App\Juzgadotipo, App\Juiciouser, App\Demandado, App\DocJuicio, App\Moneda;
 use Validator, Mail;
 use App\Traits\MpdfTrait;
 use Illuminate\Support\Facades\Storage;
@@ -38,6 +38,7 @@ class JuiciosController extends Controller
         $documentos = Juicio::find($juicio_id)->doc_juicios()->get();
         $estado = Juicio::find($juicio_id)->estado()->first();
         $salaapela = Juicio::find($juicio_id)->salaapela()->first();
+        $moneda = Juicio::find($juicio_id)->moneda()->first();
 
         $salaapelas = Salaapela::all();
         $juzgadotipos = Juzgadotipo::all();
@@ -63,7 +64,11 @@ class JuiciosController extends Controller
           }
         }
 
+        $monedas = Moneda::all();
+
         return view('juicios.verDetalleJuicio')->with('juicio', $juicio)
+                                               ->with('moneda', $moneda)
+                                               ->with('monedas', $monedas)             
                                                ->with('estado', $estado)
                                                ->with('estados', $estados)
                                                ->with('colaborators', $users)
@@ -107,6 +112,7 @@ class JuiciosController extends Controller
 
         $salaapelas = Salaapela::all();
         $juzgadotipos = Juzgadotipo::all();
+        $monedas = Moneda::all();
 
         return view('juicios.cargarJuicio')->with('estados', $estados)
                                            ->with('colaborators', $users)
@@ -116,7 +122,8 @@ class JuiciosController extends Controller
                                            ->with('clientes', $clientes)
                                            ->with('doc_tipos', $doc_tipos)
                                            ->with('juzgadotipos',$juzgadotipos)
-                                           ->with('salaapelas',$salaapelas);
+                                           ->with('salaapelas',$salaapelas)
+                                           ->with('monedas',$monedas);
     }
 
     public function guardarJuicio(Request $request)
@@ -179,6 +186,7 @@ class JuiciosController extends Controller
             $autoridad_recurso_amparo = $request->input("autoridad_recurso_amparo");
             $expediente_recurso_amparo = $request->input("expediente_recurso_amparo");
             $audiencia_juicio = $request->input("audiencia_juicio");
+            $moneda = $request->input("moneda");
 
             $editar_o_crear = $request->input("editar_o_crear");
 
@@ -216,6 +224,7 @@ class JuiciosController extends Controller
                 $juicio->autoridad_recurso_amparo = $autoridad_recurso_amparo;
                 $juicio->expediente_recurso_amparo = $expediente_recurso_amparo;
                 $juicio->audiencia_juicio = $audiencia_juicio;
+                $juicio->moneda_id = $moneda;
                 $juicio->save();
 
                 $juiciousuario_cliente = new Juiciouser;
@@ -331,6 +340,7 @@ class JuiciosController extends Controller
                 $juicio->autoridad_recurso_amparo = $autoridad_recurso_amparo;
                 $juicio->expediente_recurso_amparo = $expediente_recurso_amparo;
                 $juicio->audiencia_juicio = $audiencia_juicio;
+                $juicio->moneda_id = $moneda;
                 $juicio->save();
 
                 $juiciousuario_cliente = Juiciouser::where("juicio_id", $juicio_id)->where("role_id", 3)->first();
@@ -447,7 +457,7 @@ class JuiciosController extends Controller
       }
 
       $mpdf->WriteHTML($html);
-      $mpdf->Output($output_file, 'D');
+      $mpdf->Output($output_file, 'I');
 
       exit;
     }

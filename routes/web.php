@@ -32,9 +32,11 @@ Route::group(['middleware' => 'role:administrador'], function() {
    Route::post('/juicio/guardarJuicio', 'JuiciosController@guardarJuicio');
 });
 
-Route::group(['middleware' => 'role:colaborador', 'middleware' => 'role:administrador'], function() {
+Route::group(['middleware' => 'role:colaborador,editar-juicios'], function() {
    Route::get('/juicio/editarJuicio', 'HomeController@index');
+   
    Route::get('/juicios/{juicio_id}', 'JuiciosController@detalleJuicio');
+   
    Route::post('/doc_juicio/deleteDocument', 'JuiciosController@deleteDocument');
 });
 

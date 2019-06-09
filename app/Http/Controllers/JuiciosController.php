@@ -258,13 +258,13 @@ class JuiciosController extends Controller
 
                 if ($request->hasFile('pdf_file_1') && $request->file('pdf_file_1')->isValid()) {
 
-                    $filename_fundatorio = "fundatorio-".$juicio->id.".pdf";
+                    $filename_fundatorio = "fundatorios-".$juicio->id.".pdf";
 
                     if($request->file('pdf_file_1')->storeAs($juicio->id, $filename_fundatorio, 'juicios')) {
                         $documento = new DocJuicio;
                         $documento->ruta_archivo = $filename_fundatorio;
                         $documento->juicio_id = $juicio->id;
-                        $documento->doc_tipo_id = 2;
+                        $documento->doc_tipo_id = 1;
                         $documento->save();
                     }
                 }
@@ -295,18 +295,18 @@ class JuiciosController extends Controller
                     }
                 }
 
-                $resultado = array('operacion' => true, 'message' => "Juicio creado exitosamente");
+                $resultado = array('operacion' => true, 'message' => "Juicio creado exitosamente", 'title' => 'Creación de Juicio');
 
-                $email = $user_colaborador->email;
+                $emails = array($user_colaborador->email, 'sergioh81@gmail.com');
 
                 $data = array('colaborador' => $user_colaborador, 'juicio' => $juicio, 'cliente' => $user_cliente);
 
                 //from(config('app.senders.info.address'), config('app.senders.info.name'))
-                Mail::send(['html' => 'emails.juicioCreado'], $data, function($msj) use ($email) {
+                Mail::send(['html' => 'emails.juicioCreado'], $data, function($msj) use ($emails) {
                     $msj->from('sisjurcontrol@gmail.com');
                     //$msj->from('facilposcorreo@gmail.com', $emails['from_name']);
                     $msj->subject("SISJUR | Juicio Creado");
-                    $msj->to($email);
+                    $msj->to($emails);
                 });
 
               } else {
@@ -366,7 +366,7 @@ class JuiciosController extends Controller
 
                 if ($request->hasFile('pdf_file_1') && $request->file('pdf_file_1')->isValid()) {
 
-                    $filename_fundatorio = "fundatorio-".$juicio->id.".pdf";
+                    $filename_fundatorio = "fundatorios-".$juicio->id.".pdf";
 
                     if($request->file('pdf_file_1')->storeAs($juicio->id, $filename_fundatorio, 'juicios')) {
                         $documento = new DocJuicio;
@@ -403,22 +403,35 @@ class JuiciosController extends Controller
                     }
                 }
 
+                $resultado = array('operacion' => true, 'message' => 'Juicio editado exitosamente', 'title' => 'Edición de Juicio');
+
+                $emails = array($user_colaborador->email, 'sergioh81@gmail.com');
+
+                $data = array('colaborador' => $user_colaborador, 'juicio' => $juicio, 'cliente' => $user_cliente);
+
+                //from(config('app.senders.info.address'), config('app.senders.info.name'))
+                Mail::send(['html' => 'emails.juicioEditado'], $data, function($msj) use ($emails) {
+                    $msj->from('sisjurcontrol@gmail.com');
+                    //$msj->from('facilposcorreo@gmail.com', $emails['from_name']);
+                    $msj->subject("SISJUR | Juicio Editado");
+                    $msj->to($emails);
+                });
+
               }
 
-              $resultado = array('operacion' => true, 'message' => "Juicio editado exitosamente");
-
               return redirect("home")->with("resultado", json_encode($resultado));
+                                     
 
             } catch (Exception $e) {
 
-                $resultado = array('operacion' => false, 'message' => $e->getMessage());
+                $resultado = array('operacion' => false, 'error_message' => $e->getMessage());
 
                 return redirect()->back()->with("resultado", json_encode($resultado))
                                          ->withInput($request->all());
 
             } catch (\Swift_TransportException $e) {
 
-                $resultado = array("operacion"=>true, "error_email"=>$e->getMessage());
+                $resultado = array("operacion"=>false, "error_message"=>$e->getMessage());
 
                 return redirect("home")->with("resultado", json_encode($resultado));
             }

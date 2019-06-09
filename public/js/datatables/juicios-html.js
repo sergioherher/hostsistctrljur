@@ -77,11 +77,7 @@ var KTDatatableHtmlTableDemo = function() {
       datatable.search($(this).val().toLowerCase(), 'Estado');
     });
 
-    $('#kt_form_type').on('change', function() {
-      datatable.search($(this).val().toLowerCase(), 'Revendedor');
-    });
-
-    $('#kt_form_status,#kt_form_type').selectpicker();
+    $('#kt_form_status').selectpicker();
 
 	};
 

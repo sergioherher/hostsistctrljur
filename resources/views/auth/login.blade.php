@@ -20,7 +20,7 @@
                     </div>
                     <div class="kt-login__signin">
                         <div class="kt-login__head">
-                            <h3 class="kt-login__title">Sistema de Control de Hipotecas</h3>
+                            <h3 class="kt-login__title">Sistema de Control Jurídico</h3>
                         </div>
                         <form id="kt_login_signin_form" class="kt-form" method="POST" action="{{ url('login') }}">
                             @csrf

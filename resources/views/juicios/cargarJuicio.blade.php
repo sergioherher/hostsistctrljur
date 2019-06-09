@@ -292,7 +292,7 @@
 							<div style="color:red;">
 								{{$errors->first('datos_rpp')}}
 							</div>
-							<input type="text" class="form-control" id="datos_rpp" name="datos_rpp" value="@if(null !== old('datos_rpp')){{ old('datos_rpp') }}@endif" placeholder="Datos de RPP ...">
+							<textarea class="form-control" rows="5" id="datos_rpp" name="datos_rpp" placeholder="Datos de RPP ...">@if(null !== old('datos_rpp')){{ old('datos_rpp') }}@endif</textarea>
 							<span class="form-text text-muted">Escriba los datos de registro público del inmueble</span>
 						</div>
 						<div class="col-lg-4">
@@ -551,8 +551,8 @@
 		    }
 
 		    // validate file size
-		    if(file.size > 10*1024*1024) {
-		        alert('Error : Exceeded size 10MB');
+		    if(file.size > 128*1024*1024) {
+		        alert('Error : Exceeded size 128MB');
 		        return;
 		    }
 
@@ -573,14 +573,21 @@
 
 	}
 
-	var needToConfirm = true;
+	submitted = false;
 
-	window.onbeforeunload = confirmExit;
+ 	$("form").submit(function() {
+    	submitted = true;
+    });
 
-	function confirmExit()
-	{
-	    return "Si cierra esta ventana se perderán los datos que ha modificado";
-	}
+	$(window).bind('beforeunload', function(){
+	  	if (!submitted) {
+            var message = "Es posible que los cambios no se guarden", e = e || window.event;
+            if (e) {
+                e.returnValue = message;
+            }
+        return message;
+    	}
+	});
 
 </script>
 

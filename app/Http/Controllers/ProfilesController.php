@@ -45,9 +45,17 @@ class ProfilesController extends Controller
 
         try {
             $user = User::where("id",$user)->first();
-            $rol_ant = $user->roles()->first();
-            $user->roles()->attach($rol_new);
+            $rol_ant = $user->roles()->get();
+
             $user->roles()->detach($rol_ant);
+            
+            $user->roles()->attach($rol_new);
+            
+            if($rol_new->slug == "administrador") { 
+              $rol_colaborador = Role::where('slug','colaborador')->first();
+              $user->roles()->attach($rol_colaborador); 
+            }
+
             $result = array('operacion' => true, 'message' => $rol_new);
 
         } catch (Exception $e) {

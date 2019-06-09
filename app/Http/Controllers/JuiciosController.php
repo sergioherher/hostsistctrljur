@@ -372,7 +372,7 @@ class JuiciosController extends Controller
                         $documento = new DocJuicio;
                         $documento->ruta_archivo = $filename_fundatorio;
                         $documento->juicio_id = $juicio->id;
-                        $documento->doc_tipo_id = 2;
+                        $documento->doc_tipo_id = 1;
                         $documento->save();
                     }
                 }

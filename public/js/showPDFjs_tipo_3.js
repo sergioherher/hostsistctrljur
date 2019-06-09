@@ -3,15 +3,17 @@ var __PDF_DOC_3,
 	__TOTAL_PAGES_3,
 	__PAGE_RENDERING_IN_PROGRESS_3 = 0,
 	__CANVAS_3 = $('#pdf-canvas-3').get(0),
+	__CANVAS_3_ALT = $('#pdf-alt-preview-3').get(0),
 	__CANVAS_CTX_3 = __CANVAS_3.getContext('2d');
+	__CANVAS_CTX_3_ALT = __CANVAS_3_ALT.getContext('2d');
 
 function showPDF3(pdf_url) {
 	$("#pdf-prev-loader-3").show();
 
 	pdfjsLib.getDocument({ url: pdf_url }).then(function(pdf_doc) {
 		__PDF_DOC_3 = pdf_doc;
-		__TOTAL_PAGES_3 = __PDF_DOC_1.numPages;
-		
+		__TOTAL_PAGES_3 = __PDF_DOC_3.numPages;
+
 		// Hide the pdf loader and show pdf container in HTML
 		$("#pdf-prev-loader-3").hide();
 		$("#pdf-contents-3").show();
@@ -22,7 +24,6 @@ function showPDF3(pdf_url) {
 	}).catch(function(error) {
 		// If error re-show the upload button
 		$("#pdf-prev-loader-3").hide();
-		$("#upload-button-3").show();
 		
 		alert(error.message);
 	});;
@@ -45,21 +46,41 @@ function showPage3(page_no) {
 	// Fetch the page
 	__PDF_DOC_3.getPage(page_no).then(function(page) {
 		// As the canvas is of a fixed width we need to set the scale of the viewport accordingly
-		var scale_required = __CANVAS_3.width / page.getViewport(1).width;
+		var scale_required_1 = __CANVAS_3.width / page.getViewport(1).width;
+		var scale_required_2 = __CANVAS_3_ALT.width / page.getViewport(1).width;
 
 		// Get viewport of the page at required scale
-		var viewport = page.getViewport(scale_required);
+		var viewport_1 = page.getViewport(scale_required_1);
+		var viewport_2 = page.getViewport(scale_required_2);
 
 		// Set canvas height
-		__CANVAS_3.height = viewport.height;
+		__CANVAS_3.height = viewport_1.height;
+		__CANVAS_3_ALT.height = viewport_2.height;
 
-		var renderContext = {
+		var renderContext1 = {
 			canvasContext: __CANVAS_CTX_3,
-			viewport: viewport
+			viewport: viewport_1
+		};
+
+		var renderContext2 = {
+			canvasContext: __CANVAS_CTX_3_ALT,
+			viewport: viewport_2
 		};
 		
 		// Render the page contents in the canvas
-		page.render(renderContext).then(function() {
+		page.render(renderContext1).then(function() {
+			__PAGE_RENDERING_IN_PROGRESS_3 = 0;
+
+			// Re-enable Prev & Next buttons
+			$("#pdf-next-3, #pdf-prev-3").removeAttr('disabled');
+
+			// Show the canvas and hide the page loader
+			$("#pdf-canvas-3").show();
+			$("#page-loader-3").hide();
+		});
+
+		// Render the page contents in the canvas
+		page.render(renderContext2).then(function() {
 			__PAGE_RENDERING_IN_PROGRESS_3 = 0;
 
 			// Re-enable Prev & Next buttons
@@ -77,14 +98,14 @@ var archivo_3 = document.getElementById("doc_3").innerHTML;
 showPDF3(archivo_3);
 
 // Previous page of the PDF
-$("#pdf-prev-3").on('click', function() {
+$("#pdf-prev-3").on('click', function(e) {
 	e.preventDefault();
 	if(__CURRENT_PAGE_3 != 1)
 		showPage3(--__CURRENT_PAGE_3);
 });
 
 // Next page of the PDF
-$("#pdf-next-3").on('click', function() {
+$("#pdf-next-3").on('click', function(e) {
 	e.preventDefault();
 	if(__CURRENT_PAGE_3 != __TOTAL_PAGES_3)
 		showPage3(++__CURRENT_PAGE_3);

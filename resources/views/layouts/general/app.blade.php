@@ -86,7 +86,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <link href="{{ asset('theme/assets/demo/default/skins/aside/light.css')}}" rel="stylesheet" type="text/css" />
 
         <!--end::Layout Skins -->
-        <link rel="shortcut icon" href="{{ asset('theme/assets/media/logos/favicon.ico')}}" />
+        <link rel="shortcut icon" href="{{ asset('theme/assets/media/icons/svg/Home/Book-open.svg')}}" />
     </head>
 
     <!-- end::Head -->

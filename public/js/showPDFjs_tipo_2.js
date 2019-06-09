@@ -3,7 +3,9 @@ var __PDF_DOC_2,
 	__TOTAL_PAGES_2,
 	__PAGE_RENDERING_IN_PROGRESS_2 = 0,
 	__CANVAS_2 = $('#pdf-canvas-2').get(0),
+	__CANVAS_2_ALT = $('#pdf-alt-preview-2').get(0),
 	__CANVAS_CTX_2 = __CANVAS_2.getContext('2d');
+	__CANVAS_CTX_2_ALT = __CANVAS_2_ALT.getContext('2d');
 
 function showPDF2(pdf_url) {
 	$("#pdf-prev-loader-2").show();
@@ -45,21 +47,41 @@ function showPage2(page_no) {
 	// Fetch the page
 	__PDF_DOC_2.getPage(page_no).then(function(page) {
 		// As the canvas is of a fixed width we need to set the scale of the viewport accordingly
-		var scale_required = __CANVAS_2.width / page.getViewport(1).width;
+		var scale_required_1 = __CANVAS_2.width / page.getViewport(1).width;
+		var scale_required_2 = __CANVAS_2_ALT.width / page.getViewport(1).width;
 
 		// Get viewport of the page at required scale
-		var viewport = page.getViewport(scale_required);
+		var viewport_1 = page.getViewport(scale_required_1);
+		var viewport_2 = page.getViewport(scale_required_2);
 
 		// Set canvas height
-		__CANVAS_2.height = viewport.height;
+		__CANVAS_2.height = viewport_1.height;
+		__CANVAS_2_ALT.height = viewport_2.height;
 
-		var renderContext = {
+		var renderContext1 = {
 			canvasContext: __CANVAS_CTX_2,
-			viewport: viewport
+			viewport: viewport_1
+		};
+
+		var renderContext2 = {
+			canvasContext: __CANVAS_CTX_2_ALT,
+			viewport: viewport_2
 		};
 		
 		// Render the page contents in the canvas
-		page.render(renderContext).then(function() {
+		page.render(renderContext1).then(function() {
+			__PAGE_RENDERING_IN_PROGRESS_2 = 0;
+
+			// Re-enable Prev & Next buttons
+			$("#pdf-next-2, #pdf-prev-2").removeAttr('disabled');
+
+			// Show the canvas and hide the page loader
+			$("#pdf-canvas-2").show();
+			$("#page-loader-2").hide();
+		});
+
+		// Render the page contents in the canvas
+		page.render(renderContext2).then(function() {
 			__PAGE_RENDERING_IN_PROGRESS_2 = 0;
 
 			// Re-enable Prev & Next buttons

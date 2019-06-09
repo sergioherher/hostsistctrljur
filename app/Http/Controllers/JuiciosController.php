@@ -424,14 +424,14 @@ class JuiciosController extends Controller
 
             } catch (Exception $e) {
 
-                $resultado = array('operacion' => false, 'error_message' => $e->getMessage());
+                $resultado = array('operacion' => false, 'message' => $e->getMessage(), 'title' => 'Creación/Edición de Juicio');
 
                 return redirect()->back()->with("resultado", json_encode($resultado))
                                          ->withInput($request->all());
 
-            } catch (\Swift_TransportException $e) {
+            } catch (\Swift_TransportException $e) {    
 
-                $resultado = array("operacion"=>false, "error_message"=>$e->getMessage());
+                $resultado = array("operacion"=>false, "message"=>$e->getMessage(), 'title' => 'Envío de Email');
 
                 return redirect("home")->with("resultado", json_encode($resultado));
             }

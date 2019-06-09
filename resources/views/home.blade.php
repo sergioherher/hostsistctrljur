@@ -110,11 +110,21 @@
                             @foreach($juicios as $juicio)
                             <tr>
                                 <td>{{ $juicio->juzgado()->first()->juzgado }}</td>
-                                <td><a href="{{url('juicios/'.$juicio->id)}}">{{ $juicio->expediente }}</a></td>
+                                <td>{{ $juicio->expediente }}</td>
                                 <td>{{ $juicio->demandados()->where('codemandado', 0)->first()["name"] }}</td>
                                 <td>{{ date("d/M/Y",strtotime($juicio->ultima_fecha_boletin)) }}</td>
                                 <td>{{ date("d/M/Y",strtotime($juicio->fecha_proxima_accion)) }}</td>
-                                <td>Acciones</td>
+                                <td>
+                                    @role('cliente', 'colaborador', 'administrador')
+                                    <a href="{{url('juicios/'.$juicio->id)}}" class="btn btn-sm btn-label-brand" title="Reporte de Juicio"><i class="fa fa-file-pdf"></i></a>
+                                    @endrole
+                                    @role('colaborador', 'administrador')
+                                    <a href="{{url('juicios/'.$juicio->id)}}" class="btn btn-sm btn-label-warning" title="Reporte de Juicio"><i class="fa fa-edit"></i></a>
+                                    @endrole
+                                    @role('administrador')
+                                    <a href="{{url('juicios/'.$juicio->id)}}" class="btn btn-sm btn-label-danger" title="Reporte de Juicio"><i class="fa fa-trash"></i></a>
+                                    @endrole
+                                </td>
                                 <td>{{ $juicio->estado()->first()->estado }}</td>
                             </tr>
                             @endforeach
@@ -134,7 +144,7 @@
 
 @section('scripts')
 
-<script type="text/javascript" src="{{asset('js/datatables/juicios-html.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/datatables/juicios-html.js?v=0.0.1')}}"></script>
 <script type="text/javascript">
     toastr.options = {
       "closeButton": true,
@@ -160,7 +170,7 @@
         if(resultado.operacion){
             toastr.success(resultado.message, resultado.title);
         } else {
-            toastr.error(resultado.message, resultado.title);    
+            toastr.error(resultado.error_message, resultado.title);    
         }
     @endif
 

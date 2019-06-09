@@ -19,10 +19,12 @@ var KTDatatableHtmlTableDemo = function() {
 					field: 'Juzgado',
 					title: 'Juzgado',
 					autoHide: false,
+					width: 150,
 				},  {
 					field: 'Expediente',
 					title: 'Expediente',
 					autoHide: false,
+					width: 100,
 				},  {
 					field: 'Demandado',
 					title: 'Demandado',
@@ -31,6 +33,7 @@ var KTDatatableHtmlTableDemo = function() {
 					field: 'Última Fecha de Boletín',
 					title: 'Última Fecha de Boletín',
 					autoHide: false,
+					width: 100,
 				},  {
 					field: 'Próxima Acción',
 					title: 'Próxima Acción',

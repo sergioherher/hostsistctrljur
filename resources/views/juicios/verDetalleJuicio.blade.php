@@ -55,7 +55,7 @@
 							<select id="cliente" name="cliente" class="form-control" @role("colaborador") readonly @endrole>
 								<option value="">Seleccione</option>
 								@foreach ($clientes as $client)
-									@if (old('cliente') == $client->id || $cliente->user_id == $client->user_id)
+									@if (old('cliente') == $client->id || $cliente->id == $client->id)
 										<option value="{{ $client->id }}" selected="selected">{{ $client->name }}</option>
 									@else
 										<option value="{{ $client->id }}">{{ $client->name }}</option>
@@ -74,7 +74,7 @@
 							<select id="colaborator" name="colaborator" class="form-control" @role("colaborador") readonly @endrole>
 								<option value="">Seleccione</option>
 								@foreach ($colaborators as $colaborat)
-									@if (old('colaborator') == $colaborat->id || $colaborator->id )
+									@if (old('colaborator') == $colaborat->id || $colaborator->id == $colaborat->id)
 										<option value="{{ $colaborat->id }}" selected="selected">{{ $colaborat->name }}</option>
 									@else
 										<option value="{{ $colaborat->id }}">{{ $colaborat->name }}</option>
@@ -312,7 +312,7 @@
 							<div style="color:red;">
 								{{$errors->first('garantia')}}
 							</div>
-							<textarea class="form-control" rows="5" id="garantia" name="garantia" placeholder="Garantía ...">@if(null !== old('garantia')){{ old('garantia') }}@endif</textarea>
+							<textarea class="form-control" rows="5" id="garantia" name="garantia" placeholder="Garantía ...">@if(null !== old('garantia')){{ old('garantia') }}@else{{ $juicio->garantia }}@endif</textarea>
 						</div>
 						<div class="col-lg-4">
 							<label>Datos de registro público de la propiedads</label>
@@ -419,54 +419,136 @@
 
 					<div class="form-group row">
 						@foreach($doc_tipos as $doc_tipo)
-							<div class="col-lg-4 kt-align-center">
-								<h5 class="kt-align-center" style="height: 30px">{{ $doc_tipo->tipo }}</h5>
-								<div class="row" id="contenedor-agregar-documento-{{ $doc_tipo->id }}" style="display: @if($documentos->contains('doc_tipo_id', $doc_tipo->id)) {{ "none" }} @endif" id="contenedor-boton-agregar-{{ $doc_tipo->id }}" >
-									<div class="col-12">										
-										<button class="btn btn-label-success" id="upload-dialog-{{ $doc_tipo->id }}" onclick="event.preventDefault(); configurarUploader({{ $doc_tipo->id }})"><i class="fa fa-plus"></i>Cargar PDF</button>
-										<input type="file" id="pdf-file-{{ $doc_tipo->id }}" name="pdf_file_{{ $doc_tipo->id }}" accept="application/pdf" style="display:none" />
-										<div id="pdf-loader-{{ $doc_tipo->id }}" style="display:none">Cargando PDF ..</div>
-										<canvas id="pdf-preview-{{ $doc_tipo->id }}" width="210" style="display:none"></canvas>
-										<br>
-										<button class="btn btn-label-danger undo-upload" id="undo-upload-{{ $doc_tipo->id }}" style="display:none"><i class="fa fa-times"></i></button>
+							@if($doc_tipo->id != 3)	
+								<div class="col-lg-6 kt-align-center">
+									<h5 class="kt-align-center" style="height: 30px">{{ $doc_tipo->tipo }}</h5>
+									<div class="row" id="contenedor-agregar-documento-{{ $doc_tipo->id }}" style="display: @if($documentos->contains('doc_tipo_id', $doc_tipo->id)) {{ "none" }} @endif" id="contenedor-boton-agregar-{{ $doc_tipo->id }}" >
+										<div class="col-12">										
+											<button class="btn btn-label-success" id="upload-dialog-{{ $doc_tipo->id }}" onclick="event.preventDefault(); configurarUploader({{ $doc_tipo->id }})"><i class="fa fa-plus"></i>Cargar PDF</button>
+											<input type="file" id="pdf-file-{{ $doc_tipo->id }}" name="pdf_file_{{ $doc_tipo->id }}" accept="application/pdf" style="display:none" />
+											<div id="pdf-loader-{{ $doc_tipo->id }}" style="display:none">Cargando PDF ..</div>
+											<canvas id="pdf-preview-{{ $doc_tipo->id }}" width="210" style="display:none"></canvas>
+											<br>
+											<button class="btn btn-label-danger undo-upload" id="undo-upload-{{ $doc_tipo->id }}" style="display:none"><i class="fa fa-times"></i></button>
+										</div>
 									</div>
-								</div>
-								@foreach($documentos as $documento)
-									@if($documento->doc_tipo_id == $doc_tipo->id)
-									<div class="row" id="contenedor-a-borrar-doc-{{ $documento->doc_tipo_id }}">
-										<div class="col-12">
-											<div class="row kt-align-center">
-												<div class="col-12" id="pdf-main-container-{{ $documento->doc_tipo_id }}">
-													<div id="pdf-prev-loader-{{ $documento->doc_tipo_id }}">Cargando documento ...</div>
-													<div id="pdf-contents-{{ $documento->doc_tipo_id }}">
-														<div id="pdf-meta-{{ $documento->doc_tipo_id }}">
-															<div id="pdf-buttons-{{ $documento->doc_tipo_id }}">
-																<button id="pdf-prev-{{ $documento->doc_tipo_id }}">Anterior</button>
-																<button id="pdf-next-{{ $documento->doc_tipo_id }}">Siguiente</button>
-															</div>	
-															<div id="page-count-container-{{ $documento->doc_tipo_id }}">Página <div  style="display: inline-block;" id="pdf-current-page-{{ $documento->doc_tipo_id }}"></div> de <div style="display: inline-block;"  id="pdf-total-pages-{{ $documento->doc_tipo_id }}"></div></div>
+									@foreach($documentos as $documento)
+										@if($documento->doc_tipo_id == $doc_tipo->id)
+										<div class="row" id="contenedor-a-borrar-doc-{{ $documento->doc_tipo_id }}">
+											<div class="modal fade" class="kt_modal_pdf_viewer" id="kt_modal_pdf_viewer_{{ $doc_tipo->id }}" tabindex="-1" role="dialog" aria-labelledby="pdf-viewer-modal" aria-hidden="true">
+									            <div class="modal-dialog modal-lg" role="document">
+									                <div class="modal-content">
+									                    <div class="modal-header">
+									                        <h5 class="modal-title" id="agregar_usuario">{{ $doc_tipo->tipo }}</h5>
+									                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									                        </button>
+									                    </div>
+									                    <div class="modal-body">
+									                    	<div id="pdf-meta-{{ $documento->doc_tipo_id }}">
+																<div id="pdf-buttons-{{ $documento->doc_tipo_id }}">
+																	<button id="pdf-prev-{{ $documento->doc_tipo_id }}">Anterior</button>
+																	<button id="pdf-next-{{ $documento->doc_tipo_id }}">Siguiente</button>
+																</div>	
+																<div id="page-count-container-{{ $documento->doc_tipo_id }}">Página <div  style="display: inline-block;" id="pdf-current-page-{{ $documento->doc_tipo_id }}"></div> de <div style="display: inline-block;"  id="pdf-total-pages-{{ $documento->doc_tipo_id }}"></div></div>
+															</div>
+									                    	<canvas id="pdf-alt-preview-{{ $doc_tipo->id }}" width="750"></canvas>
+									                    </div>
+									                    <div class="modal-footer">
+									                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+									                    </div>
+									                </div>
+									            </div>
+									        </div>
+											<div class="col-12">
+												<div class="row kt-align-center">
+													<div class="col-12" id="pdf-main-container-{{ $documento->doc_tipo_id }}">
+														<div id="pdf-prev-loader-{{ $documento->doc_tipo_id }}">Cargando documento ...</div>
+														<div id="pdf-contents-{{ $documento->doc_tipo_id }}">
+															<a data-toggle="modal" data-target="#kt_modal_pdf_viewer_{{ $doc_tipo->id }}"><canvas id="pdf-canvas-{{ $documento->doc_tipo_id }}" width="300"></canvas></a>
+															<div id="page-loader-{{ $documento->doc_tipo_id }}">Cargando página ...</div>
 														</div>
-														<canvas id="pdf-canvas-{{ $documento->doc_tipo_id }}" width="300"></canvas>
-														<div id="page-loader-{{ $documento->doc_tipo_id }}">Cargando página ...</div>
 													</div>
+													<div class="col-12" id="contenedor_doc_{{ $documento->doc_tipo_id }}">
+														<div id="doc_{{ $documento->doc_tipo_id }}" style="display: none;">{{ url("/doc_juicios/".$documento->juicio_id."/".$documento->doc_tipo_id) }}</div>
+													</div>								
 												</div>
-												<div class="col-12" id="contenedor_doc_{{ $documento->doc_tipo_id }}">
-													<div id="doc_{{ $documento->doc_tipo_id }}" style="display: none;">{{ url("/doc_juicios/".$documento->juicio_id."/".$documento->doc_tipo_id) }}</div>
-												</div>								
+												<div class="row">
+													<div class="col-12">
+														<button class="btn btn-label-danger borrar-documento" id="doc_id-{{ $documento->id }}-juicio_id-{{ $documento->juicio_id }}-doc_tipo_id-{{ $documento->doc_tipo_id }}"><i class="fa fa-times"></i></button>
+													</div>											
+												</div>
 											</div>
-											<div class="row">
-												<div class="col-12">
-													<button class="btn btn-label-danger borrar-documento" id="doc_id-{{ $documento->id }}-juicio_id-{{ $documento->juicio_id }}-doc_tipo_id-{{ $documento->doc_tipo_id }}"><i class="fa fa-times"></i></button>
-												</div>											
+
+										</div>
+										@endif
+									@endforeach
+								</div>
+							@else
+								<div class="col-lg-12 kt-align-center">
+									<h5 class="kt-align-center" style="height: 30px">{{ $doc_tipo->tipo }}</h5>
+									<div class="row" id="contenedor-agregar-documento-{{ $doc_tipo->id }}" style="display: @if($documentos->contains('doc_tipo_id', $doc_tipo->id)) {{ "none" }} @endif" id="contenedor-boton-agregar-{{ $doc_tipo->id }}" >
+										<div class="col-12">										
+											<button class="btn btn-label-success" id="upload-dialog-{{ $doc_tipo->id }}" onclick="event.preventDefault(); configurarUploader({{ $doc_tipo->id }})"><i class="fa fa-plus"></i>Agregar PDF</button>
+											<input type="file" id="pdf-file-{{ $doc_tipo->id }}" name="pdf_file_{{ $doc_tipo->id }}" accept="application/pdf" style="display:none" />
+											<div id="pdf-loader-{{ $doc_tipo->id }}" style="display:none">Cargando PDF ..</div>
+											<canvas id="pdf-preview-{{ $doc_tipo->id }}" width="210" style="display:none"></canvas>
+											<br>
+											<button class="btn btn-label-danger undo-upload" id="undo-upload-{{ $doc_tipo->id }}" style="display:none"><i class="fa fa-times"></i></button>
+										</div>
+									</div>
+									@foreach($documentos as $documento)
+										@if($documento->doc_tipo_id == $doc_tipo->id)
+										<div class="row" id="contenedor-a-borrar-doc-{{ $documento->doc_tipo_id }}">
+											<div class="modal fade" class="kt_modal_pdf_viewer" id="kt_modal_pdf_viewer_{{ $doc_tipo->id }}" tabindex="-1" role="dialog" aria-labelledby="pdf-viewer-modal" aria-hidden="true">
+									            <div class="modal-dialog modal-lg" role="document">
+									                <div class="modal-content">
+									                    <div class="modal-header">
+									                        <h5 class="modal-title" id="agregar_usuario">{{ $doc_tipo->tipo }}</h5>
+									                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									                        </button>
+									                    </div>
+									                    <div class="modal-body">
+									                    	<div id="pdf-meta-{{ $documento->doc_tipo_id }}">
+																<div id="pdf-buttons-{{ $documento->doc_tipo_id }}">
+																	<button id="pdf-prev-{{ $documento->doc_tipo_id }}">Anterior</button>
+																	<button id="pdf-next-{{ $documento->doc_tipo_id }}">Siguiente</button>
+																</div>	
+																<div id="page-count-container-{{ $documento->doc_tipo_id }}">Página <div  style="display: inline-block;" id="pdf-current-page-{{ $documento->doc_tipo_id }}"></div> de <div style="display: inline-block;"  id="pdf-total-pages-{{ $documento->doc_tipo_id }}"></div></div>
+															</div>
+									                    	<canvas id="pdf-alt-preview-{{ $doc_tipo->id }}" width="750"></canvas>
+									                    </div>
+									                    <div class="modal-footer">
+									                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+									                    </div>
+									                </div>
+									            </div>
+									        </div>
+											<div class="col-12">
+												<div class="row kt-align-center">
+													<div class="col-12" id="pdf-main-container-{{ $documento->doc_tipo_id }}">
+														<div id="pdf-prev-loader-{{ $documento->doc_tipo_id }}">Cargando documento ...</div>
+														<div id="pdf-contents-{{ $documento->doc_tipo_id }}">
+															<a data-toggle="modal" data-target="#kt_modal_pdf_viewer_{{ $doc_tipo->id }}"><canvas id="pdf-canvas-{{ $documento->doc_tipo_id }}" width="300"></canvas></a>
+															<div id="page-loader-{{ $documento->doc_tipo_id }}">Cargando página ...</div>
+														</div>
+													</div>
+													<div class="col-12" id="contenedor_doc_{{ $documento->doc_tipo_id }}">
+														<div id="doc_{{ $documento->doc_tipo_id }}" style="display: none;">{{ url("/doc_juicios/".$documento->juicio_id."/".$documento->doc_tipo_id) }}</div>
+													</div>								
+												</div>
+												<div class="row">
+													<div class="col-12">
+														<button class="btn btn-label-danger borrar-documento" id="doc_id-{{ $documento->id }}-juicio_id-{{ $documento->juicio_id }}-doc_tipo_id-{{ $documento->doc_tipo_id }}"><i class="fa fa-times"></i></button>
+													</div>											
+												</div>
 											</div>
 										</div>
-
-									</div>
-									@endif
-								@endforeach
-							</div>
+										@endif
+									@endforeach
+								</div>
+							@endif
 						@endforeach
-					</div>					
+					</div>				
                 </div>
                 <div class="kt-portlet__foot kt-align-right">
                 	<button class="btn btn-success" type="submit">
@@ -489,7 +571,7 @@
 @foreach($doc_tipos as $doc_tipo)
 	@foreach($documentos as $documento)
 		@if($documento->doc_tipo_id == $doc_tipo->id)
-			<script type="text/javascript" src="{{asset('js/showPDFjs_tipo_'.$doc_tipo->id.'.js')}}"></script>
+			<script type="text/javascript" src="{{asset('js/showPDFjs_tipo_'.$doc_tipo->id.'.js?v=0.0.1')}}"></script>
 		@endif
 	@endforeach
 @endforeach
@@ -674,61 +756,6 @@
 		});
 
 	}
-
-	/*function makeThumb(page) {
-	  // draw page to fit into 96x96 canvas
-	  var vp = page.getViewport(1);
-	  var canvas = document.createElement("canvas");
-	  canvas.width = canvas.height = 300;
-	  var scale = Math.min(canvas.width / vp.width, canvas.height / vp.height);
-	  return page.render({canvasContext: canvas.getContext("2d"), viewport: page.getViewport(scale)}).promise.then(function () {
-	    return canvas;
-	  });
-	}
-
-	function generarThumpnail(doc, doc_juicio, doc_tipo) {
-
-		var doc_juicio_id = doc_juicio;
-		var doc_tipo_id = doc_tipo;
-		var doc_id = doc;
-		var archivo = document.getElementById("doc_"+doc_id).innerHTML;
-
-		pdfjsLib.getDocument(archivo).promise.then(function (doc) {
-		  var pages = [1]; //while (pages.length < doc.numPages) pages.push(pages.length + 1);
-		  var doc_id_interno = doc_id;
-		  var doc_juicio_id_interno = doc_juicio_id;
-		  var doc_tipo_id_interno = doc_tipo_id;
-
-
-		  return Promise.all(pages.map(function (num) {
-		    // create a div for each page and build a small canvas for it
-		    var div = document.getElementById('contenedor_doc_'+doc_id_interno);
-		    return doc.getPage(num).then(makeThumb)
-		      .then(function (canvas) {
-		      	var vinculo = document.createElement("a");
-		      	if(doc_tipo_id_interno == 1) {
-		      		vinculo.href = "{{ url('doc_juicios') }}/"+doc_juicio_id_interno+"/fundatorios-"+doc_juicio_id_interno+".pdf";
-		      	} else if(doc_tipo_id_interno == 2) {
-		      		vinculo.href = "{{ url('doc_juicios') }}/"+doc_juicio_id_interno+"/expediente-"+doc_juicio_id_interno+".pdf";
-		      	} else {
-		      		vinculo.href = "{{ url('doc_juicios') }}/"+doc_juicio_id_interno+"/otros-"+doc_juicio_id_interno+".pdf";
-		      	}
-		      	
-		        div.appendChild(vinculo);
-		        vinculo.appendChild(canvas);
-		    });
-		  }));
-		}).catch(console.error);
-
-	}*/
-
-	/*@foreach($doc_tipos as $doc_tipo)
-		@foreach($documentos as $documento)
-			@if($documento->doc_tipo_id == $doc_tipo->id)
-			generarThumpnail({{$documento->id}}, {{$documento->juicio_id}}, {{$documento->doc_tipo_id}});
-			@endif
-		@endforeach
-	@endforeach*/
 
 	submitted = false;
 

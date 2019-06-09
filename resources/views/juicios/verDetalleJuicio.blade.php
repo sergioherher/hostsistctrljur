@@ -433,20 +433,35 @@
 								</div>
 								@foreach($documentos as $documento)
 									@if($documento->doc_tipo_id == $doc_tipo->id)
-								<div class="row" id="contenedor-a-borrar-doc-{{ $documento->id }}">
-									<div class="col-12">
-										<div class="row kt-align-center">
-											<div class="col-12" id="contenedor_doc_{{ $documento->id }}">
-												<div id="doc_{{ $documento->id }}" style="display: none;">{{ url("/doc_juicios/".$documento->juicio_id."/".$documento->doc_tipo_id) }}</div>
-											</div>								
+									<div class="row" id="contenedor-a-borrar-doc-{{ $documento->doc_tipo_id }}">
+										<div class="col-12">
+											<div class="row kt-align-center">
+												<div class="col-12" id="pdf-main-container-{{ $documento->doc_tipo_id }}">
+													<div id="pdf-prev-loader-{{ $documento->doc_tipo_id }}">Cargando documento ...</div>
+													<div id="pdf-contents-{{ $documento->doc_tipo_id }}">
+														<div id="pdf-meta-{{ $documento->doc_tipo_id }}">
+															<div id="pdf-buttons-{{ $documento->doc_tipo_id }}">
+																<button id="pdf-prev-{{ $documento->doc_tipo_id }}">Anterior</button>
+																<button id="pdf-next-{{ $documento->doc_tipo_id }}">Siguiente</button>
+															</div>	
+															<div id="page-count-container-{{ $documento->doc_tipo_id }}">Página <div  style="display: inline-block;" id="pdf-current-page-{{ $documento->doc_tipo_id }}"></div> de <div style="display: inline-block;"  id="pdf-total-pages-{{ $documento->doc_tipo_id }}"></div></div>
+														</div>
+														<canvas id="pdf-canvas-{{ $documento->doc_tipo_id }}" width="300"></canvas>
+														<div id="page-loader-{{ $documento->doc_tipo_id }}">Cargando página ...</div>
+													</div>
+												</div>
+												<div class="col-12" id="contenedor_doc_{{ $documento->doc_tipo_id }}">
+													<div id="doc_{{ $documento->doc_tipo_id }}" style="display: none;">{{ url("/doc_juicios/".$documento->juicio_id."/".$documento->doc_tipo_id) }}</div>
+												</div>								
+											</div>
+											<div class="row">
+												<div class="col-12">
+													<button class="btn btn-label-danger borrar-documento" id="doc_id-{{ $documento->id }}-juicio_id-{{ $documento->juicio_id }}-doc_tipo_id-{{ $documento->doc_tipo_id }}"><i class="fa fa-times"></i></button>
+												</div>											
+											</div>
 										</div>
-										<div class="row">
-											<div class="col-12">
-												<button class="btn btn-label-danger borrar-documento" id="doc_id-{{ $documento->id }}-juicio_id-{{ $documento->juicio_id }}-doc_tipo_id-{{ $documento->doc_tipo_id }}"><i class="fa fa-times"></i></button>
-											</div>											
-										</div>
+
 									</div>
-								</div>
 									@endif
 								@endforeach
 							</div>
@@ -471,6 +486,13 @@
 @section('scripts')
 
 <script type="text/javascript" src="{{asset('js/datatables/juicios-html.js')}}"></script>
+@foreach($doc_tipos as $doc_tipo)
+	@foreach($documentos as $documento)
+		@if($documento->doc_tipo_id == $doc_tipo->id)
+			<script type="text/javascript" src="{{asset('js/showPDFjs_tipo_'.$doc_tipo->id.'.js')}}"></script>
+		@endif
+	@endforeach
+@endforeach
 <script type="text/javascript">
 
 	$(document).ready(function(e){
@@ -531,7 +553,7 @@
                 success: function(data) {
                     console.log(data);
                     if(data.operacion) {
-                    	$("#contenedor-a-borrar-doc-"+data.doc_id).remove();
+                    	$("#contenedor-a-borrar-doc-"+data.doc_tipo_id).remove();
                     	$("#contenedor-agregar-documento-"+data.doc_tipo_id).show();
                     	toastr.success("Se eliminó correctamente el documento", "Eliminar documento");
                     } else {
@@ -653,7 +675,7 @@
 
 	}
 
-	function makeThumb(page) {
+	/*function makeThumb(page) {
 	  // draw page to fit into 96x96 canvas
 	  var vp = page.getViewport(1);
 	  var canvas = document.createElement("canvas");
@@ -698,15 +720,15 @@
 		  }));
 		}).catch(console.error);
 
-	}
+	}*/
 
-	@foreach($doc_tipos as $doc_tipo)
+	/*@foreach($doc_tipos as $doc_tipo)
 		@foreach($documentos as $documento)
 			@if($documento->doc_tipo_id == $doc_tipo->id)
 			generarThumpnail({{$documento->id}}, {{$documento->juicio_id}}, {{$documento->doc_tipo_id}});
 			@endif
 		@endforeach
-	@endforeach
+	@endforeach*/
 
 	submitted = false;
 

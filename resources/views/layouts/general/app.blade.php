@@ -171,7 +171,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
                                         <ul class="kt-menu__subnav">
                                             <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Juicios</span></span></li>
-                                            <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-icon la la-edit"></i><span class="kt-menu__link-text">Revisar / Editar</span></a></li>
+                                            <li class="kt-menu__item " aria-haspopup="true"><a href="{{ url('juicio/editarJuicio') }}" class="kt-menu__link "><i class="kt-menu__link-icon la la-edit"></i><span class="kt-menu__link-text">Revisar / Editar</span></a></li>
                                             @role('administrador')
                                             <li class="kt-menu__item " aria-haspopup="true"><a href="{{ url('/juicio/cargarJuicio') }}" class="kt-menu__link "><i class="kt-menu__link-icon la la-plus"></i><span class="kt-menu__link-text">Cargar</span></a></li>
                                             @endrole
@@ -229,11 +229,13 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="kt-header-menu-wrapper kt-grid__item kt-grid__item--fluid" id="kt_header_menu_wrapper">
                             <div id="kt_header_menu" class="kt-header-menu kt-header-menu-mobile  kt-header-menu--layout- ">
                                 <ul class="kt-menu__nav ">
-                                    <li class="kt-menu__item  kt-menu__item--active " aria-haspopup="true"><a href="{{ url('home') }}" class="kt-menu__link "><i class="kt-menu__link-icon flaticon2-protection"></i><span class="kt-menu__link-text">Inicio</span></a></li>
+                                    <li class="kt-menu__item  kt-menu__item--active " aria-haspopup="true"><a href="{{ url('home') }}" class="kt-menu__link "><i class="kt-menu__link-icon flaticon2-protection"></i><span class="kt-menu__link-text">@role('colaborador', 'cliente') Mis @endrole Juicios</span></a></li>
                                     @role('administrador')
                                     <li class="kt-menu__item" aria-haspopup="true"><a href="{{ url('/juicio/cargarJuicio') }}" class="kt-menu__link "><i class="kt-menu__link-icon la la-plus"></i><span class="kt-menu__link-text">Cargar Juicio</span></a></li>
                                     @endrole
+                                    @role('administrador', 'colaborador')
                                     <li class="kt-menu__item" aria-haspopup="true"><a href="{{ url('/juicio/editarJuicio') }}" class="kt-menu__link "><i class="kt-menu__link-icon la la-edit"></i><span class="kt-menu__link-text">Revisar / Editar Juicio</span></a></li>
+                                    @endrole
                                 </ul>
                             </div>
                         </div>
@@ -664,7 +666,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
                                     <span class="kt-hidden kt-header__topbar-welcome">Hola,</span>
                                     <span class="kt-hidden kt-header__topbar-username">{{ Auth::user()->name }}</span>
-                                    <img class="kt-hidden" alt="Pic" src="{{ asset('theme/assets/media/users/300_21.jpg')}}" />
+                                    
                                     <span class="kt-header__topbar-icon"><i class="flaticon2-user-outline-symbol"></i></span>
                                 </div>
                                 <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-xl">
@@ -672,8 +674,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <!--begin: Head -->
                                     <div class="kt-user-card kt-user-card--skin-light kt-notification-item-padding-x">
                                         <div class="kt-user-card__avatar">
-                                            <img class="kt-hidden-" alt="Pic" src="{{ asset('theme/assets/media/users/300_25.jpg')}}" />
-
+                                            
                                             <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
                                             <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold kt-hidden">S</span>
                                         </div>

@@ -25,6 +25,7 @@ class UserTableSeeder extends Seeder
 		$administrador->password = bcrypt('123456');
 		$administrador->save();
 		$administrador->roles()->attach($administrador_role);
+		$administrador->roles()->attach($colaborador_role);
 		$administrador->permissions()->attach($create_juicios_perm);
 		$administrador->permissions()->attach($editar_juicios_perm);
 		$administrador->permissions()->attach($ver_juicios_perm);

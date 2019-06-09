@@ -35,7 +35,7 @@
 							<div style="color:red;">
 								{{$errors->first('estado')}}
 							</div>
-							<select id="estado" name="estado" class="form-control" @role("colaborador") disabled @endrole>
+							<select id="estado" name="estado" class="form-control" @role("colaborador") readonly @endrole>
 								<option value="">Seleccione</option>
 								@foreach ($estados as $estad)
 									@if (old('estado') == $estad->id || $estado->id == $estad->id)
@@ -52,7 +52,7 @@
 							<div style="color:red;">
 								{{$errors->first('cliente')}}
 							</div>
-							<select id="cliente" name="cliente" class="form-control" @role("colaborador") disabled @endrole>
+							<select id="cliente" name="cliente" class="form-control" @role("colaborador") readonly @endrole>
 								<option value="">Seleccione</option>
 								@foreach ($clientes as $client)
 									@if (old('cliente') == $client->id || $cliente->user_id == $client->user_id)
@@ -71,7 +71,7 @@
 							<div style="color:red;">
 								{{$errors->first('colaborator')}}
 							</div>
-							<select id="colaborator" name="colaborator" class="form-control" @role("colaborador") disabled @endrole>
+							<select id="colaborator" name="colaborator" class="form-control" @role("colaborador") readonly @endrole>
 								<option value="">Seleccione</option>
 								@foreach ($colaborators as $colaborat)
 									@if (old('colaborator') == $colaborat->id || $colaborator->id )
@@ -319,7 +319,7 @@
 							<div style="color:red;">
 								{{$errors->first('datos_rpp')}}
 							</div>
-							<input type="text" class="form-control" id="datos_rpp" name="datos_rpp" value="@if(null !== old('datos_rpp')){{ old('datos_rpp') }}}@else{{ $juicio->datos_rpp }}@endif" placeholder="Datos de RPP ...">
+							<textarea class="form-control" rows="5" id="datos_rpp" name="datos_rpp" placeholder="Datos de RPP ...">@if(null !== old('datos_rpp')){{ old('datos_rpp') }}@else{{ $juicio->datos_rpp }}@endif</textarea>
 							<span class="form-text text-muted">Escriba los datos de registro público del inmueble</span>
 						</div>
 						<div class="col-lg-4">
@@ -631,8 +631,8 @@
 		    }
 
 		    // validate file size
-		    if(file.size > 10*1024*1024) {
-		        alert('Error : Exceeded size 10MB');
+		    if(file.size > 128*1024*1024) {
+		        alert('Error : Exceeded size 128MB');
 		        return;
 		    }
 
@@ -707,6 +707,22 @@
 			@endif
 		@endforeach
 	@endforeach
+
+	submitted = false;
+
+ 	$("form").submit(function() {
+    	submitted = true;
+    });
+
+	$(window).bind('beforeunload', function(){
+	  	if (!submitted) {
+            var message = "Es posible que los cambios no se guarden", e = e || window.event;
+            if (e) {
+                e.returnValue = message;
+            }
+        return message;
+    	}
+	});
 
 </script>
 

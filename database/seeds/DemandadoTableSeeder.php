@@ -30,5 +30,17 @@ class DemandadoTableSeeder extends Seeder
         $demandado->name = "AVILA CARRIZALES JANETTE";
         $demandado->codemandado = 0;
         $demandado->save();
+
+        $demandado = new Demandado();
+        $demandado->juicio_id = 3;
+        $demandado->name = "AVILA RODRIGUEZ JANETTE";
+        $demandado->codemandado = 0;
+        $demandado->save();
+
+        $demandado = new Demandado();
+        $demandado->juicio_id = 4;
+        $demandado->name = "AVILA CARRIZALES JANETTE";
+        $demandado->codemandado = 0;
+        $demandado->save();
     }
 }

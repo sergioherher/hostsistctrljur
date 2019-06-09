@@ -30,10 +30,9 @@ class HomeController extends Controller
         $user = \Auth::user();
 
         if($user->hasRole('administrador')) {
-            $juicios_all = Juicio::all();
-            $juicios = $juicios_all->sortBy('fecha_proxima_accion');
+            $juicios = Juicio::select()->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
         } elseif ($user->hasRole('colaborador')) {
-            $juicios_all = Juicio::all();
+            $juicios_all = Juicio::select()->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
             $juicios = $juicios_all->filter(function($key,$value) use ($user){
                 $juicios_users = $key->juiciousers()->get();
                 foreach ($juicios_users as $juicios_user) {
@@ -43,7 +42,7 @@ class HomeController extends Controller
                 }
             });
         } else {
-            $juicios_all = Juicio::all();
+            $juicios_all = Juicio::select()->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
             $juicios = $juicios_all->filter(function($key,$value) use ($user){
                 $juicios_users = $key->juiciousers()->get();
                 foreach ($juicios_users as $juicios_user) {

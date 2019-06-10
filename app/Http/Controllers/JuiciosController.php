@@ -485,9 +485,7 @@ class JuiciosController extends Controller
         $path = storage_path("app/juicios/".$jucio_id."/otros-".$jucio_id.".pdf");  
       }
       
-      header('Content-Type:aplication/pdf');
-      header('Content-Length: ' . filesize($path));
-      readfile($path);
+      return response()->file($path);
     }
 
     public function deleteDocument(Request $request) {

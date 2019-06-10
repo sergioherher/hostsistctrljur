@@ -21,7 +21,28 @@
                     </div>
                 </div>
                 <div class="kt-portlet__body">
-                	
+                	@if(Auth::user()->can('administrar-perfiles'))
+                	<div class="form-group row">                    		
+                		<div class="col-lg-6">	
+                			<label>Coordinador</label>							
+							<div style="color:red;">
+								{{$errors->first('coordinador')}}
+							</div>
+							<select id="coordinador" name="coordinador" class="form-control">
+								<option value="">Seleccione</option>
+								@foreach ($coordinadores as $coordinad)
+									@if (old('estado') == $coordinad->id)
+										<option value="{{ $coordinad->id }}" selected="selected">{{ $coordinad->name }}</option>
+									@else
+										<option value="{{ $coordinad->id }}">{{ $coordinad->name }}</option>
+									@endif
+								@endforeach
+							</select>
+						</div>
+					</div> 
+                	@else
+                	<input type="hidden" name="coordinador" value="{{Auth::user()->id}}">
+                	@endif
                 	<div class="form-group row">
                 		<div class="col-lg-6">
 							<label>Estado</label>

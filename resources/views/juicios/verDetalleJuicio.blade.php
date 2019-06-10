@@ -28,41 +28,68 @@
                     </div>
                 </div>
                 <div class="kt-portlet__body">
-                	
+                	<div class="form-group row" style="display: @if(Auth::user()->can('administrar-perfiles')) inline-block @else none @endif" >                    		
+                		<div class="col-lg-6">	
+                			<label>Coordinador</label>							
+							<div style="color:red;">
+								{{$errors->first('coordinador')}}
+							</div>
+							<select id="coordinador" name="coordinador" class="form-control">
+								<option value="">Seleccione</option>
+								@foreach ($coordinadores as $coordinad)
+									@if (old('estado') == $coordinad->id || $coordinador->id == $coordinad->id)
+										<option value="{{ $coordinad->id }}" selected="selected">{{ $coordinad->name }}</option>
+									@else
+										<option value="{{ $coordinad->id }}">{{ $coordinad->name }}</option>
+									@endif
+								@endforeach
+							</select>
+						</div>
+					</div>                	
                 	<div class="form-group row">
                 		<div class="col-lg-6">
 							<label>Estado</label>
 							<div style="color:red;">
 								{{$errors->first('estado')}}
 							</div>
-							<select id="estado" name="estado" class="form-control" @role("colaborador") readonly @endrole>
-								<option value="">Seleccione</option>
-								@foreach ($estados as $estad)
-									@if (old('estado') == $estad->id || $estado->id == $estad->id)
-										<option value="{{ $estad->id }}" selected="selected">{{ $estad->estado }}</option>
-									@else
-										<option value="{{ $estad->id }}">{{ $estad->estado }}</option>
-									@endif
-								@endforeach
-							</select>
-							<span class="form-text text-muted">Seleccione el estado en el que se encuentra el juicio</span>
+							@if(Auth::user()->can('cargar-juicios')) 
+								<select id="estado" name="estado" class="form-control" @role("colaborador") readonly @endrole>
+									<option value="">Seleccione</option>
+									@foreach ($estados as $estad)
+										@if (old('estado') == $estad->id || $estado->id == $estad->id)
+											<option value="{{ $estad->id }}" selected="selected">{{ $estad->estado }}</option>
+										@else
+											<option value="{{ $estad->id }}">{{ $estad->estado }}</option>
+										@endif
+									@endforeach
+								</select>
+								<span class="form-text text-muted">Seleccione el estado en el que se encuentra el juicio</span>
+							@else
+								<input class="form-control" type="text" readonly name="desc_estado" value="{{ $estado->estado }}">
+								<input type="hidden" name="estado" value="{{ $estado->id }}"> 
+							@endif
 						</div>
 						<div class="col-lg-6">
 							<label>Cliente</label>
 							<div style="color:red;">
 								{{$errors->first('cliente')}}
 							</div>
-							<select id="cliente" name="cliente" class="form-control" @role("colaborador") readonly @endrole>
-								<option value="">Seleccione</option>
-								@foreach ($clientes as $client)
-									@if (old('cliente') == $client->id || $cliente->id == $client->id)
-										<option value="{{ $client->id }}" selected="selected">{{ $client->name }}</option>
-									@else
-										<option value="{{ $client->id }}">{{ $client->name }}</option>
-									@endif
-								@endforeach
-							</select>
-							<span class="form-text text-muted">Seleccione el cliente asociado a este juicio</span>
+							@if(Auth::user()->can('cargar-juicios')) 
+								<select id="cliente" name="cliente" class="form-control" @role("colaborador") readonly @endrole>
+									<option value="">Seleccione</option>
+									@foreach ($clientes as $client)
+										@if (old('cliente') == $client->id || $cliente->id == $client->id)
+											<option value="{{ $client->id }}" selected="selected">{{ $client->name }}</option>
+										@else
+											<option value="{{ $client->id }}">{{ $client->name }}</option>
+										@endif
+									@endforeach
+								</select>
+								<span class="form-text text-muted">Seleccione el cliente asociado a este juicio</span>
+							@else
+								<input class="form-control" type="text" readonly name="desc_cliente" value="{{ $cliente->name }}">
+								<input type="hidden" name="cliente" value="{{ $cliente->id }}"> 
+							@endif
 						</div>						
 					</div>
                 	<div class="form-group row">
@@ -71,17 +98,22 @@
 							<div style="color:red;">
 								{{$errors->first('colaborator')}}
 							</div>
-							<select id="colaborator" name="colaborator" class="form-control" @role("colaborador") readonly @endrole>
-								<option value="">Seleccione</option>
-								@foreach ($colaborators as $colaborat)
-									@if (old('colaborator') == $colaborat->id || $colaborator->id == $colaborat->id)
-										<option value="{{ $colaborat->id }}" selected="selected">{{ $colaborat->name }}</option>
-									@else
-										<option value="{{ $colaborat->id }}">{{ $colaborat->name }}</option>
-									@endif
-								@endforeach
-							</select>
-							<span class="form-text text-muted">Seleccione al colaborador responsable de este juicio</span>
+							@if(Auth::user()->can('cargar-juicios')) 
+								<select id="colaborator" name="colaborator" class="form-control" @role("colaborador") readonly @endrole>
+									<option value="">Seleccione</option>
+									@foreach ($colaborators as $colaborat)
+										@if (old('colaborator') == $colaborat->id || $colaborator->id == $colaborat->id)
+											<option value="{{ $colaborat->id }}" selected="selected">{{ $colaborat->name }}</option>
+										@else
+											<option value="{{ $colaborat->id }}">{{ $colaborat->name }}</option>
+										@endif
+									@endforeach
+								</select>
+								<span class="form-text text-muted">Seleccione al colaborador responsable de este juicio</span>
+							@else
+								<input class="form-control" type="text" readonly name="desc_colaborador" value="{{ $colaborator->name }}">
+								<input type="hidden" name="colaborator" value="{{ $colaborator->id }}"> 
+							@endif
 						</div>
 						<div class="col-lg-6">
 							<label>Información de contacto del cliente</label>

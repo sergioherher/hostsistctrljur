@@ -12,8 +12,7 @@ class JuiciouserTableSeeder extends Seeder
      */
     public function run()
     {
-
-		$juiciouser = new Juiciouser();
+    	$juiciouser = new Juiciouser();
 		$juiciouser->juicio_id = 1;
 		$juiciouser->user_id = 2;
 		$juiciouser->role_id = 2;
@@ -26,6 +25,12 @@ class JuiciouserTableSeeder extends Seeder
 		$juiciouser->save();
 
 		$juiciouser = new Juiciouser();
+		$juiciouser->juicio_id = 1;
+		$juiciouser->user_id = 4;
+		$juiciouser->role_id = 4;
+		$juiciouser->save();
+
+		$juiciouser = new Juiciouser();
 		$juiciouser->juicio_id = 2;
 		$juiciouser->user_id = 2;
 		$juiciouser->role_id = 2;
@@ -33,8 +38,14 @@ class JuiciouserTableSeeder extends Seeder
 
 		$juiciouser = new Juiciouser();
 		$juiciouser->juicio_id = 2;
-		$juiciouser->user_id = 5;
+		$juiciouser->user_id = 3;
 		$juiciouser->role_id = 3;
+		$juiciouser->save();
+
+		$juiciouser = new Juiciouser();
+		$juiciouser->juicio_id = 2;
+		$juiciouser->user_id = 4;
+		$juiciouser->role_id = 4;
 		$juiciouser->save();
 
 		$juiciouser = new Juiciouser();
@@ -45,8 +56,14 @@ class JuiciouserTableSeeder extends Seeder
 
 		$juiciouser = new Juiciouser();
 		$juiciouser->juicio_id = 3;
-		$juiciouser->user_id = 5;
+		$juiciouser->user_id = 3;
 		$juiciouser->role_id = 3;
+		$juiciouser->save();
+
+		$juiciouser = new Juiciouser();
+		$juiciouser->juicio_id = 3;
+		$juiciouser->user_id = 4;
+		$juiciouser->role_id = 4;
 		$juiciouser->save();
 
 		$juiciouser = new Juiciouser();
@@ -57,8 +74,14 @@ class JuiciouserTableSeeder extends Seeder
 
 		$juiciouser = new Juiciouser();
 		$juiciouser->juicio_id = 4;
-		$juiciouser->user_id = 5;
+		$juiciouser->user_id = 3;
 		$juiciouser->role_id = 3;
+		$juiciouser->save();
+
+		$juiciouser = new Juiciouser();
+		$juiciouser->juicio_id = 4;
+		$juiciouser->user_id = 4;
+		$juiciouser->role_id = 4;
 		$juiciouser->save();
 
     }

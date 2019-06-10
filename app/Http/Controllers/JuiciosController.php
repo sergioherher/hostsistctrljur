@@ -55,11 +55,18 @@ class JuiciosController extends Controller
             $query->where('slug', '=', 'cliente');
         })->get();
 
+        $coordinadores = User::whereHas('roles', function ($query) {
+            $query->where('slug', '=', 'coordinador');
+        })->get();
+
         foreach ($juiciousers as $juiciouser) {
-          if($juiciouser->role_id == 2) {
-            $colaborator = $juiciouser->user()->first();
+          if ($juiciouser->role_id == 2) {
+            $coordinador = $juiciouser->user()->first();
           }
           elseif($juiciouser->role_id == 3) {
+            $colaborator = $juiciouser->user()->first();
+          }
+          elseif($juiciouser->role_id == 4) {
             $cliente = $juiciouser->user()->first();
           }
         }
@@ -87,6 +94,8 @@ class JuiciosController extends Controller
                                                ->with('documentos', $documentos)
                                                ->with('doc_tipos', $doc_tipos)
                                                ->with('salaapelas', $salaapelas)
+                                               ->with('coordinadores', $coordinadores)
+                                               ->with('coordinador', $coordinador)
                                                ->with('salaapela', $salaapela);
     }
 
@@ -110,6 +119,10 @@ class JuiciosController extends Controller
             $query->where('slug', '=', 'cliente');
         })->get();
 
+        $coordinadores = User::whereHas('roles', function ($query) {
+            $query->where('slug', '=', 'coordinador');
+        })->get();
+
         $salaapelas = Salaapela::all();
         $juzgadotipos = Juzgadotipo::all();
         $monedas = Moneda::all();
@@ -123,6 +136,7 @@ class JuiciosController extends Controller
                                            ->with('doc_tipos', $doc_tipos)
                                            ->with('juzgadotipos',$juzgadotipos)
                                            ->with('salaapelas',$salaapelas)
+                                           ->with('coordinadores', $coordinadores)
                                            ->with('monedas',$monedas);
     }
 
@@ -139,6 +153,7 @@ class JuiciosController extends Controller
         ];
 
         $rules = [
+                  'coordinador'       => 'required',
                   'cliente'           => 'required',
                   'colaborator'       => 'required',
                   'demandado'         => 'required',
@@ -157,6 +172,7 @@ class JuiciosController extends Controller
         } else {
 
             $estado = $request->input("estado");
+            $coordinador = $request->input("coordinador");
             $cliente = $request->input("cliente");
             $colaborador = $request->input("colaborator");
             $cliente_contact_info = $request->input("cliente_contact_info");
@@ -192,6 +208,7 @@ class JuiciosController extends Controller
 
             $user_cliente = User::where("id",$cliente)->first();
             $user_colaborador = User::where("id",$colaborador)->first();
+            $user_coordinador = User::where("id",$coordinador)->first();
 
             try {
 
@@ -241,6 +258,13 @@ class JuiciosController extends Controller
                 $juiciousuario_colaborador->user_name = $user_colaborador->name;
                 $juiciousuario_colaborador->role_id = $user_colaborador->roles()->first()->id;
                 $juiciousuario_colaborador->save();
+
+                $juiciousuario_coordinador = new Juiciouser;
+                $juiciousuario_coordinador->juicio_id = $juicio->id;
+                $juiciousuario_coordinador->user_id = $coordinador;
+                $juiciousuario_coordinador->user_name = $user_coordinador->name;
+                $juiciousuario_coordinador->role_id = $user_coordinador->roles()->first()->id;
+                $juiciousuario_coordinador->save();
 
                 $demandado = new Demandado;
                 $demandado->juicio_id = $juicio->id;
@@ -343,16 +367,24 @@ class JuiciosController extends Controller
                 $juicio->moneda_id = $moneda;
                 $juicio->save();
 
-                $juiciousuario_cliente = Juiciouser::where("juicio_id", $juicio_id)->where("role_id", 3)->first();
+                $juiciousuario_cliente = Juiciouser::where("juicio_id", $juicio_id)->where("role_id", 4)->first();
                 $juiciousuario_cliente->user_name = $user_cliente->name;
                 $juiciousuario_cliente->user_contact_info = $cliente_contact_info;
-                $juiciousuario_cliente->role_id = $user_cliente->roles()->first()->id;
+                $juiciousuario_cliente->user_id = $user_cliente->id;
+                $juiciousuario_cliente->role_id = 4;
                 $juiciousuario_cliente->save();
 
-                $juiciousuario_colaborador = Juiciouser::where("juicio_id", $juicio_id)->where("role_id", 2)->first();
+                $juiciousuario_colaborador = Juiciouser::where("juicio_id", $juicio_id)->where("role_id", 3)->first();
                 $juiciousuario_colaborador->user_name = $user_colaborador->name;
-                $juiciousuario_colaborador->role_id = $user_colaborador->roles()->first()->id;
+                $juiciousuario_colaborador->role_id = 3;
+                $juiciousuario_colaborador->user_id = $user_colaborador->id;
                 $juiciousuario_colaborador->save();
+
+                $juiciousuario_coordinador = Juiciouser::where("juicio_id", $juicio_id)->where("role_id", 2)->first();
+                $juiciousuario_coordinador->user_name = $user_coordinador->name;
+                $juiciousuario_coordinador->user_id = $user_coordinador->id;
+                $juiciousuario_coordinador->role_id = 2;
+                $juiciousuario_coordinador->save();
 
                 $demandado = Demandado::where("juicio_id", $juicio_id)->where("codemandado", 0)->first();
                 $demandado->name = $demandado_name;

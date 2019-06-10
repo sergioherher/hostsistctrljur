@@ -53,6 +53,13 @@ class ProfilesController extends Controller
             
             if($rol_new->slug == "administrador") { 
               $rol_colaborador = Role::where('slug','colaborador')->first();
+              $rol_coordinador = Role::where('slug','coordinador')->first();
+              $user->roles()->attach($rol_coordinador);
+              $user->roles()->attach($rol_colaborador); 
+            }
+
+            if($rol_new->slug == "coordinador") { 
+              $rol_colaborador = Role::where('slug','colaborador')->first();
               $user->roles()->attach($rol_colaborador); 
             }
 

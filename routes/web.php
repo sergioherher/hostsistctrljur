@@ -28,15 +28,16 @@ Route::group(['middleware' => 'role:administrador'], function() {
    Route::post('/users/registerUser', 'ProfilesController@registerUser');
    Route::post('/users/deleteUser', 'ProfilesController@deleteUser');
 
+});   
+
+Route::group(['middleware' => 'role:coordinador'], function() {
    Route::get('/juicio/cargarJuicio', 'JuiciosController@cargarJuicio');
    Route::post('/juicio/guardarJuicio', 'JuiciosController@guardarJuicio');
 });
 
 Route::group(['middleware' => 'role:colaborador'], function() {
    Route::get('/juicio/editarJuicio', 'HomeController@index');
-   
    Route::get('/juicios/{juicio_id}', 'JuiciosController@detalleJuicio');
-   
    Route::post('/doc_juicio/deleteDocument', 'JuiciosController@deleteDocument');
 });
 

@@ -14,7 +14,7 @@ class CreateUsersRolesTable extends Migration
     public function up()
     {
         Schema::create('users_roles', function (Blueprint $table) {
-            $table->bigInteger('user_id')->unsigned();
+           $table->bigInteger('user_id')->unsigned();
            $table->bigInteger('role_id')->unsigned();
 
          //FOREIGN KEY CONSTRAINTS

@@ -31,6 +31,16 @@ class HomeController extends Controller
 
         if($user->hasRole('administrador')) {
             $juicios = Juicio::select()->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
+        } elseif ($user->hasRole('coordinador')) {
+            $juicios_all = Juicio::select()->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
+            $juicios = $juicios_all->filter(function($key,$value) use ($user){
+                $juicios_users = $key->juiciousers()->get();
+                foreach ($juicios_users as $juicios_user) {
+                    if($juicios_user->user_id == $user->id && $user->roles()->first()->slug == "coordinador"){
+                        return true;
+                    }
+                }
+            });
         } elseif ($user->hasRole('colaborador')) {
             $juicios_all = Juicio::select()->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
             $juicios = $juicios_all->filter(function($key,$value) use ($user){

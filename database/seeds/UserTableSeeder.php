@@ -15,6 +15,8 @@ class UserTableSeeder extends Seeder
         $administrador_role = Role::where('slug','administrador')->first();
 		$colaborador_role = Role::where('slug', 'colaborador')->first();
 		$cliente_role = Role::where('slug', 'cliente')->first();
+		$coordinador_role = Role::where('slug', 'coordinador')->first();
+		$administrar_perfiles_perm = Permission::where('slug','administrar-perfiles')->first();
 		$create_juicios_perm = Permission::where('slug','cargar-juicios')->first();
 		$editar_juicios_perm = Permission::where('slug','editar-juicios')->first();
 		$ver_juicios_perm = Permission::where('slug','ver-juicios')->first();
@@ -26,9 +28,22 @@ class UserTableSeeder extends Seeder
 		$administrador->save();
 		$administrador->roles()->attach($administrador_role);
 		$administrador->roles()->attach($colaborador_role);
+		$administrador->roles()->attach($coordinador_role);
+		$administrador->permissions()->attach($administrar_perfiles_perm);
 		$administrador->permissions()->attach($create_juicios_perm);
 		$administrador->permissions()->attach($editar_juicios_perm);
 		$administrador->permissions()->attach($ver_juicios_perm);
+
+		$coordinador = new User();
+		$coordinador->name = 'Coordinador Prueba';
+		$coordinador->email = 'coordinador.prueba@mailtrap.io';
+		$coordinador->password = bcrypt('123456');
+		$coordinador->save();
+		$coordinador->roles()->attach($colaborador_role);
+		$coordinador->roles()->attach($coordinador_role);
+		$coordinador->permissions()->attach($create_juicios_perm);
+		$coordinador->permissions()->attach($editar_juicios_perm);
+		$coordinador->permissions()->attach($ver_juicios_perm);
 
 		$colaborador = new User();
 		$colaborador->name = 'Pedro Colaborador';
@@ -48,14 +63,18 @@ class UserTableSeeder extends Seeder
 		$colaborador->permissions()->attach($editar_juicios_perm);
 		$colaborador->permissions()->attach($ver_juicios_perm);
 
-		$colaborador = new User();
-		$colaborador->name = 'Jorge AMJ';
-		$colaborador->email = 'jorgeAMJ@gmail.com';
-		$colaborador->password = bcrypt('123456');
-		$colaborador->save();
-		$colaborador->roles()->attach($colaborador_role);	
-		$colaborador->permissions()->attach($editar_juicios_perm);
-		$colaborador->permissions()->attach($ver_juicios_perm);
+		$administrador = new User();
+		$administrador->name = 'Jorge AMJ';
+		$administrador->email = 'jorgeAMJ@gmail.com';
+		$administrador->password = bcrypt('123456');
+		$administrador->save();
+		$administrador->roles()->attach($administrador_role);
+		$administrador->roles()->attach($colaborador_role);
+		$administrador->roles()->attach($coordinador_role);
+		$administrador->permissions()->attach($administrar_perfiles_perm);
+		$administrador->permissions()->attach($create_juicios_perm);
+		$administrador->permissions()->attach($editar_juicios_perm);
+		$administrador->permissions()->attach($ver_juicios_perm);
 
 		$cliente = new User();
 		$cliente->name = 'BANORTE';

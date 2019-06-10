@@ -2,6 +2,7 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/sisjurco/sistctrljur/
+    - export DEPLOYPATH_DATATABLES=/home/sisjurco/public_html/js/datatables/
     - /bin/cp -R app $DEPLOYPATH
     - /bin/cp -R bootstrap $DEPLOYPATH
     - /bin/cp -R config $DEPLOYPATH
@@ -9,3 +10,4 @@ deployment:
     - /bin/cp -R resources $DEPLOYPATH
     - /bin/cp -R routes $DEPLOYPATH
     - /bin/cp -R storage $DEPLOYPATH
+    - /bin/cp -R public/js/datatables $DEPLOYPATH_DATATABLES

@@ -461,6 +461,9 @@
 									        </div>
 											<div class="col-12">
 												<div class="row kt-align-center">
+													<div class="col-12">
+														<a class="btn btn-label" target="_blank" href="{{ url("/doc_juicios/".$documento->juicio_id."/".$documento->doc_tipo_id) }}">Descargar Documento</a>
+													</div>
 													<div class="col-12" id="pdf-main-container-{{ $documento->doc_tipo_id }}">
 														<div id="pdf-prev-loader-{{ $documento->doc_tipo_id }}">Cargando documento ...</div>
 														<div id="pdf-contents-{{ $documento->doc_tipo_id }}">
@@ -525,6 +528,9 @@
 									        </div>
 											<div class="col-12">
 												<div class="row kt-align-center">
+													<div class="col-12">
+														<a class="btn btn-label" target="_blank" href="{{ url("/doc_juicios/".$documento->juicio_id."/".$documento->doc_tipo_id) }}">Descargar Documento</a>
+													</div>
 													<div class="col-12" id="pdf-main-container-{{ $documento->doc_tipo_id }}">
 														<div id="pdf-prev-loader-{{ $documento->doc_tipo_id }}">Cargando documento ...</div>
 														<div id="pdf-contents-{{ $documento->doc_tipo_id }}">

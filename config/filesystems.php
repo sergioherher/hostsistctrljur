@@ -53,6 +53,11 @@ return [
             'root' => storage_path('app/juicios'),
         ],
 
+        'temp_files' => [
+            'driver' => 'local',
+            'root' => storage_path('app/temp_files'),
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

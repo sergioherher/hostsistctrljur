@@ -2,13 +2,45 @@
 
 @section('content')
 
+<style type="text/css">
+	
+	/*#progress-wrp {
+	  border: 1px solid #5867dd;
+	  padding: 1px;
+	  position: relative;
+	  height: 30px;
+	  border-radius: 3px;
+	  margin: 10px;
+	  text-align: left;
+	  background: #fff;
+	  box-shadow: inset 1px 3px 6px rgba(0, 0, 0, 0.12);
+	}
+
+	#progress-wrp .progress-bar {
+	  height: 100%;
+	  border-radius: 3px;
+	  background-color: #34bfa3;
+	  width: 0;
+	  box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 0.11);
+	}
+
+	#progress-wrp .status {
+	  top: 3px;
+	  left: 50%;
+	  position: absolute;
+	  display: inline-block;
+	  color: #000000;
+	}*/
+
+</style>
+
 <!--Begin::Section-->
 <div class="row">
     <div class="col-xl-8">
     	<form class="kt-form" action="{{ url('juicio/guardarJuicio') }}" method="POST" enctype="multipart/form-data">
     		@csrf
     		<input type="hidden" name="editar_o_crear" value="1">
-    		<input type="hidden" name="juicio_id" value="{{ $juicio->id }}">
+    		<input type="hidden" id="juicio_id" name="juicio_id" value="{{ $juicio->id }}">
             <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
                 <div class="kt-portlet__head kt-portlet__head--lg kt-portlet__head--break-sm">
                     <div class="kt-portlet__head-label">
@@ -456,7 +488,7 @@
 									<h5 class="kt-align-center" style="height: 30px">{{ $doc_tipo->tipo }}</h5>
 									<div class="row" id="contenedor-agregar-documento-{{ $doc_tipo->id }}" style="display: @if($documentos->contains('doc_tipo_id', $doc_tipo->id)) {{ "none" }} @endif" id="contenedor-boton-agregar-{{ $doc_tipo->id }}" >
 										<div class="col-12">										
-											<button class="btn btn-label-success" id="upload-dialog-{{ $doc_tipo->id }}" onclick="event.preventDefault(); configurarUploader({{ $doc_tipo->id }})"><i class="fa fa-plus"></i>Cargar PDF</button>
+											<button class="btn btn-sm btn-label-success" id="upload-dialog-{{ $doc_tipo->id }}" onclick="event.preventDefault(); configurarUploader({{ $doc_tipo->id }})"><i class="fa fa-plus"></i>Cargar PDF</button>
 											<input type="file" id="pdf-file-{{ $doc_tipo->id }}" name="pdf_file_{{ $doc_tipo->id }}" accept="application/pdf" style="display:none" />
 											<div id="pdf-loader-{{ $doc_tipo->id }}" style="display:none">Cargando PDF ..</div>
 											<canvas id="pdf-preview-{{ $doc_tipo->id }}" width="210" style="display:none"></canvas>
@@ -494,7 +526,7 @@
 											<div class="col-12">
 												<div class="row kt-align-center">
 													<div class="col-12">
-														<a class="btn btn-label" target="_blank" href="{{ url("/doc_juicios/".$documento->juicio_id."/".$documento->doc_tipo_id) }}">Descargar Documento</a>
+														<a class="btn btn-sm btn-label" target="_blank" href="{{ url("/doc_juicios/".$documento->juicio_id."/".$documento->doc_tipo_id) }}">Descargar Documento</a>
 													</div>
 													<div class="col-12" id="pdf-main-container-{{ $documento->doc_tipo_id }}">
 														<div id="pdf-prev-loader-{{ $documento->doc_tipo_id }}">Cargando documento ...</div>
@@ -509,7 +541,7 @@
 												</div>
 												<div class="row">
 													<div class="col-12">
-														<button class="btn btn-label-danger borrar-documento" id="doc_id-{{ $documento->id }}-juicio_id-{{ $documento->juicio_id }}-doc_tipo_id-{{ $documento->doc_tipo_id }}"><i class="fa fa-times"></i></button>
+														<button class="btn btn-sm btn-label-danger borrar-documento" id="doc_id-{{ $documento->id }}-juicio_id-{{ $documento->juicio_id }}-doc_tipo_id-{{ $documento->doc_tipo_id }}"><i class="fa fa-times"></i></button>
 													</div>											
 												</div>
 											</div>
@@ -522,15 +554,43 @@
 								<div class="col-lg-12 kt-align-center">
 									<h5 class="kt-align-center" style="height: 30px">{{ $doc_tipo->tipo }}</h5>
 									<div class="row" id="contenedor-agregar-documento-{{ $doc_tipo->id }}" style="display: @if($documentos->contains('doc_tipo_id', $doc_tipo->id)) {{ "none" }} @endif" id="contenedor-boton-agregar-{{ $doc_tipo->id }}" >
-										<div class="col-12">										
-											<button class="btn btn-label-success" id="upload-dialog-{{ $doc_tipo->id }}" onclick="event.preventDefault(); configurarUploader({{ $doc_tipo->id }})"><i class="fa fa-plus"></i>Agregar PDF</button>
-											<input type="file" id="pdf-file-{{ $doc_tipo->id }}" name="pdf_file_{{ $doc_tipo->id }}" accept="application/pdf" style="display:none" />
-											<div id="pdf-loader-{{ $doc_tipo->id }}" style="display:none">Cargando PDF ..</div>
-											<canvas id="pdf-preview-{{ $doc_tipo->id }}" width="210" style="display:none"></canvas>
-											<br>
-											<button class="btn btn-label-danger undo-upload" id="undo-upload-{{ $doc_tipo->id }}" style="display:none"><i class="fa fa-times"></i></button>
+										<div class="col-12">
+											<div class="row">
+												<div class="col-12">
+													<button class="btn btn-sm btn-label-success" id="upload-dialog-{{ $doc_tipo->id }}" onclick="event.preventDefault(); configurarUploader({{ $doc_tipo->id }})"><i class="fa fa-plus"></i>Agregar Imagen / PDF</button>
+													<input type="file" id="pdf-file-{{ $doc_tipo->id }}" name="pdf_file_{{ $doc_tipo->id }}" accept="image/x-png,image/jpeg,application/pdf" style="display:none" />		
+													<div id="pdf-loader-{{ $doc_tipo->id }}" style="display:none">Cargando PDF ..</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-12">
+													<canvas id="pdf-preview-{{ $doc_tipo->id }}" width="210" style="display:none"></canvas>
+													<image id="pdf-image-preview-{{ $doc_tipo->id }}" width="210" style="display:none"/>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-5"></div>
+												<div class="col-2 kt-align-center">
+												<div class="progress" style="display: none">
+													<div id="progress-wrp" class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+												</div>
+
+													<!--<div id="progress-wrp" style="display: none">
+													    <div class="progress-bar"></div>
+													    <div class="status">0%</div>
+													</div>-->
+												</div>	
+												<div class="col-5"></div>									
+											</div>
+											<div class="row">
+												<div class="col-12">
+													<button class="btn btn-label-danger undo-upload" id="undo-upload-{{ $doc_tipo->id }}" style="display:none"><i class="fa fa-times"></i></button>
+													<button class="btn btn-label-primary upload-file" id="add-uploaded-{{ $doc_tipo->id }}" style="display:none"><i class="fa fa-arrow-up"></i></button>	
+												</div>
+											</div>
 										</div>
 									</div>
+									
 									@foreach($documentos as $documento)
 										@if($documento->doc_tipo_id == $doc_tipo->id)
 										<div class="row" id="contenedor-a-borrar-doc-{{ $documento->doc_tipo_id }}">
@@ -561,7 +621,7 @@
 											<div class="col-12">
 												<div class="row kt-align-center">
 													<div class="col-12">
-														<a class="btn btn-label" target="_blank" href="{{ url("/doc_juicios/".$documento->juicio_id."/".$documento->doc_tipo_id) }}">Descargar Documento</a>
+														<a class="btn btn-sm btn-label" target="_blank" href="{{ url("/doc_juicios/".$documento->juicio_id."/".$documento->doc_tipo_id) }}">Descargar Documento</a>
 													</div>
 													<div class="col-12" id="pdf-main-container-{{ $documento->doc_tipo_id }}">
 														<div id="pdf-prev-loader-{{ $documento->doc_tipo_id }}">Cargando documento ...</div>
@@ -606,6 +666,7 @@
 @section('scripts')
 
 <script type="text/javascript" src="{{asset('js/datatables/juicios-html.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/Upload.js')}}"></script>
 @foreach($doc_tipos as $doc_tipo)
 	@foreach($documentos as $documento)
 		@if($documento->doc_tipo_id == $doc_tipo->id)
@@ -645,6 +706,25 @@
 			$("#pdf-preview-"+undo_upload_id).hide().html("");
 			$("#undo-upload-"+undo_upload_id).hide();
 			$("#upload-dialog-"+undo_upload_id).show();
+			$("#pdf-image-preview-"+undo_upload_id).hide();
+			if(undo_upload_id == 3) {
+				$("#add-uploaded-"+undo_upload_id).hide();
+				$("#progress-wrp").parent().hide();
+				$("#progress-wrp").css("width", "0%");
+				//$("#progress-wrp" + " .progress-bar").css("width", "0%");
+	    		//$("#progress-wrp" + " .status").text("0%");
+    		}
+		});
+
+		$(".upload-file").on("click", function (e) {
+			e.preventDefault();
+		    var file = $("#pdf-file-3")[0].files[0];
+		    var upload = new Upload(file, "{{url('subir_archivo')}}");
+		    $("#progress-wrp").parent().show();
+		    // maby check size or type here with upload.getSize() and upload.getType()
+
+		    // execute upload
+		    upload.doUpload();
 		});
 
 		$("#monto_demandado").inputmask('decimal', {
@@ -737,6 +817,8 @@
 	        page.render(renderContext).then(function() {
 	            document.querySelector("#pdf-preview-"+identificador_SHOW_PAGE_render).style.display = 'inline-block';
 	            document.querySelector("#undo-upload-"+identificador_SHOW_PAGE_render).style.display = 'inline-block';
+	            if(identificador_SHOW_PAGE_render == 3)
+	            document.querySelector("#add-uploaded-"+identificador_SHOW_PAGE_render).style.display = 'inline-block';
 	            document.querySelector("#pdf-loader-"+identificador_SHOW_PAGE_render).style.display = 'none';
 	        });
 	    });
@@ -766,31 +848,52 @@
 		    // allowed MIME types
 		    var mime_types = [ 'application/pdf' ];
 		    
-		    // validate whether PDF
-		    if(mime_types.indexOf(file.type) == -1) {
-		        alert('Error : Incorrect file type');
-		        return;
-		    }
+			const lastDot = file.name.lastIndexOf('.');
+			const ext = file.name.substring(lastDot + 1);
 
-		    // validate file size
-		    if(file.size > 128*1024*1024) {
-		        alert('Error : Exceeded size 128MB');
-		        return;
-		    }
-
-		    // validation is successful
-
-		    // hide upload dialog
-		    document.querySelector("#upload-dialog-"+identificador).style.display = 'none';
+			var reader = new FileReader();
 		    
-		    // show the PDF preview loader
-		    document.querySelector("#pdf-loader-"+identificador).style.display = 'inline-block';
+		    reader.readAsDataURL(file);
 
-		    // object url of PDF 
-		    _OBJECT_URL = URL.createObjectURL(file)
+		    if((ext == 'jpg' || ext == 'png') && identificador == 3) {
 
-		    // send the object url of the pdf to the PDF preview function
-		    showPDF(_OBJECT_URL, _PDF_DOC, _CANVAS, identificador);
+		    	document.querySelector("#pdf-image-preview-"+identificador).style.display = 'inline-block';
+	            document.querySelector("#undo-upload-"+identificador).style.display = 'inline-block';
+	            document.querySelector("#add-uploaded-"+identificador).style.display = 'inline-block';
+	            document.querySelector("#pdf-loader-"+identificador).style.display = 'none';
+	            document.querySelector("#upload-dialog-"+identificador).style.display = 'none';
+			    reader.onload = function(e) {
+			      $('#pdf-image-preview-'+identificador).attr('src', e.target.result);
+			    }
+
+		    } else {
+
+			    // validate whether PDF
+			    if(mime_types.indexOf(file.type) == -1) {
+			        alert('Error : Incorrect file type');
+			        return;
+			    }
+
+			    // validate file size
+			    if(file.size > 128*1024*1024) {
+			        alert('Error : Exceeded size 128MB');
+			        return;
+			    }
+
+			    // validation is successful
+
+			    // hide upload dialog
+			    document.querySelector("#upload-dialog-"+identificador).style.display = 'none';
+			    
+			    // show the PDF preview loader
+			    document.querySelector("#pdf-loader-"+identificador).style.display = 'inline-block';
+
+			    // object url of PDF 
+			    _OBJECT_URL = URL.createObjectURL(file)
+
+			    // send the object url of the pdf to the PDF preview function
+			    showPDF(_OBJECT_URL, _PDF_DOC, _CANVAS, identificador);
+		    }
 		});
 
 	}

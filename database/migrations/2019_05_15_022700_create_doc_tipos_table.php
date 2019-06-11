@@ -16,6 +16,7 @@ class CreateDocTiposTable extends Migration
         Schema::create('doc_tipos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('tipo');
+            $table->text('slug');
             $table->timestamps();
         });
     }

@@ -15,8 +15,6 @@ Route::get('/', function () {
     return redirect("login");
 });
 
-Route::get('/testPdf', 'JuiciosController@testPdf');
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
@@ -39,5 +37,6 @@ Route::group(['middleware' => 'role:colaborador'], function() {
    Route::get('/juicio/editarJuicio', 'HomeController@index');
    Route::get('/juicios/{juicio_id}', 'JuiciosController@detalleJuicio');
    Route::post('/doc_juicio/deleteDocument', 'JuiciosController@deleteDocument');
+   Route::post('/subir_archivo', 'JuiciosController@subirArchivo');
 });
 

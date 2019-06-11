@@ -471,16 +471,63 @@ class JuiciosController extends Controller
         }
     }
 
-    public function  testPdf() {
+    public function subirArchivo(Request $request) {
+
+      $juicio_id = $request->input("juicio_id");
+      $extension = $request->file('file')->extension();
       
-      $output_file = 'pdf_test/resultado.pdf';
-      $url = 'pdf_test/Pago Rosnill.pdf';
-      $technical_drawing = 'pdf_test/Pago panes dulces.pdf';
+      if ($request->hasFile('file') && $request->file('file')->isValid()) {
 
-      $html = file_get_contents($url);
+          $temp_file_name = "temp_file-".$juicio_id.".".$request->file('file')->extension();
 
+          $ruta = url("/doc_juicios/".$juicio_id."/3");
 
-      if(!file_exists($technical_drawing)) {
+          //$ruta = url($temp_file_name);          
+
+          if($request->file('file')->storeAs("", $temp_file_name, 'temp_files')) {
+
+            $mpdf = $this->MpdfObject();
+            $mpdf->showImageErrors = true;
+
+            $pagecount = $mpdf->SetSourceFile(storage_path("app/juicios/".$juicio_id."/otros-".$juicio_id.".pdf"));
+            $import_page = $mpdf->ImportPage(1);
+
+            $mpdf->UseTemplate($import_page);
+
+            // Add Last page
+            $mpdf->AddPageByArray(array(
+              'orientation' => 'P',
+              'ohvalue' => 1,
+              'ehvalue' => -1,
+              'ofvalue' => -1,
+              'efvalue' => -1,
+              'newformat' => 'Letter'
+            ));
+
+            if($extension == "jpeg" || $extension == "jpg" || $extension == "png") { 
+
+              $mpdf->Image(storage_path("app/temp_files/".$temp_file_name), 0, 0, 210, 297, $extension, '', true, false);
+
+              //$mpdf->WriteHTML("<img src='$ruta'/>");
+
+            } elseif ($extension == "pdf") {
+
+              
+
+            }
+
+            $mpdf->Output(storage_path("app/juicios/".$juicio_id."/otros-".$juicio_id.".pdf"), \Mpdf\Output\Destination::FILE);   
+
+            $documento = new DocJuicio;
+            $documento->ruta_archivo = "otros-".$juicio_id.".pdf";
+            $documento->juicio_id = $juicio_id;
+            $documento->doc_tipo_id = 3;
+            $documento->save();
+              
+          }
+      }
+
+      /*if(!file_exists($technical_drawing)) {
         $mpdf = $this->MpdfObject();
       } else {
         $mpdf = $this->MpdfObject();
@@ -504,7 +551,11 @@ class JuiciosController extends Controller
       $mpdf->WriteHTML($html);
       $mpdf->Output($output_file, 'I');
 
-      exit;
+      exit;*/
+
+      $resultado = array('exito' => true, 'ruta' => $ruta, 'tipo_doc' => 3);
+
+      return json_encode($resultado);
     }
 
     public function getDocuments($jucio_id, $doc_tipo_id) {

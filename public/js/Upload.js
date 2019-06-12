@@ -45,10 +45,10 @@ Upload.prototype.doUpload = function () {
             //if(data.exito) {
             	}
             	toastr.success("Se cargó exitosamente el archivo al servidor", "Carga de archivo");
-
+            	$("#contenedor-a-borrar-doc-3").show();
 				// Send the object url of the pdf
 				showPDF3(result.ruta);
-            	console.log(result.ruta);
+            	//console.log(result.error);
             //}
         },
         error: function (error) {

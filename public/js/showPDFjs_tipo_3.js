@@ -20,12 +20,12 @@ function showPDF3(pdf_url) {
 		$("#pdf-total-pages-3").text(__TOTAL_PAGES_3);
 
 		// Show the first page
-		showPage3(1);
+		showPage3(__TOTAL_PAGES_3);
 	}).catch(function(error) {
 		// If error re-show the upload button
 		$("#pdf-prev-loader-3").hide();
 		
-		alert(error.message);
+		//alert(error.message);
 	});;
 }
 

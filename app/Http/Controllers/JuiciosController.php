@@ -480,8 +480,10 @@ class JuiciosController extends Controller
 
           $temp_file_name = "temp_file-".$juicio_id.".".$request->file('file')->extension();
 
-          $ruta = url("/doc_juicios/".$juicio_id."/3");
+          $otros_pdf = storage_path("app/juicios/".$juicio_id."/otros-".$juicio_id.".pdf");
 
+          //$ruta = url("/img_temp/".$juicio_id."/".$request->file('file')->extension());
+          $ruta = storage_path("app/temp_files/".$temp_file_name);
           //$ruta = url($temp_file_name);          
 
           if($request->file('file')->storeAs("", $temp_file_name, 'temp_files')) {
@@ -489,40 +491,60 @@ class JuiciosController extends Controller
             $mpdf = $this->MpdfObject();
             $mpdf->showImageErrors = true;
 
-            $pagecount = $mpdf->SetSourceFile(storage_path("app/juicios/".$juicio_id."/otros-".$juicio_id.".pdf"));
-            $import_page = $mpdf->ImportPage(1);
+            //$pagecount = $mpdf->SetSourceFile(storage_path("app/juicios/".$juicio_id."/otros-".$juicio_id.".pdf"));
+            //$import_page = $mpdf->ImportPage(1);
 
-            $mpdf->UseTemplate($import_page);
+            //$mpdf->UseTemplate($import_page);
 
             // Add Last page
-            $mpdf->AddPageByArray(array(
+            /*$mpdf->AddPageByArray(array(
               'orientation' => 'P',
               'ohvalue' => 1,
               'ehvalue' => -1,
               'ofvalue' => -1,
               'efvalue' => -1,
               'newformat' => 'Letter'
-            ));
+            ));*/
 
-            if($extension == "jpeg" || $extension == "jpg" || $extension == "png") { 
 
-              $mpdf->Image(storage_path("app/temp_files/".$temp_file_name), 0, 0, 210, 297, $extension, '', true, false);
-
-              //$mpdf->WriteHTML("<img src='$ruta'/>");
-
-            } elseif ($extension == "pdf") {
-
+            try {
+            //$mpdf->Image($ruta, 0, 0, 210, 297, $extension, '', true, false);
+              if(file_exists($otros_pdf)) {
               
+                $pagecount = $mpdf->SetSourceFile($otros_pdf);
+                for ($i = 1; $i <= $pagecount; $i++) {
+                  $tplId = $mpdf->ImportPage($i);
+                  $mpdf->UseTemplate($tplId);
+                  $mpdf->WriteHTML('<pagebreak />');
+                }
 
+              } else {
+
+                $documento = new DocJuicio;
+                $documento->ruta_archivo = "otros-".$juicio_id.".pdf";
+                $documento->juicio_id = $juicio_id;
+                $documento->doc_tipo_id = 3;
+                $documento->save();
+
+              }
+
+              if($extension == "jpeg" || $extension == "jpg" || $extension == "png") { 
+                $mpdf->WriteHTML("<img width='100%' height='297cm' src='".$ruta."'/>");
+              } elseif ($extension == "pdf") {
+                $pagecount = $mpdf->SetSourceFile($ruta);
+                for ($i = 1; $i <= $pagecount; $i++) {
+                  $tplId = $mpdf->ImportPage($i);
+                  $mpdf->UseTemplate($tplId);
+                  $mpdf->WriteHTML('<pagebreak />');
+                }
+              }
+
+              $mpdf->Output($otros_pdf, \Mpdf\Output\Destination::FILE);  
+
+              $resultado = array('exito' => true, 'ruta' => url("doc_juicios/".$juicio_id."/otros-".$juicio_id.".pdf"), 'tipo_doc' => 3);
+            } catch (\Mpdf\MpdfException $e) {
+              $resultado = array('exito' => false, 'error' => $e->getMessage());
             }
-
-            $mpdf->Output(storage_path("app/juicios/".$juicio_id."/otros-".$juicio_id.".pdf"), \Mpdf\Output\Destination::FILE);   
-
-            $documento = new DocJuicio;
-            $documento->ruta_archivo = "otros-".$juicio_id.".pdf";
-            $documento->juicio_id = $juicio_id;
-            $documento->doc_tipo_id = 3;
-            $documento->save();
               
           }
       }
@@ -553,7 +575,6 @@ class JuiciosController extends Controller
 
       exit;*/
 
-      $resultado = array('exito' => true, 'ruta' => $ruta, 'tipo_doc' => 3);
 
       return json_encode($resultado);
     }
@@ -571,8 +592,16 @@ class JuiciosController extends Controller
       return response()->file($path);
     }
 
+    public function getImageTemp($juicio_id, $extension) {
+
+
+      $path = storage_path("app/temp_files/temp_file-".$juicio_id.".".$extension);
+      
+      return response()->file($path);
+    }
+
     public function deleteDocument(Request $request) {
-      $doc_id = $request->input("doc_id");
+      
       $juicio_id = $request->input("juicio_id");
       $doc_tipo_id = $request->input("doc_tipo_id");
 
@@ -582,25 +611,25 @@ class JuiciosController extends Controller
         $url_otro = storage_path('app/juicios/'.$juicio_id.'/otros-'.$juicio_id.'.pdf');
         if($doc_tipo_id == 1) {
           if(unlink($url_fund)) {
-            $doc_juicio = DocJuicio::where('id', $doc_id)->first();
+            $doc_juicio = DocJuicio::where('juicio_id', $juicio_id)->where("doc_tipo_id", $doc_tipo_id)->first();
             $doc_juicio->delete();
-            $result = array('operacion' => true, 'message' => "exitoso", "doc_id" => $doc_id, "doc_tipo_id" => $doc_tipo_id);
+            $result = array('operacion' => true, 'message' => "exitoso", "doc_tipo_id" => $doc_tipo_id);
           } else {
             $result = array('operacion' => false, 'message' => $url_fund);
           }
         } elseif ($doc_tipo_id == 2) {
           if(unlink($url_expe)) {
-            $doc_juicio = DocJuicio::where('id', $doc_id)->first();
+            $doc_juicio = DocJuicio::where('juicio_id', $juicio_id)->where("doc_tipo_id", $doc_tipo_id)->first();
             $doc_juicio->delete();
-            $result = array('operacion' => true, 'message' => "exitoso", "doc_id" => $doc_id, "doc_tipo_id" => $doc_tipo_id);
+            $result = array('operacion' => true, 'message' => "exitoso", "doc_tipo_id" => $doc_tipo_id);
           } else {
             $result = array('operacion' => false, 'message' => $url_expe);
           }
         } else {
           if(unlink($url_otro)) {
-            $doc_juicio = DocJuicio::where('id', $doc_id)->first();
+            $doc_juicio = DocJuicio::where('juicio_id', $juicio_id)->where("doc_tipo_id", $doc_tipo_id)->first();
             $doc_juicio->delete();
-            $result = array('operacion' => true, 'message' => "exitoso", "doc_id" => $doc_id, "doc_tipo_id" => $doc_tipo_id);
+            $result = array('operacion' => true, 'message' => "exitoso", "doc_tipo_id" => $doc_tipo_id);
           } else {
             $result = array('operacion' => false, 'message' => $url_otro);
           }

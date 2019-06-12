@@ -550,102 +550,96 @@
 										@endif
 									@endforeach
 								</div>
-							@else
-								<div class="col-lg-12 kt-align-center">
-									<h5 class="kt-align-center" style="height: 30px">{{ $doc_tipo->tipo }}</h5>
-									<div class="row" id="contenedor-agregar-documento-{{ $doc_tipo->id }}" style="display: @if($documentos->contains('doc_tipo_id', $doc_tipo->id)) {{ "none" }} @endif" id="contenedor-boton-agregar-{{ $doc_tipo->id }}" >
-										<div class="col-12">
-											<div class="row">
-												<div class="col-12">
-													<button class="btn btn-sm btn-label-success" id="upload-dialog-{{ $doc_tipo->id }}" onclick="event.preventDefault(); configurarUploader({{ $doc_tipo->id }})"><i class="fa fa-plus"></i>Agregar Imagen / PDF</button>
-													<input type="file" id="pdf-file-{{ $doc_tipo->id }}" name="pdf_file_{{ $doc_tipo->id }}" accept="image/x-png,image/jpeg,application/pdf" style="display:none" />		
-													<div id="pdf-loader-{{ $doc_tipo->id }}" style="display:none">Cargando PDF ..</div>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-12">
-													<canvas id="pdf-preview-{{ $doc_tipo->id }}" width="210" style="display:none"></canvas>
-													<image id="pdf-image-preview-{{ $doc_tipo->id }}" width="210" style="display:none"/>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-5"></div>
-												<div class="col-2 kt-align-center">
-												<div class="progress" style="display: none">
-													<div id="progress-wrp" class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
-												</div>
-
-													<!--<div id="progress-wrp" style="display: none">
-													    <div class="progress-bar"></div>
-													    <div class="status">0%</div>
-													</div>-->
-												</div>	
-												<div class="col-5"></div>									
-											</div>
-											<div class="row">
-												<div class="col-12">
-													<button class="btn btn-label-danger undo-upload" id="undo-upload-{{ $doc_tipo->id }}" style="display:none"><i class="fa fa-times"></i></button>
-													<button class="btn btn-label-primary upload-file" id="add-uploaded-{{ $doc_tipo->id }}" style="display:none"><i class="fa fa-arrow-up"></i></button>	
-												</div>
-											</div>
-										</div>
-									</div>
-									
-									@foreach($documentos as $documento)
-										@if($documento->doc_tipo_id == $doc_tipo->id)
-										<div class="row" id="contenedor-a-borrar-doc-{{ $documento->doc_tipo_id }}">
-											<div class="modal fade" class="kt_modal_pdf_viewer" id="kt_modal_pdf_viewer_{{ $doc_tipo->id }}" tabindex="-1" role="dialog" aria-labelledby="pdf-viewer-modal" aria-hidden="true">
-									            <div class="modal-dialog modal-lg" role="document">
-									                <div class="modal-content">
-									                    <div class="modal-header">
-									                        <h5 class="modal-title" id="agregar_usuario">{{ $doc_tipo->tipo }}</h5>
-									                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									                        </button>
-									                    </div>
-									                    <div class="modal-body">
-									                    	<div id="pdf-meta-{{ $documento->doc_tipo_id }}">
-																<div id="pdf-buttons-{{ $documento->doc_tipo_id }}">
-																	<button id="pdf-prev-{{ $documento->doc_tipo_id }}">Anterior</button>
-																	<button id="pdf-next-{{ $documento->doc_tipo_id }}">Siguiente</button>
-																</div>	
-																<div id="page-count-container-{{ $documento->doc_tipo_id }}">Página <div  style="display: inline-block;" id="pdf-current-page-{{ $documento->doc_tipo_id }}"></div> de <div style="display: inline-block;"  id="pdf-total-pages-{{ $documento->doc_tipo_id }}"></div></div>
-															</div>
-									                    	<canvas id="pdf-alt-preview-{{ $doc_tipo->id }}" width="750"></canvas>
-									                    </div>
-									                    <div class="modal-footer">
-									                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-									                    </div>
-									                </div>
-									            </div>
-									        </div>
-											<div class="col-12">
-												<div class="row kt-align-center">
-													<div class="col-12">
-														<a class="btn btn-sm btn-label" target="_blank" href="{{ url("/doc_juicios/".$documento->juicio_id."/".$documento->doc_tipo_id) }}">Descargar Documento</a>
-													</div>
-													<div class="col-12" id="pdf-main-container-{{ $documento->doc_tipo_id }}">
-														<div id="pdf-prev-loader-{{ $documento->doc_tipo_id }}">Cargando documento ...</div>
-														<div id="pdf-contents-{{ $documento->doc_tipo_id }}">
-															<a data-toggle="modal" data-target="#kt_modal_pdf_viewer_{{ $doc_tipo->id }}"><canvas id="pdf-canvas-{{ $documento->doc_tipo_id }}" width="300"></canvas></a>
-															<div id="page-loader-{{ $documento->doc_tipo_id }}">Cargando página ...</div>
-														</div>
-													</div>
-													<div class="col-12" id="contenedor_doc_{{ $documento->doc_tipo_id }}">
-														<div id="doc_{{ $documento->doc_tipo_id }}" style="display: none;">{{ url("/doc_juicios/".$documento->juicio_id."/".$documento->doc_tipo_id) }}</div>
-													</div>								
-												</div>
-												<div class="row">
-													<div class="col-12">
-														<button class="btn btn-label-danger borrar-documento" id="doc_id-{{ $documento->id }}-juicio_id-{{ $documento->juicio_id }}-doc_tipo_id-{{ $documento->doc_tipo_id }}"><i class="fa fa-times"></i></button>
-													</div>											
-												</div>
-											</div>
-										</div>
-										@endif
-									@endforeach
-								</div>
 							@endif
 						@endforeach
+						<div class="col-lg-12 kt-align-center">
+							<h5 class="kt-align-center" style="height: 30px">Otros</h5>
+							<div class="row" id="contenedor-agregar-documento-3" id="contenedor-boton-agregar-3" >
+								<div class="col-12">
+									<div class="row">
+										<div class="col-12">
+											<button class="btn btn-sm btn-label-success" id="upload-dialog-3" onclick="event.preventDefault(); configurarUploader(3)"><i class="fa fa-plus"></i>Agregar Imagen / PDF</button>
+											<input type="file" id="pdf-file-3" name="pdf_file_3" accept="image/x-png,image/jpeg,application/pdf" style="display:none" />		
+											<div id="pdf-loader-3" style="display:none">Cargando PDF ..</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-12">
+											<canvas id="pdf-preview-3" width="210" style="display:none"></canvas>
+											<image id="pdf-image-preview-3" width="210" style="display:none"/>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-5"></div>
+										<div class="col-2 kt-align-center">
+										<div class="progress" style="display: none">
+											<div id="progress-wrp" class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+										</div>
+
+											<!--<div id="progress-wrp" style="display: none">
+											    <div class="progress-bar"></div>
+											    <div class="status">0%</div>
+											</div>-->
+										</div>	
+										<div class="col-5"></div>									
+									</div>
+									<div class="row">
+										<div class="col-12">
+											<button class="btn btn-label-danger undo-upload" id="undo-upload-3" style="display:none"><i class="fa fa-times"></i></button>
+											<button class="btn btn-label-primary upload-file" id="add-uploaded-3" style="display:none"><i class="fa fa-arrow-up"></i></button>	
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row" id="contenedor-a-borrar-doc-3" style="display: @if(!$documentos->contains('doc_tipo_id', 3)) {{ "none" }} @endif" >
+								<div class="modal fade" class="kt_modal_pdf_viewer" id="kt_modal_pdf_viewer_3" tabindex="-1" role="dialog" aria-labelledby="pdf-viewer-modal" aria-hidden="true">
+						            <div class="modal-dialog modal-lg" role="document">
+						                <div class="modal-content">
+						                    <div class="modal-header">
+						                        <h5 class="modal-title" id="agregar_usuario">3</h5>
+						                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						                        </button>
+						                    </div>
+						                    <div class="modal-body">
+						                    	<div id="pdf-meta-3">
+													<div id="pdf-buttons-3">
+														<button id="pdf-prev-3">Anterior</button>
+														<button id="pdf-next-3">Siguiente</button>
+													</div>	
+													<div id="page-count-container-3">Página <div  style="display: inline-block;" id="pdf-current-page-3"></div> de <div style="display: inline-block;"  id="pdf-total-pages-3"></div></div>
+												</div>
+						                    	<canvas id="pdf-alt-preview-3" width="750"></canvas>
+						                    </div>
+						                    <div class="modal-footer">
+						                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+						                    </div>
+						                </div>
+						            </div>
+						        </div>
+								<div class="col-12">
+									<div class="row kt-align-center">
+										<div class="col-12" id="pdf-main-container-3">
+											<div id="pdf-prev-loader-3">Cargando documento ...</div>
+											<div id="pdf-contents-3">
+												<a data-toggle="modal" data-target="#kt_modal_pdf_viewer_3"><canvas id="pdf-canvas-3" width="300"></canvas></a>
+												<div id="page-loader-3">Cargando página ...</div>
+											</div>
+										</div>
+										<div class="col-12" id="contenedor_doc_3">
+											<div id="doc_3" style="display: none;">{{ url("/doc_juicios/".$juicio->id."/3") }}</div>
+										</div>														
+										<div class="col-12">
+											<a class="btn btn-sm btn-label" target="_blank" href="{{ url("/doc_juicios/". $juicio->id."/3") }}">Descargar Documento</a>
+										</div>							
+									</div>
+									<div class="row">
+										<div class="col-12">
+											<button class="btn btn-label-danger borrar-documento" id="juicio_id-{{ $juicio->id }}-doc_tipo_id-3"><i class="fa fa-times"></i></button>
+										</div>											
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>				
                 </div>
                 <div class="kt-portlet__foot kt-align-right">
@@ -666,14 +660,15 @@
 @section('scripts')
 
 <script type="text/javascript" src="{{asset('js/datatables/juicios-html.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/Upload.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/Upload.js?v=0.0.2')}}"></script>
 @foreach($doc_tipos as $doc_tipo)
 	@foreach($documentos as $documento)
-		@if($documento->doc_tipo_id == $doc_tipo->id)
-			<script type="text/javascript" src="{{asset('js/showPDFjs_tipo_'.$doc_tipo->id.'.js?v=0.0.1')}}"></script>
+		@if($documento->doc_tipo_id == $doc_tipo->id && $documento->doc_tipo_id != 3)
+			<script type="text/javascript" src="{{asset('js/showPDFjs_tipo_'.$doc_tipo->id.'.js?v=0.0.2')}}"></script>
 		@endif
 	@endforeach
 @endforeach
+<script type="text/javascript" src="{{asset('js/showPDFjs_tipo_3.js?v=0.0.3')}}"></script>
 <script type="text/javascript">
 
 	$(document).ready(function(e){
@@ -738,13 +733,11 @@
         $(".borrar-documento").click(function(e){
         	e.preventDefault();
         	var array_ids = this.id.split("-");
-        	var doc_id = array_ids[1];
-        	var juicio_id = array_ids[3];
-        	var doc_tipo_id = array_ids[5];
+        	var juicio_id = array_ids[1];
+        	var doc_tipo_id = array_ids[3];
         	$.ajax({
                 type: "POST",
                 data: {
-                	doc_id:doc_id,
                 	juicio_id:juicio_id,
                 	doc_tipo_id:doc_tipo_id,
                 },

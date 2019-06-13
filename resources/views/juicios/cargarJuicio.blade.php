@@ -13,7 +13,7 @@
                         </h3>
                     </div>
                     <div class="kt-portlet__head-toolbar">
-                        <button class="btn btn-success" type="submit">
+                        <button class="btn btn-success guardar-juicio">
 	                		Guardar
 	                	</button>
                     </div>
@@ -26,9 +26,7 @@
 	                	<div class="form-group row">                    		
 	                		<div class="col-lg-6">	
 	                			<label>Coordinador</label>							
-								<div style="color:red;">
-									{{$errors->first('coordinador')}}
-								</div>
+								<div style="color:red;" class="error_label" id="error-coordinador"></div>
 								<select id="coordinador" name="coordinador" class="form-control">
 									<option value="">Seleccione</option>
 									@foreach ($coordinadores as $coordinad)
@@ -47,9 +45,7 @@
 	                	<div class="form-group row">
 	                		<div class="col-lg-6">
 								<label>Estado</label>
-								<div style="color:red;">
-									{{$errors->first('estado')}}
-								</div>
+								<div style="color:red;" class="error_label" id="error-estado"></div>
 								<select id="estado" name="estado" class="form-control">
 									<option value="">Seleccione</option>
 									@foreach ($estados as $estado)
@@ -64,8 +60,7 @@
 							</div>
 							<div class="col-lg-6">
 								<label>Cliente</label>
-								<div style="color:red;">
-									{{$errors->first('cliente')}}
+								<div style="color:red;" class="error_label" id="error-cliente">
 								</div>
 								<select id="cliente" name="cliente" class="form-control">
 									<option value="">Seleccione</option>
@@ -83,8 +78,7 @@
 	                	<div class="form-group row">
 	                		<div class="col-lg-6">
 								<label>Colaborador</label>
-								<div style="color:red;">
-									{{$errors->first('colaborator')}}
+								<div style="color:red;" class="error_label" id="error-colaborator">
 								</div>
 								<select id="colaborator" name="colaborator" class="form-control">
 									<option value="">Seleccione</option>
@@ -100,7 +94,7 @@
 							</div>
 							<div class="col-lg-6">
 								<label>Información de contacto del cliente</label>
-								<div style="color:red;">
+								<div style="color:red;" class="error_label">
 									{{$errors->first('cliente_contact_info')}}
 								</div>
 								<input type="text" class="form-control" id="cliente_contact_info" name="cliente_contact_info" value="@if(null !== old('cliente_contact_info')){{ old('cliente_contact_info') }}@endif" placeholder="Información de contacto ...">
@@ -110,7 +104,7 @@
 						<div class="form-group row">
 							<div class="col-lg-6">
 								<label>Número de Crédito</label>
-								<div style="color:red;">
+								<div style="color:red;" class="error_label">
 									{{$errors->first('numero_credito')}}
 								</div>
 								<input type="text" class="form-control" id="numero_credito" name="numero_credito" value="@if(null !== old('numero_credito')){{ old('numero_credito') }}@endif" placeholder="Nº Crédito ...">
@@ -118,9 +112,7 @@
 							</div>
 							<div class="col-lg-6">
 								<label>Demandado</label>
-								<div style="color:red;">
-									{{$errors->first('demandado')}}
-								</div>
+								<div style="color:red;" class="error_label" id="error-demandado"></div>
 								<input type="text" class="form-control" id="demandado" name="demandado" value="@if(null !== old('demandado')){{ old('demandado') }}@endif" placeholder="Demandado...">
 								<span class="form-text text-muted">Escriba el nombre del codemandado en este juicio</span>
 								<label>Codemandado</label>
@@ -134,11 +126,10 @@
 						<div class="form-group row">
 							<div class="col-lg-6">
 								<label>Tipo de Juzgado</label>
-								<div style="color:red;">
+								<div style="color:red;" class="error_label" id="error-juzgadotipo">
 									{{$errors->first('juzgadotipo')}}
 								</div>
 								<select id="juzgadotipo" name="juzgadotipo" class="form-control">
-									<option value="">Seleccione</option>
 									@foreach ($juzgadotipos as $juzgadotipo)
 										@if (old('juzgadotipo') == $juzgadotipo->id)
 											<option value="{{ $juzgadotipo->id }}" selected="selected">{{ $juzgadotipo->juztipo }}</option>
@@ -151,11 +142,10 @@
 							</div>
 							<div class="col-lg-6">
 								<label>Juzgado</label>
-								<div style="color:red;">
+								<div style="color:red;" class="error_label" id="error-juzgado">
 									{{$errors->first('juzgado')}}
 								</div>
-								<select id="juzgado" name="juzgado" class="form-control" disabled>
-									<option value="">Seleccione</option>
+								<select id="juzgado" name="juzgado" class="form-control">
 									@foreach ($juzgados as $juzgado)
 										@if (old('juzgado') == $juzgado->id)
 											<option value="{{ $juzgado->id }}" data-id="{{ $juzgado->juzgadotipo_id }}" selected="selected">{{ $juzgado->juzgado }}</option>
@@ -170,7 +160,7 @@
 						<div class="form-group row">
 							<div class="col-lg-6">
 								<label>Expediente</label>
-								<div style="color:red;">
+								<div style="color:red;" class="error_label">
 									{{$errors->first('expediente')}}
 								</div>
 								<input type="text" class="form-control" id="expediente" name="expediente" value="@if(null !== old('expediente')){{ old('expediente') }}@endif" placeholder="Expediente ...">
@@ -178,7 +168,7 @@
 							</div>
 							<div class="col-lg-6">
 								<label>Tipo de Juicio</label>
-								<div style="color:red;">
+								<div style="color:red;" class="error_label" id="error-juiciotipo">
 									{{$errors->first('juiciotipo')}}
 								</div>
 								<select id="juiciotipo" name="juiciotipo" class="form-control">
@@ -197,7 +187,7 @@
 						<div class="form-group row">												
 							<div class="col-lg-6">
 								<label>Ultima fecha boletín Judicial:</label>
-								<div style="color:red;">
+								<div style="color:red;" class="error_label">
 									{{$errors->first('ultima_fecha_boletin')}}
 								</div>
 								<input type="text" class="form-control" id="ultima_fecha_boletin" name="ultima_fecha_boletin" value="@if(null !== old('ultima_fecha_boletin')){{ old('ultima_fecha_boletin') }}@endif" placeholder="DD/MM/AAAA">
@@ -205,7 +195,7 @@
 							</div>
 							<div class="col-lg-6">
 								<label>Extracto</label>
-								<div style="color:red;">
+								<div style="color:red;" class="error_label">
 									{{$errors->first('extracto')}}
 								</div>
 								<input type="text" class="form-control" id="extracto" name="extracto" value="@if(null !== old('extracto')){{ old('extracto') }}@endif" placeholder="Extracto de boletín judicial...">
@@ -215,7 +205,7 @@
 						<div class="form-group row">
 							<div class="col-lg-12">
 								<label>Notas de seguimiento</label>
-								<div style="color:red;">
+								<div style="color:red;" class="error_label">
 									{{$errors->first('notas_seguimiento')}}
 								</div>
 								<textarea class="form-control" rows="5" id="notas_seguimiento" name="notas_seguimiento" placeholder="Notas de seguimiento ...">@if(null !== old('notas_seguimiento')){{ old('notas_seguimiento') }}@endif</textarea>
@@ -225,7 +215,7 @@
 						<div class="form-group row">
 							<div class="col-lg-6">
 								<label>Fecha de próxima acción</label>
-								<div style="color:red;">
+								<div style="color:red;" class="error_label">
 									{{$errors->first('fecha_proxima_accion')}}
 								</div>
 								<input type="text" class="form-control" id="fecha_proxima_accion" name="fecha_proxima_accion" value="@if(null !== old('fecha_proxima_accion')){{ old('fecha_proxima_accion') }}@endif" placeholder="Fecha de próxima acción ...">
@@ -233,7 +223,7 @@
 							</div>
 							<div class="col-lg-6">
 								<label>Próxima acción</label>
-								<div style="color:red;">
+								<div style="color:red;" class="error_label">
 									{{$errors->first('proxima_accion')}}
 								</div>
 								<textarea class="form-control" rows="5" id="proxima_accion" name="proxima_accion" placeholder="Próxima acción ...">@if(null !== old('proxima_accion')){{ old('proxima_accion') }}@endif</textarea>
@@ -251,11 +241,10 @@
 						<div class="form-group row">
 							<div class="col-lg-3">
 								<label>Moneda</label>
-								<div style="color:red;">
+								<div style="color:red;" class="error_label">
 									{{$errors->first('moneda')}}
 								</div>
 								<select id="moneda" name="moneda" class="form-control">
-									<option value="">Seleccione</option>
 									@foreach ($monedas as $moneda)
 										@if (old('moneda') == $moneda->id)
 											<option value="{{ $moneda->id }}" selected="selected">{{ $moneda->desc_moneda }}</option>
@@ -268,7 +257,7 @@
 							</div>
 							<div class="col-lg-3">
 								<label>Monto demandado</label>
-								<div style="color:red;">
+								<div style="color:red;" class="error_label">
 									{{$errors->first('monto_demandado')}}
 								</div>
 								<input type="text" class="form-control" id="monto_demandado" name="monto_demandado" value="@if(null !== old('monto_demandado')){{ old('monto_demandado') }}@endif" placeholder="Monto demandado ...">
@@ -276,7 +265,7 @@
 							</div>
 							<div class="col-lg-3">
 								<label>Importe del Crédito</label>
-								<div style="color:red;">
+								<div style="color:red;" class="error_label">
 									{{$errors->first('importe_credito')}}
 								</div>
 								<input type="text" class="form-control" id="importe_credito" name="importe_credito" value="@if(null !== old('importe_credito')){{ old('importe_credito') }}@endif" placeholder="Importe del crédito ...">
@@ -284,7 +273,7 @@
 							</div>
 							<div class="col-lg-3">
 								<label>Macro etapa</label>
-								<div style="color:red;">
+								<div style="color:red;" class="error_label" id="error-macroetapa">
 									{{$errors->first('macroetapa')}}
 								</div>
 								<select id="macroetapa" name="macroetapa" class="form-control">
@@ -304,14 +293,14 @@
 						<div class="form-group row">
 							<div class="col-lg-4">
 								<label>Garantía</label>
-								<div style="color:red;">
+								<div style="color:red;" class="error_label">
 									{{$errors->first('garantia')}}
 								</div>
 								<textarea class="form-control" rows="5" id="garantia" name="garantia" placeholder="Garantía ...">@if(null !== old('garantia')){{ old('garantia') }}@endif</textarea>
 							</div>
 							<div class="col-lg-4">
 								<label>Datos de registro público de la propiedads</label>
-								<div style="color:red;">
+								<div style="color:red;" class="error_label">
 									{{$errors->first('datos_rpp')}}
 								</div>
 								<textarea class="form-control" rows="5" id="datos_rpp" name="datos_rpp" placeholder="Datos de RPP ...">@if(null !== old('datos_rpp')){{ old('datos_rpp') }}@endif</textarea>
@@ -319,7 +308,7 @@
 							</div>
 							<div class="col-lg-4">
 								<label>Otros domicilios</label>
-								<div style="color:red;">
+								<div style="color:red;" class="error_label">
 									{{$errors->first('otros_domicilios')}}
 								</div>
 								<textarea class="form-control" rows="5" id="otros_domicilios" name="otros_domicilios" placeholder="Domiciolios ...">@if(null !== old('otros_domicilios')){{ old('otros_domicilios') }}@endif</textarea>
@@ -330,7 +319,7 @@
 						<div class="form-group row">
 							<div class="col-lg-4">
 								<label>Procesos asociados</label>
-								<div style="color:red;">
+								<div style="color:red;" class="error_label">
 									{{$errors->first('procesos_asociados')}}
 								</div>
 								<input type="text" class="form-control" id="procesos_asociados" name="procesos_asociados" value="@if(null !== old('procesos_asociados')){{ old('procesos_asociados') }}@endif" placeholder="Procesos asociados ...">
@@ -338,7 +327,7 @@
 							</div>
 							<div class="col-lg-4">
 								<label>Sala de Apelación</label>
-								<div style="color:red;">
+								<div style="color:red;" class="error_label">
 									{{$errors->first('sala_apelacion')}}
 								</div>
 								<select id="salaapela" name="salaapela" class="form-control">
@@ -364,14 +353,14 @@
 						<div class="form-group row">
 							<div class="col-lg-6">
 								<label>Autoridad Amparo</label>
-								<div style="color:red;">
+								<div style="color:red;" class="error_label">
 									{{$errors->first('autoridad_amparo')}}
 								</div>
 								<input type="text" class="form-control" id="autoridad_amparo" name="autoridad_amparo" value="@if(null !== old('autoridad_amparo')){{ old('autoridad_amparo') }}@endif" placeholder="Autoridad amparo ...">
 							</div>
 							<div class="col-lg-6">
 								<label>Expediente Amparo</label>
-								<div style="color:red;">
+								<div style="color:red;" class="error_label">
 									{{$errors->first('expediente_amparo')}}
 								</div>
 								<input type="text" class="form-control" id="expediente_amparo" name="expediente_amparo" value="@if(null !== old('expediente_amparo')){{ old('expediente_amparo') }}@endif" placeholder="Expediente amparo ...">
@@ -381,14 +370,14 @@
 						<div class="form-group row">
 							<div class="col-lg-6">
 								<label>Autoridad Recurso de Amparo</label>
-								<div style="color:red;">
+								<div style="color:red;" class="error_label">
 									{{$errors->first('autoridad_recurso_amparo')}}
 								</div>
 								<input type="text" class="form-control" id="autoridad_recurso_amparo" name="autoridad_recurso_amparo" value="@if(null !== old('autoridad_recurso_amparo')){{ old('autoridad_recurso_amparo') }}@endif" placeholder="Autoridad Recurso de Amparo ...">
 							</div>
 							<div class="col-lg-6">
 								<label>Expediente Recurso de Amparo</label>
-								<div style="color:red;">
+								<div style="color:red;" class="error_label">
 									{{$errors->first('expediente_recurso_amparo')}}
 								</div>
 								<input type="text" class="form-control" id="expediente_recurso_amparo" name="expediente_recurso_amparo" value="@if(null !== old('expediente_recurso_amparo')){{ old('expediente_recurso_amparo') }}@endif" placeholder="Expediente Recurso de Amparo ...">
@@ -398,7 +387,7 @@
 						<div class="form-group row">
 							<div class="col-lg-12">
 								<label>Audiencias de juicio</label>
-								<div style="color:red;">
+								<div style="color:red;" class="error_label">
 									{{$errors->first('audiencia_juicio')}}
 								</div>
 								<textarea class="form-control" rows="5" id="audiencia_juicio" name="audiencia_juicio" placeholder="Videos de audiencias de juicio ...">@if(null !== old('audiencia_juicio')){{ old('audiencia_juicio') }}@endif</textarea>
@@ -430,7 +419,7 @@
 				</div>					
             </div>
             <div class="kt-portlet__foot kt-align-right">
-            	<button class="btn btn-success" id="guardar-juicio">
+            	<button class="btn btn-success guardar-juicio">
             		Guardar
             	</button>
             </div>
@@ -444,7 +433,7 @@
 <!-- Javascript Section -->
 
 @section('scripts')
-<script type="text/javascript" src="{{asset('js/UploadCreate.js?v=0.0.11')}}"></script>
+<script type="text/javascript" src="{{asset('js/UploadCreate.js?v=0.0.17')}}"></script>
 <script type="text/javascript">
 
 	$(document).ready(function(e){
@@ -487,7 +476,7 @@
             rightAlignNumerics: false
         });
 
-        $("#guardar-juicio").click(function(e){
+        $(".guardar-juicio").click(function(e){
         	e.preventDefault();
 			var datosForm = $("#formGuardarJuicio").serialize();
 			$.ajax({
@@ -503,25 +492,40 @@
                     } else {
 						toastr.error(data.message, data.title);
                     }
+                    $(".error_label").html("");
+                    $.each(data.validator, function(i, item){
+                    	$("#error-"+i).html(item[0]);
+                    });
                 },
                 error: function(data) {
-                    console.log(data);
-                    toastr.error("Ocurrió un error al intentar eliminar el documento", "Eliminar documento");
+                    result = JSON.parse(data);					
+                    toastr.error("Ocurrió un error al intentar guardar los datos del juicio", "Carga de Juicio");
                 },
             });
         });        
 	});
 
 	function iniciarCargaArchivos(juicio_id, doc_tipo_id){
-		alert("Juicio: "+juicio_id);
-		alert("doc_tipo_id: "+doc_tipo_id);
 		var file = $("#pdf-file-"+doc_tipo_id)[0].files[0];
-	    var upload = new Upload(file, "{{url('upload_doc_juicio')}}", doc_tipo_id, juicio_id);
-	    $("#progress-wrp-"+doc_tipo_id).parent().show();
-	    // maby check size or type here with upload.getSize() and upload.getType()
-	    $("#tipo-doc-uploading").val(doc_tipo_id);
-	    // execute upload
-	    upload.doUpload();
+	    if($("#pdf-file-"+doc_tipo_id)[0].files.length > 0) {
+		    var upload = new Upload(file, "{{url('upload_doc_juicio')}}", doc_tipo_id, juicio_id);
+		    $("#progress-wrp-"+doc_tipo_id).parent().show();
+		    // maby check size or type here with upload.getSize() and upload.getType()
+		    $("#tipo-doc-uploading").val(doc_tipo_id);
+		    // execute upload
+		    upload.doUpload();
+		} else if (doc_tipo_id < 3){
+			iniciarCargaArchivos(juicio_id, parseInt(doc_tipo_id)+1);
+			for (var i = 1; i < 4; i++) {
+				$("#pdf-file-"+i).val("").hide();
+				$("#pdf-preview-"+i).hide().html("");
+				$("#undo-upload-"+i).hide();
+				$("#upload-dialog-"+i).show();
+			}
+			$(".error_label").html("");
+			$("#formGuardarJuicio").trigger("reset");
+			toastr.info("Puede proceder a cargar un nuevo juicio", "Juicio cargado exitosamente");
+		}
 	}
 
 	// load the PDF

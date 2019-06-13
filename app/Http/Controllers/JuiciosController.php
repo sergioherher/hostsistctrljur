@@ -67,7 +67,7 @@ class JuiciosController extends Controller
             $colaborator = $juiciouser->user()->first();
           }
           elseif($juiciouser->role_id == 4) {
-            $cliente = $juiciouser->user()->first();
+            $cliente = $juiciouser;
           }
         }
 
@@ -177,7 +177,7 @@ class JuiciosController extends Controller
             $coordinador = $request->input("coordinador");
             $cliente = $request->input("cliente");
             $colaborador = $request->input("colaborator");
-            $cliente_contact_info = $request->input("cliente_contact_info");
+            $user_contact_info = $request->input("user_contact_info");
             $numero_credito = $request->input("numero_credito");
             $demandado_name = $request->input("demandado");
             $codemandado_name = $request->input("codemandado");
@@ -250,7 +250,7 @@ class JuiciosController extends Controller
                 $juiciousuario_cliente->juicio_id = $juicio->id;
                 $juiciousuario_cliente->user_id = $cliente;
                 $juiciousuario_cliente->user_name = $user_cliente->name;
-                $juiciousuario_cliente->user_contact_info = $cliente_contact_info;
+                $juiciousuario_cliente->user_contact_info = $user_contact_info;
                 $juiciousuario_cliente->role_id = $user_cliente->roles()->first()->id;
                 $juiciousuario_cliente->save();
 
@@ -320,7 +320,7 @@ class JuiciosController extends Controller
 
                 $juiciousuario_cliente = Juiciouser::where("juicio_id", $juicio_id)->where("role_id", 4)->first();
                 $juiciousuario_cliente->user_name = $user_cliente->name;
-                $juiciousuario_cliente->user_contact_info = $cliente_contact_info;
+                $juiciousuario_cliente->user_contact_info = $user_contact_info;
                 $juiciousuario_cliente->user_id = $user_cliente->id;
                 $juiciousuario_cliente->role_id = 4;
                 $juiciousuario_cliente->save();
@@ -347,58 +347,7 @@ class JuiciosController extends Controller
                     $codemandado->save();
                 }
 
-                if ($request->hasFile('pdf_file_1') && $request->file('pdf_file_1')->isValid()) {
-
-                    $filename_fundatorio = "fundatorios-".$juicio->id.".pdf";
-
-                    if($request->file('pdf_file_1')->storeAs($juicio->id, $filename_fundatorio, 'juicios')) {
-                        $documento = new DocJuicio;
-                        $documento->ruta_archivo = $filename_fundatorio;
-                        $documento->juicio_id = $juicio->id;
-                        $documento->doc_tipo_id = 1;
-                        $documento->save();
-                    }
-                }
-
-                if ($request->hasFile('pdf_file_2') && $request->file('pdf_file_2')->isValid()) {
-
-                    $filename_expediente = "expediente-".$juicio->id.".pdf";
-                    
-                    if($request->file('pdf_file_2')->storeAs($juicio->id, $filename_expediente, 'juicios')) {
-                        $documento = new DocJuicio;
-                        $documento->ruta_archivo = $filename_expediente;
-                        $documento->juicio_id = $juicio->id;
-                        $documento->doc_tipo_id = 2;
-                        $documento->save();
-                    }
-                }
-
-                if ($request->hasFile('pdf_file_3') && $request->file('pdf_file_3')->isValid()) {
-
-                    $filename_otros = "otros-".$juicio->id.".pdf";
-                    
-                    if($request->file('pdf_file_3')->storeAs($juicio->id, $filename_otros, 'juicios')){
-                        $documento = new DocJuicio;
-                        $documento->ruta_archivo = $filename_otros;
-                        $documento->juicio_id = $juicio->id;
-                        $documento->doc_tipo_id = 3;
-                        $documento->save();
-                    }
-                }
-
-                $resultado = array('operacion' => true, 'message' => 'Juicio editado exitosamente', 'title' => 'Edición de Juicio');
-
-                $emails = array($user_colaborador->email, 'sergioh81@gmail.com');
-
-                $data = array('colaborador' => $user_colaborador, 'juicio' => $juicio, 'cliente' => $user_cliente);
-
-                //from(config('app.senders.info.address'), config('app.senders.info.name'))
-                Mail::send(['html' => 'emails.juicioEditado'], $data, function($msj) use ($emails) {
-                    $msj->from('sisjurcontrol@gmail.com');
-                    //$msj->from('facilposcorreo@gmail.com', $emails['from_name']);
-                    $msj->subject("SISJUR | Juicio Editado");
-                    $msj->to($emails);
-                });
+                $resultado = array('operacion' => true, 'message' => 'Juicio editado exitosamente', 'title' => 'Edición de Juicio', 'juicio_id' => $juicio_id);
 
               }                                     
 
@@ -418,6 +367,22 @@ class JuiciosController extends Controller
             }
 
         }
+    }
+
+    public function enviarCorreoAUsuarios(Request $request){
+
+      $emails = array($user_colaborador->email, 'sergioh81@gmail.com');
+
+      $data = array('colaborador' => $user_colaborador, 'juicio' => $juicio, 'cliente' => $user_cliente);
+
+      //from(config('app.senders.info.address'), config('app.senders.info.name'))
+      Mail::send(['html' => 'emails.juicioEditado'], $data, function($msj) use ($emails) {
+          $msj->from('sisjurcontrol@gmail.com');
+          //$msj->from('facilposcorreo@gmail.com', $emails['from_name']);
+          $msj->subject("SISJUR | Juicio Editado");
+          $msj->to($emails);
+      });
+
     }
 
     public function subirDocJuicio(Request $request) { 
@@ -476,24 +441,8 @@ class JuiciosController extends Controller
             $mpdf = $this->MpdfObject();
             $mpdf->showImageErrors = true;
 
-            //$pagecount = $mpdf->SetSourceFile(storage_path("app/juicios/".$juicio_id."/otros-".$juicio_id.".pdf"));
-            //$import_page = $mpdf->ImportPage(1);
-
-            //$mpdf->UseTemplate($import_page);
-
-            // Add Last page
-            /*$mpdf->AddPageByArray(array(
-              'orientation' => 'P',
-              'ohvalue' => 1,
-              'ehvalue' => -1,
-              'ofvalue' => -1,
-              'efvalue' => -1,
-              'newformat' => 'Letter'
-            ));*/
-
-
             try {
-            //$mpdf->Image($ruta, 0, 0, 210, 297, $extension, '', true, false);
+            
               if(file_exists($otros_pdf)) {
               
                 $pagecount = $mpdf->SetSourceFile($otros_pdf);
@@ -534,33 +483,6 @@ class JuiciosController extends Controller
           }
       }
 
-      /*if(!file_exists($technical_drawing)) {
-        $mpdf = $this->MpdfObject();
-      } else {
-        $mpdf = $this->MpdfObject();
-
-        $pagecount = $mpdf->SetSourceFile($technical_drawing);
-        $import_page = $mpdf->ImportPage(1);
-
-        $mpdf->UseTemplate($import_page);
-
-        // Add Last page
-        $mpdf->AddPageByArray(array(
-          'orientation' => 'P',
-          'ohvalue' => 1,
-          'ehvalue' => -1,
-          'ofvalue' => -1,
-          'efvalue' => -1,
-          'newformat' => 'Letter'
-        ));
-      }
-
-      $mpdf->WriteHTML($html);
-      $mpdf->Output($output_file, 'I');
-
-      exit;*/
-
-
       return json_encode($resultado);
     }
 
@@ -575,6 +497,36 @@ class JuiciosController extends Controller
       }
       
       return response()->file($path);
+    }
+
+    public function getDocumentsThumb($juicio_id, $doc_tipo_id) {
+        if($doc_tipo_id == 1) {
+          $path = storage_path("app/juicios/".$juicio_id."/fundatorios-".$juicio_id.".pdf");  
+        } elseif ($doc_tipo_id == 2) {
+          $path = storage_path("app/juicios/".$juicio_id."/expediente-".$juicio_id.".pdf");  
+        } else {
+          $path = storage_path("app/juicios/".$juicio_id."/otros-".$juicio_id.".pdf");  
+        }
+
+        $mpdf = $this->MpdfObject();
+        try {  
+          
+          if(file_exists($path)) {    
+            $pagecount = $mpdf->SetSourceFile($path);
+            $tplId = $mpdf->ImportPage($pagecount);
+            $mpdf->UseTemplate($tplId);
+          }
+
+          $ruta = storage_path("app/temp_files/temp_file_thumb-".$juicio_id."-doc_tipo_id-".$doc_tipo_id.".pdf");
+
+          $mpdf->Output($ruta, \Mpdf\Output\Destination::FILE);
+
+        } catch (\Mpdf\MpdfException $e) {
+          $resultado = array('exito' => false, 'error' => $e->getMessage());
+        }
+
+        return response()->file($ruta);
+
     }
 
     public function getImageTemp($juicio_id, $extension) {

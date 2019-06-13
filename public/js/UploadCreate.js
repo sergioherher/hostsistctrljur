@@ -43,18 +43,27 @@ Upload.prototype.doUpload = function () {
                 $("#tipo-doc-uploading").val(parseInt(result.doc_tipo_id)+1);
                 iniciarCargaArchivos(result.juicio_id, parseInt(result.doc_tipo_id)+1);
             } else {
-                for (var i = 1; i < 4; i++) {
-                    $("#pdf-file-"+i).val("").hide();
-                    $("#pdf-preview-"+i).hide().html("");
-                    $("#undo-upload-"+i).hide();
-                    $("#upload-dialog-"+i).show();
+                if($("#editar_o_crear").val() == 0) {
+                    for (var i = 1; i < 4; i++) {
+                        $("#pdf-file-"+i).val("").hide();
+                        $("#pdf-preview-"+i).hide().html("");
+                        $("#undo-upload-"+i).hide();
+                        $("#upload-dialog-"+i).show();
+                    }
+                    $("#formGuardarJuicio").trigger("reset");
+                } else {
+                    alert("#pdf-file-"+i);
+                    for (var i = 1; i < 3; i++) {
+                        $("#pdf-file-"+i).val("").hide();
+                        $("#upload-dialog-"+i).show();
+                    }
                 }
-                $("#formGuardarJuicio").trigger("reset");
                 toastr.info("Puede proceder a cargar un nuevo juicio", "Juicio cargado exitosamente");
             }
         },
         error: function (error) {
             console.log(error);
+            toastr.error("Ocurrió un error al intentar cargar un archivo al juicio, sin embargo el juicio se cargó exitosamente", "Carga de archivo");
         },
         async: true,
         data: formData,

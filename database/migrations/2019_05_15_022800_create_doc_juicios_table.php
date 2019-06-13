@@ -22,6 +22,8 @@ class CreateDocJuiciosTable extends Migration
 
             $table->foreign('doc_tipo_id')->references('id')->on('doc_tipos')->onDelete('cascade');
             $table->foreign('juicio_id')->references('id')->on('juicios')->onDelete('cascade');
+
+            $table->unique(['doc_tipo_id','juicio_id']);
         });
     }
 

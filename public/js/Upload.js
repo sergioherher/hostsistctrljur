@@ -1,18 +1,18 @@
-var Upload = function (file, url) {
+var UploadOtros = function (file, url) {
     this.file = file;
     this.url = url;
 };
 
-Upload.prototype.getType = function() {
+UploadOtros.prototype.getType = function() {
     return this.file.type;
 };
-Upload.prototype.getSize = function() {
+UploadOtros.prototype.getSize = function() {
     return this.file.size;
 };
-Upload.prototype.getName = function() {
+UploadOtros.prototype.getName = function() {
     return this.file.name;
 };
-Upload.prototype.doUpload = function () {
+UploadOtros.prototype.doUpload = function () {
     var that = this;
     var formData = new FormData();
 
@@ -40,8 +40,8 @@ Upload.prototype.doUpload = function () {
 				$("#pdf-image-preview-"+result.tipo_doc).hide();
 				if(result.tipo_doc == 3) {
 					$("#add-uploaded-"+result.tipo_doc).hide();
-					$("#progress-wrp").parent().hide();
-					$("#progress-wrp").css("width", "0%");
+					$("#progress-wrp-3").parent().hide();
+					$("#progress-wrp-3").css("width", "0%");
             //if(data.exito) {
             	}
             	toastr.success("Se cargó exitosamente el archivo al servidor", "Carga de archivo");
@@ -63,7 +63,7 @@ Upload.prototype.doUpload = function () {
     });
 };
 
-Upload.prototype.progressHandling = function (event) {
+UploadOtros.prototype.progressHandling = function (event) {
     var percent = 0;
     var position = event.loaded || event.position;
     var total = event.total;

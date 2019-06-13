@@ -95,9 +95,9 @@
 							<div class="col-lg-6">
 								<label>Información de contacto del cliente</label>
 								<div style="color:red;" class="error_label">
-									{{$errors->first('cliente_contact_info')}}
+									{{$errors->first('user_contact_info')}}
 								</div>
-								<input type="text" class="form-control" id="cliente_contact_info" name="cliente_contact_info" value="@if(null !== old('cliente_contact_info')){{ old('cliente_contact_info') }}@endif" placeholder="Información de contacto ...">
+								<input type="text" class="form-control" id="user_contact_info" name="user_contact_info" value="@if(null !== old('user_contact_info')){{ old('user_contact_info') }}@endif" placeholder="Información de contacto ...">
 								<span class="form-text text-muted">Escriba información adicional de contacto del cliente</span>
 							</div>
 						</div>

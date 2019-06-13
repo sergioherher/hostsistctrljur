@@ -43,8 +43,14 @@ Upload.prototype.doUpload = function () {
                 $("#tipo-doc-uploading").val(parseInt(result.doc_tipo_id)+1);
                 iniciarCargaArchivos(result.juicio_id, parseInt(result.doc_tipo_id)+1);
             } else {
-                submitted = true;
-                window.location.assign("home");
+                for (var i = 1; i < 4; i++) {
+                    $("#pdf-file-"+i).val("").hide();
+                    $("#pdf-preview-"+i).hide().html("");
+                    $("#undo-upload-"+i).hide();
+                    $("#upload-dialog-"+i).show();
+                }
+                $("#formGuardarJuicio").trigger("reset");
+                toastr.info("Puede proceder a cargar un nuevo juicio", "Juicio cargado exitosamente");
             }
         },
         error: function (error) {

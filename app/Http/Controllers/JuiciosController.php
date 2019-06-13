@@ -153,6 +153,7 @@ class JuiciosController extends Controller
         ];
 
         $rules = [
+                  'estado'            => 'required',
                   'coordinador'       => 'required',
                   'cliente'           => 'required',
                   'colaborator'       => 'required',
@@ -160,14 +161,15 @@ class JuiciosController extends Controller
                   'juiciotipo'        => 'required',
                   'macroetapa'        => 'required',
                   'salaapela'         => 'required',
+                  'juzgadotipo'       => 'required',
+                  'juzgado'       => 'required',
               ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
             
-            return redirect()->back()->withErrors($validator->errors())
-                                     ->withInput($request->all());
+            return json_encode(array('validator' => $validator->errors(), 'operacion' => false, 'message' => "Hay un error en la validación del formulario, por favor verifique los campos requeridos", 'title' => 'Validacion de Formulario'));
 
         } else {
 
@@ -422,7 +424,6 @@ class JuiciosController extends Controller
 
       $doc_tipo_id = $request->input("doc_tipo_id");
       $juicio_id = $request->input("juicio_id");
-      $doc_tipo_id = $request->input("doc_tipo_id");
 
       if ($request->hasFile('pdf_file') && $request->file('pdf_file')->isValid()) {
 
@@ -442,7 +443,8 @@ class JuiciosController extends Controller
               $documento->doc_tipo_id = $doc_tipo_id;
               $documento->save();
 
-              $resultado = array('exito' => true, 'ruta' => url("doc_juicios/".$juicio_id."/".$archivo."-".$juicio_id.".pdf"), 'doc_tipo_id' => $doc_tipo_id, 'juicio_id' => $juicio_id);
+              $resultado = array('exito' => true, 'ruta' => url("doc_juicios/".$juicio_id."/".$archivo."-".$juicio_id.".pdf"), 'doc_tipo_id' => $doc_tipo_id, 'juicio_id' => $juicio_id, 'redirect_url' => url("home"));
+
           } else {
               $resultado = array('exito' => false, 'message'=>'Ocurrió un error al intentar subir el archivo, intente nuevamente', $title=>'Carga de archivo');
           }

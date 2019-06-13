@@ -39,5 +39,6 @@ Route::group(['middleware' => 'role:colaborador'], function() {
    Route::get('/juicios/{juicio_id}', 'JuiciosController@detalleJuicio');
    Route::post('/doc_juicio/deleteDocument', 'JuiciosController@deleteDocument');
    Route::post('/subir_archivo', 'JuiciosController@subirArchivo');
+   Route::post('/upload_doc_juicio', 'JuiciosController@subirDocJuicio');
 });
 

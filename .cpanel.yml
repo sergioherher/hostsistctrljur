@@ -17,3 +17,4 @@ deployment:
     - /bin/cp public/js/showPDFjs_tipo_2.js $DEPLOYPATH_JS
     - /bin/cp public/js/showPDFjs_tipo_3.js $DEPLOYPATH_JS
     - /bin/cp public/js/Upload.js $DEPLOYPATH_JS
+    - /bin/cp public/js/UploadCreate.js $DEPLOYPATH_JS

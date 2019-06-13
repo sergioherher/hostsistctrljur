@@ -280,58 +280,7 @@ class JuiciosController extends Controller
                     $codemandado->save();
                 }
 
-                if ($request->hasFile('pdf_file_1') && $request->file('pdf_file_1')->isValid()) {
-
-                    $filename_fundatorio = "fundatorios-".$juicio->id.".pdf";
-
-                    if($request->file('pdf_file_1')->storeAs($juicio->id, $filename_fundatorio, 'juicios')) {
-                        $documento = new DocJuicio;
-                        $documento->ruta_archivo = $filename_fundatorio;
-                        $documento->juicio_id = $juicio->id;
-                        $documento->doc_tipo_id = 1;
-                        $documento->save();
-                    }
-                }
-
-                if ($request->hasFile('pdf_file_2') && $request->file('pdf_file_2')->isValid()) {
-
-                    $filename_expediente = "expediente-".$juicio->id.".pdf";
-                    
-                    if($request->file('pdf_file_2')->storeAs($juicio->id, $filename_expediente, 'juicios')) {
-                        $documento = new DocJuicio;
-                        $documento->ruta_archivo = $filename_expediente;
-                        $documento->juicio_id = $juicio->id;
-                        $documento->doc_tipo_id = 2;
-                        $documento->save();
-                    }
-                }
-
-                if ($request->hasFile('pdf_file_3') && $request->file('pdf_file_3')->isValid()) {
-
-                    $filename_otros = "otros-".$juicio->id.".pdf";
-                    
-                    if($request->file('pdf_file_3')->storeAs($juicio->id, $filename_otros, 'juicios')){
-                        $documento = new DocJuicio;
-                        $documento->ruta_archivo = $filename_otros;
-                        $documento->juicio_id = $juicio->id;
-                        $documento->doc_tipo_id = 3;
-                        $documento->save();
-                    }
-                }
-
-                $resultado = array('operacion' => true, 'message' => "Juicio creado exitosamente", 'title' => 'Creación de Juicio');
-
-                $emails = array($user_colaborador->email, 'sergioh81@gmail.com');
-
-                $data = array('colaborador' => $user_colaborador, 'juicio' => $juicio, 'cliente' => $user_cliente);
-
-                //from(config('app.senders.info.address'), config('app.senders.info.name'))
-                Mail::send(['html' => 'emails.juicioCreado'], $data, function($msj) use ($emails) {
-                    $msj->from('sisjurcontrol@gmail.com');
-                    //$msj->from('facilposcorreo@gmail.com', $emails['from_name']);
-                    $msj->subject("SISJUR | Juicio Creado");
-                    $msj->to($emails);
-                });
+                $resultado = array('operacion' => true, 'message' => "Juicio creado exitosamente", 'title' => 'Creación de Juicio', 'juicio_id' => $juicio->id);
 
               } else {
 
@@ -449,26 +398,60 @@ class JuiciosController extends Controller
                     $msj->to($emails);
                 });
 
-              }
+              }                                     
 
-              return redirect("home")->with("resultado", json_encode($resultado));
-                                     
+              return json_encode($resultado);
 
             } catch (Exception $e) {
 
                 $resultado = array('operacion' => false, 'message' => $e->getMessage(), 'title' => 'Creación/Edición de Juicio');
 
-                return redirect()->back()->with("resultado", json_encode($resultado))
-                                         ->withInput($request->all());
+                return json_encode($resultado);
 
             } catch (\Swift_TransportException $e) {    
 
                 $resultado = array("operacion"=>false, "message"=>$e->getMessage(), 'title' => 'Envío de Email');
 
-                return redirect("home")->with("resultado", json_encode($resultado));
+                return json_encode($resultado);
             }
 
         }
+    }
+
+    public function subirDocJuicio(Request $request) { 
+
+      $doc_tipo_id = $request->input("doc_tipo_id");
+      $juicio_id = $request->input("juicio_id");
+      $doc_tipo_id = $request->input("doc_tipo_id");
+
+      if ($request->hasFile('pdf_file') && $request->file('pdf_file')->isValid()) {
+
+          if($doc_tipo_id == 1) {
+            $archivo = "fundatorios";
+          } elseif ($doc_tipo_id == 2) {
+            $archivo = "expediente";
+          } else {
+            $archivo = "otros";
+          }
+          $filename_fundatorio = $archivo."-".$juicio_id.".pdf";
+
+          if($request->file('pdf_file')->storeAs($juicio_id, $filename_fundatorio, 'juicios')) {
+              $documento = new DocJuicio;
+              $documento->ruta_archivo = $filename_fundatorio;
+              $documento->juicio_id = $juicio_id;
+              $documento->doc_tipo_id = $doc_tipo_id;
+              $documento->save();
+
+              $resultado = array('exito' => true, 'ruta' => url("doc_juicios/".$juicio_id."/".$archivo."-".$juicio_id.".pdf"), 'doc_tipo_id' => $doc_tipo_id, 'juicio_id' => $juicio_id);
+          } else {
+              $resultado = array('exito' => false, 'message'=>'Ocurrió un error al intentar subir el archivo, intente nuevamente', $title=>'Carga de archivo');
+          }
+      } else {
+        $resultado = array('exito' => false, 'message'=>'Ocurrió un error al intentar subir el archivo, intente nuevamente', $title=>'Carga de archivo');
+      }
+
+      return json_encode($resultado);
+
     }
 
     public function subirArchivo(Request $request) {

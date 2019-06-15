@@ -22,7 +22,6 @@ class JuicioTableSeeder extends Seeder
 		$juicio->juiciotipo_id = 2;
 		$juicio->ultima_fecha_boletin = '2019-05-13 00:00:00';
 		$juicio->extracto = 'Extracto de prueba';
-		$juicio->notas_seguimiento = 'Nota de seguimiento de prueba';
 		$juicio->fecha_proxima_accion = '2019-08-13 00:00:00';
 		$juicio->proxima_accion = "Proxima accion de prueba";
 		$juicio->moneda_id = 1;
@@ -50,7 +49,6 @@ class JuicioTableSeeder extends Seeder
 		$juicio->juiciotipo_id = 4;
 		$juicio->ultima_fecha_boletin = '2019-05-13 00:00:00';
 		$juicio->extracto = 'Extracto de prueba';
-		$juicio->notas_seguimiento = 'Nota de seguimiento de prueba';
 		$juicio->fecha_proxima_accion = '2019-07-13 00:00:00';
 		$juicio->proxima_accion = "Proxima accion de prueba";
 		$juicio->moneda_id = 1;
@@ -78,7 +76,6 @@ class JuicioTableSeeder extends Seeder
 		$juicio->juiciotipo_id = 4;
 		$juicio->ultima_fecha_boletin = '2019-05-13 00:00:00';
 		$juicio->extracto = 'Extracto de prueba';
-		$juicio->notas_seguimiento = 'Nota de seguimiento de prueba';
 		$juicio->fecha_proxima_accion = '2019-06-30 00:00:00';
 		$juicio->proxima_accion = "Proxima accion de prueba";
 		$juicio->moneda_id = 1;
@@ -107,7 +104,6 @@ class JuicioTableSeeder extends Seeder
 		$juicio->juiciotipo_id = 4;
 		$juicio->ultima_fecha_boletin = '2019-05-13 00:00:00';
 		$juicio->extracto = 'Extracto de prueba';
-		$juicio->notas_seguimiento = 'Nota de seguimiento de prueba';
 		$juicio->fecha_proxima_accion = '2019-12-30 00:00:00';
 		$juicio->proxima_accion = "Proxima accion de prueba";
 		$juicio->moneda_id = 1;

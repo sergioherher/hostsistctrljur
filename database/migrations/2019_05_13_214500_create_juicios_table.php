@@ -23,7 +23,6 @@ class CreateJuiciosTable extends Migration
             $table->unsignedBigInteger('juiciotipo_id');
             $table->dateTime('ultima_fecha_boletin')->nullable();
             $table->text('extracto')->nullable();
-            $table->text('notas_seguimiento')->nullable();
             $table->dateTime('fecha_proxima_accion')->nullable();
             $table->text('proxima_accion')->nullable();
             $table->unsignedBigInteger('moneda_id');

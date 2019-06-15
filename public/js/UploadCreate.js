@@ -50,13 +50,18 @@ Upload.prototype.doUpload = function () {
                         $("#undo-upload-"+i).hide();
                         $("#upload-dialog-"+i).show();
                     }
+                    $(".cloned").remove();
+                    $(".cabecera-notas").hide();
+                    $(".contenedor_guardar_notas").hide();
                     $("#formGuardarJuicio").trigger("reset");
                 } else {
-                    alert("#pdf-file-"+i);
                     for (var i = 1; i < 3; i++) {
                         $("#pdf-file-"+i).val("").hide();
                         $("#upload-dialog-"+i).show();
                     }
+                    
+                alert("Por aqui");
+                    $(".texto-nota-seguimiento").attr("name", "notas_seguimiento_original[]");
                 }
                 toastr.info("Puede proceder a cargar un nuevo juicio", "Juicio cargado exitosamente");
             }

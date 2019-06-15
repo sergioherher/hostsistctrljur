@@ -203,13 +203,41 @@
 							</div>
 						</div>
 						<div class="form-group row">
-							<div class="col-lg-12">
-								<label>Notas de seguimiento</label>
-								<div style="color:red;" class="error_label">
-									{{$errors->first('notas_seguimiento')}}
+							<div class="col-12 contenedor_notas_seguimiento">
+								<div class="form-group row">
+									<div class="col-10">
+										<label>Notas de seguimiento</label>
+									</div>
+									<div class="col-1 kt-align-center">
+										<button disabled class="btn btn-sm btn-success agregar-nota-seguimiento"><i class="fa fa-plus"></i></button>
+									</div>
+									<input type="hidden" id="contador_notas_seguimiento" name="contador_notas_seguimiento" value="0">
 								</div>
-								<textarea class="form-control" rows="5" id="notas_seguimiento" name="notas_seguimiento" placeholder="Notas de seguimiento ...">@if(null !== old('notas_seguimiento')){{ old('notas_seguimiento') }}@endif</textarea>
-								<span class="form-text text-muted">Escriba las acciones ejecutadas para realizar seguimiento al juicio</span>
+					            <div class="form-group row contenedor_guardar_notas" style="display: none">
+									<div class="col-9">
+										<input class="form-control" type="text" id="nota_a_agregar" name="nota_a_agregar">
+									</div>
+									<div class="col-1 kt-align-center">
+										<button class="btn btn-sm btn-primary guardar-nota"><i class="fa fa-save"></i></button>
+									</div>
+									<div class="col-1 kt-align-center">
+										<button class="btn btn-sm btn-danger cancelar-nota"><i class="fa fa-times"></i></button>
+									</div>
+								</div>
+								<div class="form-group row cabecera-notas" style="display: none;">
+									<div class="col-4">
+										<label>Nota</label>
+									</div>
+									<div class="col-3">
+										<label>Fecha de creación</label>
+									</div>
+									<div class="col-3">
+										<label>Usuario</label>
+									</div>
+									<div class="col-1">
+										<label>Borrar</label>
+									</div>
+								</div>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -418,8 +446,22 @@
 					@endforeach
 				</div>					
             </div>
+			<div class="form-group row clone" style="display: none;">
+				<div class="col-4">
+					<input class="form-control texto-nota-seguimiento" type="text" name="notas_seguimiento[]">
+				</div>
+				<div class="col-3">
+					<input class="form-control fecha-nota-seguimiento" type="text" name="fecha_hora_creada[]">
+				</div>
+				<div class="col-3">
+					<input class="form-control usuario-nota-seguimiento" type="text" name="usuario_nota[]">
+				</div>
+				<div class="col-1"> 
+					<button class="btn btn-sm btn-danger borrar-nota"><i class="fa fa-trash"></i></button>
+				</div>
+			</div>
             <div class="kt-portlet__foot kt-align-right">
-            	<button class="btn btn-success guardar-juicio">
+            	<button class="btn btn-sm btn-success guardar-juicio">
             		Guardar
             	</button>
             </div>
@@ -437,10 +479,16 @@
 <script type="text/javascript">
 
 	$(document).ready(function(e){
+		$(".agregar-nota-seguimiento").attr("disabled", false);
+
 		$("#fecha_proxima_accion").datepicker({
 			format:"yyyy-mm-dd",
 		});
 		$("#ultima_fecha_boletin").datepicker({
+			format:"yyyy-mm-dd",
+		});
+
+		$(".fecha-nota-seguimiento").datepicker({
 			format:"yyyy-mm-dd",
 		});
 
@@ -500,10 +548,57 @@
                 error: function(data) {
                     result = JSON.parse(data);					
                     toastr.error("Ocurrió un error al intentar guardar los datos del juicio", "Carga de Juicio");
+                    console.log(result);
                 },
             });
-        });        
+        });  
+
+        $(".agregar-nota-seguimiento").click(function(e){
+        	e.preventDefault();
+        	$(".contenedor_guardar_notas").show();
+        });
+
+        $(".guardar-nota").click(function(e){
+        	e.preventDefault();
+			var cant_notas = $("#contador_notas_seguimiento").val();
+			var notas = parseInt(cant_notas)+1;
+			var texto_nota = $("#nota_a_agregar").val();
+			var fecha_nota = new Date(); 
+			$(".cabecera-notas").show();
+        	$(".clone").clone().appendTo('.contenedor_notas_seguimiento').show().attr("id", "nota-seguimiento-"+notas).removeClass("clone").addClass("cloned");
+        	attach_delete();
+        	$("#nota-seguimiento-"+notas+" .texto-nota-seguimiento").val(texto_nota);
+        	$("#nota-seguimiento-"+notas+" .fecha-nota-seguimiento").val(
+        		fecha_nota.getFullYear()+"-"
+        		+ ('0' + (fecha_nota.getMonth()+1)).slice(-2)+"-"
+        		+ ('0' + fecha_nota.getDate()).slice(-2)+" "
+        		+ fecha_nota.getHours() + ":"  
+                + fecha_nota.getMinutes() + ":" 
+                + fecha_nota.getSeconds());
+        	$("#nota-seguimiento-"+notas+" .usuario-nota-seguimiento").val("{{Auth::user()->name}}");
+
+        	$("#contador_notas_seguimiento").val(notas);
+        });
+
+        $(".cancelar-nota").click(function(e){
+        	e.preventDefault();
+        	$(".contenedor_guardar_notas").hide();
+        });
 	});
+
+	function attach_delete(){
+      $('.borrar-nota').off();
+      $('.borrar-nota').click(function(e){
+        e.preventDefault();
+        var cant_notas = $("#contador_notas_seguimiento").val();
+        var notas = parseInt(cant_notas)-1;
+        $(this).closest('.cloned').remove();
+        $("#contador_notas_seguimiento").val(notas);
+        if(notas == 0) {
+        	$(".cabecera-notas").hide();
+        }
+      });
+    }
 
 	function iniciarCargaArchivos(juicio_id, doc_tipo_id){
 		var file = $("#pdf-file-"+doc_tipo_id)[0].files[0];
@@ -523,6 +618,9 @@
 				$("#upload-dialog-"+i).show();
 			}
 			$(".error_label").html("");
+	        $(".cloned").remove();
+	        $(".cabecera-notas").hide();
+			$(".contenedor_guardar_notas").hide();
 			$("#formGuardarJuicio").trigger("reset");
 			toastr.info("Puede proceder a cargar un nuevo juicio", "Juicio cargado exitosamente");
 		}

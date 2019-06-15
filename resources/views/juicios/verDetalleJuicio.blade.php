@@ -86,8 +86,8 @@
 									</select>
 									<span class="form-text text-muted">Seleccione el cliente asociado a este juicio</span>
 								@else
-									<input class="form-control" type="text" readonly name="desc_cliente" value="{{ $cliente->name }}">
-									<input type="hidden" name="cliente" value="{{ $cliente->id }}"> 
+									<input class="form-control" type="text" readonly name="desc_cliente" value="{{ $cliente->user()->first()->name }}">
+									<input type="hidden" name="cliente" value="{{ $cliente->user()->first()->id }}"> 
 								@endif
 							</div>						
 						</div>
@@ -248,13 +248,62 @@
 							</div>
 						</div>
 						<div class="form-group row">
-							<div class="col-lg-12">
-								<label>Notas de seguimiento</label>
-								<div style="color:red;">
-									{{$errors->first('notas_seguimiento')}}
+							<div class="col-12 contenedor_notas_seguimiento">
+								<div class="form-group row">
+									<div class="col-10">
+										<label>Notas de seguimiento</label>
+									</div>
+									<div class="col-1 kt-align-center">
+										<button disabled class="btn btn-sm btn-success agregar-nota-seguimiento"><i class="fa fa-plus"></i></button>
+									</div>
+									<input type="hidden" id="contador_notas_seguimiento" name="contador_notas_seguimiento" value="{{$notas->count()}}">
 								</div>
-								<textarea class="form-control" rows="5" id="notas_seguimiento" name="notas_seguimiento" placeholder="Notas de seguimiento ...">@if(null !== old('notas_seguimiento')){{ old('notas_seguimiento') }}@else{{ $juicio->notas_seguimiento }}@endif</textarea>
-								<span class="form-text text-muted">Escriba las acciones ejecutadas para realizar seguimiento al juicio</span>
+					            <div class="form-group row contenedor_guardar_notas" style="display: none">
+									<div class="col-9">
+										<input class="form-control" type="text" id="nota_a_agregar" name="nota_a_agregar">
+									</div>
+									<div class="col-1 kt-align-center">
+										<button class="btn btn-sm btn-primary guardar-nota"><i class="fa fa-save"></i></button>
+									</div>
+									<div class="col-1 kt-align-center">
+										<button class="btn btn-sm btn-danger cancelar-nota"><i class="fa fa-times"></i></button>
+									</div>
+								</div>
+								<div class="form-group row cabecera-notas" style="display: @if($notas->count()==0) none @endif;">
+									<div class="col-4">
+										<label>Nota</label>
+									</div>
+									<div class="col-3">
+										<label>Fecha de creación</label>
+									</div>
+									<div class="col-3">
+										<label>Usuario</label>
+									</div>
+									@role('administrador')
+									<div class="col-1">
+										<label>Borrar</label>
+									</div>
+									@endrole
+								</div>
+								@foreach($notas as $nota)
+								<div class="form-group row cloned nota-original">
+									<div class="col-4">
+										<input class="form-control texto-nota-seguimiento-original" type="text" name="notas_seguimiento_original[]" @if(!Auth::user()->can("administrar-perfiles")) readonly @endif value="{{$nota->nota}}">
+									</div>
+									<div class="col-3">
+										<input class="form-control fecha-nota-seguimiento" type="text" name="fecha_hora_creada[]" readonly value="{{$nota->updated_at}}">
+									</div>
+									<div class="col-3">
+										<input class="form-control usuario-nota-seguimiento" type="text" name="usuario_nota[]" readonly value="{{$nota->user()->first()->name}}">
+									</div>
+									@role('administrador')
+									<div class="col-1">
+										<input type="hidden" class="id-nota-seguimiento" id="id-nota-seguimiento-{{$nota->id}}" name="id-nota-seguimiento[]" value="{{$nota->id}}" />
+										<button class="btn btn-sm btn-danger borrar-nota-original"><i class="fa fa-trash"></i></button>
+									</div>
+									@endrole
+								</div>
+								@endforeach
 							</div>
 						</div>
 						<div class="form-group row">
@@ -367,7 +416,7 @@
 								<div style="color:red;">
 									{{$errors->first('procesos_asociados')}}
 								</div>
-								<input type="text" class="form-control" id="procesos_asociados" name="procesos_asociados" value="@if(null !== old('procesos_asociados')){{ old('procesos_asociados') }}@else{{ $juicio->procesos_asociados }}@endif" placeholder="Procesos asociados ...">
+								<input type="text" class="form-control" id="procesos_asociados" name="procesos_asociados" value="@if(null !== old('procesos_asociados')){{ old('procesos_asociados') }}@else{{ $juicio->procesos_asoc }}@endif" placeholder="Procesos asociados ...">
 								<span class="form-text text-muted">Escriba procesos asociados al presente juicio</span>
 							</div>
 							<div class="col-lg-4">
@@ -438,7 +487,7 @@
 								<textarea class="form-control" rows="5" id="audiencia_juicio" name="audiencia_juicio" placeholder="Videos de audiencias de juicio ...">@if(null !== old('audiencia_juicio')){{ old('audiencia_juicio') }}@else{{ $juicio->audiencia_juicio }}@endif</textarea>
 							</div>
 						</div>
-					<form>
+					</form>
 
 					<div class="form-group row">
 						<div class="col-lg-12">
@@ -613,6 +662,23 @@
 						</div>
 					</div>				
                 </div>
+                <div class="form-group row clone" style="display: none;">
+					<div class="col-4">
+						<input class="form-control texto-nota-seguimiento" type="text" name="notas_seguimiento[]">
+					</div>
+					<div class="col-3">
+						<input class="form-control fecha-nota-seguimiento" type="text" name="fecha_hora_creada[]">
+					</div>
+					<div class="col-3">
+						<input class="form-control usuario-nota-seguimiento" type="text" name="usuario_nota[]">
+					</div>
+					@role('administrador')
+					<div class="col-1">
+						<input class="id-nota-seguimiento" type="hidden" name="id-nota-seguimiento[]">
+						<button class="btn btn-sm btn-danger borrar-nota"><i class="fa fa-trash"></i></button>
+					</div>
+					@endrole
+				</div>
                 <div class="kt-portlet__foot kt-align-right">
                 	<button class="btn btn-success guardar-juicio">
                 		Guardar
@@ -638,10 +704,13 @@
 	@endforeach
 @endforeach
 <script type="text/javascript" src="{{asset('js/showPDFjs_tipo_3.js?v=0.0.17')}}"></script>
-<script type="text/javascript" src="{{asset('js/UploadCreate.js?v=0.0.17')}}"></script>
+<script type="text/javascript" src="{{asset('js/UploadCreate.js?v=0.0.19')}}"></script>
 <script type="text/javascript">
 
 	$(document).ready(function(e){
+
+		$(".agregar-nota-seguimiento").attr("disabled", false);
+
 		$("#fecha_proxima_accion").datepicker({
 			format:"yyyy-mm-dd",
 		});
@@ -749,13 +818,89 @@
                     	$("#error-"+i).html(item[0]);
                     });
                 },
-                error: function(data) {
-                    result = JSON.parse(data);					
+                error: function(data) {				
                     toastr.error("Ocurrió un error al intentar guardar los datos del juicio", "Carga de Juicio");
+                    console.log(data);
+                },
+            });
+        });
+
+        $(".agregar-nota-seguimiento").click(function(e){
+        	e.preventDefault();
+        	$(".contenedor_guardar_notas").show();
+        });
+
+        $(".guardar-nota").click(function(e){
+        	e.preventDefault();
+			var cant_notas = $("#contador_notas_seguimiento").val();
+			var notas = parseInt(cant_notas)+1;
+			var texto_nota = $("#nota_a_agregar").val();
+			var fecha_nota = new Date(); 
+			$(".cabecera-notas").show();
+        	$(".clone").clone().appendTo('.contenedor_notas_seguimiento').show().attr("id", "nota-seguimiento-"+notas).removeClass("clone").addClass("cloned");
+        	attach_delete();
+        	$("#nota-seguimiento-"+notas+" .texto-nota-seguimiento").val(texto_nota);
+        	$("#nota-seguimiento-"+notas+" .fecha-nota-seguimiento").val(
+        		fecha_nota.getFullYear()+"-"
+        		+ ('0' + (fecha_nota.getMonth()+1)).slice(-2)+"-"
+        		+ ('0' + fecha_nota.getDate()).slice(-2)+" "
+        		+ fecha_nota.getHours() + ":"  
+                + fecha_nota.getMinutes() + ":" 
+                + fecha_nota.getSeconds());
+        	$("#nota-seguimiento-"+notas+" .usuario-nota-seguimiento").val("{{Auth::user()->name}}");
+
+        	$("#contador_notas_seguimiento").val(notas);
+        });
+
+        $(".cancelar-nota").click(function(e){
+        	e.preventDefault();
+        	$(".contenedor_guardar_notas").hide();
+        });
+
+        attach_delete();
+
+        $(".borrar-nota-original").click(function(e){
+        	e.preventDefault();
+        	var nota_id = $(this).siblings(".id-nota-seguimiento").val();
+        	var cant_notas = $("#contador_notas_seguimiento").val();
+        	$.ajax({
+                type: "POST",
+                data: {nota_id:nota_id, cant_notas:cant_notas},
+                url: "{{ url('/juicio/deleteNote') }}",
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data);
+                    if(data.operacion) {
+                    	toastr.success(data.message,data.title)
+                    	$("#id-nota-seguimiento-"+data.nota_id).closest(".nota-original").remove();
+                    	$("#contador_notas_seguimiento").val(data.cant_notas);
+                    	if(data.cant_notas == 0) {
+				        	$(".cabecera-notas").hide();
+				        }
+                    } else {
+						toastr.error(data.message,data.title)
+                    }
+                },
+                error: function(data) {
+                    console.log(data);
                 },
             });
         });
 	});
+
+	function attach_delete(){
+	    $('.borrar-nota').off();
+	    $('.borrar-nota').click(function(e){
+	        e.preventDefault();
+	        var cant_notas = $("#contador_notas_seguimiento").val();
+	        var notas = parseInt(cant_notas)-1;
+	        $(this).closest('.cloned').remove();
+	        $("#contador_notas_seguimiento").val(notas);
+	        if(notas == 0) {
+	        	$(".cabecera-notas").hide();
+	        }
+	    });
+    }
 
 	function iniciarCargaArchivos(juicio_id, doc_tipo_id){
 		var file = $("#pdf-file-"+doc_tipo_id)[0].files[0];
@@ -767,7 +912,8 @@
 		    // execute upload
 		    upload.doUpload();
 		} else if (doc_tipo_id < 2){
-			iniciarCargaArchivos(juicio_id, parseInt(doc_tipo_id)+1);
+			iniciarCargaArchivos(juicio_id, parseInt(doc_tipo_id)+1);	
+		} else {
 			if($("#editar_o_crear").val() == 0) {
 				for (var i = 1; i < 3; i++) {
 					$("#pdf-file-"+i).val("").hide();
@@ -780,10 +926,12 @@
 				for (var i = 1; i < 3; i++) {
 					$("#pdf-file-"+i).val("").hide();
 				}
+
+				$(".texto-nota-seguimiento").attr("name", "notas_seguimiento_original[]");
 			}
 			$(".error_label").html("");
+			alert("POR AQUI");
 			//$("#formGuardarJuicio").trigger("reset");
-			
 		}
 	}
 

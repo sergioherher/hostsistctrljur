@@ -70,4 +70,9 @@ class Juicio extends Model
     {
         return $this->hasMany('App\Juiciouser');
     }
+
+    public function notas()
+    {
+        return $this->hasMany('App\Nota');
+    }
 }

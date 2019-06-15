@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Juicio, App\Colaborator, App\Juzgado, App\Juiciotipo, App\Macroetapa, App\DocTipo, App\User, App\Estado, App\Salaapela, App\Juzgadotipo, App\Juiciouser, App\Demandado, App\DocJuicio, App\Moneda;
-use Validator, Mail;
+use App\Juicio, App\Colaborator, App\Juzgado, App\Juiciotipo, App\Macroetapa, App\DocTipo, App\User, App\Estado, App\Salaapela, App\Juzgadotipo, App\Juiciouser, App\Demandado, App\DocJuicio, App\Moneda, App\Nota;
+use Validator, Mail, Auth;
 use App\Traits\MpdfTrait;
 use Illuminate\Support\Facades\Storage;
 
@@ -36,6 +36,7 @@ class JuiciosController extends Controller
         $macroetapa = Juicio::find($juicio_id)->macroetapa()->first();
         $demandados = Juicio::find($juicio_id)->demandados()->get();
         $documentos = Juicio::find($juicio_id)->doc_juicios()->get();
+        $notas = Juicio::find($juicio_id)->notas()->get();
         $estado = Juicio::find($juicio_id)->estado()->first();
         $salaapela = Juicio::find($juicio_id)->salaapela()->first();
         $moneda = Juicio::find($juicio_id)->moneda()->first();
@@ -96,7 +97,8 @@ class JuiciosController extends Controller
                                                ->with('salaapelas', $salaapelas)
                                                ->with('coordinadores', $coordinadores)
                                                ->with('coordinador', $coordinador)
-                                               ->with('salaapela', $salaapela);
+                                               ->with('salaapela', $salaapela)
+                                               ->with('notas', $notas);
     }
 
     /**
@@ -173,6 +175,11 @@ class JuiciosController extends Controller
 
         } else {
 
+            $notas = $request->input("notas_seguimiento");
+            $notas_originales = $request->input("notas_seguimiento_original");
+            $id_notas_originales = $request->input("id-nota-seguimiento");
+            $contador_notas_seguimiento = $request->input("contador_notas_seguimiento");
+            
             $estado = $request->input("estado");
             $coordinador = $request->input("coordinador");
             $cliente = $request->input("cliente");
@@ -187,7 +194,6 @@ class JuiciosController extends Controller
             $ultima_fecha_boletin = $request->input("ultima_fecha_boletin");
             $extracto = $request->input("extracto");
             $expediente = $request->input("expediente");
-            $notas_seguimiento = $request->input("notas_seguimiento");
             $fecha_proxima_accion = $request->input("fecha_proxima_accion");
             $proxima_accion = $request->input("proxima_accion");
             $monto_demandado = $request->input("monto_demandado");
@@ -226,7 +232,6 @@ class JuiciosController extends Controller
                 $juicio->ultima_fecha_boletin = $ultima_fecha_boletin;
                 $juicio->extracto = $extracto;
                 $juicio->expediente= $expediente;
-                $juicio->notas_seguimiento = $notas_seguimiento;
                 $juicio->fecha_proxima_accion = $fecha_proxima_accion;
                 $juicio->proxima_accion = $proxima_accion;
                 $juicio->monto_demandado = $monto_demandado;
@@ -246,26 +251,36 @@ class JuiciosController extends Controller
                 $juicio->moneda_id = $moneda;
                 $juicio->save();
 
+                if(!empty($notas)) {
+                  foreach ($notas as $nota) {
+                    $nota_to_save = new Nota;
+                    $nota_to_save->nota = $nota;
+                    $nota_to_save->juicio_id = $juicio->id;
+                    $nota_to_save->user_id = Auth::user()->id;
+                    $nota_to_save->save();
+                  }
+                }
+
                 $juiciousuario_cliente = new Juiciouser;
                 $juiciousuario_cliente->juicio_id = $juicio->id;
                 $juiciousuario_cliente->user_id = $cliente;
                 $juiciousuario_cliente->user_name = $user_cliente->name;
                 $juiciousuario_cliente->user_contact_info = $user_contact_info;
-                $juiciousuario_cliente->role_id = $user_cliente->roles()->first()->id;
+                $juiciousuario_cliente->role_id = 4;
                 $juiciousuario_cliente->save();
 
                 $juiciousuario_colaborador = new Juiciouser;
                 $juiciousuario_colaborador->juicio_id = $juicio->id;
                 $juiciousuario_colaborador->user_id = $colaborador;
                 $juiciousuario_colaborador->user_name = $user_colaborador->name;
-                $juiciousuario_colaborador->role_id = $user_colaborador->roles()->first()->id;
+                $juiciousuario_colaborador->role_id = 3;
                 $juiciousuario_colaborador->save();
 
                 $juiciousuario_coordinador = new Juiciouser;
                 $juiciousuario_coordinador->juicio_id = $juicio->id;
                 $juiciousuario_coordinador->user_id = $coordinador;
                 $juiciousuario_coordinador->user_name = $user_coordinador->name;
-                $juiciousuario_coordinador->role_id = $user_coordinador->roles()->first()->id;
+                $juiciousuario_coordinador->role_id = 2;
                 $juiciousuario_coordinador->save();
 
                 $demandado = new Demandado;
@@ -298,7 +313,6 @@ class JuiciosController extends Controller
                 $juicio->ultima_fecha_boletin = $ultima_fecha_boletin;
                 $juicio->extracto = $extracto;
                 $juicio->expediente= $expediente;
-                $juicio->notas_seguimiento = $notas_seguimiento;
                 $juicio->fecha_proxima_accion = $fecha_proxima_accion;
                 $juicio->proxima_accion = $proxima_accion;
                 $juicio->monto_demandado = $monto_demandado;
@@ -317,6 +331,25 @@ class JuiciosController extends Controller
                 $juicio->audiencia_juicio = $audiencia_juicio;
                 $juicio->moneda_id = $moneda;
                 $juicio->save();
+
+                if(!empty($notas_originales)) {
+                  foreach ($notas_originales as $key => $nota_original) {
+                    $nota_original_id = $id_notas_originales[$key];
+                    $nota_to_update = Nota::where("id",$nota_original_id)->first();
+                    $nota_to_update->nota = $nota_original;
+                    $nota_to_update->save();
+                  }
+                }
+
+                if(!empty($notas)) {
+                  foreach ($notas as $nota) {
+                    $nota_to_save = new Nota;
+                    $nota_to_save->nota = $nota;
+                    $nota_to_save->juicio_id = $juicio_id;
+                    $nota_to_save->user_id = Auth::user()->id;
+                    $nota_to_save->save();
+                  }
+                }
 
                 $juiciousuario_cliente = Juiciouser::where("juicio_id", $juicio_id)->where("role_id", 4)->first();
                 $juiciousuario_cliente->user_name = $user_cliente->name;
@@ -578,5 +611,20 @@ class JuiciosController extends Controller
       
       return json_encode($result);
 
+    }
+
+    public function deleteNote(Request $request){
+        $nota_id = $request->input('nota_id');
+        $cant_notas = $request->input('cant_notas');
+        try {
+          $nota = Nota::where('id',$nota_id);
+          if($nota->delete()) {
+            $cant_notas = $cant_notas-1;
+          }
+          $resultado = array('operacion' => true, 'message'=> "Nota eliminada con éxito", 'title' => "Eliminar nota", "nota_id" => $nota_id, "cant_notas" => $cant_notas);
+        } catch (Exception $e) {
+          $resultado = array('operacion' => false, 'message'=> "Ocurrió un error al intentar eliminar la nota", 'title' => "Eliminar nota", "nota_id" => $nota_id);
+        }
+        return json_encode($resultado);
     }
 }

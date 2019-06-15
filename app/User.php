@@ -42,4 +42,8 @@ class User extends Authenticatable
     public function juiciouser() {
        return $this->hasOne('App\Juiciouser');
     }
+
+    public function nota() {
+       return $this->hasOne('App\Nota');
+    }
 }

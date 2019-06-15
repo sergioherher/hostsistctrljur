@@ -98,6 +98,18 @@ class ProfilesController extends Controller
             $usuario->save();
             $usuario->roles()->attach($usuario_role);
 
+            if($usuario_role->slug == "administrador") { 
+              $rol_colaborador = Role::where('slug','colaborador')->first();
+              $rol_coordinador = Role::where('slug','coordinador')->first();
+              $usuario->roles()->attach($rol_coordinador);
+              $usuario->roles()->attach($rol_colaborador); 
+            }
+
+            if($usuario_role->slug == "coordinador") { 
+              $rol_colaborador = Role::where('slug','colaborador')->first();
+              $usuario->roles()->attach($rol_colaborador); 
+            }
+
             $result = array('operacion' => true, 'message' => $usuario);
           }
           

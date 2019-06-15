@@ -127,7 +127,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- begin:: Brand -->
                     <div class="kt-aside__brand kt-grid__item " id="kt_aside_brand">
                         <div class="kt-aside__brand-logo">
-                            <a href="index.html">
+                            <a href="{{url('home')}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48px" height="48px" viewBox="0 0 24 24" version="1.1">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                         <rect id="bound" x="0" y="0" width="24" height="24"/>

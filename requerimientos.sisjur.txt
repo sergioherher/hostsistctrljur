@@ -1,0 +1,16 @@
+Hola Jorge, estuve todo el día desconectado, una emergencia médica con mi hija, pero ya todo bien.
+Vamos por los puntos que planteaste:
+1.- Al crear perfil nuevo no actualiza el listado (eso falta por hacerse).
+2.- Lo del mensaje POR AQUI son mensajes que a veces coloco para auditar el código cuando tengo algún error, se me olvidó quitarlo cuando subí los cambios al servidor.
+3.- El botón eliminar juicio no está implementado aún, en este punto debemos definir si quieres eliminarlo en realidad o simplemente que no te aparezca en ese listado y mantenerlo en la base de datos en caso de requerir revisar algún histórico.
+4.- La funcionalidad para editar perfil no se ha implementado.
+5.- El campo Meta Legal se puede agregar, no hay problema.
+6.- Las notas de seguimiento podríamos colocar en lugar de un campo de texto, lo que llaman un textarea, el tema sería la extensión que adquiriría el formulario. Si eso no es un problema para ti se puede hacer. Voy a subir una modificación para que lo veas a ver que te parece. En cuanto a mostrar el tiempo transcurrido desde la creación de la nota si se puede hacer. Puede entrar.
+7.- Al intentar dar de alta te refieres a crear un juicio o a editar para subir el archivo de fundatorios? déjame revisar a ver si logro reproducir ese error.
+8.- Déjame revisar lo del perfil colaborador, aunque la carga de los archivos en edición de juicio tiene detalles porque cómo pediste lo de subir varios archivos a la vez y eso lo estoy trabajando decidí corregir esos detalles una vez definido como iba a quedar lo de las capturas y la forma de hacerlo.
+9.- Déjame analizar lo de ocultar las notas de seguimiento. 
+10.- Lo de quitar el autocompletar que no te permite seleccionar la fecha se hace. Eso no es problema.
+11.- La barra de avance está implementada, te debería aparecer en la parte de abajo de la captura mientras el archivo se va subiendo al servidor, es una barra amarilla, si necesitas que aparezca en una ventana aparte como aquí en workana habría que implementarlo.
+14.- Hasta ahora creo que nada necesita extensión. Lo que vamos a hacer es que yo te voy a ir escribiendo a medida que vaya subiendo la implementación de cada punto de esta lista. Lo pruebas y si detectas algo en ese aspecto se corrige. Luego de culminada la lista hacemos una prueba general del sistema y  corregimos el resto de detalles que puedan quedar por allí. En esa etapa de la prueba general podrías involucrar a una o unas personas de tu despacho para que vayan probando, mientras más ojos mejor. Así hay más probabilidad de detectar fallos. Una vez corregidos los detalles cerramos.
+
+Lo que venga luego de allí lo manejaríamos con extensiones.

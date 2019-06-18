@@ -59,8 +59,6 @@ Upload.prototype.doUpload = function () {
                         $("#pdf-file-"+i).val("").hide();
                         $("#upload-dialog-"+i).show();
                     }
-                    
-                alert("Por aqui");
                     $(".texto-nota-seguimiento").attr("name", "notas_seguimiento_original[]");
                 }
                 toastr.info("Puede proceder a cargar un nuevo juicio", "Juicio cargado exitosamente");

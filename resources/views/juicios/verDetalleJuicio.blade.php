@@ -704,7 +704,7 @@
 	@endforeach
 @endforeach
 <script type="text/javascript" src="{{asset('js/showPDFjs_tipo_3.js?v=0.0.17')}}"></script>
-<script type="text/javascript" src="{{asset('js/UploadCreate.js?v=0.0.19')}}"></script>
+<script type="text/javascript" src="{{asset('js/UploadCreate.js?v=0.0.20')}}"></script>
 <script type="text/javascript">
 
 	$(document).ready(function(e){
@@ -930,7 +930,6 @@
 				$(".texto-nota-seguimiento").attr("name", "notas_seguimiento_original[]");
 			}
 			$(".error_label").html("");
-			alert("POR AQUI");
 			//$("#formGuardarJuicio").trigger("reset");
 		}
 	}

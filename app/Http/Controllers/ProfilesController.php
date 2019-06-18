@@ -63,7 +63,7 @@ class ProfilesController extends Controller
               $user->roles()->attach($rol_colaborador); 
             }
 
-            $result = array('operacion' => true, 'message' => $rol_new);
+            $result = array('operacion' => true, 'role_id' => $rol_new, 'user' => $user);
 
         } catch (Exception $e) {
             $result = array('operacion' => false, 'message' => "Falló");
@@ -110,7 +110,17 @@ class ProfilesController extends Controller
               $usuario->roles()->attach($rol_colaborador); 
             }
 
-            $result = array('operacion' => true, 'message' => $usuario);
+            $roles = $usuario->roles()->get();
+
+            if($roles->contains("slug", "administrador")) {
+              $role_id = 1;
+            } elseif ($roles->contains("slug", "coordinador")) {
+              $role_id = 2;
+            } else {
+              $role_id = $usuario->roles()->first()->id;
+            }
+
+            $result = array('operacion' => true, 'usuario' => $usuario, 'role_id' => $role_id);
           }
           
         } catch (Exception $e) {
@@ -130,5 +140,56 @@ class ProfilesController extends Controller
       }
        return json_encode($result);
       
+    }
+
+    public function updateUser(Request $request) {
+      $nombre = $request->input("nombre");
+      $password = $request->input("password");
+      $email = $request->input("email");
+      $rol = $request->input("rol");
+
+      $password_para_verificar = substr($password, 3);
+      $password_hashed = "$2y".$password_para_verificar;
+
+      $usuario_role = Role::where('id', $rol)->first();
+      $usuario_existe = User::where('email', $email)->first();
+
+      if(empty($usuario_existe)) {
+        $resultado = array('operacion' => false, 'message'=>'Este usuario no existe en nuestros registros', 'title'=>'El usuario no existe');
+        return json_encode($resultado);
+      } else {
+
+        try {
+
+          $usuario_existe->name = $nombre;
+          $usuario_existe->password = $password_hashed;
+          $usuario_existe->save();
+
+          $usuario_existe->roles()->detach(Role::all());
+
+          $usuario_existe->roles()->attach($usuario_role);
+
+          if($usuario_role->id == 1) { 
+            $rol_colaborador = Role::where('slug','colaborador')->first();
+            $rol_coordinador = Role::where('slug','coordinador')->first();
+            $usuario_existe->roles()->attach($rol_coordinador);
+            $usuario_existe->roles()->attach($rol_colaborador); 
+          }
+
+          if($usuario_role->id == 2) { 
+            $rol_colaborador = Role::where('slug','colaborador')->first();
+            $usuario_existe->roles()->attach($rol_colaborador); 
+          }
+
+          $resultado = array('operacion' => true, 'message'=>'El usuario se editó correctamente', 'title'=>'Edición de usuario', 'usuario_id' => $usuario_existe->id, 'usuario_nombre' => $usuario_existe->name);
+          return json_encode($resultado);
+
+        } catch (Exception $e) {
+          
+          $resultado = array('operacion' => false, 'message' => $e->getMessage());
+          return json_encode($resultado);
+        }
+        
+      }
     }
 }

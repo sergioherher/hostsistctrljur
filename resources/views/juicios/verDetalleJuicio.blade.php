@@ -247,18 +247,24 @@
 								<span class="form-text text-muted">Nº de expediente del juicio</span>
 							</div>
 						</div>
-						<div class="form-group row">
-							<div class="col-12 contenedor_notas_seguimiento">
-								<div class="form-group row">
-									<div class="col-10">
-										<label>Notas de seguimiento</label>
-									</div>
-									<div class="col-1 kt-align-center">
-										<button disabled class="btn btn-sm btn-success agregar-nota-seguimiento"><i class="fa fa-plus"></i></button>
-									</div>
-									<input type="hidden" id="contador_notas_seguimiento" name="contador_notas_seguimiento" value="{{$notas->count()}}">
+						<div class="kt-portlet">
+							<div class="kt-portlet__head">
+								<div class="kt-portlet__head-label">
+									<span class="kt-portlet__head-icon">
+										<i class="la la-sticky-note"></i>
+									</span>
+									<h3 class="kt-portlet__head-title">
+										Notas de seguimiento
+									</h3>
 								</div>
-					            <div class="form-group row contenedor_guardar_notas" style="display: none">
+								<div class="kt-portlet__head-toolbar">
+									<button disabled class="btn btn-sm btn-success agregar-nota-seguimiento">
+										<i class="fa fa-plus"></i>
+									</button>
+								</div>
+							</div>
+							<div class="kt-portlet__body">
+								<div class="form-group row contenedor_guardar_notas" style="display: none">
 									<div class="col-9">
 										<input class="form-control" type="text" id="nota_a_agregar" name="nota_a_agregar">
 									</div>
@@ -270,14 +276,11 @@
 									</div>
 								</div>
 								<div class="form-group row cabecera-notas" style="display: @if($notas->count()==0) none @endif;">
-									<div class="col-4">
+									<div class="col-8">
 										<label>Nota</label>
 									</div>
 									<div class="col-3">
-										<label>Fecha de creación</label>
-									</div>
-									<div class="col-3">
-										<label>Usuario</label>
+										<label>Fecha de creación / Usuario</label>
 									</div>
 									@role('administrador')
 									<div class="col-1">
@@ -285,25 +288,36 @@
 									</div>
 									@endrole
 								</div>
-								@foreach($notas as $nota)
-								<div class="form-group row cloned nota-original">
-									<div class="col-4">
-										<input class="form-control texto-nota-seguimiento-original" type="text" name="notas_seguimiento_original[]" @if(!Auth::user()->can("administrar-perfiles")) readonly @endif value="{{$nota->nota}}">
+								<div class="kt-scroll" data-scroll="true" data-height="200" data-scrollbar-shown="true">
+									<div class="contenedor_notas_seguimiento">
+										<input type="hidden" id="contador_notas_seguimiento" name="contador_notas_seguimiento" value="{{$notas->count()}}">
+										@foreach($notas as $nota)
+										<div class="form-group row cloned nota-original">
+											<div class="col-8">
+												<textarea class="form-control texto-nota-seguimiento-original" type="text" name="notas_seguimiento_original[]" rows="3" @if(!Auth::user()->can("administrar-perfiles")) readonly @endif>{{$nota->nota}}</textarea>
+											</div>
+											<div class="col-3">
+												<div class="row">
+													<div class="col-12">
+														<input class="form-control fecha-nota-seguimiento" type="text" name="fecha_hora_creada[]" readonly value="{{ \Carbon\Carbon::parse($nota->updated_at)->diffForHumans() }}">
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-12">
+														<input class="form-control usuario-nota-seguimiento" type="text" name="usuario_nota[]" readonly value="{{$nota->user()->first()->name}}">
+													</div>
+												</div>
+											</div>
+											@role('administrador')
+											<div class="col-1">
+												<input type="hidden" class="id-nota-seguimiento" id="id-nota-seguimiento-{{$nota->id}}" name="id-nota-seguimiento[]" value="{{$nota->id}}" />
+												<button class="btn btn-sm btn-danger borrar-nota-original"><i class="fa fa-trash"></i></button>
+											</div>
+											@endrole
+										</div>
+										@endforeach
 									</div>
-									<div class="col-3">
-										<input class="form-control fecha-nota-seguimiento" type="text" name="fecha_hora_creada[]" readonly value="{{$nota->updated_at}}">
-									</div>
-									<div class="col-3">
-										<input class="form-control usuario-nota-seguimiento" type="text" name="usuario_nota[]" readonly value="{{$nota->user()->first()->name}}">
-									</div>
-									@role('administrador')
-									<div class="col-1">
-										<input type="hidden" class="id-nota-seguimiento" id="id-nota-seguimiento-{{$nota->id}}" name="id-nota-seguimiento[]" value="{{$nota->id}}" />
-										<button class="btn btn-sm btn-danger borrar-nota-original"><i class="fa fa-trash"></i></button>
-									</div>
-									@endrole
 								</div>
-								@endforeach
 							</div>
 						</div>
 						<div class="form-group row">
@@ -663,14 +677,20 @@
 					</div>				
                 </div>
                 <div class="form-group row clone" style="display: none;">
-					<div class="col-4">
-						<input class="form-control texto-nota-seguimiento" type="text" name="notas_seguimiento[]">
+					<div class="col-8">
+						<textarea rows="3" class="form-control texto-nota-seguimiento" name="notas_seguimiento[]"></textarea>
 					</div>
 					<div class="col-3">
-						<input class="form-control fecha-nota-seguimiento" type="text" name="fecha_hora_creada[]">
-					</div>
-					<div class="col-3">
-						<input class="form-control usuario-nota-seguimiento" type="text" name="usuario_nota[]">
+						<div class="row">
+							<div class="col-12">
+								<input class="form-control fecha-nota-seguimiento" type="text" name="fecha_hora_creada[]" @if(!Auth::user()->can('administrar-perfiles')) readonly @endif>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<input class="form-control usuario-nota-seguimiento" type="text" name="usuario_nota[]" @if(!Auth::user()->can('administrar-perfiles')) readonly @endif>
+							</div>
+						</div>
 					</div>
 					@role('administrador')
 					<div class="col-1">
@@ -708,6 +728,10 @@
 <script type="text/javascript">
 
 	$(document).ready(function(e){
+
+		$('.kt-scroll').animate({
+	            scrollTop: $(".kt-scroll").offset().top
+	        }, 200);
 
 		$(".agregar-nota-seguimiento").attr("disabled", false);
 

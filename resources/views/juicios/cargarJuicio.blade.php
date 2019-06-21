@@ -568,13 +568,7 @@
         	$(".clone").clone().appendTo('.contenedor_notas_seguimiento').show().attr("id", "nota-seguimiento-"+notas).removeClass("clone").addClass("cloned");
         	attach_delete();
         	$("#nota-seguimiento-"+notas+" .texto-nota-seguimiento").val(texto_nota);
-        	$("#nota-seguimiento-"+notas+" .fecha-nota-seguimiento").val(
-        		fecha_nota.getFullYear()+"-"
-        		+ ('0' + (fecha_nota.getMonth()+1)).slice(-2)+"-"
-        		+ ('0' + fecha_nota.getDate()).slice(-2)+" "
-        		+ fecha_nota.getHours() + ":"  
-                + fecha_nota.getMinutes() + ":" 
-                + fecha_nota.getSeconds());
+        	$("#nota-seguimiento-"+notas+" .fecha-nota-seguimiento").val(diffForHumans(fecha_nota));
         	$("#nota-seguimiento-"+notas+" .usuario-nota-seguimiento").val("{{Auth::user()->name}}");
 
         	$("#contador_notas_seguimiento").val(notas);
@@ -585,6 +579,38 @@
         	$(".contenedor_guardar_notas").hide();
         });
 	});
+
+	function diffForHumans(fecha_hora) {
+
+		var delta = Math.round((+new Date - fecha_hora) / 1000);
+		
+		var minute = 60,
+	    hour = minute * 60,
+	    day = hour * 24,
+	    week = day * 7;
+
+		var fuzzy;
+
+		if (delta < 30) {
+		    fuzzy = 'Hace instantes';
+		} else if (delta < minute) {
+		    fuzzy = 'Hace '+delta+' segundos.';
+		} else if (delta < 2 * minute) {
+		    fuzzy = 'Hace un minuto.'
+		} else if (delta < hour) {
+		    fuzzy = 'Hace '+Math.floor(delta / minute) + ' minutos.';
+		} else if (Math.floor(delta / hour) == 1) {
+		    fuzzy = 'Hace una hora.'
+		} else if (delta < day) {
+		    fuzzy = 'Hace '+Math.floor(delta / hour) + ' horas.';
+		} else if (delta < day * 2) {
+		    fuzzy = 'Ayer';
+		} else if (delta < week) {
+			fuzzy = 'Hace más de una semana';
+		}
+
+		return fuzzy;
+	}
 
 	function attach_delete(){
       $('.borrar-nota').off();

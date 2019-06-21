@@ -1,9 +1,7 @@
 Hola Jorge, estuve todo el día desconectado, una emergencia médica con mi hija, pero ya todo bien.
 Vamos por los puntos que planteaste:
-1.- Al crear perfil nuevo no actualiza el listado (eso falta por hacerse).
-2.- Lo del mensaje POR AQUI son mensajes que a veces coloco para auditar el código cuando tengo algún error, se me olvidó quitarlo cuando subí los cambios al servidor.
+
 3.- El botón eliminar juicio no está implementado aún, en este punto debemos definir si quieres eliminarlo en realidad o simplemente que no te aparezca en ese listado y mantenerlo en la base de datos en caso de requerir revisar algún histórico.
-4.- La funcionalidad para editar perfil no se ha implementado.
 5.- El campo Meta Legal se puede agregar, no hay problema.
 6.- Las notas de seguimiento podríamos colocar en lugar de un campo de texto, lo que llaman un textarea, el tema sería la extensión que adquiriría el formulario. Si eso no es un problema para ti se puede hacer. Voy a subir una modificación para que lo veas a ver que te parece. En cuanto a mostrar el tiempo transcurrido desde la creación de la nota si se puede hacer. Puede entrar.
 7.- Al intentar dar de alta te refieres a crear un juicio o a editar para subir el archivo de fundatorios? déjame revisar a ver si logro reproducir ese error.

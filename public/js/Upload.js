@@ -59,7 +59,7 @@ UploadOtros.prototype.doUpload = function () {
         cache: false,
         contentType: false,
         processData: false,
-        timeout: 60000
+        timeout: 360000
     });
 };
 

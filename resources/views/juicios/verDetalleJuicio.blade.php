@@ -715,16 +715,16 @@
 
 @section('scripts')
 
-<script type="text/javascript" src="{{asset('js/Upload.js?v=0.0.17')}}"></script>
+<script type="text/javascript" src="{{asset('js/Upload.js?v=0.0.18')}}"></script>
 @foreach($doc_tipos as $doc_tipo)
 	@foreach($documentos as $documento)
 		@if($documento->doc_tipo_id == $doc_tipo->id && $documento->doc_tipo_id != 3)
-			<script type="text/javascript" src="{{asset('js/showPDFjs_tipo_'.$doc_tipo->id.'.js?v=0.0.17')}}"></script>
+			<script type="text/javascript" src="{{asset('js/showPDFjs_tipo_'.$doc_tipo->id.'.js?v=0.0.18')}}"></script>
 		@endif
 	@endforeach
 @endforeach
-<script type="text/javascript" src="{{asset('js/showPDFjs_tipo_3.js?v=0.0.17')}}"></script>
-<script type="text/javascript" src="{{asset('js/UploadCreate.js?v=0.0.20')}}"></script>
+<script type="text/javascript" src="{{asset('js/showPDFjs_tipo_3.js?v=0.0.18')}}"></script>
+<script type="text/javascript" src="{{asset('js/UploadCreate.js?v=0.0.21')}}"></script>
 <script type="text/javascript">
 
 	$(document).ready(function(e){

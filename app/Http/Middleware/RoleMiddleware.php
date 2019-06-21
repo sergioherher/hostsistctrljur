@@ -26,6 +26,7 @@ class RoleMiddleware
         if($permission !== null && !$request->user()->can($permission)) {
             return redirect('home');
         }
-            return $next($request);
-        }
+        
+        return $next($request);
+    }
 }

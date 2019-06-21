@@ -332,7 +332,7 @@ class JuiciosController extends Controller
                 $juicio->moneda_id = $moneda;
                 $juicio->save();
 
-                if(!empty($notas_originales)) {
+                if(!empty($notas_originales) && Auth::user()->hasRole('administrador')) {
                   foreach ($notas_originales as $key => $nota_original) {
                     $nota_original_id = $id_notas_originales[$key];
                     $nota_to_update = Nota::where("id",$nota_original_id)->first();

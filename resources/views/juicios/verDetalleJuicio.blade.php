@@ -1062,7 +1062,6 @@
 			    reader.onload = function(e) {
 			      $('#pdf-image-preview-'+identificador).attr('src', e.target.result);
 			    }
-
 		    } else {
 
 			    // validate whether PDF
@@ -1070,7 +1069,6 @@
 			        alert('Error : Incorrect file type');
 			        return;
 			    }
-
 			    // validate file size
 			    if(file.size > 128*1024*1024) {
 			        alert('Error : Exceeded size 128MB');

@@ -19,33 +19,9 @@
                             <div class="dropdown-menu dropdown-menu-right">
                                 <ul class="kt-nav">
                                     <li class="kt-nav__item">
-                                        <a href="#" class="kt-nav__link">
-                                            <i class="kt-nav__link-icon flaticon2-line-chart"></i>
-                                            <span class="kt-nav__link-text">Reports</span>
-                                        </a>
-                                    </li>
-                                    <li class="kt-nav__item">
-                                        <a href="#" class="kt-nav__link">
-                                            <i class="kt-nav__link-icon flaticon2-send"></i>
-                                            <span class="kt-nav__link-text">Messages</span>
-                                        </a>
-                                    </li>
-                                    <li class="kt-nav__item">
-                                        <a href="#" class="kt-nav__link">
-                                            <i class="kt-nav__link-icon flaticon2-pie-chart-1"></i>
-                                            <span class="kt-nav__link-text">Charts</span>
-                                        </a>
-                                    </li>
-                                    <li class="kt-nav__item">
-                                        <a href="#" class="kt-nav__link">
-                                            <i class="kt-nav__link-icon flaticon2-avatar"></i>
-                                            <span class="kt-nav__link-text">Members</span>
-                                        </a>
-                                    </li>
-                                    <li class="kt-nav__item">
-                                        <a href="#" class="kt-nav__link">
-                                            <i class="kt-nav__link-icon flaticon2-settings"></i>
-                                            <span class="kt-nav__link-text">Settings</span>
+                                        <a href="{{ url('exportar_excel') }}" class="kt-nav__link">
+                                            <i class="kt-nav__link-icon fa fa-file-excel"></i>
+                                            <span class="kt-nav__link-text">Exportar a excel</span>
                                         </a>
                                     </li>
                                 </ul>

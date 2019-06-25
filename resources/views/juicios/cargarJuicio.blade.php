@@ -4,7 +4,7 @@
 
 <!--Begin::Section-->
 <div class="row">
-    <div class="col-xl-8">
+    <div class="col-xl-12">
             <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
                 <div class="kt-portlet__head kt-portlet__head--lg kt-portlet__head--break-sm">
                     <div class="kt-portlet__head-label">
@@ -102,7 +102,7 @@
 							</div>
 						</div>
 						<div class="form-group row">
-							<div class="col-lg-6">
+							<div class="col-lg-3">
 								<label>Número de Crédito</label>
 								<div style="color:red;" class="error_label">
 									{{$errors->first('numero_credito')}}
@@ -110,7 +110,14 @@
 								<input type="text" class="form-control" id="numero_credito" name="numero_credito" value="@if(null !== old('numero_credito')){{ old('numero_credito') }}@endif" placeholder="Nº Crédito ...">
 								<span class="form-text text-muted">Escriba el numero de crédito de ser el caso</span>
 							</div>
-							<div class="col-lg-6">
+							<div class="col-lg-4">
+								<label>Meta Legal</label>
+								<div style="color:red;" class="error_label">
+									{{$errors->first('meta_legal')}}
+								</div>
+								<textarea class="form-control" rows="5" id="meta_legal" name="meta_legal" placeholder="Meta legal ...">@if(null !== old('meta_legal')){{ old('meta_legal') }}@endif</textarea>
+							</div>
+							<div class="col-lg-5">
 								<label>Demandado</label>
 								<div style="color:red;" class="error_label" id="error-demandado"></div>
 								<input type="text" class="form-control" id="demandado" name="demandado" value="@if(null !== old('demandado')){{ old('demandado') }}@endif" placeholder="Demandado...">
@@ -545,10 +552,9 @@
                     	$("#error-"+i).html(item[0]);
                     });
                 },
-                error: function(data) {
-                    result = JSON.parse(data);					
+                error: function(data) {					
                     toastr.error("Ocurrió un error al intentar guardar los datos del juicio", "Carga de Juicio");
-                    console.log(result);
+                    console.log(data);
                 },
             });
         });  

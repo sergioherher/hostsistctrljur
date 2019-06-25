@@ -7,6 +7,8 @@ use App\Juicio, App\Colaborator, App\Juzgado, App\Juiciotipo, App\Macroetapa, Ap
 use Validator, Mail, Auth;
 use App\Traits\MpdfTrait;
 use Illuminate\Support\Facades\Storage;
+use App\Exports\JuiciosExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class JuiciosController extends Controller
 {
@@ -142,6 +144,51 @@ class JuiciosController extends Controller
                                            ->with('monedas',$monedas);
     }
 
+    public function exportarExcel() {
+
+        $user = \Auth::user();
+
+        if($user->hasRole('administrador')) {
+            $juicios = Juicio::select()->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
+        } elseif ($user->hasRole('coordinador')) {
+            $juicios_all = Juicio::select()->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
+            $juicios = $juicios_all->filter(function($key,$value) use ($user){
+                $juicios_users = $key->juiciousers()->get();
+                foreach ($juicios_users as $juicios_user) {
+                    if($juicios_user->user_id == $user->id && $user->roles()->first()->slug == "coordinador"){
+                        return true;
+                    }
+                }
+            });
+        } elseif ($user->hasRole('colaborador')) {
+            $juicios_all = Juicio::select()->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
+            $juicios = $juicios_all->filter(function($key,$value) use ($user){
+                $juicios_users = $key->juiciousers()->get();
+                foreach ($juicios_users as $juicios_user) {
+                    if($juicios_user->user_id == $user->id && $user->roles()->first()->slug == "colaborador"){
+                        return true;
+                    }
+                }
+            });
+        } else {
+            $juicios_all = Juicio::select()->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
+            $juicios = $juicios_all->filter(function($key,$value) use ($user){
+                $juicios_users = $key->juiciousers()->get();
+                foreach ($juicios_users as $juicios_user) {
+                    if($juicios_user->user_id == $user->id && $user->roles()->first()->slug == "cliente"){
+                        return true;
+                    }
+                }
+            });
+        }
+
+        $arreglo_juicios = $juicios->toArray();
+
+        //print_r($arreglo_juicios);
+
+        return Excel::download(new JuiciosExport($arreglo_juicios), 'juicios.xlsx');
+    }
+
     public function guardarJuicio(Request $request)
     {
         $messages = [
@@ -186,6 +233,7 @@ class JuiciosController extends Controller
             $colaborador = $request->input("colaborator");
             $user_contact_info = $request->input("user_contact_info");
             $numero_credito = $request->input("numero_credito");
+            $meta_legal = $request->input("meta_legal");
             $demandado_name = $request->input("demandado");
             $codemandado_name = $request->input("codemandado");
             $juzgadotipo = $request->input("juzgadotipo");
@@ -225,6 +273,7 @@ class JuiciosController extends Controller
                 $juicio = new Juicio;
                 $juicio->estado_id = $estado;
                 $juicio->numero_credito = $numero_credito;
+                $juicio->meta_legal = $meta_legal;
                 $juicio->juzgado_id = $juzgado;
                 $juicio->juzgadotipo_id = $juzgadotipo;
                 $juicio->expediente = $expediente;
@@ -306,6 +355,7 @@ class JuiciosController extends Controller
                 $juicio = Juicio::where("id", $juicio_id)->first();
                 $juicio->estado_id = $estado;
                 $juicio->numero_credito = $numero_credito;
+                $juicio->meta_legal = $meta_legal;
                 $juicio->juzgado_id = $juzgado;
                 $juicio->juzgadotipo_id = $juzgadotipo;
                 $juicio->expediente = $expediente;
@@ -392,13 +442,7 @@ class JuiciosController extends Controller
 
                 return json_encode($resultado);
 
-            } catch (\Swift_TransportException $e) {    
-
-                $resultado = array("operacion"=>false, "message"=>$e->getMessage(), 'title' => 'Envío de Email');
-
-                return json_encode($resultado);
-            }
-
+            } 
         }
     }
 

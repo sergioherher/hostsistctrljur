@@ -17,6 +17,7 @@ class CreateJuiciosTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('estado_id');
             $table->bigInteger('numero_credito')->nullable();
+            $table->text('meta_legal')->nullable();
             $table->unsignedBigInteger('juzgado_id');
             $table->unsignedBigInteger('juzgadotipo_id');
             $table->text('expediente')->nullable();

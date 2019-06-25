@@ -3,7 +3,7 @@
 @section('content')
 <!--Begin::Section-->
     <div class="row">
-        <div class="col-xl-8">
+        <div class="col-xl-12">
             <div class="kt-portlet kt-portlet--height-fluid kt-portlet--mobile ">
                 <div class="kt-portlet__head kt-portlet__head--lg kt-portlet__head--noborder kt-portlet__head--break-sm">
                     <div class="kt-portlet__head-label">

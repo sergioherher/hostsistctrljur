@@ -155,7 +155,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                     <a href="{{url('listUsers')}}" class="kt-menu__link ">
                                                         <i class="kt-menu__link-icon la la-user"></i><span class="kt-menu__link-text">Perfiles de usuario</span>
                                                         <span class="kt-menu__link-badge">
-                                                            <span class="kt-badge kt-badge--primary">2</span>
+                                                            <span class="kt-badge kt-badge--primary">{{$profiles->count()}}</span>
                                                         </span>
                                                     </a>
                                                 </li>
@@ -175,38 +175,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                             @role('coordinador')
                                             <li class="kt-menu__item " aria-haspopup="true"><a href="{{ url('/juicio/cargarJuicio') }}" class="kt-menu__link "><i class="kt-menu__link-icon la la-plus"></i><span class="kt-menu__link-text">Cargar</span></a></li>
                                             @endrole
-                                        </ul>
-                                    </div>
-                                </li>                                
-                                <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--bottom-2" aria-haspopup="true" data-ktmenu-submenu-toggle="click"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-gear"></i><span class="kt-menu__link-text">Settings</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
-                                    <div class="kt-menu__submenu kt-menu__submenu--up"><span class="kt-menu__arrow"></span>
-                                        <ul class="kt-menu__subnav">
-                                            <li class="kt-menu__item  kt-menu__item--parent kt-menu__item--bottom-2" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Settings</span></span></li>
-                                            <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="#" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Profile</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
-                                                <div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
-                                                    <ul class="kt-menu__subnav">
-                                                        <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-icon flaticon-computer"></i><span class="kt-menu__link-text">Pending</span><span class="kt-menu__link-badge"><span class="kt-badge kt-badge--brand">7</span></span></a></li>
-                                                        <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-icon flaticon-signs-2"></i><span class="kt-menu__link-text">Urgent</span><span class="kt-menu__link-badge"><span class="kt-badge kt-badge--danger">6</span></span></a></li>
-                                                        <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-icon flaticon-clipboard"></i><span class="kt-menu__link-text">Done</span><span class="kt-menu__link-badge"><span class="kt-badge kt-badge--success">2</span></span></a></li>
-                                                        <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-icon flaticon-multimedia-2"></i><span class="kt-menu__link-text">Archive</span><span class="kt-menu__link-badge"><span class="kt-badge kt-badge--info kt-badge--inline">245</span></span></a></li>
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                            <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Accounts</span></a></li>
-                                            <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Help</span></a></li>
-                                            <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Notifications</span></a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li class="kt-menu__item  kt-menu__item--submenu kt-menu__item--bottom-1" aria-haspopup="true" data-ktmenu-submenu-toggle="click"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-hourglass-1"></i><span class="kt-menu__link-text">Help</span><span class="kt-menu__link-badge"><span class="kt-badge kt-badge--brand kt-badge--rounded">2</span></span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
-                                    <div class="kt-menu__submenu kt-menu__submenu--up"><span class="kt-menu__arrow"></span>
-                                        <ul class="kt-menu__subnav">
-                                            <li class="kt-menu__item  kt-menu__item--parent kt-menu__item--bottom-1" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Help</span><span class="kt-menu__link-badge"><span class="kt-badge kt-badge--brand kt-badge--rounded">2</span></span></span></li>
-                                            <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Support</span></a></li>
-                                            <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Blog</span></a></li>
-                                            <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Documentation</span></a></li>
-                                            <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Pricing</span></a></li>
-                                            <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Terms</span></a></li>
                                         </ul>
                                     </div>
                                 </li>
@@ -352,28 +320,28 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- end::Scrolltop -->
 
         <!-- begin::Sticky Toolbar -->
-        <ul class="kt-sticky-toolbar" style="margin-top: 30px;">
+        <!--<ul class="kt-sticky-toolbar" style="margin-top: 30px;">
             <li class="kt-sticky-toolbar__item kt-sticky-toolbar__item--brand" id="kt_demo_panel_toggle" data-toggle="kt-tooltip" title="Ver listado de clientes" data-placement="right">
                 <a href="#" class=""><i class="la la-users"></i></a>
             </li>
             <li class="kt-sticky-toolbar__item kt-sticky-toolbar__item--danger" data-toggle="kt-tooltip" title="Listado de Internos" data-placement="left">
                 <a href="{{url('interns')}}"><i class="la la-user"></i></a>
             </li>
-        </ul>
+        </ul>-->
 
         <!-- end::Sticky Toolbar -->
 
         <!-- begin::Demo Panel -->
-        <div id="kt_demo_panel" class="kt-demo-panel">
+        <!--<div id="kt_demo_panel" class="kt-demo-panel">
             <div class="kt-demo-panel__head">
                 <h3 class="kt-demo-panel__title">
-                    Listado de internos
+                    Listado de internos-->
 
                     <!--<small>5</small>-->
-                </h3>
+                <!--</h3>
                 <a href="#" class="kt-demo-panel__close" id="kt_demo_panel_close"><i class="flaticon2-delete"></i></a>
             </div>
-        </div>
+        </div>-->
 
         <!-- end::Demo Panel -->
 

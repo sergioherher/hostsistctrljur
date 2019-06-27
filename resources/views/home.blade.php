@@ -120,7 +120,7 @@
 
 @section('scripts')
 
-<script type="text/javascript" src="{{asset('js/datatables/juicios-html.js?v=0.0.5')}}"></script>
+<script type="text/javascript" src="{{asset('js/datatables/juicios-html.js?v=0.0.9')}}"></script>
 <script type="text/javascript">
     toastr.options = {
       "closeButton": true,

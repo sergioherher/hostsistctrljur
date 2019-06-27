@@ -92,7 +92,7 @@
                                 <td>{{ date("d/M/Y",strtotime($juicio->fecha_proxima_accion)) }}</td>
                                 <td>
                                     @role('cliente', 'colaborador', 'administrador')
-                                    <a href="{{url('juicios/'.$juicio->id)}}" class="btn btn-sm btn-label-brand" title="Reporte de Juicio"><i class="fa fa-file-pdf"></i></a>
+                                    <a href="{{url('reporte_juicio/'.$juicio->id)}}" class="btn btn-sm btn-label-brand" title="Reporte de Juicio"><i class="fa fa-file-pdf"></i></a>
                                     @endrole
                                     @role('colaborador', 'administrador')
                                     <a href="{{url('juicios/'.$juicio->id)}}" class="btn btn-sm btn-label-warning" title="Reporte de Juicio"><i class="fa fa-edit"></i></a>

@@ -22,6 +22,7 @@ Route::get('/doc_juicios/{juicio_id}/{doc_tipo_id}','JuiciosController@getDocume
 Route::get('/doc_juicios_thump/{juicio_id}/{doc_tipo_id}','JuiciosController@getDocumentsThumb');
 Route::get('/img_temp/{juicio_id}/{extension}','JuiciosController@getImageTemp');
 Route::get('/exportar_excel','JuiciosController@exportarExcel');
+Route::get('/reporte_juicio/{juicio_id}','JuiciosController@reporteJuicio');
 
 Route::group(['middleware' => 'role:administrador'], function() {
    Route::get('/listUsers', 'ProfilesController@listUsers');

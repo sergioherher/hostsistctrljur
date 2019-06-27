@@ -9,6 +9,7 @@ use App\Traits\MpdfTrait;
 use Illuminate\Support\Facades\Storage;
 use App\Exports\JuiciosExport;
 use Maatwebsite\Excel\Facades\Excel;
+use \stdClass;
 
 class JuiciosController extends Controller
 {
@@ -671,5 +672,68 @@ class JuiciosController extends Controller
           $resultado = array('operacion' => false, 'message'=> "Ocurrió un error al intentar eliminar la nota", 'title' => "Eliminar nota", "nota_id" => $nota_id);
         }
         return json_encode($resultado);
+    }
+
+    public function reporteJuicio($juicio_id) {
+
+      $juicio  = Juicio::where('id', $juicio_id)->first();
+      $juzgado = Juicio::find($juicio_id)->juzgado()->first();
+      $juzgadotipo = Juicio::find($juicio_id)->juzgadotipo()->first();
+      $juiciotipo = Juicio::find($juicio_id)->juiciotipo()->first();
+      $juiciousers = Juicio::find($juicio_id)->juiciousers()->get();
+      $macroetapa = Juicio::find($juicio_id)->macroetapa()->first();
+      $demandados = Juicio::find($juicio_id)->demandados()->get();
+      $documentos = Juicio::find($juicio_id)->doc_juicios()->get();
+      $notas = Juicio::find($juicio_id)->notas()->get();
+      $estado = Juicio::find($juicio_id)->estado()->first();
+      $salaapela = Juicio::find($juicio_id)->salaapela()->first();
+      $moneda = Juicio::find($juicio_id)->moneda()->first();
+
+      foreach ($juiciousers as $juiciouser) {
+        if ($juiciouser->role_id == 2) {
+          $coordinador = $juiciouser->user()->first();
+        }
+        elseif($juiciouser->role_id == 3) {
+          $colaborador = $juiciouser->user()->first();
+        }
+        elseif($juiciouser->role_id == 4) {
+          $cliente = $juiciouser;
+        }
+      }
+
+      foreach ($demandados as $key => $demand) {
+        if($demand->codemandado == 1)
+          $codemandado = $demand;
+        else
+          $demandado = $demand;
+      }
+
+      if (!isset($codemandado)) {
+        $codemandado = new stdClass;
+        $codemandado->name = "";
+      }
+
+      $doc_tipos = DocTipo::all();
+
+      $mpdf = $this->MpdfObject();
+
+      $html = view("reportes.reporteJuicio")->with('juicio', $juicio)
+                                            ->with('moneda', $moneda)
+                                            ->with('estado', $estado)
+                                            ->with('colaborador', $colaborador)
+                                            ->with('juzgado', $juzgado)
+                                            ->with('juzgadotipo', $juzgadotipo)
+                                            ->with('juiciotipo', $juiciotipo)
+                                            ->with('cliente', $cliente)
+                                            ->with('macroetapa', $macroetapa)
+                                            ->with('demandado', $demandado)
+                                            ->with('codemandado', $codemandado)
+                                            ->with('documentos', $documentos)
+                                            ->with('doc_tipos', $doc_tipos)
+                                            ->with('coordinador', $coordinador)
+                                            ->with('salaapela', $salaapela)
+                                            ->with('notas', $notas);
+      $mpdf->WriteHTML($html);
+      $mpdf->Output("reporte_juicio_".$juicio_id.".pdf", \Mpdf\Output\Destination::INLINE);
     }
 }

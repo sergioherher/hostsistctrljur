@@ -414,7 +414,7 @@
 								<textarea class="form-control" rows="5" id="garantia" name="garantia" placeholder="Garantía ...">@if(null !== old('garantia')){{ old('garantia') }}@else{{ $juicio->garantia }}@endif</textarea>
 							</div>
 							<div class="col-lg-4">
-								<label>Datos de registro público de la propiedads</label>
+								<label>Datos de registro público de la propiedad</label>
 								<div style="color:red;">
 									{{$errors->first('datos_rpp')}}
 								</div>

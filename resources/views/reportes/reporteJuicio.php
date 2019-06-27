@@ -264,7 +264,7 @@
         				<span class="titulo"><?=$doc_tipo->tipo?>: </span>
         				<?php foreach ($documentos as $documento) { 
         					if($documento->doc_tipo_id == $doc_tipo->id) {?>
-        					<a href="/doc_juicios/<?=$juicio->id?>/<?=$juicio->$doc_tipo->id?>"><?=$documento->ruta_archivo?></a>
+        					<a href="/doc_juicios/<?=$juicio->id?>/<?=$doc_tipo->id?>" target="_blank"><?=$documento->ruta_archivo?></a>
         				<?php }
         				} ?>
         			</td>

@@ -124,7 +124,7 @@
 							</div>
 						</div>
 						<div class="form-group row">
-							<div class="col-lg-3">
+							<div class="col-lg-6">
 								<label>Número de Crédito</label>
 								<div style="color:red;">
 									{{$errors->first('numero_credito')}}
@@ -132,14 +132,7 @@
 								<input type="text" class="form-control" id="numero_credito" name="numero_credito" value="@if(null !== old('numero_credito')){{ old('numero_credito') }}}@else{{ $juicio->numero_credito }}@endif" placeholder="Nº Crédito ...">
 								<span class="form-text text-muted">Escriba el numero de crédito de ser el caso</span>
 							</div>
-							<div class="col-lg-4">
-								<label>Meta Legal</label>
-								<div style="color:red;" class="error_label">
-									{{$errors->first('meta_legal')}}
-								</div>
-								<textarea class="form-control" rows="5" id="meta_legal" name="meta_legal" placeholder="Meta legal ...">@if(null !== old('meta_legal')){{ old('meta_legal') }}@else{{ $juicio->meta_legal }}@endif</textarea>
-							</div>
-							<div class="col-lg-5">
+							<div class="col-lg-6">
 								@foreach($demandados as $key => $demandado)
 									@if($demandado->codemandado == 0)
 										@if($demandados->count() == 1)
@@ -157,7 +150,7 @@
 											<span class="form-text text-muted">Escriba el nombre del codemandado en este juicio</span>
 										@else
 											<label>Demandado</label>
-											<div style="color:red;" class="error_label" id="error-demandado">>
+											<div style="color:red;" class="error_label" id="error-demandado">
 												{{$errors->first('demandado')}}
 											</div>
 											<input type="text" class="form-control" id="demandado" name="demandado" value="@if(null !== old('demandado')){{ old('demandado') }}@else{{ $demandado->name }}@endif" placeholder="Demandado...">
@@ -175,7 +168,14 @@
 							</div>
 						</div>
 						<div class="form-group row">
-							<div class="col-lg-6">
+							<div class="col-lg-4">
+								<label>Meta Legal</label>
+								<div style="color:red;" class="error_label">
+									{{$errors->first('meta_legal')}}
+								</div>
+								<textarea class="form-control" rows="2" id="meta_legal" name="meta_legal" placeholder="Meta legal ...">@if(null !== old('meta_legal')){{ old('meta_legal') }}@else{{ $juicio->meta_legal }}@endif</textarea>
+							</div>
+							<div class="col-lg-4">
 								<label>Tipo de Juzgado</label>
 								<div style="color:red;" class="error_label" id="error-juzgadotipo">
 									{{$errors->first('juzgadotipo')}}
@@ -191,7 +191,7 @@
 								</select>
 								<span class="form-text text-muted">Seleccione el tipo de juzgado donde se desarrolla el juicio</span>
 							</div>
-							<div class="col-lg-6">
+							<div class="col-lg-4">
 								<label>Juzgado</label>
 								<div style="color:red;" class="error_label" id="error-juzgado">
 									{{$errors->first('juzgado')}}

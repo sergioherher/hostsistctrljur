@@ -733,7 +733,8 @@ class JuiciosController extends Controller
                                             ->with('coordinador', $coordinador)
                                             ->with('salaapela', $salaapela)
                                             ->with('notas', $notas);
-      $mpdf->WriteHTML($html);
-      $mpdf->Output("reporte_juicio_".$juicio_id.".pdf", \Mpdf\Output\Destination::INLINE);
+      $mpdf->WriteHTML($html);      
+      $mpdf->Output("reporte_juicio_".$juicio_id.".pdf", \Mpdf\Output\Destination::FILE);
+      return response()->file("reporte_juicio_".$juicio_id.".pdf");
     }
 }

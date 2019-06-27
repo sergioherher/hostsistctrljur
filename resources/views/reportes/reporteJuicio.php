@@ -262,6 +262,7 @@
         		<?php foreach ($doc_tipos as $doc_tipo) { ?>
         			<td class="separador">
         				<span class="titulo"><?=$doc_tipo->tipo?>: </span>
+        				<br>
         				<?php foreach ($documentos as $documento) { 
         					if($documento->doc_tipo_id == $doc_tipo->id) {?>
         					<a href="/doc_juicios/<?=$juicio->id?>/<?=$doc_tipo->id?>" target="_blank"><?=$documento->ruta_archivo?></a>

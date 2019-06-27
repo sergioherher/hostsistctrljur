@@ -30,6 +30,7 @@ var KTDatatableHtmlTableDemo = function() {
 				},  {
 					field: 'Próxima Acción',
 					title: 'Próxima Acción',
+					orderDataType: 'date-de',
 					autoHide: false,
 					// callback function support for column rendering
 					/* template: function(row) {

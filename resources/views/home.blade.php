@@ -88,11 +88,11 @@
                                 <td>{{ $juicio->juzgado()->first()->juzgado }}</td>
                                 <td>{{ $juicio->expediente }}</td>
                                 <td>{{ $juicio->demandados()->where('codemandado', 0)->first()["name"] }}</td>
-                                <td>{{ date("d/M/Y",strtotime($juicio->ultima_fecha_boletin)) }}</td>
-                                <td>{{ date("d/M/Y",strtotime($juicio->fecha_proxima_accion)) }}</td>
+                                <td>{{ date("d/m/Y",strtotime($juicio->ultima_fecha_boletin)) }}</td>
+                                <td>{{ date("d/m/Y",strtotime($juicio->fecha_proxima_accion)) }}</td>
                                 <td>
                                     @role('cliente', 'colaborador', 'administrador')
-                                    <a href="{{url('reporte_juicio/'.$juicio->id)}}" class="btn btn-sm btn-label-brand" title="Reporte de Juicio"><i class="fa fa-file-pdf"></i></a>
+                                    <a target="_blank" href="{{url('reporte_juicio/'.$juicio->id)}}" class="btn btn-sm btn-label-brand" title="Reporte de Juicio"><i class="fa fa-file-pdf"></i></a>
                                     @endrole
                                     @role('colaborador', 'administrador')
                                     <a href="{{url('juicios/'.$juicio->id)}}" class="btn btn-sm btn-label-warning" title="Reporte de Juicio"><i class="fa fa-edit"></i></a>
@@ -120,7 +120,7 @@
 
 @section('scripts')
 
-<script type="text/javascript" src="{{asset('js/datatables/juicios-html.js?v=0.0.4')}}"></script>
+<script type="text/javascript" src="{{asset('js/datatables/juicios-html.js?v=0.0.5')}}"></script>
 <script type="text/javascript">
     toastr.options = {
       "closeButton": true,

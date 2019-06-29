@@ -95,10 +95,13 @@
                                     <a target="_blank" href="{{url('reporte_juicio/'.$juicio->id)}}" class="btn btn-sm btn-label-brand" title="Reporte de Juicio"><i class="fa fa-file-pdf"></i></a>
                                     @endrole
                                     @role('colaborador', 'administrador')
-                                    <a href="{{url('juicios/'.$juicio->id)}}" class="btn btn-sm btn-label-warning" title="Reporte de Juicio"><i class="fa fa-edit"></i></a>
+                                    <a href="{{url('juicios/'.$juicio->id)}}" class="btn btn-sm btn-label-warning" title="Editar Juicio"><i class="fa fa-edit"></i></a>
                                     @endrole
                                     @role('administrador')
-                                    <a href="{{url('juicios/'.$juicio->id)}}" class="btn btn-sm btn-label-danger" title="Reporte de Juicio"><i class="fa fa-trash"></i></a>
+                                    <a href="{{url('juicios/'.$juicio->id)}}" class="btn btn-sm btn-label-danger" title="Eliminar Juicio"><i class="fa fa-trash"></i></a>
+                                    @endrole
+                                    @role('administrador')
+                                    <a href="{{url('unirAExpediente/'.$juicio->id)}}" class="btn btn-sm btn-label-primary unir_a_expediente" id="{{ $juicio->id }}" title="Unir Otros a Expediente"><i class="fa fa-arrow-up"></i></a> 
                                     @endrole
                                 </td>
                                 <td>{{ $juicio->estado()->first()->estado }}</td>
@@ -112,44 +115,48 @@
             </div>
         </div>
     </div>
-
     <!--End::Section-->
 @endsection
 
 <!-- Javascript Section -->
 
 @section('scripts')
-
-<script type="text/javascript" src="{{asset('js/datatables/juicios-html.js?v=0.0.9')}}"></script>
 <script type="text/javascript">
-    toastr.options = {
-      "closeButton": true,
-      "debug": false,
-      "newestOnTop": false,
-      "progressBar": false,
-      "positionClass": "toast-top-right",
-      "preventDuplicates": false,
-      "onclick": null,
-      "showDuration": "300",
-      "hideDuration": "1000",
-      "timeOut": "5000",
-      "extendedTimeOut": "1000",
-      "showEasing": "swing",
-      "hideEasing": "linear",
-      "showMethod": "fadeIn",
-      "hideMethod": "fadeOut"
-    };
+    $(document).ready(function(e){
 
-    @if( Session::has('resultado') )
-        var resultado = <?=Session::get('resultado')?>;
+        toastr.options = {
+          "closeButton": true,
+          "debug": false,
+          "newestOnTop": false,
+          "progressBar": false,
+          "positionClass": "toast-top-right",
+          "preventDuplicates": false,
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "5000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        };
 
-        if(resultado.operacion){
-            toastr.success(resultado.message, resultado.title);
-        } else {
-            toastr.error(resultado.error_message, resultado.title);    
-        }
-    @endif
+        @if( Session::has('resultado') )
+
+            var resultado = <?=Session::get('resultado')?>;
+
+            if(resultado.operacion){
+                toastr.success(resultado.message, resultado.title);
+            } else {
+                toastr.error(resultado.error_message, resultado.title);    
+            }
+
+        @endif
+
+    });
 
 </script>
+<script type="text/javascript" src="{{asset('js/datatables/juicios-html.js?v=0.0.9')}}"></script>
 
 @endsection

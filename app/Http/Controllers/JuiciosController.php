@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Exports\JuiciosExport;
 use Maatwebsite\Excel\Facades\Excel;
 use \stdClass;
+use \Session;
 
 class JuiciosController extends Controller
 {
@@ -736,5 +737,60 @@ class JuiciosController extends Controller
       $mpdf->WriteHTML($html);      
       $mpdf->Output("reporte_juicio_".$juicio_id.".pdf", \Mpdf\Output\Destination::FILE);
       return response()->file("reporte_juicio_".$juicio_id.".pdf");
+    }
+
+    public function unirAExpediente($juicio_id) {
+
+      try {
+
+        $juicio = Juicio::where("id", $juicio_id)->first();
+
+        if(!empty($juicio)) {
+          $mpdf = $this->MpdfObject();
+
+          $otros_pdf = storage_path("app/juicios/".$juicio->id."/otros-".$juicio->id.".pdf");
+          $expediente_pdf = storage_path("app/juicios/".$juicio->id."/expediente-".$juicio->id.".pdf");
+
+          if(file_exists($expediente_pdf)) {              
+              $pagecount = $mpdf->SetSourceFile($expediente_pdf);
+              for ($i = 1; $i <= $pagecount; $i++) {
+                $tplId = $mpdf->ImportPage($i);
+                $specs = $mpdf->getTemplateSize($tplId);
+                $mpdf->addPage($specs['orientation']);
+                $mpdf->UseTemplate($tplId);  
+                //$mpdf->SetPageTemplate($tplId);
+                //$mpdf->addPage();
+              }
+          }
+
+          if(file_exists($otros_pdf)) {              
+              $pagecount = $mpdf->SetSourceFile($otros_pdf);
+              for ($i = 1; $i <= $pagecount; $i++) {
+                $tplId = $mpdf->ImportPage($i);
+                $specs = $mpdf->getTemplateSize($tplId);
+                $mpdf->addPage($specs['orientation']);
+                $mpdf->UseTemplate($tplId);
+                //$mpdf->SetPageTemplate($tplId);
+                //$mpdf->addPage();
+              } 
+          }
+
+          if (file_exists($otros_pdf) || file_exists($expediente_pdf)) {
+              $mpdf->Output($expediente_pdf, \Mpdf\Output\Destination::FILE);
+              if(file_exists($otros_pdf) && unlink($otros_pdf)) {
+                  $doc_juicio = DocJuicio::where('juicio_id', $juicio->id)->where("doc_tipo_id", 3)->first();
+                  $doc_juicio->delete();
+              }
+          }
+
+          $resultado = array('operacion' => true, 'message' => 'Se han adicionado el archivo temporal al expediente del juicio', 'title' => 'Unir Archivos a Expediente');
+        } else {
+          $resultado = array('operacion' => false, 'error_message' => 'Este juicio no existe', 'title' => 'Error al intentar unir juicio');
+        }
+      } catch (Exception $e) {
+        $resultado = array('operacion' => false, 'error_message' => 'Ocurrió un error al intentar unir los archivos', 'title' => 'Error al intentar unir juicio', 'error' => $e->getMessage());
+      }
+      Session::flash('resultado', json_encode($resultado));
+      return redirect("home");
     }
 }

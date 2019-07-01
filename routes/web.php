@@ -32,6 +32,7 @@ Route::group(['middleware' => 'role:administrador'], function() {
    Route::post('/users/updateUser', 'ProfilesController@updateUser');
    Route::get('/unirAExpediente/{juicio_id}','JuiciosController@unirAExpediente');
    Route::post('/juicio/deleteNote', 'JuiciosController@deleteNote');   
+   Route::get('/deleteJuicio/{juicio_id}','JuiciosController@deleteJuicio');
 });   
 
 Route::group(['middleware' => 'role:coordinador'], function() {

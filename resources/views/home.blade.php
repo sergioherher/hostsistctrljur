@@ -98,7 +98,7 @@
                                     <a href="{{url('juicios/'.$juicio->id)}}" class="btn btn-sm btn-label-warning" title="Editar Juicio"><i class="fa fa-edit"></i></a>
                                     @endrole
                                     @role('administrador')
-                                    <a href="{{url('juicios/'.$juicio->id)}}" class="btn btn-sm btn-label-danger" title="Eliminar Juicio"><i class="fa fa-trash"></i></a>
+                                    <a href="{{url('deleteJuicio/'.$juicio->id)}}" class="btn btn-sm btn-label-danger" title="Eliminar Juicio"><i class="fa fa-trash"></i></a>
                                     @endrole
                                     @role('administrador')
                                     <a href="{{url('unirAExpediente/'.$juicio->id)}}" class="btn btn-sm btn-label-primary unir_a_expediente" id="{{ $juicio->id }}" title="Unir Otros a Expediente"><i class="fa fa-arrow-up"></i></a> 

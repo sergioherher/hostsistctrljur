@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Juicio extends Model
 {
+    
+    use SoftDeletes;
     /**
      * Obtiene el juzgado del juicio
      */

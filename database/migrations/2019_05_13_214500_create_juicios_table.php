@@ -42,6 +42,7 @@ class CreateJuiciosTable extends Migration
             $table->text('expediente_recurso_amparo')->nullable();
             $table->text('audiencia_juicio')->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('moneda_id')->references('id')->on('monedas')->onDelete('cascade');
             $table->foreign('estado_id')->references('id')->on('estados')->onDelete('cascade');

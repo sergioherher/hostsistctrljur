@@ -793,4 +793,24 @@ class JuiciosController extends Controller
       Session::flash('resultado', json_encode($resultado));
       return redirect("home");
     }
+
+    public function deleteJuicio($juicio_id) {
+      
+      try {
+        $juicio = Juicio::where("id", $juicio_id)->first();
+
+        if(!empty($juicio)) {
+
+          $juicio->delete();
+
+          $resultado = array('operacion' => true, 'message' => 'Se ha eliminado correctamente el juicio', 'title' => 'Eliminar juicio');
+        } else {
+          $resultado = array('operacion' => false, 'error_message' => 'Este juicio no existe', 'title' => 'Error al intentar eliminar juicio');
+        }
+      } catch (Exception $e) {
+        $resultado = array('operacion' => false, 'error_message' => 'Ocurrió un error al intentar eliminar el juicio', 'title' => 'Error al intentar eliminar juicio', 'error' => $e->getMessage());
+      }
+      Session::flash('resultado', json_encode($resultado));
+      return redirect("home");
+    }
 }

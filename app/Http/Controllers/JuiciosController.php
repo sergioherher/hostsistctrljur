@@ -231,6 +231,7 @@ class JuiciosController extends Controller
             $contador_notas_seguimiento = $request->input("contador_notas_seguimiento");
             
             $estado = $request->input("estado");
+            $portafolio = $request->input("portafolio");
             $coordinador = $request->input("coordinador");
             $cliente = $request->input("cliente");
             $colaborador = $request->input("colaborator");
@@ -275,6 +276,7 @@ class JuiciosController extends Controller
 
                 $juicio = new Juicio;
                 $juicio->estado_id = $estado;
+                $juicio->portafolio = $portafolio;
                 $juicio->numero_credito = $numero_credito;
                 $juicio->meta_legal = $meta_legal;
                 $juicio->juzgado_id = $juzgado;
@@ -357,6 +359,7 @@ class JuiciosController extends Controller
 
                 $juicio = Juicio::where("id", $juicio_id)->first();
                 $juicio->estado_id = $estado;
+                $juicio->portafolio = $portafolio;
                 $juicio->numero_credito = $numero_credito;
                 $juicio->meta_legal = $meta_legal;
                 $juicio->juzgado_id = $juzgado;

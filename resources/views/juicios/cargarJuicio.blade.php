@@ -22,8 +22,8 @@
 			    	<form class="kt-form" id="formGuardarJuicio" name="guardarJuicio" action="{{ url('juicio/guardarJuicio') }}" method="POST" enctype="multipart/form-data">
 			    		@csrf
 			    		<input type="hidden" name="editar_o_crear" value="0">
+			    		<div class="form-group row"> 
 	                	@if(Auth::user()->can('administrar-perfiles'))
-	                	<div class="form-group row">                    		
 	                		<div class="col-lg-6">	
 	                			<label>Coordinador</label>							
 								<div style="color:red;" class="error_label" id="error-coordinador"></div>
@@ -38,10 +38,17 @@
 									@endforeach
 								</select>
 							</div>
-						</div> 
-	                	@else
-	                	<input type="hidden" name="coordinador" value="{{Auth::user()->id}}">
+	                	@else	
+	                		<div class="col-lg-6">	                	 
+	                			<input type="hidden" name="coordinador" value="{{Auth::user()->id}}">
+	                		</div>
 	                	@endif
+							<div class="col-lg-6">	
+	                			<label>Portafolio</label>							
+								<div style="color:red;" class="error_label" id="error-portafolio"></div>
+								<input type="text" class="form-control" id="portafolio" name="portafolio" value="@if(null !== old('portafolio')){{ old('portafolio') }}@endif" placeholder="Portafolio ...">
+							</div>	                	
+						</div>
 	                	<div class="form-group row">
 	                		<div class="col-lg-6">
 								<label>Estado</label>
@@ -56,7 +63,6 @@
 										@endif
 									@endforeach
 								</select>
-								<span class="form-text text-muted">Seleccione el estado en el que se encuentra el juicio</span>
 							</div>
 							<div class="col-lg-6">
 								<label>Cliente</label>
@@ -72,7 +78,6 @@
 										@endif
 									@endforeach
 								</select>
-								<span class="form-text text-muted">Seleccione el cliente asociado a este juicio</span>
 							</div>						
 						</div>
 	                	<div class="form-group row">
@@ -90,7 +95,6 @@
 										@endif
 									@endforeach
 								</select>
-								<span class="form-text text-muted">Seleccione al colaborador responsable de este juicio</span>
 							</div>
 							<div class="col-lg-6">
 								<label>Información de contacto del cliente</label>
@@ -98,7 +102,6 @@
 									{{$errors->first('user_contact_info')}}
 								</div>
 								<input type="text" class="form-control" id="user_contact_info" name="user_contact_info" value="@if(null !== old('user_contact_info')){{ old('user_contact_info') }}@endif" placeholder="Información de contacto ...">
-								<span class="form-text text-muted">Escriba información adicional de contacto del cliente</span>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -108,19 +111,18 @@
 									{{$errors->first('numero_credito')}}
 								</div>
 								<input type="text" class="form-control" id="numero_credito" name="numero_credito" value="@if(null !== old('numero_credito')){{ old('numero_credito') }}@endif" placeholder="Nº Crédito ...">
-								<span class="form-text text-muted">Escriba el numero de crédito de ser el caso</span>
 							</div>
 							<div class="col-lg-6">
 								<label>Demandado</label>
 								<div style="color:red;" class="error_label" id="error-demandado"></div>
 								<input type="text" class="form-control" id="demandado" name="demandado" value="@if(null !== old('demandado')){{ old('demandado') }}@endif" placeholder="Demandado...">
-								<span class="form-text text-muted">Escriba el nombre del codemandado en este juicio</span>
+							
 								<label>Codemandado</label>
 								<div style="color:red;">
 									{{$errors->first('codemandado')}}
 								</div>
 								<input type="text" class="form-control" id="codemandado" name="codemandado" value="@if(null !== old('codemandado')){{ old('codemandado') }}@endif" placeholder="Codemandado...">
-								<span class="form-text text-muted">Escriba el nombre del codemandado en este juicio</span>
+								
 							</div>
 						</div>
 						<div class="form-group row">
@@ -145,7 +147,7 @@
 										@endif
 									@endforeach
 								</select>
-								<span class="form-text text-muted">Seleccione el tipo de juzgado donde se desarrolla el juicio</span>
+								
 							</div>
 							<div class="col-lg-4">
 								<label>Juzgado</label>
@@ -161,7 +163,7 @@
 										@endif
 									@endforeach
 								</select>
-								<span class="form-text text-muted">Para habilitar este campo debe seleccionar primero un tipo de juzgado</span>
+								
 							</div>
 						</div>
 						<div class="form-group row">
@@ -171,7 +173,7 @@
 									{{$errors->first('expediente')}}
 								</div>
 								<input type="text" class="form-control" id="expediente" name="expediente" value="@if(null !== old('expediente')){{ old('expediente') }}@endif" placeholder="Expediente ...">
-								<span class="form-text text-muted">Nº de expediente del juicio</span>
+								
 							</div>
 							<div class="col-lg-6">
 								<label>Tipo de Juicio</label>
@@ -188,7 +190,7 @@
 										@endif
 									@endforeach
 								</select>
-								<span class="form-text text-muted">Seleccione el tipo de juicio</span>
+								
 							</div>
 						</div>
 						<div class="form-group row">												
@@ -198,7 +200,7 @@
 									{{$errors->first('ultima_fecha_boletin')}}
 								</div>
 								<input type="text" class="form-control" id="ultima_fecha_boletin" name="ultima_fecha_boletin" value="@if(null !== old('ultima_fecha_boletin')){{ old('ultima_fecha_boletin') }}@endif" placeholder="DD/MM/AAAA">
-								<span class="form-text text-muted">Seleccione la fecha del último boletín judicial</span>
+								
 							</div>
 							<div class="col-lg-6">
 								<label>Extracto</label>
@@ -206,7 +208,7 @@
 									{{$errors->first('extracto')}}
 								</div>
 								<input type="text" class="form-control" id="extracto" name="extracto" value="@if(null !== old('extracto')){{ old('extracto') }}@endif" placeholder="Extracto de boletín judicial...">
-								<span class="form-text text-muted">Nº de expediente del juicio</span>
+								
 							</div>
 						</div>
 						<div class="form-group row">
@@ -254,7 +256,7 @@
 									{{$errors->first('fecha_proxima_accion')}}
 								</div>
 								<input type="text" class="form-control" id="fecha_proxima_accion" name="fecha_proxima_accion" value="@if(null !== old('fecha_proxima_accion')){{ old('fecha_proxima_accion') }}@endif" placeholder="Fecha de próxima acción ...">
-								<span class="form-text text-muted">Seleccione la fecha de la próxima acción a ejecutar</span>
+								
 							</div>
 							<div class="col-lg-6">
 								<label>Próxima acción</label>
@@ -262,7 +264,7 @@
 									{{$errors->first('proxima_accion')}}
 								</div>
 								<textarea class="form-control" rows="5" id="proxima_accion" name="proxima_accion" placeholder="Próxima acción ...">@if(null !== old('proxima_accion')){{ old('proxima_accion') }}@endif</textarea>
-								<span class="form-text text-muted">Escriba la próxima acción a ejecutar</span>
+								
 							</div>
 						</div>
 
@@ -288,7 +290,7 @@
 										@endif
 									@endforeach
 								</select>
-								<span class="form-text text-muted">Seleccione la moneda en la que se maneja la demanda</span>
+								
 							</div>
 							<div class="col-lg-3">
 								<label>Monto demandado</label>
@@ -296,7 +298,7 @@
 									{{$errors->first('monto_demandado')}}
 								</div>
 								<input type="text" class="form-control" id="monto_demandado" name="monto_demandado" value="@if(null !== old('monto_demandado')){{ old('monto_demandado') }}@endif" placeholder="Monto demandado ...">
-								<span class="form-text text-muted">Escriba el monto por el que se está demandando</span>
+								
 							</div>
 							<div class="col-lg-3">
 								<label>Importe del Crédito</label>
@@ -304,7 +306,7 @@
 									{{$errors->first('importe_credito')}}
 								</div>
 								<input type="text" class="form-control" id="importe_credito" name="importe_credito" value="@if(null !== old('importe_credito')){{ old('importe_credito') }}@endif" placeholder="Importe del crédito ...">
-								<span class="form-text text-muted">Escriba el importe del crédito</span>
+								
 							</div>
 							<div class="col-lg-3">
 								<label>Macro etapa</label>
@@ -321,7 +323,7 @@
 										@endif
 									@endforeach
 								</select>
-								<span class="form-text text-muted">Seleccione la etapa general en la que se encuentra el juicio</span>
+								
 							</div>
 						</div>
 
@@ -339,7 +341,7 @@
 									{{$errors->first('datos_rpp')}}
 								</div>
 								<textarea class="form-control" rows="5" id="datos_rpp" name="datos_rpp" placeholder="Datos de RPP ...">@if(null !== old('datos_rpp')){{ old('datos_rpp') }}@endif</textarea>
-								<span class="form-text text-muted">Escriba los datos de registro público del inmueble</span>
+								
 							</div>
 							<div class="col-lg-4">
 								<label>Otros domicilios</label>
@@ -347,7 +349,7 @@
 									{{$errors->first('otros_domicilios')}}
 								</div>
 								<textarea class="form-control" rows="5" id="otros_domicilios" name="otros_domicilios" placeholder="Domiciolios ...">@if(null !== old('otros_domicilios')){{ old('otros_domicilios') }}@endif</textarea>
-								<span class="form-text text-muted">Escirba los datos de algún otro domicilio del demandado</span>
+								
 							</div>
 						</div>
 
@@ -358,7 +360,7 @@
 									{{$errors->first('procesos_asociados')}}
 								</div>
 								<input type="text" class="form-control" id="procesos_asociados" name="procesos_asociados" value="@if(null !== old('procesos_asociados')){{ old('procesos_asociados') }}@endif" placeholder="Procesos asociados ...">
-								<span class="form-text text-muted">Escriba procesos asociados al presente juicio</span>
+								
 							</div>
 							<div class="col-lg-4">
 								<label>Sala de Apelación</label>
@@ -374,7 +376,7 @@
 										@endif
 									@endforeach
 								</select>
-								<span class="form-text text-muted">Seleccione la sala de apelación en la que se encuentra el juicio</span>
+								
 							</div>
 							<div class="col-lg-4">
 								<label>Toca:</label>

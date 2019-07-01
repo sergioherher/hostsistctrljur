@@ -16,6 +16,7 @@ class CreateJuiciosTable extends Migration
         Schema::create('juicios', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('estado_id');
+            $table->text('portafolio')->nullable();
             $table->bigInteger('numero_credito')->nullable();
             $table->text('meta_legal')->nullable();
             $table->unsignedBigInteger('juzgado_id');

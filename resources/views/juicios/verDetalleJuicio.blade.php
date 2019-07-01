@@ -77,7 +77,7 @@
 									<select id="cliente" name="cliente" class="form-control" @role("colaborador") readonly @endrole>
 										<option value="">Seleccione</option>
 										@foreach ($clientes as $client)
-											@if (old('cliente') == $client->id || $cliente->user()->first()->id == $client->id)
+											@if (old('cliente') == $client->id || $cliente->user()->withTrashed()->first()->id == $client->id)
 												<option value="{{ $client->id }}" selected="selected">{{ $client->name }}</option>
 											@else
 												<option value="{{ $client->id }}">{{ $client->name }}</option>
@@ -86,8 +86,8 @@
 									</select>
 									<span class="form-text text-muted">Seleccione el cliente asociado a este juicio</span>
 								@else
-									<input class="form-control" type="text" readonly name="desc_cliente" value="{{ $cliente->user()->first()->name }}">
-									<input type="hidden" name="cliente" value="{{ $cliente->user()->first()->id }}"> 
+									<input class="form-control" type="text" readonly name="desc_cliente" value="{{ $cliente->user()->withTrashed()->first()->name }}">
+									<input type="hidden" name="cliente" value="{{ $cliente->user()->withTrashed()->first()->id }}"> 
 								@endif
 							</div>						
 						</div>

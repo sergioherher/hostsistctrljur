@@ -54,22 +54,22 @@ class JuiciosController extends Controller
         $doc_tipos = DocTipo::all();
         $users = User::whereHas('roles', function ($query) {
             $query->where('slug', '=', 'colaborador');
-        })->get();
+        })->withTrashed()->get();
 
         $clientes = User::whereHas('roles', function ($query) {
             $query->where('slug', '=', 'cliente');
-        })->get();
+        })->withTrashed()->get();
 
         $coordinadores = User::whereHas('roles', function ($query) {
             $query->where('slug', '=', 'coordinador');
-        })->get();
+        })->withTrashed()->get();
 
         foreach ($juiciousers as $juiciouser) {
           if ($juiciouser->role_id == 2) {
-            $coordinador = $juiciouser->user()->first();
+            $coordinador = $juiciouser->user()->withTrashed()->first();
           }
           elseif($juiciouser->role_id == 3) {
-            $colaborator = $juiciouser->user()->first();
+            $colaborator = $juiciouser->user()->withTrashed()->first();
           }
           elseif($juiciouser->role_id == 4) {
             $cliente = $juiciouser;

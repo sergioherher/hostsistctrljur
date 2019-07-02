@@ -247,7 +247,7 @@
 								<div style="color:red;">
 									{{$errors->first('ultima_fecha_boletin')}}
 								</div>
-								<input type="text" class="form-control" id="ultima_fecha_boletin" name="ultima_fecha_boletin" value="@if(null !== old('ultima_fecha_boletin')){{ old('ultima_fecha_boletin') }}@else{{ $juicio->ultima_fecha_boletin }}@endif" placeholder="DD/MM/AAAA">
+								<input autocomplete="false" type="text" class="form-control" id="ultima_fecha_boletin" name="ultima_fecha_boletin" value="@if(null !== old('ultima_fecha_boletin')){{ old('ultima_fecha_boletin') }}@else{{ $juicio->ultima_fecha_boletin }}@endif" placeholder="DD/MM/AAAA">
 								
 							</div>
 							<div class="col-lg-6">
@@ -338,7 +338,7 @@
 								<div style="color:red;">
 									{{$errors->first('fecha_proxima_accion')}}
 								</div>
-								<input type="text" class="form-control" id="fecha_proxima_accion" name="fecha_proxima_accion" value="@if(null !== old('fecha_proxima_accion')){{ old('fecha_proxima_accion') }}@else{{ $juicio->fecha_proxima_accion }}@endif" placeholder="Fecha de próxima acción ...">
+								<input autocomplete="false" type="text" class="form-control" id="fecha_proxima_accion" name="fecha_proxima_accion" value="@if(null !== old('fecha_proxima_accion')){{ old('fecha_proxima_accion') }}@else{{ $juicio->fecha_proxima_accion }}@endif" placeholder="Fecha de próxima acción ...">
 								
 							</div>
 							<div class="col-lg-6">

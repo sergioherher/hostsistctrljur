@@ -2,19 +2,20 @@
 
 namespace App\Exports;
 
-use Maatwebsite\Excel\Concerns\FromQuery;
+use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithMapping;
-use App\Juicio, App\Demandado, App\JuicioUser, App\Juzgadotipo, App\Juzgado, App\Juiciotipo, App\Moneda, App\Macroetapa, App\Salaapela;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use App\Juicio, App\Demandado, App\Juiciouser, App\Juzgadotipo, App\Juzgado, App\Juiciotipo, App\Moneda, App\Macroetapa, App\Salaapela, App\User, App\Estado;
 use \stdClass;
 
-class JuiciosExport implements FromQuery, WithMapping
+class JuiciosExport implements FromCollection, WithMapping, WithHeadings
 {    
     
-	protected $juicios;
+	protected $user;
 
-    public function __construct(array $juicios)
+    public function __construct(User $user)
     {
-        $this->juicios = $juicios;
+        $this->user = $user;
     }
 
 	public function headings(): array
@@ -54,13 +55,46 @@ class JuiciosExport implements FromQuery, WithMapping
         ];
     }
 
-    public function query()
+    public function collection()
     {
-        $query = array();
-        foreach ($this->juicios as $key => $juicio) {
-            $query[] = Juicio::query()->where('id', $juicio['id']);
-            return $query;
+        
+        $user = $this->user;
+
+        if($user->hasRole('administrador')) {
+            $juicios = Juicio::select()->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
+        } elseif ($user->hasRole('coordinador')) {
+            $juicios_all = Juicio::select()->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
+            $juicios = $juicios_all->filter(function($key,$value) use ($user){
+                $juicios_users = $key->juiciousers()->get();
+                foreach ($juicios_users as $juicios_user) {
+                    if($juicios_user->user_id == $user->id && $user->roles()->first()->slug == "coordinador"){
+                        return true;
+                    }
+                }
+            });
+        } elseif ($user->hasRole('colaborador')) {
+            $juicios_all = Juicio::select()->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
+            $juicios = $juicios_all->filter(function($key,$value) use ($user){
+                $juicios_users = $key->juiciousers()->get();
+                foreach ($juicios_users as $juicios_user) {
+                    if($juicios_user->user_id == $user->id && $user->roles()->first()->slug == "colaborador"){
+                        return true;
+                    }
+                }
+            });
+        } else {
+            $juicios_all = Juicio::select()->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
+            $juicios = $juicios_all->filter(function($key,$value) use ($user){
+                $juicios_users = $key->juiciousers()->get();
+                foreach ($juicios_users as $juicios_user) {
+                    if($juicios_user->user_id == $user->id && $user->roles()->first()->slug == "cliente"){
+                        return true;
+                    }
+                }
+            });
         }
+
+        return $juicios;
     }
 
     /**
@@ -76,6 +110,7 @@ class JuiciosExport implements FromQuery, WithMapping
     	$moneda  		= Moneda::where("id", $juicio['moneda_id'])->first();
     	$macroetapa		= Macroetapa::where("id", $juicio['macroetapa_id'])->first();
     	$salaapela		= Salaapela::where("id", $juicio['salaapela_id'])->first();
+        $estado         = Estado::where("id", $juicio['estado_id'])->first();
 
     	foreach ($juiciousers as $juiciouser) {
           if ($juiciouser->role_id == 2) {
@@ -104,6 +139,7 @@ class JuiciosExport implements FromQuery, WithMapping
 
         return [
             $juicio->id,
+            $estado->estado,
             $cliente->user()->first()->name,
             $cliente->user_contact_info,
             $colaborator->name,

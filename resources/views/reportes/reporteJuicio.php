@@ -90,9 +90,12 @@
         		<td class="separador">
         			<span class="titulo">Estado:</span> <?= $estado->estado ?>
         		</td>
-        		<td class="separador" colspan="2">
+        		<td class="separador">
         			<span class="titulo">Cliente:</span> <?= $cliente->user()->first()->name ?>
         		</td>
+                <td class="separador">
+                    <span class="titulo">Portafolio:</span> <?= $juicio->portafolio ?>
+                </td>
         	</tr>
         	<tr>
         		<td>
@@ -126,7 +129,7 @@
         			<span class="titulo">Tipo de juzgado:</span> <?= $juzgadotipo->juztipo ?>
         		</td>        		
         		<td>
-        			<span class="titulo">Tipo de juzgado:</span> <?= $juzgadotipo->juztipo ?>
+        			<span class="titulo">Juzgado:</span> <?= $juzgado->juzgado ?>
         		</td>
         	</tr>
         	<tr>

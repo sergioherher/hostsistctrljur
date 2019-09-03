@@ -494,6 +494,7 @@ class ComposerStaticInit0f595584662629cebc995d0d25fee625
         'App\\Macroetapa' => __DIR__ . '/../..' . '/app/Macroetapa.php',
         'App\\Moneda' => __DIR__ . '/../..' . '/app/Moneda.php',
         'App\\Nota' => __DIR__ . '/../..' . '/app/Nota.php',
+        'App\\Notifications\\MailResetPasswordNotification' => __DIR__ . '/../..' . '/app/Notifications/MailResetPasswordNotification.php',
         'App\\Permission' => __DIR__ . '/../..' . '/app/Permission.php',
         'App\\Permissions\\HasPermissionsTrait' => __DIR__ . '/../..' . '/app/Permissions/HasPermissionsTrait.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',

@@ -32,6 +32,7 @@ UploadOtros.prototype.doUpload = function () {
             return myXhr;
         },
         success: function (data) {
+            console.log(data);
         	result = JSON.parse(data);
         		$("#pdf-file-"+result.tipo_doc).val("").hide();
 				$("#pdf-preview-"+result.tipo_doc).hide().html("");

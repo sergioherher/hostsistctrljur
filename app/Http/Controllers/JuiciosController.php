@@ -483,19 +483,21 @@ class JuiciosController extends Controller
           //$ruta = url($temp_file_name);          
 
           if($request->file('file')->storeAs("", $temp_file_name, 'temp_files')) {
-
-            $mpdf = $this->MpdfObject();
+            $config = array('orientation'=>'L','tempDir' => "mpdf_temp");
+            $mpdf = $this->MpdfObject($config);
             $mpdf->showImageErrors = true;
 
             try {
             
-              if(file_exists($otros_pdf)) {
+              if(file_exists($otros_pdf)) {  
               
                 $pagecount = $mpdf->SetSourceFile($otros_pdf);
                 for ($i = 1; $i <= $pagecount; $i++) {
                   $tplId = $mpdf->ImportPage($i);
+                  $specs = $mpdf->getTemplateSize($tplId);
+                  $orientation = $specs['orientation'];
+                  $mpdf->AddPage('L','','','','','','','','','','','','','','',0,0,0,0,'',array(intval($specs['width']), intval($specs['height'])));
                   $mpdf->UseTemplate($tplId);
-                  $mpdf->WriteHTML('<pagebreak />');
                 }
 
               } else {
@@ -514,14 +516,17 @@ class JuiciosController extends Controller
                 $pagecount = $mpdf->SetSourceFile($ruta);
                 for ($i = 1; $i <= $pagecount; $i++) {
                   $tplId = $mpdf->ImportPage($i);
+                  $specs = $mpdf->getTemplateSize($tplId);
+                  $orientation = $specs['orientation'];
+                  $mpdf->AddPage('L','','','','','','','','','','','','','','',0,0,0,0,'',array(intval($specs['width']), intval($specs['height'])));
                   $mpdf->UseTemplate($tplId);
-                  $mpdf->WriteHTML('<pagebreak />');
+                  $acumular_specs[] = $specs;
                 }
               }
 
               $mpdf->Output($otros_pdf, \Mpdf\Output\Destination::FILE);  
 
-              $resultado = array('exito' => true, 'ruta' => url("doc_juicios/".$juicio_id."/otros-".$juicio_id.".pdf"), 'tipo_doc' => 3);
+              $resultado = array('exito' => true, 'ruta' => url("doc_juicios/".$juicio_id."/otros-".$juicio_id.".pdf"), 'tipo_doc' => 3, "specs" => $acumular_specs);
             } catch (\Mpdf\MpdfException $e) {
               $resultado = array('exito' => false, 'error' => $e->getMessage());
             }
@@ -721,7 +726,10 @@ class JuiciosController extends Controller
               for ($i = 1; $i <= $pagecount; $i++) {
                 $tplId = $mpdf->ImportPage($i);
                 $specs = $mpdf->getTemplateSize($tplId);
-                $mpdf->addPage($specs['orientation']);
+                $mpdf->AddPageByArray(array(
+                    'orientation' => $specs['orientation'],
+                    'sheet-size' => array($specs['width'], $specs['height'])
+                ));
                 $mpdf->UseTemplate($tplId);  
                 //$mpdf->SetPageTemplate($tplId);
                 //$mpdf->addPage();
@@ -733,7 +741,11 @@ class JuiciosController extends Controller
               for ($i = 1; $i <= $pagecount; $i++) {
                 $tplId = $mpdf->ImportPage($i);
                 $specs = $mpdf->getTemplateSize($tplId);
-                $mpdf->addPage($specs['orientation']);
+                dd($specs);
+                $mpdf->AddPageByArray(array(
+                    'orientation' => $specs['orientation'],
+                    'sheet-size' => array($specs['width'], $specs['height'])
+                ));
                 $mpdf->UseTemplate($tplId);
                 //$mpdf->SetPageTemplate($tplId);
                 //$mpdf->addPage();

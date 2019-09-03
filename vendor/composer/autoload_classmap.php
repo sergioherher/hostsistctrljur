@@ -39,6 +39,7 @@ return array(
     'App\\Macroetapa' => $baseDir . '/app/Macroetapa.php',
     'App\\Moneda' => $baseDir . '/app/Moneda.php',
     'App\\Nota' => $baseDir . '/app/Nota.php',
+    'App\\Notifications\\MailResetPasswordNotification' => $baseDir . '/app/Notifications/MailResetPasswordNotification.php',
     'App\\Permission' => $baseDir . '/app/Permission.php',
     'App\\Permissions\\HasPermissionsTrait' => $baseDir . '/app/Permissions/HasPermissionsTrait.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',

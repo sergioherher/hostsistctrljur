@@ -727,7 +727,7 @@
 
 @section('scripts')
 
-<script type="text/javascript" src="{{asset('js/Upload.js?v=0.0.18')}}"></script>
+<script type="text/javascript" src="{{asset('js/Upload.js?v=0.0.19')}}"></script>
 @foreach($doc_tipos as $doc_tipo)
 	@foreach($documentos as $documento)
 		@if($documento->doc_tipo_id == $doc_tipo->id && $documento->doc_tipo_id != 3)

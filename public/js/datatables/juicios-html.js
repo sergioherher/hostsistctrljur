@@ -1,91 +1,57 @@
 "use strict";
-// Class definition
+var KTDatatablesDataSourceAjaxServer = function() {
 
-var KTDatatableHtmlTableDemo = function() {
-	// Private functions
+	var initTable1 = function() {
 
-	// demo initializer
-	var demo = function() {
-
-		var datatable = $('.kt-datatable').KTDatatable({
-			data: {
-				saveState: {cookie: false},
+		// begin first table
+		var table = $('#html_table').DataTable({
+			initComplete: function () {
+			  $('div.dataTables_filter input').focus();
 			},
-			search: {
-				input: $('#generalSearch'),
-			},
+			responsive: true,
+			processing: true,
+			serverSide: true,
+			ajax: window.location.protocol + "//" + window.location.host + "/data_juicios",
 			columns: [
-				{
-					field: 'Juzgado',
-					title: 'Juzgado',
-				},  {
-					field: 'Expediente',
-					title: 'Expediente',
-				},  {
-					field: 'Demandado',
-					title: 'Demandado',
-				},  {
-					field: 'Última Fecha de Boletín',
-					title: 'Última Fecha de Boletín',
-				},  {
-					field: 'Próxima Acción',
-					title: 'Próxima Acción',
-					type: 'date',
-					sort: 'Próxima Acción',
-					autoHide: false,
-					// callback function support for column rendering
-					/* template: function(row) {
-						return true;
-					},*/
-				},  {
-					field: 'Acciones',
-					title: 'Acciones',
-				},  {
-					field: 'Estado',
-					title: 'Estado',
-				},
+				{data: 'juzgado', title: 'Juzgado'},
+				{data: 'expediente', title: 'Expediente'},
+				{data: 'demandado', title: 'Demandado'},
+				{data: 'fecha_boletin', title: 'Ultima fecha de boletín'},
+				{data: 'proxima_accion', title: 'Próxima acción'},
+				{data: 'Actions', responsivePriority: -1, title: 'Acciones', render: function(data, type, row) {
+						return '<a href="edit_client/'+row.id+'" class="btn btn-sm btn-warning btn-icon btn-icon-sm" title="Edit details">\
+							<i class="fa fa-edit"></i>\
+						</a>\
+						<a href="delete_client/'+row.id+'" class="btn btn-sm btn-danger btn-icon btn-icon-sm" title="Delete">\
+							<i class="flaticon2-trash"></i>\
+						</a>\
+					';
+					}}
 			],
-			translate: {
-				records: {
-					processing: 'Cargando...',
-					noRecords: 'No se encontrarón archivos',
-				},
-				toolbar: {
-					pagination: {
-						items: {
-							default: {
-								first: 'Primero',
-								prev: 'Anterior',
-								next: 'Siguiente',
-								last: 'Último',
-								more: 'Más páginas',
-								input: 'Número de página',
-								select: 'Seleccionar tamaño de página',
-							},
-							info: 'Viendo {{start}} - {{end}} de {{total}} registros',
-						},
-					},
-				},
-			},
+			columnDefs: [
+				{
+					targets: -1,
+					title: 'Actions',
+					orderable: false
+				}
+			],
+			language: {
+                url: window.location.protocol + "//" + window.location.host + "/js/datatables/spanish.json"
+            }
 		});
-
-    $('#kt_form_status').on('change', function() {
-      datatable.search($(this).val().toLowerCase(), 'Estado');
-    });
-
-    $('#kt_form_status').selectpicker();
-
 	};
 
 	return {
-		// Public functions
+
+		//main function to initiate the module
 		init: function() {
-			// init dmeo
-			demo();
+			initTable1();
 		},
+
 	};
+
 }();
 
 jQuery(document).ready(function() {
-	KTDatatableHtmlTableDemo.init();
+	KTDatatablesDataSourceAjaxServer.init();
 });

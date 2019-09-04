@@ -394,8 +394,16 @@ class JuiciosController extends Controller
 
                 if($codemandado_name != "") {
                     $codemandado = Demandado::where("juicio_id", $juicio_id)->where("codemandado", 1)->first();
-                    $codemandado->name = $codemandado_name;
-                    $codemandado->save();
+                    if(!empty($codemandado)) {
+                        $codemandado->name = $codemandado_name;
+                        $codemandado->save();
+                    } else {
+                        $codemandado = new Demandado;
+                        $codemandado->juicio_id = $juicio_id;
+                        $codemandado->name = $codemandado_name;
+                        $codemandado->codemandado = 1;
+                        $codemandado->save();
+                    }
                 }
 
                 $resultado = array('operacion' => true, 'message' => 'Juicio editado exitosamente', 'title' => 'Edición de Juicio', 'juicio_id' => $juicio_id);
@@ -789,5 +797,49 @@ class JuiciosController extends Controller
       }
       Session::flash('resultado', json_encode($resultado));
       return redirect("home");
+    }
+
+    public function historicoJuicios() {
+      
+      $estados = Estado::all();
+
+        $user = \Auth::user();
+
+        if($user->hasRole('administrador')) {
+            $juicios = Juicio::select()->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
+        } elseif ($user->hasRole('coordinador')) {
+            $juicios_all = Juicio::select()->where('estado_id',1)->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
+            $juicios = $juicios_all->filter(function($key,$value) use ($user){
+                $juicios_users = $key->juiciousers()->get();
+                foreach ($juicios_users as $juicios_user) {
+                    if($juicios_user->user_id == $user->id && $user->roles()->first()->slug == "coordinador"){
+                        return true;
+                    }
+                }
+            });
+        } elseif ($user->hasRole('colaborador')) {
+            $juicios_all = Juicio::select()->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
+            $juicios = $juicios_all->filter(function($key,$value) use ($user){
+                $juicios_users = $key->juiciousers()->get();
+                foreach ($juicios_users as $juicios_user) {
+                    if($juicios_user->user_id == $user->id && $user->roles()->first()->slug == "colaborador"){
+                        return true;
+                    }
+                }
+            });
+        } else {
+            $juicios_all = Juicio::select()->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
+            $juicios = $juicios_all->filter(function($key,$value) use ($user){
+                $juicios_users = $key->juiciousers()->get();
+                foreach ($juicios_users as $juicios_user) {
+                    if($juicios_user->user_id == $user->id && $user->roles()->first()->slug == "cliente"){
+                        return true;
+                    }
+                }
+            });
+        }
+
+        return view('home')->with("juicios", $juicios)
+                           ->with("estados", $estados);
     }
 }

@@ -30,9 +30,9 @@ class HomeController extends Controller
         $user = \Auth::user();
 
         if($user->hasRole('administrador')) {
-            $juicios = Juicio::select()->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
+            $juicios = Juicio::select()->where('estado_id',1)->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
         } elseif ($user->hasRole('coordinador')) {
-            $juicios_all = Juicio::select()->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
+            $juicios_all = Juicio::select()->where('estado_id',1)->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
             $juicios = $juicios_all->filter(function($key,$value) use ($user){
                 $juicios_users = $key->juiciousers()->get();
                 foreach ($juicios_users as $juicios_user) {
@@ -42,7 +42,7 @@ class HomeController extends Controller
                 }
             });
         } elseif ($user->hasRole('colaborador')) {
-            $juicios_all = Juicio::select()->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
+            $juicios_all = Juicio::select()->where('estado_id',1)->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
             $juicios = $juicios_all->filter(function($key,$value) use ($user){
                 $juicios_users = $key->juiciousers()->get();
                 foreach ($juicios_users as $juicios_user) {
@@ -52,7 +52,7 @@ class HomeController extends Controller
                 }
             });
         } else {
-            $juicios_all = Juicio::select()->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
+            $juicios_all = Juicio::select()->where('estado_id',1)->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
             $juicios = $juicios_all->filter(function($key,$value) use ($user){
                 $juicios_users = $key->juiciousers()->get();
                 foreach ($juicios_users as $juicios_user) {

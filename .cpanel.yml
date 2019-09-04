@@ -9,7 +9,6 @@ deployment:
     - /bin/cp -R database $DEPLOYPATH
     - /bin/cp -R resources $DEPLOYPATH
     - /bin/cp -R routes $DEPLOYPATH
-    - /bin/cp -R storage $DEPLOYPATH
     - /bin/cp -R public/js/datatables $DEPLOYPATH_JS
     - /bin/cp public/js/app.js $DEPLOYPATH_JS
     - /bin/cp public/js/bCrypt.js $DEPLOYPATH_JS

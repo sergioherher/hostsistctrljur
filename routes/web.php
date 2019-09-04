@@ -18,6 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+Route::get('/historico', 'JuiciosController@historicoJuicios');
 Route::get('/doc_juicios/{juicio_id}/{doc_tipo_id}','JuiciosController@getDocuments');
 Route::get('/doc_juicios_thump/{juicio_id}/{doc_tipo_id}','JuiciosController@getDocumentsThumb');
 Route::get('/img_temp/{juicio_id}/{extension}','JuiciosController@getImageTemp');

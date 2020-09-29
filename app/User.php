@@ -48,16 +48,4 @@ class User extends Authenticatable
     public function nota() {
        return $this->hasOne('App\Nota');
     }
-
-    /**
-    * Send the password reset notification.
-    *
-    * @param  string  $token
-    * @return void
-    */
-    
-    public function sendPasswordResetNotification($token)
-    {
-        $this->notify(new Notifications\MailResetPasswordNotification($token));
-    }
 }

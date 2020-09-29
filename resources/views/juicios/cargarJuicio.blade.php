@@ -18,14 +18,14 @@
 	                	</button>
                     </div>
                 </div>
-                <div class="kt-portlet__body">                	
+                <div class="kt-portlet__body">
 			    	<form class="kt-form" id="formGuardarJuicio" name="guardarJuicio" action="{{ url('juicio/guardarJuicio') }}" method="POST" enctype="multipart/form-data">
 			    		@csrf
 			    		<input type="hidden" name="editar_o_crear" value="0">
-			    		<div class="form-group row"> 
+			    		<div class="form-group row">
 	                	@if(Auth::user()->can('administrar-perfiles'))
-	                		<div class="col-lg-6">	
-	                			<label>Coordinador</label>							
+	                		<div class="col-lg-6">
+	                			<label>Coordinador</label>
 								<div style="color:red;" class="error_label" id="error-coordinador"></div>
 								<select id="coordinador" name="coordinador" class="form-control">
 									<option value="">Seleccione</option>
@@ -38,16 +38,16 @@
 									@endforeach
 								</select>
 							</div>
-	                	@else	
-	                		<div class="col-lg-6">	                	 
+	                	@else
+	                		<div class="col-lg-6">
 	                			<input type="hidden" name="coordinador" value="{{Auth::user()->id}}">
 	                		</div>
 	                	@endif
-							<div class="col-lg-6">	
-	                			<label>Portafolio</label>							
+							<div class="col-lg-6">
+	                			<label>Portafolio</label>
 								<div style="color:red;" class="error_label" id="error-portafolio"></div>
 								<input autocomplete="false" type="text" class="form-control" id="portafolio" name="portafolio" value="@if(null !== old('portafolio')){{ old('portafolio') }}@endif" placeholder="Portafolio ...">
-							</div>	                	
+							</div>
 						</div>
 	                	<div class="form-group row">
 	                		<div class="col-lg-6">
@@ -78,7 +78,7 @@
 										@endif
 									@endforeach
 								</select>
-							</div>						
+							</div>
 						</div>
 	                	<div class="form-group row">
 	                		<div class="col-lg-6">
@@ -116,13 +116,13 @@
 								<label>Demandado</label>
 								<div style="color:red;" class="error_label" id="error-demandado"></div>
 								<input type="text" class="form-control" id="demandado" name="demandado" value="@if(null !== old('demandado')){{ old('demandado') }}@endif" placeholder="Demandado...">
-							
+
 								<label>Codemandado</label>
 								<div style="color:red;">
 									{{$errors->first('codemandado')}}
 								</div>
 								<input type="text" class="form-control" id="codemandado" name="codemandado" value="@if(null !== old('codemandado')){{ old('codemandado') }}@endif" placeholder="Codemandado...">
-								
+
 							</div>
 						</div>
 						<div class="form-group row">
@@ -147,7 +147,7 @@
 										@endif
 									@endforeach
 								</select>
-								
+
 							</div>
 							<div class="col-lg-4">
 								<label>Juzgado</label>
@@ -163,7 +163,7 @@
 										@endif
 									@endforeach
 								</select>
-								
+
 							</div>
 						</div>
 						<div class="form-group row">
@@ -173,7 +173,7 @@
 									{{$errors->first('expediente')}}
 								</div>
 								<input type="text" class="form-control" id="expediente" name="expediente" value="@if(null !== old('expediente')){{ old('expediente') }}@endif" placeholder="Expediente ...">
-								
+
 							</div>
 							<div class="col-lg-6">
 								<label>Tipo de Juicio</label>
@@ -190,17 +190,17 @@
 										@endif
 									@endforeach
 								</select>
-								
+
 							</div>
 						</div>
-						<div class="form-group row">												
+						<div class="form-group row">
 							<div class="col-lg-6">
 								<label>Ultima fecha boletín Judicial:</label>
 								<div style="color:red;" class="error_label">
 									{{$errors->first('ultima_fecha_boletin')}}
 								</div>
 								<input autocomplete="false" type="text" class="form-control" id="ultima_fecha_boletin" name="ultima_fecha_boletin" value="@if(null !== old('ultima_fecha_boletin')){{ old('ultima_fecha_boletin') }}@endif" placeholder="DD/MM/AAAA">
-								
+
 							</div>
 							<div class="col-lg-6">
 								<label>Extracto</label>
@@ -208,7 +208,7 @@
 									{{$errors->first('extracto')}}
 								</div>
 								<input type="text" class="form-control" id="extracto" name="extracto" value="@if(null !== old('extracto')){{ old('extracto') }}@endif" placeholder="Extracto de boletín judicial...">
-								
+
 							</div>
 						</div>
 						<div class="form-group row">
@@ -256,7 +256,7 @@
 									{{$errors->first('fecha_proxima_accion')}}
 								</div>
 								<input autocomplete="false" type="text" class="form-control" id="fecha_proxima_accion" name="fecha_proxima_accion" value="@if(null !== old('fecha_proxima_accion')){{ old('fecha_proxima_accion') }}@endif" placeholder="Fecha de próxima acción ...">
-								
+
 							</div>
 							<div class="col-lg-6">
 								<label>Próxima acción</label>
@@ -264,7 +264,24 @@
 									{{$errors->first('proxima_accion')}}
 								</div>
 								<textarea class="form-control" rows="5" id="proxima_accion" name="proxima_accion" placeholder="Próxima acción ...">@if(null !== old('proxima_accion')){{ old('proxima_accion') }}@endif</textarea>
-								
+
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<div class="col-lg-12">
+                <label class="col-form-label">Oficios de localización</label>
+              </div>
+              <div class="col-lg-4">
+								<span class="kt-switch kt-switch--icon">
+									<label>
+										<input type="checkbox" disabled name="oficios_localizacion">
+										<span></span>
+									</label>
+								</span>
+							</div>
+              <div class="col-lg-8">
+								<button class="btn btn-label-success" onclick="event.preventDefault(); openOficiosModal({{  }}))"><i class="fa fa-view"></i>Ver detalle</button>
 							</div>
 						</div>
 
@@ -290,7 +307,7 @@
 										@endif
 									@endforeach
 								</select>
-								
+
 							</div>
 							<div class="col-lg-3">
 								<label>Monto demandado</label>
@@ -298,7 +315,7 @@
 									{{$errors->first('monto_demandado')}}
 								</div>
 								<input type="text" class="form-control" id="monto_demandado" name="monto_demandado" value="@if(null !== old('monto_demandado')){{ old('monto_demandado') }}@endif" placeholder="Monto demandado ...">
-								
+
 							</div>
 							<div class="col-lg-3">
 								<label>Importe del Crédito</label>
@@ -306,7 +323,7 @@
 									{{$errors->first('importe_credito')}}
 								</div>
 								<input type="text" class="form-control" id="importe_credito" name="importe_credito" value="@if(null !== old('importe_credito')){{ old('importe_credito') }}@endif" placeholder="Importe del crédito ...">
-								
+
 							</div>
 							<div class="col-lg-3">
 								<label>Macro etapa</label>
@@ -323,7 +340,7 @@
 										@endif
 									@endforeach
 								</select>
-								
+
 							</div>
 						</div>
 
@@ -341,7 +358,7 @@
 									{{$errors->first('datos_rpp')}}
 								</div>
 								<textarea class="form-control" rows="5" id="datos_rpp" name="datos_rpp" placeholder="Datos de RPP ...">@if(null !== old('datos_rpp')){{ old('datos_rpp') }}@endif</textarea>
-								
+
 							</div>
 							<div class="col-lg-4">
 								<label>Otros domicilios</label>
@@ -349,7 +366,7 @@
 									{{$errors->first('otros_domicilios')}}
 								</div>
 								<textarea class="form-control" rows="5" id="otros_domicilios" name="otros_domicilios" placeholder="Domiciolios ...">@if(null !== old('otros_domicilios')){{ old('otros_domicilios') }}@endif</textarea>
-								
+
 							</div>
 						</div>
 
@@ -360,7 +377,7 @@
 									{{$errors->first('procesos_asociados')}}
 								</div>
 								<input type="text" class="form-control" id="procesos_asociados" name="procesos_asociados" value="@if(null !== old('procesos_asociados')){{ old('procesos_asociados') }}@endif" placeholder="Procesos asociados ...">
-								
+
 							</div>
 							<div class="col-lg-4">
 								<label>Sala de Apelación</label>
@@ -376,7 +393,7 @@
 										@endif
 									@endforeach
 								</select>
-								
+
 							</div>
 							<div class="col-lg-4">
 								<label>Toca:</label>
@@ -453,7 +470,7 @@
 							<button class="btn btn-label-danger undo-upload" id="undo-upload-{{ $doc_tipo->id }}" style="display:none"><i class="fa fa-times"></i> Deshacer</button>
 						</div>
 					@endforeach
-				</div>					
+				</div>
             </div>
 			<div class="form-group row clone" style="display: none;">
 				<div class="col-4">
@@ -465,7 +482,7 @@
 				<div class="col-3">
 					<input class="form-control usuario-nota-seguimiento" type="text" name="usuario_nota[]">
 				</div>
-				<div class="col-1"> 
+				<div class="col-1">
 					<button class="btn btn-sm btn-danger borrar-nota"><i class="fa fa-trash"></i></button>
 				</div>
 			</div>
@@ -473,6 +490,31 @@
             	<button class="btn btn-sm btn-success guardar-juicio">
             		Guardar
             	</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="kt_modal_oficios_loc" tabindex="-1" role="dialog" aria-labelledby="detalle_oficios_loc" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="agregar_usuario">Oficios de localización</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+									<label for="exampleSelect1">Example select</label>
+									<select class="form-control" id="exampleSelect1">
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+										<option>4</option>
+										<option>5</option>
+									</select>
+								</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
@@ -488,6 +530,7 @@
 <script type="text/javascript">
 
 	$(document).ready(function(e){
+
 		$(".agregar-nota-seguimiento").attr("disabled", false);
 
 		$("#fecha_proxima_accion").datepicker({
@@ -527,7 +570,7 @@
 
 		$("#monto_demandado").inputmask('decimal', {
             rightAlignNumerics: false
-        }); 
+        });
 
         $("#importe_credito").inputmask('decimal', {
             rightAlignNumerics: false
@@ -554,12 +597,12 @@
                     	$("#error-"+i).html(item[0]);
                     });
                 },
-                error: function(data) {					
+                error: function(data) {
                     toastr.error("Ocurrió un error al intentar guardar los datos del juicio", "Carga de Juicio");
                     console.log(data);
                 },
             });
-        });  
+        });
 
         $(".agregar-nota-seguimiento").click(function(e){
         	e.preventDefault();
@@ -571,7 +614,7 @@
 			var cant_notas = $("#contador_notas_seguimiento").val();
 			var notas = parseInt(cant_notas)+1;
 			var texto_nota = $("#nota_a_agregar").val();
-			var fecha_nota = new Date(); 
+			var fecha_nota = new Date();
 			$(".cabecera-notas").show();
         	$(".clone").clone().appendTo('.contenedor_notas_seguimiento').show().attr("id", "nota-seguimiento-"+notas).removeClass("clone").addClass("cloned");
         	attach_delete();
@@ -588,10 +631,36 @@
         });
 	});
 
+  const openOficiosModal = (juicio) => {
+    $.ajax({
+        type: "GET"
+        url: "{{ url('/juicio/oficios_loc') }}/"+juicio,
+        dataType: 'json',
+        success: function(data) {
+            console.log(data);
+            if(data.operacion) {
+              toastr.success(data.message, data.title);
+              iniciarCargaArchivos(data.juicio_id, 1);
+            } else {
+              toastr.error(data.message, data.title);
+            }
+            $(".error_label").html("");
+            $.each(data.validator, function(i, item){
+              $("#error-"+i).html(item[0]);
+            });
+        },
+        error: function(data) {
+            toastr.error("Ocurrió un error al intentar guardar los datos del juicio", "Carga de Juicio");
+            console.log(data);
+        },
+      });
+    });
+  }
+
 	function diffForHumans(fecha_hora) {
 
 		var delta = Math.round((+new Date - fecha_hora) / 1000);
-		
+
 		var minute = 60,
 	    hour = minute * 60,
 	    day = hour * 24,
@@ -704,7 +773,7 @@
 	        };
 
 	        var identificador_SHOW_PAGE_render = identificador_SHOW_PAGE;
-	        
+
 	        // render the page contents in the canvas
 	        page.render(renderContext).then(function() {
 	            document.querySelector("#pdf-preview-"+identificador_SHOW_PAGE_render).style.display = 'inline-block';
@@ -729,7 +798,7 @@
 
 
 		document.querySelector("#pdf-file-"+identificador).click();
-		
+
 		/* when users selects a file */
 		document.querySelector("#pdf-file-"+identificador).addEventListener('change', function() {
 		    // user selected PDF
@@ -737,7 +806,7 @@
 
 		    // allowed MIME types
 		    var mime_types = [ 'application/pdf' ];
-		    
+
 		    // validate whether PDF
 		    if(mime_types.indexOf(file.type) == -1) {
 		        alert('Error : Incorrect file type');
@@ -754,11 +823,11 @@
 
 		    // hide upload dialog
 		    document.querySelector("#upload-dialog-"+identificador).style.display = 'none';
-		    
+
 		    // show the PDF preview loader
 		    document.querySelector("#pdf-loader-"+identificador).style.display = 'inline-block';
 
-		    // object url of PDF 
+		    // object url of PDF
 		    _OBJECT_URL = URL.createObjectURL(file)
 
 		    // send the object url of the pdf to the PDF preview function

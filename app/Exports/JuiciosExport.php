@@ -5,7 +5,7 @@ namespace App\Exports;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
-use App\Juicio, App\Demandado, App\Juiciouser, App\Juzgadotipo, App\Juzgado, App\Juiciotipo, App\Moneda, App\Macroetapa, App\Salaapela, App\User, App\Estado;
+use App\Juicio, App\Demandado, App\Juiciouser, App\Juzgadotipo, App\Juzgado, App\Juiciotipo, App\Moneda, App\Macroetapa, App\Salaapela, App\User, App\Estado, App\Nota;
 use \stdClass;
 
 class JuiciosExport implements FromCollection, WithMapping, WithHeadings
@@ -23,18 +23,21 @@ class JuiciosExport implements FromCollection, WithMapping, WithHeadings
         return [
             'Id',
             'Estado',
+            'Portafolio',
             'Cliente',
             'Info Contact. Cliente',
-            'Colabborador',
+            'Colaborador',
             'Nº Crédito',
             'Demandado',
             'Codemandado',
+            'Meta Legal',
             'Tipo de Juzgado',
             'Juzgado',
             'Expediente',
             'Tipo de Juicio',
             'Ultima Fecha Boletin',
             'Extracto',
+            'Última Nota de Seguimiento',
             'Fecha Próxima Acción',
             'Próxima Acción',
             'Moneda',
@@ -111,6 +114,7 @@ class JuiciosExport implements FromCollection, WithMapping, WithHeadings
     	$macroetapa		= Macroetapa::where("id", $juicio['macroetapa_id'])->first();
     	$salaapela		= Salaapela::where("id", $juicio['salaapela_id'])->first();
         $estado         = Estado::where("id", $juicio['estado_id'])->first();
+        $nota          = Nota::where("juicio_id", $juicio->id)->orderBy("updated_at", "desc")->first();
 
     	foreach ($juiciousers as $juiciouser) {
           if ($juiciouser->role_id == 2) {
@@ -140,18 +144,21 @@ class JuiciosExport implements FromCollection, WithMapping, WithHeadings
         return [
             $juicio->id,
             $estado->estado,
+            $juicio->portafolio,
             $cliente->user()->first()->name,
             $cliente->user_contact_info,
             $colaborator->name,
             $juicio->numero_credito,
             $export_demandado->name,
             $export_codemandado->name,
+            $juicio->meta_legal,
             $juzgado_tipo->juztipo,
             $juzgado->juzgado,
             $juicio->expediente,
 			$juicio_tipo->juiciotipo,
 			$juicio->ultima_fecha_boletin,
 			$juicio->extracto,
+			$nota ? $nota->nota : "",
 			$juicio->fecha_proxima_accion,
 			$juicio->proxima_accion,
 			$moneda->desc_moneda,

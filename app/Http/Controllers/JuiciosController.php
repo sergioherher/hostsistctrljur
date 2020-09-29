@@ -491,21 +491,19 @@ class JuiciosController extends Controller
           //$ruta = url($temp_file_name);          
 
           if($request->file('file')->storeAs("", $temp_file_name, 'temp_files')) {
-            $config = array('orientation'=>'L','tempDir' => "mpdf_temp");
-            $mpdf = $this->MpdfObject($config);
+
+            $mpdf = $this->MpdfObject();
             $mpdf->showImageErrors = true;
 
             try {
             
-              if(file_exists($otros_pdf)) {  
+              if(file_exists($otros_pdf)) {
               
                 $pagecount = $mpdf->SetSourceFile($otros_pdf);
                 for ($i = 1; $i <= $pagecount; $i++) {
                   $tplId = $mpdf->ImportPage($i);
-                  $specs = $mpdf->getTemplateSize($tplId);
-                  $orientation = $specs['orientation'];
-                  $mpdf->AddPage('L','','','','','','','','','','','','','','',0,0,0,0,'',array(intval($specs['width']), intval($specs['height'])));
                   $mpdf->UseTemplate($tplId);
+                  $mpdf->WriteHTML('<pagebreak />');
                 }
 
               } else {
@@ -524,17 +522,14 @@ class JuiciosController extends Controller
                 $pagecount = $mpdf->SetSourceFile($ruta);
                 for ($i = 1; $i <= $pagecount; $i++) {
                   $tplId = $mpdf->ImportPage($i);
-                  $specs = $mpdf->getTemplateSize($tplId);
-                  $orientation = $specs['orientation'];
-                  $mpdf->AddPage('L','','','','','','','','','','','','','','',0,0,0,0,'',array(intval($specs['width']), intval($specs['height'])));
                   $mpdf->UseTemplate($tplId);
-                  $acumular_specs[] = $specs;
+                  $mpdf->WriteHTML('<pagebreak />');
                 }
               }
 
               $mpdf->Output($otros_pdf, \Mpdf\Output\Destination::FILE);  
 
-              $resultado = array('exito' => true, 'ruta' => url("doc_juicios/".$juicio_id."/otros-".$juicio_id.".pdf"), 'tipo_doc' => 3, "specs" => $acumular_specs);
+              $resultado = array('exito' => true, 'ruta' => url("doc_juicios/".$juicio_id."/otros-".$juicio_id.".pdf"), 'tipo_doc' => 3);
             } catch (\Mpdf\MpdfException $e) {
               $resultado = array('exito' => false, 'error' => $e->getMessage());
             }
@@ -734,10 +729,7 @@ class JuiciosController extends Controller
               for ($i = 1; $i <= $pagecount; $i++) {
                 $tplId = $mpdf->ImportPage($i);
                 $specs = $mpdf->getTemplateSize($tplId);
-                $mpdf->AddPageByArray(array(
-                    'orientation' => $specs['orientation'],
-                    'sheet-size' => array($specs['width'], $specs['height'])
-                ));
+                $mpdf->addPage($specs['orientation']);
                 $mpdf->UseTemplate($tplId);  
                 //$mpdf->SetPageTemplate($tplId);
                 //$mpdf->addPage();
@@ -749,11 +741,7 @@ class JuiciosController extends Controller
               for ($i = 1; $i <= $pagecount; $i++) {
                 $tplId = $mpdf->ImportPage($i);
                 $specs = $mpdf->getTemplateSize($tplId);
-                dd($specs);
-                $mpdf->AddPageByArray(array(
-                    'orientation' => $specs['orientation'],
-                    'sheet-size' => array($specs['width'], $specs['height'])
-                ));
+                $mpdf->addPage($specs['orientation']);
                 $mpdf->UseTemplate($tplId);
                 //$mpdf->SetPageTemplate($tplId);
                 //$mpdf->addPage();
@@ -798,7 +786,7 @@ class JuiciosController extends Controller
       Session::flash('resultado', json_encode($resultado));
       return redirect("home");
     }
-
+    
     public function historicoJuicios() {
       
       $estados = Estado::all();
@@ -808,7 +796,7 @@ class JuiciosController extends Controller
         if($user->hasRole('administrador')) {
             $juicios = Juicio::select()->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
         } elseif ($user->hasRole('coordinador')) {
-            $juicios_all = Juicio::select()->where('estado_id',1)->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
+            $juicios_all = Juicio::select()->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
             $juicios = $juicios_all->filter(function($key,$value) use ($user){
                 $juicios_users = $key->juiciousers()->get();
                 foreach ($juicios_users as $juicios_user) {

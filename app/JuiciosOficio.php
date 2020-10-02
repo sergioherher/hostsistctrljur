@@ -10,4 +10,9 @@ class JuiciosOficio extends Model
   {
       return $this->belongsTo('App\Juicio');
   }
+
+  public function oficio()
+  {
+      return $this->belongsTo('App\Oficio');
+  }
 }

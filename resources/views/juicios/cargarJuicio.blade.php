@@ -281,7 +281,7 @@
 								</span>
 							</div>
               <div class="col-lg-8">
-								<button class="btn btn-label-success" onclick="event.preventDefault(); openOficiosModal({{  }}))"><i class="fa fa-view"></i>Ver detalle</button>
+								<button class="btn btn-success" id="boton_ver_oficios"><i class="fa fa-view"></i>Ver detalle</button>
 							</div>
 						</div>
 
@@ -447,6 +447,26 @@
 								<textarea class="form-control" rows="5" id="audiencia_juicio" name="audiencia_juicio" placeholder="Videos de audiencias de juicio ...">@if(null !== old('audiencia_juicio')){{ old('audiencia_juicio') }}@endif</textarea>
 							</div>
 						</div>
+
+            <div class="modal fade" id="kt_modal_juicio_oficios_loc" tabindex="-1" role="dialog" aria-labelledby="detalle_juicio_oficios_loc" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="title_juicio_oficios_loc">Oficios de localización</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                          <div class="modal-body">
+                            <button type="button" class="btn btn-primary" id="agregar_oficio_localizacion">Agregar nueva dependencia</button>
+                            <input type="hidden" id="contador_oficios_localizacion" name="contador_oficios_localizacion" value="0">
+                            <div class="container_oficios_loc"></div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                          </div>
+                    </div>
+                </div>
+            </div>
+
 					</form>
 				<div class="form-group row">
 					<div class="col-lg-12">
@@ -498,26 +518,140 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="agregar_usuario">Oficios de localización</h5>
+                <h5 class="modal-title" id="title_oficios_loc">Agregar oficio</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-									<label for="exampleSelect1">Example select</label>
-									<select class="form-control" id="exampleSelect1">
-										<option>1</option>
-										<option>2</option>
-										<option>3</option>
-										<option>4</option>
-										<option>5</option>
+									<label for="select_oficio">Oficios de localización</label>
+									<select class="form-control" id="select_oficio">
+                    @foreach($oficios as $oficio)
+										<option value="{{ $oficio }}">{{ $oficio->name }}</option>
+                    @endforeach
 									</select>
 								</div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="cargar_oficio_a_modal">Agregar</button>
             </div>
         </div>
     </div>
+</div>
+<div class="container_oficios_loc_to_clone">
+  <div class="form-group">
+    <div class="row" style="padding-top: 20px; padding-bottom: 20px">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-10">
+            <h5 class="oficio_localizacion_name"></h5>
+            <input name="oficio_localizacion_id[]" class="oficio_localizacion_id" type="hidden" />
+          </div>
+          <div class="col-2 kt-align-right">
+            <button class="btn btn-sm btn-danger borrar-oficio"><i class="fa fa-trash"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-8">
+        <div class="row">
+          <div class="col-4">
+            <label for="oficio_loc_recibido">Recibido</label>
+            <input autocomplete="false" type="text" class="form-control oficio_loc_datepicker" id="oficio_loc_recibido" name="oficio_loc_recibido[]" placeholder="YYYY-MM-DD">
+          </div>
+          <div class="col-4">
+            <label for="oficio_loc_entregado">Entregado</label>
+            <input autocomplete="false" type="text" class="form-control oficio_loc_datepicker" id="oficio_loc_entregado" name="oficio_loc_entregado[]" placeholder="YYYY-MM-DD">
+          </div>
+          <div class="col-4">
+            <label for="oficio_loc_contestado">Contestado</label>
+            <input autocomplete="false" type="text" class="form-control oficio_loc_datepicker" id="oficio_loc_contestado" name="oficio_loc_contestado[]" placeholder="YYYY-MM-DD">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            Recordatorio
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            <label for="oficio_loc_record_recibido">Recibido</label>
+            <input autocomplete="false" type="text" class="form-control oficio_loc_datepicker" id="oficio_loc_record_recibido" name="oficio_loc_record_recibido[]" placeholder="YYYY-MM-DD">
+          </div>
+          <div class="col-4">
+            <label for="oficio_loc_record_entregado">Entregado</label>
+            <input autocomplete="false" type="text" class="form-control oficio_loc_datepicker" id="oficio_loc_record_entregado" name="oficio_loc_record_entregado[]" placeholder="YYYY-MM-DD">
+          </div>
+          <div class="col-4">
+            <label for="oficio_loc_record_contestado">Contestado</label>
+            <input autocomplete="false" type="text" class="form-control oficio_loc_datepicker" id="oficio_loc_record_contestado" name="oficio_loc_record_contestado[]" placeholder="YYYY-MM-DD">
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="row">
+          <div class="col-4">
+            <label>Proporciona domicilio</label>
+            <span class="kt-switch kt-switch--sm kt-switch--icon">
+              <label>
+                <input type="checkbox" name="oficios_loc_da_domicilio[]">
+                <span></span>
+              </label>
+            </span>
+          </div>
+          <div class="col-8">
+            <label>Domicilio proporcionado</label>
+            <textarea class="form-control" rows="4" id="oficios_loc_domicilio_dado" name="oficios_loc_domicilio_dado[]" placeholder="..."></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <div class="row">
+          <div class="col-12">
+            <label>Domicilio habilitado en autos</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <span class="kt-switch kt-switch--sm kt-switch--icon">
+              <label>
+                <input type="checkbox" name="oficios_loc_domicilio_habilitado[]">
+                <span></span>
+              </label>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="row">
+          <div class="col-12">
+            <label>Diligenciado</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <span class="kt-switch kt-switch--sm kt-switch--icon">
+              <label>
+                <input type="checkbox" name="oficios_loc_diligenciado[]">
+                <span></span>
+              </label>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-3">
+        <label for="oficio_loc_fecha_diligencia">Fecha diligencia</label>
+        <input autocomplete="false" type="text" class="form-control oficio_loc_datepicker" id="oficio_loc_fecha_diligencia" name="oficio_loc_fecha_diligencia[]" placeholder="YYYY-MM-DD">
+      </div>
+      <div class="col-3">
+        <label for="oficio_loc_resultado_diligencia">Resultado de diligencia</label>
+        <textarea class="form-control" rows="2" id="oficio_loc_resultado_diligencia" name="oficio_loc_resultado_diligencia[]" placeholder="..."></textarea>
+      </div>
+    </div>
+  </div>
 </div>
 
     <!--End::Section-->
@@ -531,6 +665,11 @@
 
 	$(document).ready(function(e){
 
+    $("#boton_ver_oficios").click(function(e){
+      e.preventDefault();
+      $("#kt_modal_juicio_oficios_loc").modal("show");
+    });
+
 		$(".agregar-nota-seguimiento").attr("disabled", false);
 
 		$("#fecha_proxima_accion").datepicker({
@@ -543,6 +682,42 @@
 		$(".fecha-nota-seguimiento").datepicker({
 			format:"yyyy-mm-dd",
 		});
+
+		$(".oficio_loc_datepicker").datepicker({
+			format:"yyyy-mm-dd",
+		});
+
+    $("#agregar_oficio_localizacion").click(function(e){
+      e.preventDefault();
+      $("#kt_modal_juicio_oficios_loc").modal("hide");
+      $("#kt_modal_oficios_loc").modal("show");
+    });
+
+    $('#cargar_oficio_a_modal').click(function(e){
+      e.preventDefault();
+      let oficioSelected = JSON.parse($('#select_oficio')[0].value);
+      let oficio = oficioSelected.name;
+      let oficioId = oficioSelected.id;
+      $("#kt_modal_oficios_loc").modal("hide");
+      $("#kt_modal_juicio_oficios_loc").modal("show");
+
+      let cant_oficios = $("#contador_oficios_localizacion").val();
+      let oficios = parseInt(cant_oficios) + 1;
+      $(".container_oficios_loc_to_clone").clone().appendTo('.container_oficios_loc').show().attr("id", "container_oficio_loc_"+oficios).removeClass("container_oficios_loc_to_clone").addClass("oficio_cloned");
+
+      console.log(oficioId);
+
+      $("#container_oficio_loc_"+oficios+" .oficio_localizacion_name").html(oficio);
+      $("#container_oficio_loc_"+oficios+" .form_oficios_loc").attr("id", "form_oficios_loc-"+oficios);
+      $("#container_oficio_loc_"+oficios+" .oficio_localizacion_id").val(oficioId);
+
+      attach_oficio_delete();
+
+      $("#contador_oficios_localizacion").val(oficios);
+
+      attach_datepicker();
+
+    });
 
 		$('#juzgadotipo').change(function(e){
 			e.preventDefault();
@@ -578,30 +753,29 @@
 
         $(".guardar-juicio").click(function(e){
         	e.preventDefault();
-			var datosForm = $("#formGuardarJuicio").serialize();
-			$.ajax({
-                type: "POST",
-                data: datosForm,
-                url: "{{ url('/juicio/guardarJuicio') }}",
-                dataType: 'json',
-                success: function(data) {
-                    console.log(data);
-                    if(data.operacion) {
-                    	toastr.success(data.message, data.title);
-                    	iniciarCargaArchivos(data.juicio_id, 1);
-                    } else {
-						toastr.error(data.message, data.title);
-                    }
-                    $(".error_label").html("");
-                    $.each(data.validator, function(i, item){
-                    	$("#error-"+i).html(item[0]);
-                    });
-                },
-                error: function(data) {
-                    toastr.error("Ocurrió un error al intentar guardar los datos del juicio", "Carga de Juicio");
-                    console.log(data);
-                },
-            });
+    			var datosForm = $("#formGuardarJuicio").serialize();
+    			$.ajax({
+            type: "POST",
+            data: datosForm,
+            url: "{{ url('/juicio/guardarJuicio') }}",
+            dataType: 'json',
+            success: function(data) {
+                if(data.operacion) {
+                	toastr.success(data.message, data.title);
+                	iniciarCargaArchivos(data.juicio_id, 1);
+                } else {
+				          toastr.error(data.message, data.title);
+                }
+                $(".error_label").html("");
+                $.each(data.validator, function(i, item){
+                	$("#error-"+i).html(item[0]);
+                });
+            },
+            error: function(data) {
+                toastr.error("Ocurrió un error al intentar guardar los datos del juicio", "Carga de Juicio");
+                console.log(data);
+            },
+          });
         });
 
         $(".agregar-nota-seguimiento").click(function(e){
@@ -611,11 +785,11 @@
 
         $(".guardar-nota").click(function(e){
         	e.preventDefault();
-			var cant_notas = $("#contador_notas_seguimiento").val();
-			var notas = parseInt(cant_notas)+1;
-			var texto_nota = $("#nota_a_agregar").val();
-			var fecha_nota = new Date();
-			$(".cabecera-notas").show();
+    			var cant_notas = $("#contador_notas_seguimiento").val();
+    			var notas = parseInt(cant_notas)+1;
+    			var texto_nota = $("#nota_a_agregar").val();
+    			var fecha_nota = new Date();
+    			$(".cabecera-notas").show();
         	$(".clone").clone().appendTo('.contenedor_notas_seguimiento').show().attr("id", "nota-seguimiento-"+notas).removeClass("clone").addClass("cloned");
         	attach_delete();
         	$("#nota-seguimiento-"+notas+" .texto-nota-seguimiento").val(texto_nota);
@@ -630,32 +804,6 @@
         	$(".contenedor_guardar_notas").hide();
         });
 	});
-
-  const openOficiosModal = (juicio) => {
-    $.ajax({
-        type: "GET"
-        url: "{{ url('/juicio/oficios_loc') }}/"+juicio,
-        dataType: 'json',
-        success: function(data) {
-            console.log(data);
-            if(data.operacion) {
-              toastr.success(data.message, data.title);
-              iniciarCargaArchivos(data.juicio_id, 1);
-            } else {
-              toastr.error(data.message, data.title);
-            }
-            $(".error_label").html("");
-            $.each(data.validator, function(i, item){
-              $("#error-"+i).html(item[0]);
-            });
-        },
-        error: function(data) {
-            toastr.error("Ocurrió un error al intentar guardar los datos del juicio", "Carga de Juicio");
-            console.log(data);
-        },
-      });
-    });
-  }
 
 	function diffForHumans(fecha_hora) {
 
@@ -702,6 +850,23 @@
         }
       });
     }
+
+    function attach_datepicker() {
+      $('.oficio_loc_datepicker').datepicker({
+  			format:"yyyy-mm-dd",
+  		});
+    }
+
+    function attach_oficio_delete(){
+        $('.borrar-oficio').off();
+        $('.borrar-oficio').click(function(e){
+          e.preventDefault();
+          let cant_oficios = $("#contador_oficios_localizacion").val();
+          let oficios = parseInt(cant_oficios) - 1;
+          $(this).closest('.oficio_cloned').remove();
+          $("#contador_oficios_localizacion").val(oficios);
+        });
+      }
 
 	function iniciarCargaArchivos(juicio_id, doc_tipo_id){
 		var file = $("#pdf-file-"+doc_tipo_id)[0].files[0];

@@ -27,5 +27,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DocTipoTableSeeder::class);
         //$this->call(DocJuicioTableSeeder::class);
         $this->call(NotasTableSeeder::class);
+        $this->call(OficiosTableSeeder::class);
     }
 }

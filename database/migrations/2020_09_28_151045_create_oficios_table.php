@@ -15,6 +15,7 @@ class CreateOficiosTable extends Migration
     {
         Schema::create('oficios', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->text('name');
             $table->timestamps();
         });
     }

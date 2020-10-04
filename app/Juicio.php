@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Juicio extends Model
 {
-    
+
     use SoftDeletes;
     /**
      * Obtiene el juzgado del juicio
@@ -59,6 +59,11 @@ class Juicio extends Model
     public function demandados()
     {
         return $this->hasMany('App\Demandado');
+    }
+
+    public function juicios_oficios()
+    {
+        return $this->hasMany('App\JuiciosOficio');
     }
 
     /**

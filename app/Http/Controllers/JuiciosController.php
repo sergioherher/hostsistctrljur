@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Juicio, App\Colaborator, App\Juzgado, App\Juiciotipo, App\Macroetapa, App\DocTipo, App\User, App\Estado, App\Salaapela, App\Juzgadotipo, App\Juiciouser, App\Demandado, App\DocJuicio, App\Moneda, App\Nota;
+use App\Oficio, App\JuiciosOficio;
 use Validator, Mail, Auth;
 use App\Traits\MpdfTrait;
 use Illuminate\Support\Facades\Storage;
@@ -44,6 +45,7 @@ class JuiciosController extends Controller
         $estado = Juicio::find($juicio_id)->estado()->first();
         $salaapela = Juicio::find($juicio_id)->salaapela()->first();
         $moneda = Juicio::find($juicio_id)->moneda()->first();
+        $juicios_oficios = Juicio::find($juicio_id)->juicios_oficios()->get();
 
         $salaapelas = Salaapela::all();
         $juzgadotipos = Juzgadotipo::all();
@@ -77,10 +79,11 @@ class JuiciosController extends Controller
         }
 
         $monedas = Moneda::all();
+        $oficios = Oficio::all();
 
         return view('juicios.verDetalleJuicio')->with('juicio', $juicio)
                                                ->with('moneda', $moneda)
-                                               ->with('monedas', $monedas)             
+                                               ->with('monedas', $monedas)
                                                ->with('estado', $estado)
                                                ->with('estados', $estados)
                                                ->with('colaborators', $users)
@@ -102,7 +105,9 @@ class JuiciosController extends Controller
                                                ->with('coordinadores', $coordinadores)
                                                ->with('coordinador', $coordinador)
                                                ->with('salaapela', $salaapela)
-                                               ->with('notas', $notas);
+                                               ->with('notas', $notas)
+                                               ->with('oficios', $oficios)
+                                               ->with('juicios_oficios', $juicios_oficios);
     }
 
     /**
@@ -132,6 +137,7 @@ class JuiciosController extends Controller
         $salaapelas = Salaapela::all();
         $juzgadotipos = Juzgadotipo::all();
         $monedas = Moneda::all();
+        $oficios = Oficio::all();
 
         return view('juicios.cargarJuicio')->with('estados', $estados)
                                            ->with('colaborators', $users)
@@ -143,13 +149,14 @@ class JuiciosController extends Controller
                                            ->with('juzgadotipos',$juzgadotipos)
                                            ->with('salaapelas',$salaapelas)
                                            ->with('coordinadores', $coordinadores)
-                                           ->with('monedas',$monedas);
+                                           ->with('monedas', $monedas)
+                                           ->with('oficios', $oficios);
     }
 
     public function exportarExcel() {
 
         $user = \Auth::user();
-        
+
         return Excel::download(new JuiciosExport($user), 'juicios.xlsx');
 
     }
@@ -182,7 +189,7 @@ class JuiciosController extends Controller
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
-            
+
             return json_encode(array('validator' => $validator->errors(), 'operacion' => false, 'message' => "Hay un error en la validación del formulario, por favor verifique los campos requeridos", 'title' => 'Validacion de Formulario'));
 
         } else {
@@ -191,7 +198,37 @@ class JuiciosController extends Controller
             $notas_originales = $request->input("notas_seguimiento_original");
             $id_notas_originales = $request->input("id-nota-seguimiento");
             $contador_notas_seguimiento = $request->input("contador_notas_seguimiento");
-            
+
+            $contador_oficios_localizacion = $request->input("contador_oficios_localizacion");
+            $oficio_localizacion_id = $request->input("oficio_localizacion_id");
+            $oficio_loc_recibido = $request->input("oficio_loc_recibido");
+            $oficio_loc_entregado = $request->input("oficio_loc_entregado");
+            $oficio_loc_contestado = $request->input("oficio_loc_contestado");
+            $oficio_loc_record_recibido = $request->input("oficio_loc_record_recibido");
+            $oficio_loc_record_entregado = $request->input("oficio_loc_record_entregado");
+            $oficio_loc_record_contestado = $request->input("oficio_loc_record_contestado");
+            $oficios_loc_da_domicilio = $request->input("oficios_loc_da_domicilio_hidden");
+            $oficios_loc_domicilio_dado = $request->input("oficios_loc_domicilio_dado");
+            $oficios_loc_domicilio_habilitado = $request->input("oficios_loc_domicilio_habilitado_hidden");
+            $oficios_loc_diligenciado = $request->input("oficios_loc_diligenciado_hidden");
+            $oficio_loc_fecha_diligencia = $request->input("oficio_loc_fecha_diligencia");
+            $oficio_loc_resultado_diligencia = $request->input("oficio_loc_resultado_diligencia");
+
+            $original_oficio_localizacion_id = $request->input("original_oficio_localizacion_id");
+            $original_juicio_oficio_id = $request->input("original_juicio_oficio_id");
+            $original_oficio_loc_recibido = $request->input("original_oficio_loc_recibido");
+            $original_oficio_loc_entregado = $request->input("original_oficio_loc_entregado");
+            $original_oficio_loc_contestado = $request->input("original_oficio_loc_contestado");
+            $original_oficio_loc_record_recibido = $request->input("original_oficio_loc_record_recibido");
+            $original_oficio_loc_record_entregado = $request->input("original_oficio_loc_record_entregado");
+            $original_oficio_loc_record_contestado = $request->input("original_oficio_loc_record_contestado");
+            $original_oficios_loc_da_domicilio = $request->input("original_oficios_loc_da_domicilio_hidden");
+            $original_oficios_loc_domicilio_dado = $request->input("original_oficios_loc_domicilio_dado");
+            $original_oficios_loc_domicilio_habilitado = $request->input("original_oficios_loc_domicilio_habilitado_hidden");
+            $original_oficios_loc_diligenciado = $request->input("original_oficios_loc_diligenciado_hidden");
+            $original_oficio_loc_fecha_diligencia = $request->input("original_oficio_loc_fecha_diligencia");
+            $original_oficio_loc_resultado_diligencia = $request->input("original_oficio_loc_resultado_diligencia");
+
             $estado = $request->input("estado");
             $portafolio = $request->input("portafolio");
             $coordinador = $request->input("coordinador");
@@ -277,6 +314,27 @@ class JuiciosController extends Controller
                   }
                 }
 
+                if(!empty($oficio_localizacion_id)) {
+                  foreach ($oficio_localizacion_id as $key => $oficio) {
+                    $oficio_to_save = new JuiciosOficio;
+                    $oficio_to_save->juicio_id = $juicio->id;
+                    $oficio_to_save->oficio_id = $oficio;
+                    $oficio_to_save->recibido = $oficio_loc_recibido[$key];
+                    $oficio_to_save->entregado = $oficio_loc_entregado[$key];
+                    $oficio_to_save->contestado = $oficio_loc_contestado[$key];
+                    $oficio_to_save->recordatorio_recibido = $oficio_loc_record_recibido[$key];
+                    $oficio_to_save->recordatorio_entregado = $oficio_loc_record_entregado[$key];
+                    $oficio_to_save->recordatorio_contestado = $oficio_loc_record_contestado[$key];
+                    $oficio_to_save->da_domicilio = $oficios_loc_da_domicilio[$key];
+                    $oficio_to_save->domicilio_dado = $oficios_loc_domicilio_dado[$key];
+                    $oficio_to_save->domicilio_habilitado_autos = $oficios_loc_domicilio_habilitado[$key];
+                    $oficio_to_save->diligenciado = $oficios_loc_diligenciado[$key];
+                    $oficio_to_save->fecha_diligencia = $oficio_loc_fecha_diligencia[$key];
+                    $oficio_to_save->resultado_diligencia = $oficio_loc_resultado_diligencia[$key];
+                    $oficio_to_save->save();
+                  }
+                }
+
                 $juiciousuario_cliente = new Juiciouser;
                 $juiciousuario_cliente->juicio_id = $juicio->id;
                 $juiciousuario_cliente->user_id = $cliente;
@@ -359,6 +417,46 @@ class JuiciosController extends Controller
                   }
                 }
 
+                if(!empty($original_oficio_localizacion_id)) {
+                  foreach ($original_oficio_localizacion_id as $key => $oficio) {
+                    $oficio_to_save = JuiciosOficio::where("id", $original_juicio_oficio_id[$key])->first();
+                    $oficio_to_save->recibido = $original_oficio_loc_recibido[$key];
+                    $oficio_to_save->entregado = $original_oficio_loc_entregado[$key];
+                    $oficio_to_save->contestado = $original_oficio_loc_contestado[$key];
+                    $oficio_to_save->recordatorio_recibido = $original_oficio_loc_record_recibido[$key];
+                    $oficio_to_save->recordatorio_entregado = $original_oficio_loc_record_entregado[$key];
+                    $oficio_to_save->recordatorio_contestado = $original_oficio_loc_record_contestado[$key];
+                    $oficio_to_save->da_domicilio = $original_oficios_loc_da_domicilio[$key];
+                    $oficio_to_save->domicilio_dado = $original_oficios_loc_domicilio_dado[$key];
+                    $oficio_to_save->domicilio_habilitado_autos = $original_oficios_loc_domicilio_habilitado[$key];
+                    $oficio_to_save->diligenciado = $original_oficios_loc_diligenciado[$key];
+                    $oficio_to_save->fecha_diligencia = $original_oficio_loc_fecha_diligencia[$key];
+                    $oficio_to_save->resultado_diligencia = $original_oficio_loc_resultado_diligencia[$key];
+                    $oficio_to_save->save();
+                  }
+                }
+
+                if(!empty($oficio_localizacion_id)) {
+                  foreach ($oficio_localizacion_id as $key => $oficio) {
+                    $oficio_to_save = new JuiciosOficio;
+                    $oficio_to_save->juicio_id = $juicio_id;
+                    $oficio_to_save->oficio_id = $oficio;
+                    $oficio_to_save->recibido = $oficio_loc_recibido[$key];
+                    $oficio_to_save->entregado = $oficio_loc_entregado[$key];
+                    $oficio_to_save->contestado = $oficio_loc_contestado[$key];
+                    $oficio_to_save->recordatorio_recibido = $oficio_loc_record_recibido[$key];
+                    $oficio_to_save->recordatorio_entregado = $oficio_loc_record_entregado[$key];
+                    $oficio_to_save->recordatorio_contestado = $oficio_loc_record_contestado[$key];
+                    $oficio_to_save->da_domicilio = $oficios_loc_da_domicilio[$key];
+                    $oficio_to_save->domicilio_dado = $oficios_loc_domicilio_dado[$key];
+                    $oficio_to_save->domicilio_habilitado_autos = $oficios_loc_domicilio_habilitado[$key];
+                    $oficio_to_save->diligenciado = $oficios_loc_diligenciado[$key];
+                    $oficio_to_save->fecha_diligencia = $oficio_loc_fecha_diligencia[$key];
+                    $oficio_to_save->resultado_diligencia = $oficio_loc_resultado_diligencia[$key];
+                    $oficio_to_save->save();
+                  }
+                }
+
                 if(!empty($notas)) {
                   foreach ($notas as $nota) {
                     $nota_to_save = new Nota;
@@ -406,9 +504,9 @@ class JuiciosController extends Controller
                     }
                 }
 
-                $resultado = array('operacion' => true, 'message' => 'Juicio editado exitosamente', 'title' => 'Edición de Juicio', 'juicio_id' => $juicio_id);
+                $resultado = array('operacion' => true, 'message' => 'Juicio editado exitosamente', 'title' => 'Edición de Juicio', 'juicio_id' => $juicio_id, 'original_oficios_loc_da_domicilio' => $original_oficios_loc_da_domicilio);
 
-              }                                     
+              }
 
               return json_encode($resultado);
 
@@ -418,7 +516,7 @@ class JuiciosController extends Controller
 
                 return json_encode($resultado);
 
-            } 
+            }
 
         }
     }
@@ -439,7 +537,7 @@ class JuiciosController extends Controller
 
     }
 
-    public function subirDocJuicio(Request $request) { 
+    public function subirDocJuicio(Request $request) {
 
       $doc_tipo_id = $request->input("doc_tipo_id");
       $juicio_id = $request->input("juicio_id");
@@ -479,7 +577,7 @@ class JuiciosController extends Controller
 
       $juicio_id = $request->input("juicio_id");
       $extension = $request->file('file')->extension();
-      
+
       if ($request->hasFile('file') && $request->file('file')->isValid()) {
 
           $temp_file_name = "temp_file-".$juicio_id.".".$request->file('file')->extension();
@@ -488,24 +586,22 @@ class JuiciosController extends Controller
 
           //$ruta = url("/img_temp/".$juicio_id."/".$request->file('file')->extension());
           $ruta = storage_path("app/temp_files/".$temp_file_name);
-          //$ruta = url($temp_file_name);          
+          //$ruta = url($temp_file_name);
 
           if($request->file('file')->storeAs("", $temp_file_name, 'temp_files')) {
-            $config = array('orientation'=>'L','tempDir' => "mpdf_temp");
-            $mpdf = $this->MpdfObject($config);
+
+            $mpdf = $this->MpdfObject();
             $mpdf->showImageErrors = true;
 
             try {
-            
-              if(file_exists($otros_pdf)) {  
-              
+
+              if(file_exists($otros_pdf)) {
+
                 $pagecount = $mpdf->SetSourceFile($otros_pdf);
                 for ($i = 1; $i <= $pagecount; $i++) {
                   $tplId = $mpdf->ImportPage($i);
-                  $specs = $mpdf->getTemplateSize($tplId);
-                  $orientation = $specs['orientation'];
-                  $mpdf->AddPage('L','','','','','','','','','','','','','','',0,0,0,0,'',array(intval($specs['width']), intval($specs['height'])));
                   $mpdf->UseTemplate($tplId);
+                  $mpdf->WriteHTML('<pagebreak />');
                 }
 
               } else {
@@ -518,27 +614,24 @@ class JuiciosController extends Controller
 
               }
 
-              if($extension == "jpeg" || $extension == "jpg" || $extension == "png") { 
+              if($extension == "jpeg" || $extension == "jpg" || $extension == "png") {
                 $mpdf->WriteHTML("<img width='100%' height='297cm' src='".$ruta."'/>");
               } elseif ($extension == "pdf") {
                 $pagecount = $mpdf->SetSourceFile($ruta);
                 for ($i = 1; $i <= $pagecount; $i++) {
                   $tplId = $mpdf->ImportPage($i);
-                  $specs = $mpdf->getTemplateSize($tplId);
-                  $orientation = $specs['orientation'];
-                  $mpdf->AddPage('L','','','','','','','','','','','','','','',0,0,0,0,'',array(intval($specs['width']), intval($specs['height'])));
                   $mpdf->UseTemplate($tplId);
-                  $acumular_specs[] = $specs;
+                  $mpdf->WriteHTML('<pagebreak />');
                 }
               }
 
-              $mpdf->Output($otros_pdf, \Mpdf\Output\Destination::FILE);  
+              $mpdf->Output($otros_pdf, \Mpdf\Output\Destination::FILE);
 
-              $resultado = array('exito' => true, 'ruta' => url("doc_juicios/".$juicio_id."/otros-".$juicio_id.".pdf"), 'tipo_doc' => 3, "specs" => $acumular_specs);
+              $resultado = array('exito' => true, 'ruta' => url("doc_juicios/".$juicio_id."/otros-".$juicio_id.".pdf"), 'tipo_doc' => 3);
             } catch (\Mpdf\MpdfException $e) {
               $resultado = array('exito' => false, 'error' => $e->getMessage());
             }
-              
+
           }
       }
 
@@ -548,29 +641,29 @@ class JuiciosController extends Controller
     public function getDocuments($jucio_id, $doc_tipo_id) {
 
       if($doc_tipo_id == 1) {
-        $path = storage_path("app/juicios/".$jucio_id."/fundatorios-".$jucio_id.".pdf");  
+        $path = storage_path("app/juicios/".$jucio_id."/fundatorios-".$jucio_id.".pdf");
       } elseif ($doc_tipo_id == 2) {
-        $path = storage_path("app/juicios/".$jucio_id."/expediente-".$jucio_id.".pdf");  
+        $path = storage_path("app/juicios/".$jucio_id."/expediente-".$jucio_id.".pdf");
       } else {
-        $path = storage_path("app/juicios/".$jucio_id."/otros-".$jucio_id.".pdf");  
+        $path = storage_path("app/juicios/".$jucio_id."/otros-".$jucio_id.".pdf");
       }
-      
+
       return response()->file($path);
     }
 
     public function getDocumentsThumb($juicio_id, $doc_tipo_id) {
         if($doc_tipo_id == 1) {
-          $path = storage_path("app/juicios/".$juicio_id."/fundatorios-".$juicio_id.".pdf");  
+          $path = storage_path("app/juicios/".$juicio_id."/fundatorios-".$juicio_id.".pdf");
         } elseif ($doc_tipo_id == 2) {
-          $path = storage_path("app/juicios/".$juicio_id."/expediente-".$juicio_id.".pdf");  
+          $path = storage_path("app/juicios/".$juicio_id."/expediente-".$juicio_id.".pdf");
         } else {
-          $path = storage_path("app/juicios/".$juicio_id."/otros-".$juicio_id.".pdf");  
+          $path = storage_path("app/juicios/".$juicio_id."/otros-".$juicio_id.".pdf");
         }
 
         $mpdf = $this->MpdfObject();
-        try {  
-          
-          if(file_exists($path)) {    
+        try {
+
+          if(file_exists($path)) {
             $pagecount = $mpdf->SetSourceFile($path);
             $tplId = $mpdf->ImportPage($pagecount);
             $mpdf->UseTemplate($tplId);
@@ -591,12 +684,12 @@ class JuiciosController extends Controller
 
 
       $path = storage_path("app/temp_files/temp_file-".$juicio_id.".".$extension);
-      
+
       return response()->file($path);
     }
 
     public function deleteDocument(Request $request) {
-      
+
       $juicio_id = $request->input("juicio_id");
       $doc_tipo_id = $request->input("doc_tipo_id");
 
@@ -628,12 +721,12 @@ class JuiciosController extends Controller
           } else {
             $result = array('operacion' => false, 'message' => $url_otro);
           }
-        }       
+        }
 
       } catch (Exception $e) {
         $result = array('operacion' => false, 'message' => "Falló");
       }
-      
+
       return json_encode($result);
 
     }
@@ -649,6 +742,27 @@ class JuiciosController extends Controller
           $resultado = array('operacion' => true, 'message'=> "Nota eliminada con éxito", 'title' => "Eliminar nota", "nota_id" => $nota_id, "cant_notas" => $cant_notas);
         } catch (Exception $e) {
           $resultado = array('operacion' => false, 'message'=> "Ocurrió un error al intentar eliminar la nota", 'title' => "Eliminar nota", "nota_id" => $nota_id);
+        }
+        return json_encode($resultado);
+    }
+
+    public function deleteOficio(Request $request){
+        $juicio_oficio_id = $request->input('juicio_oficio_id');
+        $cant_oficios = $request->input('cant_oficios');
+        try {
+          $oficio = JuiciosOficio::where('id',$juicio_oficio_id);
+          if($oficio->delete()) {
+            $cant_oficios = $cant_oficios - 1;
+          }
+          $resultado = array('operacion' => true,
+                             'message'=> "Oficio eliminado con éxito", 'title' => "Eliminar oficio",
+                             "juicio_oficio_id" => $juicio_oficio_id,
+                             "cant_oficios" => $cant_oficios);
+        } catch (Exception $e) {
+          $resultado = array('operacion' => false,
+                             'message'=> "Ocurrió un error al intentar eliminar el oficio",
+                             'title' => "Eliminar nota",
+                             "nota_id" => $nota_id);
         }
         return json_encode($resultado);
     }
@@ -712,7 +826,7 @@ class JuiciosController extends Controller
                                             ->with('coordinador', $coordinador)
                                             ->with('salaapela', $salaapela)
                                             ->with('notas', $notas);
-      $mpdf->WriteHTML($html);      
+      $mpdf->WriteHTML($html);
       $mpdf->Output("reporte_juicio_".$juicio_id.".pdf", \Mpdf\Output\Destination::FILE);
       return response()->file("reporte_juicio_".$juicio_id.".pdf");
     }
@@ -729,35 +843,28 @@ class JuiciosController extends Controller
           $otros_pdf = storage_path("app/juicios/".$juicio->id."/otros-".$juicio->id.".pdf");
           $expediente_pdf = storage_path("app/juicios/".$juicio->id."/expediente-".$juicio->id.".pdf");
 
-          if(file_exists($expediente_pdf)) {              
+          if(file_exists($expediente_pdf)) {
               $pagecount = $mpdf->SetSourceFile($expediente_pdf);
               for ($i = 1; $i <= $pagecount; $i++) {
                 $tplId = $mpdf->ImportPage($i);
                 $specs = $mpdf->getTemplateSize($tplId);
-                $mpdf->AddPageByArray(array(
-                    'orientation' => $specs['orientation'],
-                    'sheet-size' => array($specs['width'], $specs['height'])
-                ));
-                $mpdf->UseTemplate($tplId);  
+                $mpdf->addPage($specs['orientation']);
+                $mpdf->UseTemplate($tplId);
                 //$mpdf->SetPageTemplate($tplId);
                 //$mpdf->addPage();
               }
           }
 
-          if(file_exists($otros_pdf)) {              
+          if(file_exists($otros_pdf)) {
               $pagecount = $mpdf->SetSourceFile($otros_pdf);
               for ($i = 1; $i <= $pagecount; $i++) {
                 $tplId = $mpdf->ImportPage($i);
                 $specs = $mpdf->getTemplateSize($tplId);
-                dd($specs);
-                $mpdf->AddPageByArray(array(
-                    'orientation' => $specs['orientation'],
-                    'sheet-size' => array($specs['width'], $specs['height'])
-                ));
+                $mpdf->addPage($specs['orientation']);
                 $mpdf->UseTemplate($tplId);
                 //$mpdf->SetPageTemplate($tplId);
                 //$mpdf->addPage();
-              } 
+              }
           }
 
           if (file_exists($otros_pdf) || file_exists($expediente_pdf)) {
@@ -780,7 +887,7 @@ class JuiciosController extends Controller
     }
 
     public function deleteJuicio($juicio_id) {
-      
+
       try {
         $juicio = Juicio::where("id", $juicio_id)->first();
 
@@ -800,7 +907,7 @@ class JuiciosController extends Controller
     }
 
     public function historicoJuicios() {
-      
+
       $estados = Estado::all();
 
         $user = \Auth::user();
@@ -808,7 +915,7 @@ class JuiciosController extends Controller
         if($user->hasRole('administrador')) {
             $juicios = Juicio::select()->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
         } elseif ($user->hasRole('coordinador')) {
-            $juicios_all = Juicio::select()->where('estado_id',1)->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
+            $juicios_all = Juicio::select()->orderBy('fecha_proxima_accion', 'ASC')->orderBy('juzgado_id', 'ASC')->get();
             $juicios = $juicios_all->filter(function($key,$value) use ($user){
                 $juicios_users = $key->juiciousers()->get();
                 foreach ($juicios_users as $juicios_user) {

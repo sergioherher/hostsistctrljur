@@ -101,7 +101,7 @@
                                     <a href="{{url('deleteJuicio/'.$juicio->id)}}" class="btn btn-sm btn-label-danger" onclick="if(!confirm('Está seguro de querer eliminar este juicio')) event.preventDefault();" title="Eliminar Juicio"><i class="fa fa-trash"></i></a>
                                     @endrole
                                     @role('administrador')
-                                    <a href="{{url('unirAExpediente/'.$juicio->id)}}" class="btn btn-sm btn-label-primary unir_a_expediente" id="{{ $juicio->id }}" title="Unir Otros a Expediente"><i class="fa fa-arrow-up"></i></a> 
+                                    <a href="{{url('unirAExpediente/'.$juicio->id)}}" class="btn btn-sm btn-label-primary unir_a_expediente" id="{{ $juicio->id }}" title="Unir Otros a Expediente"><i class="fa fa-arrow-up"></i></a>
                                     @endrole
                                 </td>
                                 <td>{{ $juicio->estado()->first()->estado }}</td>
@@ -149,7 +149,7 @@
             if(resultado.operacion){
                 toastr.success(resultado.message, resultado.title);
             } else {
-                toastr.error(resultado.error_message, resultado.title);    
+                toastr.error(resultado.error_message, resultado.title);
             }
 
         @endif
@@ -157,6 +157,6 @@
     });
 
 </script>
-<script type="text/javascript" src="{{asset('js/datatables/juicios-html.js?v=0.0.9')}}"></script>
+<script type="text/javascript" src="{{asset('js/datatables/juicios-html.js?v=0.0.10')}}"></script>
 
 @endsection

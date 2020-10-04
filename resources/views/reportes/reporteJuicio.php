@@ -93,9 +93,9 @@
         		<td class="separador">
         			<span class="titulo">Cliente:</span> <?= $cliente->user()->first()->name ?>
         		</td>
-                <td class="separador">
-                    <span class="titulo">Portafolio:</span> <?= $juicio->portafolio ?>
-                </td>
+        		<td class="separador">
+        			<span class="titulo">Portafolio:</span> <?= $juicio->portafolio ?>
+        		</td>
         	</tr>
         	<tr>
         		<td>

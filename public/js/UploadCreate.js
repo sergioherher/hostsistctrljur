@@ -51,6 +51,8 @@ Upload.prototype.doUpload = function () {
                         $("#upload-dialog-"+i).show();
                     }
                     $(".cloned").remove();
+                    $(".oficio_cloned").remove();
+                    $("#oficios_loc_exist").attr("checked", false);
                     $(".cabecera-notas").hide();
                     $(".contenedor_guardar_notas").hide();
                     $("#formGuardarJuicio").trigger("reset");

@@ -8,7 +8,7 @@
                 <div class="kt-portlet__head kt-portlet__head--lg kt-portlet__head--break-sm">
                     <div class="kt-portlet__head-label">
                         <h3 class="kt-portlet__head-title">
-                            Editar Juicio Expediente: {{ $juicio->expediente }},  Demandado: 
+                            Editar Juicio Expediente: {{ $juicio->expediente }},  Demandado:
                             @foreach($demandados as $key => $demandado)
 								@if($demandado->codemandado == 0)
 									{{ $demandado->name }}
@@ -24,12 +24,12 @@
                 </div>
                 <div class="kt-portlet__body">
                 	<form class="kt-form" id="formGuardarJuicio" action="{{ url('juicio/guardarJuicio') }}" method="POST" enctype="multipart/form-data">
-    					@csrf    	
+    					@csrf
 			    		<input type="hidden" id="editar_o_crear" name="editar_o_crear" value="1">
 			    		<input type="hidden" id="juicio_id" name="juicio_id" value="{{ $juicio->id }}">
-	                	<div class="form-group row">                    		
-	                		<div class="col-lg-6" style="display: @if(!Auth::user()->can('administrar-perfiles')) none @endif" >	
-	                			<label>Coordinador</label>							
+	                	<div class="form-group row">
+	                		<div class="col-lg-6" style="display: @if(!Auth::user()->can('administrar-perfiles')) none @endif" >
+	                			<label>Coordinador</label>
 								<div style="color:red;" class="error_label" id="error-coordinador">
 									{{$errors->first('coordinador')}}
 								</div>
@@ -44,19 +44,19 @@
 									@endforeach
 								</select>
 							</div>
-							<div class="col-lg-6">	
-	                			<label>Portafolio</label>							
+							<div class="col-lg-6">
+	                			<label>Portafolio</label>
 								<div style="color:red;" class="error_label" id="error-portafolio"></div>
 								<input type="text" class="form-control" id="portafolio" name="portafolio" value="@if(null !== old('portafolio')){{ old('portafolio') }}@else{{ $juicio->portafolio }}@endif" placeholder="Portafolio ...">
-							</div>	
-						</div>                	
+							</div>
+						</div>
 	                	<div class="form-group row">
 	                		<div class="col-lg-6">
 								<label>Estado</label>
 								<div style="color:red;" class="error_label" id="error-estado">
 									{{$errors->first('estado')}}
 								</div>
-								@if(Auth::user()->can('cargar-juicios')) 
+								@if(Auth::user()->can('cargar-juicios'))
 									<select id="estado" name="estado" class="form-control" @role("colaborador") readonly @endrole>
 										<option value="">Seleccione</option>
 										@foreach ($estados as $estad)
@@ -67,10 +67,10 @@
 											@endif
 										@endforeach
 									</select>
-									
+
 								@else
 									<input class="form-control" type="text" readonly name="desc_estado" value="{{ $estado->estado }}">
-									<input type="hidden" name="estado" value="{{ $estado->id }}"> 
+									<input type="hidden" name="estado" value="{{ $estado->id }}">
 								@endif
 							</div>
 							<div class="col-lg-6">
@@ -78,7 +78,7 @@
 								<div style="color:red;" class="error_label" id="error-cliente">
 									{{$errors->first('cliente')}}
 								</div>
-								@if(Auth::user()->can('cargar-juicios')) 
+								@if(Auth::user()->can('cargar-juicios'))
 									<select id="cliente" name="cliente" class="form-control" @role("colaborador") readonly @endrole>
 										<option value="">Seleccione</option>
 										@foreach ($clientes as $client)
@@ -89,12 +89,12 @@
 											@endif
 										@endforeach
 									</select>
-									
+
 								@else
 									<input class="form-control" type="text" readonly name="desc_cliente" value="{{ $cliente->user()->withTrashed()->first()->name }}">
-									<input type="hidden" name="cliente" value="{{ $cliente->user()->withTrashed()->first()->id }}"> 
+									<input type="hidden" name="cliente" value="{{ $cliente->user()->withTrashed()->first()->id }}">
 								@endif
-							</div>						
+							</div>
 						</div>
 	                	<div class="form-group row">
 	                		<div class="col-lg-6">
@@ -102,7 +102,7 @@
 								<div style="color:red;" class="error_label" id="error-colaborator">
 									{{$errors->first('colaborator')}}
 								</div>
-								@if(Auth::user()->can('cargar-juicios')) 
+								@if(Auth::user()->can('cargar-juicios'))
 									<select id="colaborator" name="colaborator" class="form-control" @role("colaborador") readonly @endrole>
 										<option value="">Seleccione</option>
 										@foreach ($colaborators as $colaborat)
@@ -113,10 +113,10 @@
 											@endif
 										@endforeach
 									</select>
-									
+
 								@else
 									<input class="form-control" type="text" readonly name="desc_colaborador" value="{{ $colaborator->name }}">
-									<input type="hidden" name="colaborator" value="{{ $colaborator->id }}"> 
+									<input type="hidden" name="colaborator" value="{{ $colaborator->id }}">
 								@endif
 							</div>
 							<div class="col-lg-6">
@@ -125,7 +125,7 @@
 									{{$errors->first('user_contact_info')}}
 								</div>
 								<input type="text" class="form-control" id="user_contact_info" name="user_contact_info" value="@if(null !== old('user_contact_info')){{ old('user_contact_info') }}@else{{ $cliente->user_contact_info }}@endif" placeholder="Información de contacto ...">
-								
+
 							</div>
 						</div>
 						<div class="form-group row">
@@ -135,7 +135,7 @@
 									{{$errors->first('numero_credito')}}
 								</div>
 								<input type="text" class="form-control" id="numero_credito" name="numero_credito" value="@if(null !== old('numero_credito')){{ old('numero_credito') }}}@else{{ $juicio->numero_credito }}@endif" placeholder="Nº Crédito ...">
-								
+
 							</div>
 							<div class="col-lg-6">
 								@foreach($demandados as $key => $demandado)
@@ -146,20 +146,20 @@
 												{{$errors->first('demandado')}}
 											</div>
 											<input type="text" class="form-control" id="demandado" name="demandado" value="@if(null !== old('demandado')){{ old('demandado') }}@else{{ $demandado->name }}@endif" placeholder="Demandado...">
-											
+
 											<label>Codemandado</label>
 											<div style="color:red;">
 												{{$errors->first('codemandado')}}
 											</div>
 											<input type="text" class="form-control" id="codemandado" name="codemandado" value="@if(null !== old('codemandado')){{ old('codemandado') }}@endif" placeholder="Codemandado...">
-											
+
 										@else
 											<label>Demandado</label>
 											<div style="color:red;" class="error_label" id="error-demandado">
 												{{$errors->first('demandado')}}
 											</div>
 											<input type="text" class="form-control" id="demandado" name="demandado" value="@if(null !== old('demandado')){{ old('demandado') }}@else{{ $demandado->name }}@endif" placeholder="Demandado...">
-											
+
 										@endif
 									@else
 										<label>Codemandado</label>
@@ -167,7 +167,7 @@
 											{{$errors->first('codemandado')}}
 										</div>
 										<input type="text" class="form-control" id="codemandado" name="codemandado" value="@if(null !== old('codemandado')){{ old('codemandado') }}@else{{ $demandado->name }}@endif" placeholder="Codemandado...">
-										
+
 									@endif
 								@endforeach
 							</div>
@@ -194,7 +194,7 @@
 										@endif
 									@endforeach
 								</select>
-								
+
 							</div>
 							<div class="col-lg-4">
 								<label>Juzgado</label>
@@ -211,7 +211,7 @@
 										@endif
 									@endforeach
 								</select>
-								
+
 							</div>
 						</div>
 						<div class="form-group row">
@@ -221,7 +221,7 @@
 									{{$errors->first('expediente')}}
 								</div>
 								<input type="text" class="form-control" id="expediente" name="expediente" value="@if(null !== old('expediente')){{ old('expediente') }}@else{{ $juicio->expediente }}@endif" placeholder="Expediente ...">
-								
+
 							</div>
 							<div class="col-lg-6">
 								<label>Tipo de Juicio</label>
@@ -238,17 +238,17 @@
 										@endif
 									@endforeach
 								</select>
-								
+
 							</div>
 						</div>
-						<div class="form-group row">												
+						<div class="form-group row">
 							<div class="col-lg-6">
 								<label>Ultima fecha boletín Judicial:</label>
 								<div style="color:red;">
 									{{$errors->first('ultima_fecha_boletin')}}
 								</div>
 								<input autocomplete="false" type="text" class="form-control" id="ultima_fecha_boletin" name="ultima_fecha_boletin" value="@if(null !== old('ultima_fecha_boletin')){{ old('ultima_fecha_boletin') }}@else{{ $juicio->ultima_fecha_boletin }}@endif" placeholder="DD/MM/AAAA">
-								
+
 							</div>
 							<div class="col-lg-6">
 								<label>Extracto</label>
@@ -256,7 +256,7 @@
 									{{$errors->first('extracto')}}
 								</div>
 								<input type="text" class="form-control" id="extracto" name="extracto" value="@if(null !== old('extracto')){{ old('extracto') }}@else{{ $juicio->extracto }}@endif" placeholder="Extracto de boletín judicial...">
-								
+
 							</div>
 						</div>
 						<div class="kt-portlet">
@@ -339,7 +339,7 @@
 									{{$errors->first('fecha_proxima_accion')}}
 								</div>
 								<input autocomplete="false" type="text" class="form-control" id="fecha_proxima_accion" name="fecha_proxima_accion" value="@if(null !== old('fecha_proxima_accion')){{ old('fecha_proxima_accion') }}@else{{ $juicio->fecha_proxima_accion }}@endif" placeholder="Fecha de próxima acción ...">
-								
+
 							</div>
 							<div class="col-lg-6">
 								<label>Próxima acción</label>
@@ -347,7 +347,24 @@
 									{{$errors->first('proxima_accion')}}
 								</div>
 								<textarea class="form-control" rows="5" id="proxima_accion" name="proxima_accion" placeholder="Próxima acción ...">@if(null !== old('proxima_accion')){{ old('proxima_accion') }}@else{{ $juicio->proxima_accion }}@endif</textarea>
-								
+
+							</div>
+						</div>
+
+            <div class="form-group row">
+							<div class="col-lg-12">
+                <label class="col-form-label">Oficios de localización</label>
+              </div>
+              <div class="col-lg-4">
+								<span class="kt-switch kt-switch--icon">
+									<label>
+										<input type="checkbox" disabled @if($juicios_oficios->count() > 0) checked @endif name="oficios_localizacion" id="oficios_loc_exist">
+										<span></span>
+									</label>
+								</span>
+							</div>
+              <div class="col-lg-8">
+								<button class="btn btn-success" id="boton_ver_oficios"><i class="fa fa-view"></i>Ver detalle</button>
 							</div>
 						</div>
 
@@ -373,7 +390,7 @@
 										@endif
 									@endforeach
 								</select>
-								
+
 							</div>
 							<div class="col-lg-3">
 								<label>Monto demandado</label>
@@ -381,7 +398,7 @@
 									{{$errors->first('monto_demandado')}}
 								</div>
 								<input type="text" class="form-control" id="monto_demandado" name="monto_demandado" value="@if(null !== old('monto_demandado')){{ old('monto_demandado') }}@else{{ $juicio->monto_demandado }}@endif" placeholder="Monto demandado ...">
-								
+
 							</div>
 							<div class="col-lg-3">
 								<label>Importe del Crédito</label>
@@ -389,7 +406,7 @@
 									{{$errors->first('importe_credito')}}
 								</div>
 								<input type="text" class="form-control" id="importe_credito" name="importe_credito" value="@if(null !== old('importe_credito')){{ old('importe_credito') }}@else{{ $juicio->importe_credito }}@endif" placeholder="Importe del crédito ...">
-								
+
 							</div>
 							<div class="col-lg-3">
 								<label>Macro etapa</label>
@@ -406,7 +423,7 @@
 										@endif
 									@endforeach
 								</select>
-								
+
 							</div>
 						</div>
 
@@ -424,7 +441,7 @@
 									{{$errors->first('datos_rpp')}}
 								</div>
 								<textarea class="form-control" rows="5" id="datos_rpp" name="datos_rpp" placeholder="Datos de RPP ...">@if(null !== old('datos_rpp')){{ old('datos_rpp') }}@else{{ $juicio->datos_rpp }}@endif</textarea>
-								
+
 							</div>
 							<div class="col-lg-4">
 								<label>Otros domicilios</label>
@@ -432,7 +449,7 @@
 									{{$errors->first('otros_domicilios')}}
 								</div>
 								<textarea class="form-control" rows="5" id="otros_domicilios" name="otros_domicilios" placeholder="Domiciolios ...">@if(null !== old('otros_domicilios')){{ old('otros_domicilios') }}@else{{ $juicio->otros_domicilios }}@endif</textarea>
-								
+
 							</div>
 						</div>
 
@@ -443,7 +460,7 @@
 									{{$errors->first('procesos_asociados')}}
 								</div>
 								<input type="text" class="form-control" id="procesos_asociados" name="procesos_asociados" value="@if(null !== old('procesos_asociados')){{ old('procesos_asociados') }}@else{{ $juicio->procesos_asoc }}@endif" placeholder="Procesos asociados ...">
-								
+
 							</div>
 							<div class="col-lg-4">
 								<label>Sala de Apelación</label>
@@ -459,7 +476,7 @@
 										@endif
 									@endforeach
 								</select>
-								
+
 							</div>
 							<div class="col-lg-4">
 								<label>Toca:</label>
@@ -513,6 +530,150 @@
 								<textarea class="form-control" rows="5" id="audiencia_juicio" name="audiencia_juicio" placeholder="Videos de audiencias de juicio ...">@if(null !== old('audiencia_juicio')){{ old('audiencia_juicio') }}@else{{ $juicio->audiencia_juicio }}@endif</textarea>
 							</div>
 						</div>
+
+            <div class="modal fade" id="kt_modal_juicio_oficios_loc" tabindex="-1" role="dialog" aria-labelledby="detalle_juicio_oficios_loc" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="title_juicio_oficios_loc">Oficios de localización</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <button type="button" class="btn btn-primary" id="agregar_oficio_localizacion">Agregar nueva dependencia</button>
+                          <input type="hidden" id="contador_oficios_localizacion" name="contador_oficios_localizacion" value="0">
+                          <div class="container_oficios_loc">
+                              @foreach($juicios_oficios as $juicios_oficio)
+                              <!-- Inicio de oficios preexistentes -->
+                              <div class="oficio_cloned oficio-original">
+                                <div class="form-group">
+                                  <div class="row" style="padding-top: 20px; padding-bottom: 20px">
+                                    <div class="col-12">
+                                      <div class="row">
+                                        <div class="col-10">
+                                          <h5 class="oficio_localizacion_name">{{ $juicios_oficio->oficio()->first()->name }}</h5>
+                                          <input id="id_oficio_localizacion-{{ $juicios_oficio->oficio_id }}" name="original_oficio_localizacion_id[]" class="oficio_localizacion_id" value="{{ $juicios_oficio->oficio_id }}" type="hidden" />
+                                        </div>
+                                        <div class="col-2 kt-align-right">
+                                          <input id="id_juicio_oficio-{{ $juicios_oficio->id }}" name="original_juicio_oficio_id[]" class="id-juicio-oficio" value="{{ $juicios_oficio->id }}" type="hidden" />
+                                          <button class="btn btn-sm btn-danger borrar-oficio-original"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-8">
+                                      <div class="row">
+                                        <div class="col-4">
+                                          <label for="oficio_loc_recibido">Recibido</label>
+                                          <input autocomplete="false" type="text" class="form-control oficio_loc_datepicker" id="oficio_loc_recibido" name="original_oficio_loc_recibido[]" placeholder="YYYY-MM-DD" value="{{ substr($juicios_oficio->recibido, 0, 10) }}">
+                                        </div>
+                                        <div class="col-4">
+                                          <label for="oficio_loc_entregado">Entregado</label>
+                                          <input autocomplete="false" type="text" class="form-control oficio_loc_datepicker" id="oficio_loc_entregado" name="original_oficio_loc_entregado[]" placeholder="YYYY-MM-DD" value="{{ substr($juicios_oficio->entregado, 0, 10) }}">
+                                        </div>
+                                        <div class="col-4">
+                                          <label for="oficio_loc_contestado">Contestado</label>
+                                          <input autocomplete="false" type="text" class="form-control oficio_loc_datepicker" id="oficio_loc_contestado" name="original_oficio_loc_contestado[]" placeholder="YYYY-MM-DD" value="{{ substr($juicios_oficio->contestado, 0, 10) }}">
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-12">
+                                          Recordatorio
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-4">
+                                          <label for="oficio_loc_record_recibido">Recibido</label>
+                                          <input autocomplete="false" type="text" class="form-control oficio_loc_datepicker" id="oficio_loc_record_recibido" name="original_oficio_loc_record_recibido[]" placeholder="YYYY-MM-DD" value="{{ substr($juicios_oficio->recordatorio_contestado, 0, 10) }}">
+                                        </div>
+                                        <div class="col-4">
+                                          <label for="oficio_loc_record_entregado">Entregado</label>
+                                          <input autocomplete="false" type="text" class="form-control oficio_loc_datepicker" id="oficio_loc_record_entregado" name="original_oficio_loc_record_entregado[]" placeholder="YYYY-MM-DD" value="{{ substr($juicios_oficio->recordatorio_entregado, 0, 10) }}">
+                                        </div>
+                                        <div class="col-4">
+                                          <label for="oficio_loc_record_contestado">Contestado</label>
+                                          <input autocomplete="false" type="text" class="form-control oficio_loc_datepicker" id="oficio_loc_record_contestado" name="original_oficio_loc_record_contestado[]" placeholder="YYYY-MM-DD" value="{{ substr($juicios_oficio->recordatorio_contestado, 0, 10) }}">
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-4">
+                                      <div class="row">
+                                        <div class="col-4">
+                                          <label>Proporciona domicilio</label>
+                                          <span class="kt-switch kt-switch--sm kt-switch--icon">
+                                            <label>
+                                              <input type="checkbox" class="switch_to_handle" name="original_oficios_loc_da_domicilio[]" @if($juicios_oficio->da_domicilio == true) checked @endif>
+                                              <input type="hidden" class="hidden_to_handle" name="original_oficios_loc_da_domicilio_hidden[]"  value="@if($juicios_oficio->da_domicilio == true) 1 @else 0 @endif">
+                                              <span></span>
+                                            </label>
+                                          </span>
+                                        </div>
+                                        <div class="col-8">
+                                          <label>Domicilio proporcionado</label>
+                                          <textarea class="form-control" rows="4" id="oficios_loc_domicilio_dado" name="original_oficios_loc_domicilio_dado[]" placeholder="...">{{ $juicios_oficio->domicilio_dado }}</textarea>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-3">
+                                      <div class="row">
+                                        <div class="col-12">
+                                          <label>Domicilio habilitado en autos</label>
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-12">
+                                          <span class="kt-switch kt-switch--sm kt-switch--icon">
+                                            <label>
+                                              <input type="checkbox" class="switch_to_handle" name="original_oficios_loc_domicilio_habilitado[]" @if($juicios_oficio->domicilio_habilitado_autos == true) checked @endif>
+                                              <input type="hidden" class="hidden_to_handle" name="original_oficios_loc_domicilio_habilitado_hidden[]" value="@if($juicios_oficio->domicilio_habilitado_autos == true) 1 @else 0 @endif">
+                                              <span></span>
+                                            </label>
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-3">
+                                      <div class="row">
+                                        <div class="col-12">
+                                          <label>Diligenciado</label>
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-12">
+                                          <span class="kt-switch kt-switch--sm kt-switch--icon">
+                                            <label>
+                                              <input type="checkbox" class="switch_to_handle" name="original_oficios_loc_diligenciado[]" @if($juicios_oficio->diligenciado == true) checked @endif>
+                                              <input type="hidden" class="hidden_to_handle" name="original_oficios_loc_diligenciado_hidden[]" value="@if($juicios_oficio->diligenciado == true) 1 @else 0 @endif">
+                                              <span></span>
+                                            </label>
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col-3">
+                                      <label for="oficio_loc_fecha_diligencia">Fecha diligencia</label>
+                                      <input autocomplete="false" type="text" class="form-control oficio_loc_datepicker" id="oficio_loc_fecha_diligencia" name="original_oficio_loc_fecha_diligencia[]" placeholder="YYYY-MM-DD" value="{{ substr($juicios_oficio->fecha_diligencia, 0, 10) }}" />
+                                    </div>
+                                    <div class="col-3">
+                                      <label for="oficio_loc_resultado_diligencia">Resultado de diligencia</label>
+                                      <textarea class="form-control" rows="2" id="oficio_loc_resultado_diligencia" name="original_oficio_loc_resultado_diligencia[]" placeholder="...">{{ $juicios_oficio->resultado_diligencia}}</textarea>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- Fin de oficios preexistentes -->
+                              @endforeach
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 					</form>
 
 					<div class="form-group row">
@@ -526,11 +687,11 @@
 
 					<div class="form-group row">
 						@foreach($doc_tipos as $doc_tipo)
-							@if($doc_tipo->id != 3)	
+							@if($doc_tipo->id != 3)
 								<div class="col-lg-6 kt-align-center">
 									<h5 class="kt-align-center" style="height: 30px">{{ $doc_tipo->tipo }}</h5>
 									<div class="row" id="contenedor-agregar-documento-{{ $doc_tipo->id }}" style="display: @if($documentos->contains('doc_tipo_id', $doc_tipo->id)) {{ "none" }} @endif" id="contenedor-boton-agregar-{{ $doc_tipo->id }}" >
-										<div class="col-12">										
+										<div class="col-12">
 											<button class="btn btn-sm btn-label-success" id="upload-dialog-{{ $doc_tipo->id }}" onclick="event.preventDefault(); configurarUploader({{ $doc_tipo->id }})"><i class="fa fa-plus"></i>Cargar PDF</button>
 											<input type="file" id="pdf-file-{{ $doc_tipo->id }}" name="pdf_file_{{ $doc_tipo->id }}" accept="application/pdf" style="display:none" />
 											<div id="pdf-loader-{{ $doc_tipo->id }}" style="display:none">Cargando PDF ..</div>
@@ -558,7 +719,7 @@
 																<div id="pdf-buttons-{{ $documento->doc_tipo_id }}">
 																	<button id="pdf-prev-{{ $documento->doc_tipo_id }}">Anterior</button>
 																	<button id="pdf-next-{{ $documento->doc_tipo_id }}">Siguiente</button>
-																</div>	
+																</div>
 																<div id="page-count-container-{{ $documento->doc_tipo_id }}">Página <div  style="display: inline-block;" id="pdf-current-page-{{ $documento->doc_tipo_id }}"></div> de <div style="display: inline-block;"  id="pdf-total-pages-{{ $documento->doc_tipo_id }}"></div></div>
 															</div>
 									                    	<canvas id="pdf-alt-preview-{{ $doc_tipo->id }}" width="750"></canvas>
@@ -583,12 +744,12 @@
 													</div>
 													<div class="col-12" id="contenedor_doc_{{ $documento->doc_tipo_id }}">
 														<div id="doc_{{ $documento->doc_tipo_id }}" style="display: none;">{{ url("/doc_juicios_thump/".$documento->juicio_id."/".$documento->doc_tipo_id) }}</div>
-													</div>								
+													</div>
 												</div>
 												<div class="row">
 													<div class="col-12">
 														<button class="btn btn-sm btn-label-danger borrar-documento" id="juicio_id-{{ $documento->juicio_id }}-doc_tipo_id-{{ $documento->doc_tipo_id }}"><i class="fa fa-times"></i></button>
-													</div>											
+													</div>
 												</div>
 											</div>
 
@@ -605,7 +766,7 @@
 									<div class="row">
 										<div class="col-12">
 											<button class="btn btn-sm btn-label-success" id="upload-dialog-3" onclick="event.preventDefault(); configurarUploader(3)"><i class="fa fa-plus"></i>Agregar Imagen / PDF</button>
-											<input type="file" id="pdf-file-3" name="pdf_file_3" accept="image/x-png,image/jpeg,application/pdf" style="display:none" />		
+											<input type="file" id="pdf-file-3" name="pdf_file_3" accept="image/x-png,image/jpeg,application/pdf" style="display:none" />
 											<div id="pdf-loader-3" style="display:none">Cargando PDF ..</div>
 										</div>
 									</div>
@@ -626,13 +787,13 @@
 											    <div class="progress-bar"></div>
 											    <div class="status">0%</div>
 											</div>-->
-										</div>	
-										<div class="col-5"></div>									
+										</div>
+										<div class="col-5"></div>
 									</div>
 									<div class="row">
 										<div class="col-12">
 											<button class="btn btn-label-danger undo-upload" id="undo-upload-3" style="display:none"><i class="fa fa-times"></i></button>
-											<button class="btn btn-label-primary upload-file" id="add-uploaded-3" style="display:none"><i class="fa fa-arrow-up"></i></button>	
+											<button class="btn btn-label-primary upload-file" id="add-uploaded-3" style="display:none"><i class="fa fa-arrow-up"></i></button>
 										</div>
 									</div>
 								</div>
@@ -651,7 +812,7 @@
 													<div id="pdf-buttons-3">
 														<button id="pdf-prev-3">Anterior</button>
 														<button id="pdf-next-3">Siguiente</button>
-													</div>	
+													</div>
 													<div id="page-count-container-3">Página <div  style="display: inline-block;" id="pdf-current-page-3"></div> de <div style="display: inline-block;"  id="pdf-total-pages-3"></div></div>
 												</div>
 						                    	<canvas id="pdf-alt-preview-3" width="750"></canvas>
@@ -673,20 +834,20 @@
 										</div>
 										<div class="col-12" id="contenedor_doc_3">
 											<div id="doc_3" style="display: none;">{{ url("/doc_juicios_thump/".$juicio->id."/3") }}</div>
-										</div>														
+										</div>
 										<div class="col-12">
 											<a class="btn btn-sm btn-label" target="_blank" href="{{ url("/doc_juicios/". $juicio->id."/3") }}">Descargar Documento</a>
-										</div>							
+										</div>
 									</div>
 									<div class="row">
 										<div class="col-12">
 											<button class="btn btn-label-danger borrar-documento" id="juicio_id-{{ $juicio->id }}-doc_tipo_id-3"><i class="fa fa-times"></i></button>
-										</div>											
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>				
+					</div>
                 </div>
                 <div class="form-group row clone" style="display: none;">
 					<div class="col-8">
@@ -720,6 +881,150 @@
     </div>
 </div>
 
+<div class="modal fade" id="kt_modal_oficios_loc" tabindex="-1" role="dialog" aria-labelledby="detalle_oficios_loc" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="title_oficios_loc">Agregar oficio</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+									<label for="select_oficio">Oficios de localización</label>
+									<select class="form-control" id="select_oficio">
+                    @foreach($oficios as $oficio)
+										<option value="{{ $oficio }}">{{ $oficio->name }}</option>
+                    @endforeach
+									</select>
+								</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="cargar_oficio_a_modal">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container_oficios_loc_to_clone" style="display: none">
+  <div class="form-group">
+    <div class="row" style="padding-top: 20px; padding-bottom: 20px">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-10">
+            <h5 class="oficio_localizacion_name"></h5>
+            <input name="oficio_localizacion_id[]" class="oficio_localizacion_id" type="hidden" />
+          </div>
+          <div class="col-2 kt-align-right">
+            <button class="btn btn-sm btn-danger borrar-oficio"><i class="fa fa-trash"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-8">
+        <div class="row">
+          <div class="col-4">
+            <label for="oficio_loc_recibido">Recibido</label>
+            <input autocomplete="false" type="text" class="form-control oficio_loc_datepicker" id="oficio_loc_recibido" name="oficio_loc_recibido[]" placeholder="YYYY-MM-DD">
+          </div>
+          <div class="col-4">
+            <label for="oficio_loc_entregado">Entregado</label>
+            <input autocomplete="false" type="text" class="form-control oficio_loc_datepicker" id="oficio_loc_entregado" name="oficio_loc_entregado[]" placeholder="YYYY-MM-DD">
+          </div>
+          <div class="col-4">
+            <label for="oficio_loc_contestado">Contestado</label>
+            <input autocomplete="false" type="text" class="form-control oficio_loc_datepicker" id="oficio_loc_contestado" name="oficio_loc_contestado[]" placeholder="YYYY-MM-DD">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            Recordatorio
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            <label for="oficio_loc_record_recibido">Recibido</label>
+            <input autocomplete="false" type="text" class="form-control oficio_loc_datepicker" id="oficio_loc_record_recibido" name="oficio_loc_record_recibido[]" placeholder="YYYY-MM-DD">
+          </div>
+          <div class="col-4">
+            <label for="oficio_loc_record_entregado">Entregado</label>
+            <input autocomplete="false" type="text" class="form-control oficio_loc_datepicker" id="oficio_loc_record_entregado" name="oficio_loc_record_entregado[]" placeholder="YYYY-MM-DD">
+          </div>
+          <div class="col-4">
+            <label for="oficio_loc_record_contestado">Contestado</label>
+            <input autocomplete="false" type="text" class="form-control oficio_loc_datepicker" id="oficio_loc_record_contestado" name="oficio_loc_record_contestado[]" placeholder="YYYY-MM-DD">
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="row">
+          <div class="col-4">
+            <label>Proporciona domicilio</label>
+            <span class="kt-switch kt-switch--sm kt-switch--icon">
+              <label>
+                <input type="checkbox" class="switch_to_handle" name="oficios_loc_da_domicilio[]">
+                <input type="hidden" class="hidden_to_handle" name="oficios_loc_da_domicilio_hidden[]" value="0">
+                <span></span>
+              </label>
+            </span>
+          </div>
+          <div class="col-8">
+            <label>Domicilio proporcionado</label>
+            <textarea class="form-control" rows="4" id="oficios_loc_domicilio_dado" name="oficios_loc_domicilio_dado[]" placeholder="..."></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <div class="row">
+          <div class="col-12">
+            <label>Domicilio habilitado en autos</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <span class="kt-switch kt-switch--sm kt-switch--icon">
+              <label>
+                <input type="checkbox" class="switch_to_handle" name="oficios_loc_domicilio_habilitado[]">
+                <input type="hidden" class="hidden_to_handle" name="oficios_loc_domicilio_habilitado_hidden[]" value="0">
+                <span></span>
+              </label>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="row">
+          <div class="col-12">
+            <label>Diligenciado</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <span class="kt-switch kt-switch--sm kt-switch--icon">
+              <label>
+                <input type="checkbox" class="switch_to_handle" name="oficios_loc_diligenciado[]">
+                <input type="hidden" class="hidden_to_handle" name="oficios_loc_diligenciado_hidden[]" value="0">
+                <span></span>
+              </label>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-3">
+        <label for="oficio_loc_fecha_diligencia">Fecha diligencia</label>
+        <input autocomplete="false" type="text" class="form-control oficio_loc_datepicker" id="oficio_loc_fecha_diligencia" name="oficio_loc_fecha_diligencia[]" placeholder="YYYY-MM-DD">
+      </div>
+      <div class="col-3">
+        <label for="oficio_loc_resultado_diligencia">Resultado de diligencia</label>
+        <textarea class="form-control" rows="2" id="oficio_loc_resultado_diligencia" name="oficio_loc_resultado_diligencia[]" placeholder="..."></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+
     <!--End::Section-->
 @endsection
 
@@ -727,7 +1032,7 @@
 
 @section('scripts')
 
-<script type="text/javascript" src="{{asset('js/Upload.js?v=0.0.19')}}"></script>
+<script type="text/javascript" src="{{asset('js/Upload.js?v=0.0.18')}}"></script>
 @foreach($doc_tipos as $doc_tipo)
 	@foreach($documentos as $documento)
 		@if($documento->doc_tipo_id == $doc_tipo->id && $documento->doc_tipo_id != 3)
@@ -740,6 +1045,11 @@
 <script type="text/javascript">
 
 	$(document).ready(function(e){
+
+    $("#boton_ver_oficios").click(function(e){
+      e.preventDefault();
+      $("#kt_modal_juicio_oficios_loc").modal("show");
+    });
 
 		$('.kt-scroll').animate({
 	            scrollTop: $(".kt-scroll").offset().top
@@ -768,6 +1078,10 @@
 			}
 		});
 
+    $(".switch_to_handle").change(function(e){
+      $(this).siblings(".hidden_to_handle").val(this.checked === true ? 1 : 0);
+    })
+
 		$(".undo-upload").click(function(e){
 			e.preventDefault();
 			var array_undo_upload_id = this.id.split("-");
@@ -791,13 +1105,13 @@
 		    var file = $("#pdf-file-3")[0].files[0];
 		    var upload = new UploadOtros(file, "{{url('subir_archivo')}}");
 		    $("#progress-wrp").parent().show();
-		   
+
 		    upload.doUpload();
 		});
 
 		$("#monto_demandado").inputmask('decimal', {
             rightAlignNumerics: false
-        }); 
+        });
 
         $("#importe_credito").inputmask('decimal', {
             rightAlignNumerics: false
@@ -835,8 +1149,8 @@
 
         $(".guardar-juicio").click(function(e){
         	e.preventDefault();
-			var datosForm = $("#formGuardarJuicio").serialize();
-			$.ajax({
+    			var datosForm = $("#formGuardarJuicio").serialize();
+    			$.ajax({
                 type: "POST",
                 data: datosForm,
                 url: "{{ url('/juicio/guardarJuicio') }}",
@@ -844,21 +1158,53 @@
                 success: function(data) {
                     console.log(data);
                     if(data.operacion) {
-                    	toastr.success(data.message, data.title);
-                    	iniciarCargaArchivos(data.juicio_id, 1);
+                    	 toastr.success(data.message, data.title);
+                    	 iniciarCargaArchivos(data.juicio_id, 1);
                     } else {
-						toastr.error(data.message, data.title);
+						           toastr.error(data.message, data.title);
                     }
                     $(".error_label").html("");
                     $.each(data.validator, function(i, item){
                     	$("#error-"+i).html(item[0]);
                     });
                 },
-                error: function(data) {				
+                error: function(data) {
                     toastr.error("Ocurrió un error al intentar guardar los datos del juicio", "Carga de Juicio");
                     console.log(data);
                 },
             });
+
+          });
+
+        $("#agregar_oficio_localizacion").click(function(e){
+          e.preventDefault();
+          $("#kt_modal_juicio_oficios_loc").modal("hide");
+          $("#kt_modal_oficios_loc").modal("show");
+        });
+
+        $('#cargar_oficio_a_modal').click(function(e){
+          e.preventDefault();
+          let oficioSelected = JSON.parse($('#select_oficio')[0].value);
+          let oficio = oficioSelected.name;
+          let oficioId = oficioSelected.id;
+          $("#kt_modal_oficios_loc").modal("hide");
+          $("#kt_modal_juicio_oficios_loc").modal("show");
+
+          let cant_oficios = $("#contador_oficios_localizacion").val();
+          let oficios = parseInt(cant_oficios) + 1;
+          $(".container_oficios_loc_to_clone").clone().appendTo('.container_oficios_loc').show().attr("id", "container_oficio_loc_"+oficios).removeClass("container_oficios_loc_to_clone").addClass("oficio_cloned");
+
+          $("#container_oficio_loc_"+oficios+" .oficio_localizacion_name").html(oficio);
+          $("#container_oficio_loc_"+oficios+" .form_oficios_loc").attr("id", "form_oficios_loc-"+oficios);
+          $("#container_oficio_loc_"+oficios+" .oficio_localizacion_id").val(oficioId);
+
+          attach_oficio_delete();
+
+          $("#contador_oficios_localizacion").val(oficios);
+          $("#oficios_loc_exist").attr("checked", true);
+
+          attach_datepicker();
+
         });
 
         $(".agregar-nota-seguimiento").click(function(e){
@@ -871,7 +1217,7 @@
 			var cant_notas = $("#contador_notas_seguimiento").val();
 			var notas = parseInt(cant_notas)+1;
 			var texto_nota = $("#nota_a_agregar").val();
-			var fecha_nota = new Date(); 
+			var fecha_nota = new Date();
 			$(".cabecera-notas").show();
         	$(".clone").clone().appendTo('.contenedor_notas_seguimiento').show().attr("id", "nota-seguimiento-"+notas).removeClass("clone").addClass("cloned");
         	attach_delete();
@@ -880,8 +1226,8 @@
         		fecha_nota.getFullYear()+"-"
         		+ ('0' + (fecha_nota.getMonth()+1)).slice(-2)+"-"
         		+ ('0' + fecha_nota.getDate()).slice(-2)+" "
-        		+ fecha_nota.getHours() + ":"  
-                + fecha_nota.getMinutes() + ":" 
+        		+ fecha_nota.getHours() + ":"
+                + fecha_nota.getMinutes() + ":"
                 + fecha_nota.getSeconds());
         	$("#nota-seguimiento-"+notas+" .usuario-nota-seguimiento").val("{{Auth::user()->name}}");
 
@@ -892,6 +1238,36 @@
         	e.preventDefault();
         	$(".contenedor_guardar_notas").hide();
         });
+
+        attach_oficio_delete();
+
+        $(".borrar-oficio-original").click(function(e){
+          e.preventDefault();
+          if(confirm("Está seguro de querer eliminar este oficio")) {
+          	var juicio_oficio_id = $(this).siblings(".id-juicio-oficio").val();
+          	var cant_oficios = $("#contador_oficios_localizacion").val();
+            $.ajax({
+                  type: "POST",
+                  data: {juicio_oficio_id: juicio_oficio_id, cant_oficios: cant_oficios},
+                  url: "{{ url('/juicio/deleteOficio') }}",
+                  dataType: 'json',
+                  success: function(data) {
+                      if(data.operacion) {
+                      	toastr.success(data.message, data.title)
+                      	$("#id_juicio_oficio-"+data.juicio_oficio_id).closest(".oficio-original").remove();
+                      	$("#contador_oficios_localizacion").val(data.cant_oficios);
+                      } else {
+  						          toastr.error(data.message, data.title)
+                      }
+                  },
+                  error: function(data) {
+                      console.log(data);
+                  },
+              });
+          }
+        });
+
+        attach_datepicker();
 
         attach_delete();
 
@@ -924,6 +1300,28 @@
         });
 	});
 
+  function attach_datepicker() {
+    $('.oficio_loc_datepicker').datepicker({
+      format:"yyyy-mm-dd",
+    });
+  }
+
+  function attach_oficio_delete(){
+      $('.borrar-oficio').off();
+      $('.borrar-oficio').click(function(e){
+        e.preventDefault();
+        if(confirm("Está seguro de querer eliminar este oficio")) {
+          let cant_oficios = $("#contador_oficios_localizacion").val();
+          let oficios = parseInt(cant_oficios) - 1;
+          $(this).closest('.oficio_cloned').remove();
+          if(oficios < 1){
+            $("#oficios_loc_exist").attr("checked", false);
+          }
+          $("#contador_oficios_localizacion").val(oficios);
+        }
+      });
+    }
+
 	function attach_delete(){
 	    $('.borrar-nota').off();
 	    $('.borrar-nota').click(function(e){
@@ -948,7 +1346,7 @@
 		    // execute upload
 		    upload.doUpload();
 		} else if (doc_tipo_id < 2){
-			iniciarCargaArchivos(juicio_id, parseInt(doc_tipo_id)+1);	
+			iniciarCargaArchivos(juicio_id, parseInt(doc_tipo_id)+1);
 		} else {
 			if($("#editar_o_crear").val() == 0) {
 				for (var i = 1; i < 3; i++) {
@@ -1014,7 +1412,7 @@
 	        };
 
 	        var identificador_SHOW_PAGE_render = identificador_SHOW_PAGE;
-	        
+
 	        // render the page contents in the canvas
 	        page.render(renderContext).then(function() {
 	            document.querySelector("#pdf-preview-"+identificador_SHOW_PAGE_render).style.display = 'inline-block';
@@ -1041,7 +1439,7 @@
 
 
 		document.querySelector("#pdf-file-"+identificador).click();
-		
+
 		/* when users selects a file */
 		document.querySelector("#pdf-file-"+identificador).addEventListener('change', function() {
 		    // user selected PDF
@@ -1049,12 +1447,12 @@
 
 		    // allowed MIME types
 		    var mime_types = [ 'application/pdf' ];
-		    
+
 			const lastDot = file.name.lastIndexOf('.');
 			const ext = file.name.substring(lastDot + 1);
 
 			var reader = new FileReader();
-		    
+
 		    reader.readAsDataURL(file);
 
 		    if((ext == 'jpg' || ext == 'png') && identificador == 3) {
@@ -1084,11 +1482,11 @@
 
 			    // hide upload dialog
 			    document.querySelector("#upload-dialog-"+identificador).style.display = 'none';
-			    
+
 			    // show the PDF preview loader
 			    document.querySelector("#pdf-loader-"+identificador).style.display = 'inline-block';
 
-			    // object url of PDF 
+			    // object url of PDF
 			    _OBJECT_URL = URL.createObjectURL(file)
 
 			    // send the object url of the pdf to the PDF preview function

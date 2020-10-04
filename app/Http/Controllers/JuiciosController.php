@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Juicio, App\Colaborator, App\Juzgado, App\Juiciotipo, App\Macroetapa, App\DocTipo, App\User, App\Estado, App\Salaapela, App\Juzgadotipo, App\Juiciouser, App\Demandado, App\DocJuicio, App\Moneda, App\Nota;
-use App\Oficio;
+use App\Oficio, App\JuiciosOficio;
 use Validator, Mail, Auth;
 use App\Traits\MpdfTrait;
 use Illuminate\Support\Facades\Storage;
@@ -45,6 +45,7 @@ class JuiciosController extends Controller
         $estado = Juicio::find($juicio_id)->estado()->first();
         $salaapela = Juicio::find($juicio_id)->salaapela()->first();
         $moneda = Juicio::find($juicio_id)->moneda()->first();
+        $juicios_oficios = Juicio::find($juicio_id)->juicios_oficios()->get();
 
         $salaapelas = Salaapela::all();
         $juzgadotipos = Juzgadotipo::all();
@@ -78,6 +79,7 @@ class JuiciosController extends Controller
         }
 
         $monedas = Moneda::all();
+        $oficios = Oficio::all();
 
         return view('juicios.verDetalleJuicio')->with('juicio', $juicio)
                                                ->with('moneda', $moneda)
@@ -103,7 +105,9 @@ class JuiciosController extends Controller
                                                ->with('coordinadores', $coordinadores)
                                                ->with('coordinador', $coordinador)
                                                ->with('salaapela', $salaapela)
-                                               ->with('notas', $notas);
+                                               ->with('notas', $notas)
+                                               ->with('oficios', $oficios)
+                                               ->with('juicios_oficios', $juicios_oficios);
     }
 
     /**
@@ -195,6 +199,36 @@ class JuiciosController extends Controller
             $id_notas_originales = $request->input("id-nota-seguimiento");
             $contador_notas_seguimiento = $request->input("contador_notas_seguimiento");
 
+            $contador_oficios_localizacion = $request->input("contador_oficios_localizacion");
+            $oficio_localizacion_id = $request->input("oficio_localizacion_id");
+            $oficio_loc_recibido = $request->input("oficio_loc_recibido");
+            $oficio_loc_entregado = $request->input("oficio_loc_entregado");
+            $oficio_loc_contestado = $request->input("oficio_loc_contestado");
+            $oficio_loc_record_recibido = $request->input("oficio_loc_record_recibido");
+            $oficio_loc_record_entregado = $request->input("oficio_loc_record_entregado");
+            $oficio_loc_record_contestado = $request->input("oficio_loc_record_contestado");
+            $oficios_loc_da_domicilio = $request->input("oficios_loc_da_domicilio_hidden");
+            $oficios_loc_domicilio_dado = $request->input("oficios_loc_domicilio_dado");
+            $oficios_loc_domicilio_habilitado = $request->input("oficios_loc_domicilio_habilitado_hidden");
+            $oficios_loc_diligenciado = $request->input("oficios_loc_diligenciado_hidden");
+            $oficio_loc_fecha_diligencia = $request->input("oficio_loc_fecha_diligencia");
+            $oficio_loc_resultado_diligencia = $request->input("oficio_loc_resultado_diligencia");
+
+            $original_oficio_localizacion_id = $request->input("original_oficio_localizacion_id");
+            $original_juicio_oficio_id = $request->input("original_juicio_oficio_id");
+            $original_oficio_loc_recibido = $request->input("original_oficio_loc_recibido");
+            $original_oficio_loc_entregado = $request->input("original_oficio_loc_entregado");
+            $original_oficio_loc_contestado = $request->input("original_oficio_loc_contestado");
+            $original_oficio_loc_record_recibido = $request->input("original_oficio_loc_record_recibido");
+            $original_oficio_loc_record_entregado = $request->input("original_oficio_loc_record_entregado");
+            $original_oficio_loc_record_contestado = $request->input("original_oficio_loc_record_contestado");
+            $original_oficios_loc_da_domicilio = $request->input("original_oficios_loc_da_domicilio_hidden");
+            $original_oficios_loc_domicilio_dado = $request->input("original_oficios_loc_domicilio_dado");
+            $original_oficios_loc_domicilio_habilitado = $request->input("original_oficios_loc_domicilio_habilitado_hidden");
+            $original_oficios_loc_diligenciado = $request->input("original_oficios_loc_diligenciado_hidden");
+            $original_oficio_loc_fecha_diligencia = $request->input("original_oficio_loc_fecha_diligencia");
+            $original_oficio_loc_resultado_diligencia = $request->input("original_oficio_loc_resultado_diligencia");
+
             $estado = $request->input("estado");
             $portafolio = $request->input("portafolio");
             $coordinador = $request->input("coordinador");
@@ -280,6 +314,27 @@ class JuiciosController extends Controller
                   }
                 }
 
+                if(!empty($oficio_localizacion_id)) {
+                  foreach ($oficio_localizacion_id as $key => $oficio) {
+                    $oficio_to_save = new JuiciosOficio;
+                    $oficio_to_save->juicio_id = $juicio->id;
+                    $oficio_to_save->oficio_id = $oficio;
+                    $oficio_to_save->recibido = $oficio_loc_recibido[$key];
+                    $oficio_to_save->entregado = $oficio_loc_entregado[$key];
+                    $oficio_to_save->contestado = $oficio_loc_contestado[$key];
+                    $oficio_to_save->recordatorio_recibido = $oficio_loc_record_recibido[$key];
+                    $oficio_to_save->recordatorio_entregado = $oficio_loc_record_entregado[$key];
+                    $oficio_to_save->recordatorio_contestado = $oficio_loc_record_contestado[$key];
+                    $oficio_to_save->da_domicilio = $oficios_loc_da_domicilio[$key];
+                    $oficio_to_save->domicilio_dado = $oficios_loc_domicilio_dado[$key];
+                    $oficio_to_save->domicilio_habilitado_autos = $oficios_loc_domicilio_habilitado[$key];
+                    $oficio_to_save->diligenciado = $oficios_loc_diligenciado[$key];
+                    $oficio_to_save->fecha_diligencia = $oficio_loc_fecha_diligencia[$key];
+                    $oficio_to_save->resultado_diligencia = $oficio_loc_resultado_diligencia[$key];
+                    $oficio_to_save->save();
+                  }
+                }
+
                 $juiciousuario_cliente = new Juiciouser;
                 $juiciousuario_cliente->juicio_id = $juicio->id;
                 $juiciousuario_cliente->user_id = $cliente;
@@ -362,6 +417,46 @@ class JuiciosController extends Controller
                   }
                 }
 
+                if(!empty($original_oficio_localizacion_id)) {
+                  foreach ($original_oficio_localizacion_id as $key => $oficio) {
+                    $oficio_to_save = JuiciosOficio::where("id", $original_juicio_oficio_id[$key])->first();
+                    $oficio_to_save->recibido = $original_oficio_loc_recibido[$key];
+                    $oficio_to_save->entregado = $original_oficio_loc_entregado[$key];
+                    $oficio_to_save->contestado = $original_oficio_loc_contestado[$key];
+                    $oficio_to_save->recordatorio_recibido = $original_oficio_loc_record_recibido[$key];
+                    $oficio_to_save->recordatorio_entregado = $original_oficio_loc_record_entregado[$key];
+                    $oficio_to_save->recordatorio_contestado = $original_oficio_loc_record_contestado[$key];
+                    $oficio_to_save->da_domicilio = $original_oficios_loc_da_domicilio[$key];
+                    $oficio_to_save->domicilio_dado = $original_oficios_loc_domicilio_dado[$key];
+                    $oficio_to_save->domicilio_habilitado_autos = $original_oficios_loc_domicilio_habilitado[$key];
+                    $oficio_to_save->diligenciado = $original_oficios_loc_diligenciado[$key];
+                    $oficio_to_save->fecha_diligencia = $original_oficio_loc_fecha_diligencia[$key];
+                    $oficio_to_save->resultado_diligencia = $original_oficio_loc_resultado_diligencia[$key];
+                    $oficio_to_save->save();
+                  }
+                }
+
+                if(!empty($oficio_localizacion_id)) {
+                  foreach ($oficio_localizacion_id as $key => $oficio) {
+                    $oficio_to_save = new JuiciosOficio;
+                    $oficio_to_save->juicio_id = $juicio_id;
+                    $oficio_to_save->oficio_id = $oficio;
+                    $oficio_to_save->recibido = $oficio_loc_recibido[$key];
+                    $oficio_to_save->entregado = $oficio_loc_entregado[$key];
+                    $oficio_to_save->contestado = $oficio_loc_contestado[$key];
+                    $oficio_to_save->recordatorio_recibido = $oficio_loc_record_recibido[$key];
+                    $oficio_to_save->recordatorio_entregado = $oficio_loc_record_entregado[$key];
+                    $oficio_to_save->recordatorio_contestado = $oficio_loc_record_contestado[$key];
+                    $oficio_to_save->da_domicilio = $oficios_loc_da_domicilio[$key];
+                    $oficio_to_save->domicilio_dado = $oficios_loc_domicilio_dado[$key];
+                    $oficio_to_save->domicilio_habilitado_autos = $oficios_loc_domicilio_habilitado[$key];
+                    $oficio_to_save->diligenciado = $oficios_loc_diligenciado[$key];
+                    $oficio_to_save->fecha_diligencia = $oficio_loc_fecha_diligencia[$key];
+                    $oficio_to_save->resultado_diligencia = $oficio_loc_resultado_diligencia[$key];
+                    $oficio_to_save->save();
+                  }
+                }
+
                 if(!empty($notas)) {
                   foreach ($notas as $nota) {
                     $nota_to_save = new Nota;
@@ -409,7 +504,7 @@ class JuiciosController extends Controller
                     }
                 }
 
-                $resultado = array('operacion' => true, 'message' => 'Juicio editado exitosamente', 'title' => 'Edición de Juicio', 'juicio_id' => $juicio_id);
+                $resultado = array('operacion' => true, 'message' => 'Juicio editado exitosamente', 'title' => 'Edición de Juicio', 'juicio_id' => $juicio_id, 'original_oficios_loc_da_domicilio' => $original_oficios_loc_da_domicilio);
 
               }
 
@@ -647,6 +742,27 @@ class JuiciosController extends Controller
           $resultado = array('operacion' => true, 'message'=> "Nota eliminada con éxito", 'title' => "Eliminar nota", "nota_id" => $nota_id, "cant_notas" => $cant_notas);
         } catch (Exception $e) {
           $resultado = array('operacion' => false, 'message'=> "Ocurrió un error al intentar eliminar la nota", 'title' => "Eliminar nota", "nota_id" => $nota_id);
+        }
+        return json_encode($resultado);
+    }
+
+    public function deleteOficio(Request $request){
+        $juicio_oficio_id = $request->input('juicio_oficio_id');
+        $cant_oficios = $request->input('cant_oficios');
+        try {
+          $oficio = JuiciosOficio::where('id',$juicio_oficio_id);
+          if($oficio->delete()) {
+            $cant_oficios = $cant_oficios - 1;
+          }
+          $resultado = array('operacion' => true,
+                             'message'=> "Oficio eliminado con éxito", 'title' => "Eliminar oficio",
+                             "juicio_oficio_id" => $juicio_oficio_id,
+                             "cant_oficios" => $cant_oficios);
+        } catch (Exception $e) {
+          $resultado = array('operacion' => false,
+                             'message'=> "Ocurrió un error al intentar eliminar el oficio",
+                             'title' => "Eliminar nota",
+                             "nota_id" => $nota_id);
         }
         return json_encode($resultado);
     }

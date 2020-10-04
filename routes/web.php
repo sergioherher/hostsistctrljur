@@ -32,9 +32,10 @@ Route::group(['middleware' => 'role:administrador'], function() {
    Route::post('/users/deleteUser', 'ProfilesController@deleteUser');
    Route::post('/users/updateUser', 'ProfilesController@updateUser');
    Route::get('/unirAExpediente/{juicio_id}','JuiciosController@unirAExpediente');
-   Route::post('/juicio/deleteNote', 'JuiciosController@deleteNote');   
+   Route::post('/juicio/deleteNote', 'JuiciosController@deleteNote');
+   Route::post('/juicio/deleteOficio', 'JuiciosController@deleteOficio');   
    Route::get('/deleteJuicio/{juicio_id}','JuiciosController@deleteJuicio');
-});   
+});
 
 Route::group(['middleware' => 'role:coordinador'], function() {
    Route::get('/juicio/cargarJuicio', 'JuiciosController@cargarJuicio');
@@ -48,4 +49,3 @@ Route::group(['middleware' => 'role:colaborador'], function() {
    Route::post('/subir_archivo', 'JuiciosController@subirArchivo');
    Route::post('/upload_doc_juicio', 'JuiciosController@subirDocJuicio');
 });
-

@@ -275,7 +275,7 @@
               <div class="col-lg-4">
 								<span class="kt-switch kt-switch--icon">
 									<label>
-										<input type="checkbox" disabled name="oficios_localizacion">
+										<input type="checkbox" disabled name="oficios_localizacion" id="oficios_loc_exist">
 										<span></span>
 									</label>
 								</span>
@@ -538,7 +538,7 @@
         </div>
     </div>
 </div>
-<div class="container_oficios_loc_to_clone">
+<div class="container_oficios_loc_to_clone" style="display: none">
   <div class="form-group">
     <div class="row" style="padding-top: 20px; padding-bottom: 20px">
       <div class="col-12">
@@ -595,7 +595,8 @@
             <label>Proporciona domicilio</label>
             <span class="kt-switch kt-switch--sm kt-switch--icon">
               <label>
-                <input type="checkbox" name="oficios_loc_da_domicilio[]">
+                <input type="checkbox" class="switch_to_handle" name="oficios_loc_da_domicilio[]">
+                <input type="hidden" class="hidden_to_handle" name="oficios_loc_da_domicilio_hidden[]" value="0">
                 <span></span>
               </label>
             </span>
@@ -618,7 +619,8 @@
           <div class="col-12">
             <span class="kt-switch kt-switch--sm kt-switch--icon">
               <label>
-                <input type="checkbox" name="oficios_loc_domicilio_habilitado[]">
+                <input type="checkbox" class="switch_to_handle" name="oficios_loc_domicilio_habilitado[]">
+                <input type="hidden" class="hidden_to_handle" name="oficios_loc_domicilio_habilitado_hidden[]" value="0">
                 <span></span>
               </label>
             </span>
@@ -635,7 +637,8 @@
           <div class="col-12">
             <span class="kt-switch kt-switch--sm kt-switch--icon">
               <label>
-                <input type="checkbox" name="oficios_loc_diligenciado[]">
+                <input type="checkbox" class="switch_to_handle" name="oficios_loc_diligenciado[]">
+                <input type="hidden" class="hidden_to_handle" name="oficios_loc_diligenciado_hidden[]" value="0">
                 <span></span>
               </label>
             </span>
@@ -660,10 +663,14 @@
 <!-- Javascript Section -->
 
 @section('scripts')
-<script type="text/javascript" src="{{asset('js/UploadCreate.js?v=0.0.17')}}"></script>
+<script type="text/javascript" src="{{asset('js/UploadCreate.js?v=0.0.19')}}"></script>
 <script type="text/javascript">
 
 	$(document).ready(function(e){
+
+    $(".switch_to_handle").change(function(e){
+      $(this).siblings(".hidden_to_handle").val(this.checked === true ? 1 : 0);
+    })
 
     $("#boton_ver_oficios").click(function(e){
       e.preventDefault();
@@ -705,8 +712,6 @@
       let oficios = parseInt(cant_oficios) + 1;
       $(".container_oficios_loc_to_clone").clone().appendTo('.container_oficios_loc').show().attr("id", "container_oficio_loc_"+oficios).removeClass("container_oficios_loc_to_clone").addClass("oficio_cloned");
 
-      console.log(oficioId);
-
       $("#container_oficio_loc_"+oficios+" .oficio_localizacion_name").html(oficio);
       $("#container_oficio_loc_"+oficios+" .form_oficios_loc").attr("id", "form_oficios_loc-"+oficios);
       $("#container_oficio_loc_"+oficios+" .oficio_localizacion_id").val(oficioId);
@@ -714,6 +719,7 @@
       attach_oficio_delete();
 
       $("#contador_oficios_localizacion").val(oficios);
+      $("#oficios_loc_exist").attr("checked", true);
 
       attach_datepicker();
 
@@ -797,6 +803,7 @@
         	$("#nota-seguimiento-"+notas+" .usuario-nota-seguimiento").val("{{Auth::user()->name}}");
 
         	$("#contador_notas_seguimiento").val(notas);
+
         });
 
         $(".cancelar-nota").click(function(e){
@@ -861,10 +868,15 @@
         $('.borrar-oficio').off();
         $('.borrar-oficio').click(function(e){
           e.preventDefault();
-          let cant_oficios = $("#contador_oficios_localizacion").val();
-          let oficios = parseInt(cant_oficios) - 1;
-          $(this).closest('.oficio_cloned').remove();
-          $("#contador_oficios_localizacion").val(oficios);
+          if(confirm("Está seguro de querer eliminar este oficio")) {           
+            let cant_oficios = $("#contador_oficios_localizacion").val();
+            let oficios = parseInt(cant_oficios) - 1;
+            $(this).closest('.oficio_cloned').remove();
+            if(oficios < 1){
+              $("#oficios_loc_exist").attr("checked", false);
+            }
+            $("#contador_oficios_localizacion").val(oficios);
+          }
         });
       }
 
@@ -886,8 +898,10 @@
 				$("#upload-dialog-"+i).show();
 			}
 			$(".error_label").html("");
-	        $(".cloned").remove();
-	        $(".cabecera-notas").hide();
+      $(".cloned").remove();
+      $(".oficio_cloned").remove();
+      $("#oficios_loc_exist").attr("checked", false);
+      $(".cabecera-notas").hide();
 			$(".contenedor_guardar_notas").hide();
 			$("#formGuardarJuicio").trigger("reset");
 			toastr.info("Puede proceder a cargar un nuevo juicio", "Juicio cargado exitosamente");

@@ -538,6 +538,63 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="kt_modal_sentencia" tabindex="-1" role="dialog" aria-labelledby="detalle_sentencia" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="title_oficios_loc">Sentencia</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container_sentencia">
+                  <div class="row">
+                    <div class="col-12">
+                      SENTENCIA
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6 col-md-2">
+                      Fecha de sentencia
+                    </div>
+                    <div class="col-sm-6 col-md-2">
+                      <input autocomplete="false" type="text" class="form-control sentencia_fecha_de_sentencia_datepicker" id="sentencia_fecha_de_sentencia" name="sentencia_fecha_de_sentencia" placeholder="YYYY-MM-DD">
+                    </div>
+                    <div class="col-sm-6 col-md-2">
+                      Cantidad de sentencia
+                    </div>
+                    <div class="col-sm-6 col-md-2">
+                      <input autocomplete="false" type="number" class="form-control sentencia_cantidad_de_sentencia" id="sentencia_cantidad_de_sentencia" name="sentencia_cantidad_de_sentencia">
+                    </div>
+                    <div class="col-sm-6 col-md-2">
+                      <label for="select_sentencia_moneda">Moneda</label>
+                    </div>
+                    <div class="col-sm-6 col-md-2">
+                      <div class="form-group">
+        								<select id="select_sentencia_moneda" name="sentencia_moneda" class="form-control">
+        									@foreach ($monedas as $moneda)
+        										@if (old('sentencia_moneda') == $moneda->id)
+        											<option value="{{ $moneda->id }}" selected="selected">{{ $moneda->desc_moneda }}</option>
+        										@else
+        											<option value="{{ $moneda->id }}">{{ $moneda->desc_moneda }}</option>
+        										@endif
+        									@endforeach
+        								</select>
+      								</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      PLANILLA DE LIQUIDACIÓN DE SENTENCIA
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container_oficios_loc_to_clone" style="display: none">
   <div class="form-group">
     <div class="row" style="padding-top: 20px; padding-bottom: 20px">
@@ -868,7 +925,7 @@
         $('.borrar-oficio').off();
         $('.borrar-oficio').click(function(e){
           e.preventDefault();
-          if(confirm("Está seguro de querer eliminar este oficio")) {           
+          if(confirm("Está seguro de querer eliminar este oficio")) {
             let cant_oficios = $("#contador_oficios_localizacion").val();
             let oficios = parseInt(cant_oficios) - 1;
             $(this).closest('.oficio_cloned').remove();

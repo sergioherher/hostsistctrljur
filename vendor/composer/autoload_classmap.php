@@ -52,6 +52,8 @@ return array(
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
     'App\\Role' => $baseDir . '/app/Role.php',
     'App\\Salaapela' => $baseDir . '/app/Salaapela.php',
+    'App\\Sentencia' => $baseDir . '/app/Sentencia.php',
+    'App\\SentenciasDictamen' => $baseDir . '/app/SentenciasDictamen.php',
     'App\\Traits\\MpdfTrait' => $baseDir . '/app/Traits/MpdfTrait.php',
     'App\\User' => $baseDir . '/app/User.php',
     'BeyondCode\\DumpServer\\DumpServerCommand' => $vendorDir . '/beyondcode/laravel-dump-server/src/DumpServerCommand.php',

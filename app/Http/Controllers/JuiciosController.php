@@ -46,6 +46,9 @@ class JuiciosController extends Controller
         $salaapela = Juicio::find($juicio_id)->salaapela()->first();
         $moneda = Juicio::find($juicio_id)->moneda()->first();
         $juicios_oficios = Juicio::find($juicio_id)->juicios_oficios()->get();
+        $sentencia = Juicio::find($juicio_id)->sentencia()->first();
+
+        $dictamenes = $sentencia->sentencias_dictamenes()->get();
 
         $salaapelas = Salaapela::all();
         $juzgadotipos = Juzgadotipo::all();
@@ -107,7 +110,9 @@ class JuiciosController extends Controller
                                                ->with('salaapela', $salaapela)
                                                ->with('notas', $notas)
                                                ->with('oficios', $oficios)
-                                               ->with('juicios_oficios', $juicios_oficios);
+                                               ->with('juicios_oficios', $juicios_oficios)
+                                               ->with('sentencia', $sentencia)
+                                               ->with('dictamenes', $dictamenes);
     }
 
     /**

@@ -53,6 +53,11 @@ class Juicio extends Model
         return $this->belongsTo('App\Salaapela');
     }
 
+    public function sentencia()
+    {
+        return $this->belongsTo('App\Sentencia');
+    }
+
     /**
      * Obtiene el juzgado del juicio
      */

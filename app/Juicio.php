@@ -55,7 +55,7 @@ class Juicio extends Model
 
     public function sentencia()
     {
-        return $this->belongsTo('App\Sentencia');
+        return $this->hasOne('App\Sentencia');
     }
 
     /**

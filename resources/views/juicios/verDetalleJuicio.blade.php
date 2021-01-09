@@ -350,23 +350,36 @@
 
 							</div>
 						</div>
-
-            <div class="form-group row">
-							<div class="col-lg-12">
-                <label class="col-form-label">Oficios de localización</label>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group row">
+    							<div class="col-lg-12">
+                    <label class="col-form-label">Oficios de localización</label>
+                  </div>
+                  <div class="col-lg-4">
+    								<span class="kt-switch kt-switch--icon">
+    									<label>
+    										<input type="checkbox" disabled @if($juicios_oficios->count() > 0) checked @endif name="oficios_localizacion" id="oficios_loc_exist">
+    										<span></span>
+    									</label>
+    								</span>
+    							</div>
+                  <div class="col-lg-8">
+    								<button class="btn btn-success" id="boton_ver_oficios"><i class="fa fa-view"></i>Ver detalle</button>
+    							</div>
+    						</div>
               </div>
-              <div class="col-lg-4">
-								<span class="kt-switch kt-switch--icon">
-									<label>
-										<input type="checkbox" disabled @if($juicios_oficios->count() > 0) checked @endif name="oficios_localizacion" id="oficios_loc_exist">
-										<span></span>
-									</label>
-								</span>
-							</div>
-              <div class="col-lg-8">
-								<button class="btn btn-success" id="boton_ver_oficios"><i class="fa fa-view"></i>Ver detalle</button>
-							</div>
-						</div>
+              <div class="col-lg-6">
+                <div class="form-group row">
+                  <div class="col-lg-12">
+                    <label class="col-form-label">Valores de sentencia y avaluos</label>
+                  </div>
+                  <div class="col-lg-12">
+    								<button class="btn btn-success" id="boton_sentencia"><i class="fa fa-view"></i>Ver detalle</button>
+    							</div>
+                </div>
+              </div>
+            </div>
 
 						<div class="form-group row">
 							<div class="col-lg-12">
@@ -673,7 +686,142 @@
                     </div>
                 </div>
             </div>
-
+            <div class="modal fade" id="kt_modal_sentencia" tabindex="-1" role="dialog" aria-labelledby="detalle_sentencia" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="title_oficios_loc">Sentencia</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container_sentencia">
+                              <div class="row">
+                                <div class="col-12">
+                                  SENTENCIA
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-sm-6 col-md-2">
+                                  Fecha de sentencia
+                                </div>
+                                <div class="col-sm-6 col-md-2">
+                                  <input autocomplete="false" type="text" class="form-control sentencia_datepicker" id="sentencia_fecha_de_sentencia" name="sentencia_fecha_de_sentencia" placeholder="YYYY-MM-DD" value="{{ substr($sentencia->fecha_sentencia, 0, 10) }}" />
+                                </div>
+                                <div class="col-sm-6 col-md-2">
+                                  Cantidad de sentencia
+                                </div>
+                                <div class="col-sm-6 col-md-2">
+                                  <input autocomplete="false" type="number" class="form-control sentencia_cantidad_de_sentencia" id="sentencia_cantidad_de_sentencia" name="sentencia_cantidad_de_sentencia" value="{{ $sentencia->cant_sentencia }}">
+                                </div>
+                                <div class="col-sm-6 col-md-2">
+                                  <label for="select_sentencia_moneda">Moneda</label>
+                                </div>
+                                <div class="col-sm-6 col-md-2">
+                                  <div class="form-group">
+                    								<select id="select_sentencia_moneda" name="sentencia_moneda" class="form-control">
+                    									@foreach ($monedas as $moneda)
+                    										@if (old('sentencia_moneda') == $moneda->id || $moneda->id == $sentencia->moneda_id)
+                    											<option value="{{ $moneda->id }}" selected="selected">{{ $moneda->desc_moneda }}</option>
+                    										@else
+                    											<option value="{{ $moneda->id }}">{{ $moneda->desc_moneda }}</option>
+                    										@endif
+                    									@endforeach
+                    								</select>
+                  								</div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-12">
+                                  PLANILLA DE LIQUIDACIÓN DE SENTENCIA
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                  Fecha de presentación
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                  <input autocomplete="false" type="text" class="form-control sentencia_datepicker" id="sentencia_fecha_de_presentacion" name="sentencia_fecha_de_presentacion" placeholder="YYYY-MM-DD" value="{{ substr($sentencia->fecha_presentacion, 0, 10) }}" />
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                  Monto liquidado
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                  <input autocomplete="false" type="number" class="form-control sentencia_monto_liquidado" id="sentencia_monto_liquidado" name="sentencia_monto_liquidado"  value="{{ $sentencia->monto_liquidado }}" />
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                  Fecha causa estado
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                  <input autocomplete="false" type="text" class="form-control sentencia_datepicker" id="sentencia_fecha_causa_estado" name="sentencia_fecha_causa_estado" placeholder="YYYY-MM-DD"  value="{{ substr($sentencia->fecha_causa_estado, 0, 10) }}" />
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                  Monto aprobado
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                  <input autocomplete="false" type="number" class="form-control sentencia_monto_aprobado" id="sentencia_monto_aprobado" name="sentencia_monto_aprobado"  value="{{ $sentencia->monto_aprobado }}" />
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-12">
+                                  <button class="btn btn-success agregar_dictamen">Agregar nuevo dictamen</button>
+                                  <input type="hidden" id="contador_dictamenes_parciales" name="contador_dictamenes_parciales" value="0">
+                                </div>
+                              </div>
+                              <div class="container_dictamenes_parciales">
+                                @foreach($dictamenes as $dictamen)
+                                  <div class="dictamen_cloned dictamen-original">
+                                    <div class="row">
+                                      <div class="col-12">
+                                        <hr />
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-12 kt-align-right">
+                                        <input id="id_dictamen-{{ $dictamen->id }}" name="original_dictamenes[]" class="id-dictamen" value="{{ $dictamen->id }}" type="hidden" />
+                                        <button class="btn btn-sm btn-danger borrar-dictamen-original"><i class="fa fa-trash"></i></button>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-4">
+                                        <label for="original_dictamen_nombre_perito">Nombre de perito</label>
+                                      </div>
+                                      <div class="col-8">
+                                        <input autocomplete="false" type="text" class="form-control dictamen_nombre_perito" id="original_dictamen_nombre_perito" name="original_dictamen_nombre_perito[]" value="{{ $dictamen->nombre_perito }}" />
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-4">
+                                        <label for="original_dictamen_valor_dictamen">Valor del dictamen</label>
+                                      </div>
+                                      <div class="col-8">
+                                        <input autocomplete="false" type="number" class="form-control dictamen_valor_dictamen" id="original_dictamen_valor_dictamen" name="original_dictamen_valor_dictamen[]" value="{{ $dictamen->valor_del_dictamen }}" />
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-4">
+                                        <label for="original_dictamen_fecha_emision">Fecha de emisión</label>
+                                      </div>
+                                      <div class="col-4">
+                                        <input autocomplete="false" type="text" class="form-control dictamen_datepicker" id="original_dictamen_fecha_emision" name="original_dictamen_fecha_emision[]" placeholder="YYYY-MM-DD" value="{{ substr($dictamen->fecha_de_emision, 0, 10) }}" />
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-4">
+                                        <label for="original_dictamen_tipo_perito">Tipo de perito</label>
+                                      </div>
+                                      <div class="col-8">
+                                        <input autocomplete="false" type="text" class="form-control dictamen_tipo_perito" id="original_dictamen_tipo_perito" name="original_dictamen_tipo_perito[]"  value="{{ $dictamen->tipo_de_perito }}" />
+                                      </div>
+                                    </div>
+                                  </div>
+                                @endforeach
+                              </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 					</form>
 
 					<div class="form-group row">
@@ -906,6 +1054,51 @@
     </div>
 </div>
 
+<div class="container_dictamen_parcial_to_clone">
+  <div class="row">
+    <div class="col-12">
+      <hr />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 kt-align-right">
+      <button class="btn btn-sm btn-danger borrar-dictamen"><i class="fa fa-trash"></i></button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4">
+      <label for="dictamen_nombre_perito">Nombre de perito</label>
+    </div>
+    <div class="col-8">
+      <input autocomplete="false" type="text" class="form-control dictamen_nombre_perito" id="dictamen_nombre_perito" name="dictamen_nombre_perito[]" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4">
+      <label for="dictamen_valor_dictamen">Valor del dictamen</label>
+    </div>
+    <div class="col-8">
+      <input autocomplete="false" type="number" class="form-control dictamen_valor_dictamen" id="dictamen_valor_dictamen" name="dictamen_valor_dictamen[]" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4">
+      <label for="dictamen_fecha_emision">Fecha de emisión</label>
+    </div>
+    <div class="col-4">
+      <input autocomplete="false" type="text" class="form-control dictamen_datepicker" id="dictamen_fecha_emision" name="dictamen_fecha_emision[]" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4">
+      <label for="dictamen_tipo_perito">Tipo de perito</label>
+    </div>
+    <div class="col-8">
+      <input autocomplete="false" type="text" class="form-control dictamen_tipo_perito" id="dictamen_tipo_perito" name="dictamen_tipo_perito[]" />
+    </div>
+  </div>
+</div>
+
 <div class="container_oficios_loc_to_clone" style="display: none">
   <div class="form-group">
     <div class="row" style="padding-top: 20px; padding-bottom: 20px">
@@ -1051,6 +1244,11 @@
       $("#kt_modal_juicio_oficios_loc").modal("show");
     });
 
+    $("#boton_sentencia").click(function(e){
+      e.preventDefault();
+      $("#kt_modal_sentencia").modal("show");
+    });
+
 		$('.kt-scroll').animate({
 	            scrollTop: $(".kt-scroll").offset().top
 	        }, 200);
@@ -1182,6 +1380,20 @@
           $("#kt_modal_oficios_loc").modal("show");
         });
 
+        $(".agregar_dictamen").click(function(e){
+          e.preventDefault();
+          let cant_dictamenes = $("#contador_dictamenes_parciales").val();
+          let dictamenes = parseInt(cant_dictamenes) + 1;
+          $(".container_dictamen_parcial_to_clone").clone()
+                                                   .appendTo('.container_dictamenes_parciales')
+                                                   .show()
+                                                   .attr("id", "container_dictamen_parcial_"+dictamenes)
+                                                   .removeClass("container_dictamen_parcial_to_clone").addClass("dictamen_cloned");
+          $("#container_dictamen_parcial_"+dictamenes+" .dictamen_nombre_perito").focus();
+          attach_dictamen_delete();
+          attach_datepicker();
+        });
+
         $('#cargar_oficio_a_modal').click(function(e){
           e.preventDefault();
           let oficioSelected = JSON.parse($('#select_oficio')[0].value);
@@ -1267,6 +1479,32 @@
           }
         });
 
+        $(".borrar-dictamen-original").click(function(e){
+          e.preventDefault();
+          if(confirm("Está seguro de querer eliminar este dictamen")) {
+          	var dictamen_id = $(this).siblings(".id-dictamen").val();
+          	var cant_dictamenes = $("#contador_dictamenes_parciales").val();
+            $.ajax({
+                type: "POST",
+                data: { dictamen_id: dictamen_id, cant_dictamenes: cant_dictamenes},
+                url: "{{ url('/juicio/deleteDictamen') }}",
+                dataType: 'json',
+                success: function(data) {
+                    if(data.operacion) {
+                    	toastr.success(data.message, data.title)
+                    	$("#id_dictamen-"+data.dictamen_id).closest(".dictamen-original").remove();
+                    	$("#contador_dictamenes_parciales").val(data.cant_dictamenes);
+                    } else {
+						          toastr.error(data.message, data.title)
+                    }
+                },
+                error: function(data) {
+                    console.log(data);
+                },
+            });
+          }
+        });
+
         attach_datepicker();
 
         attach_delete();
@@ -1303,6 +1541,27 @@
   function attach_datepicker() {
     $('.oficio_loc_datepicker').datepicker({
       format:"yyyy-mm-dd",
+    });
+
+    $('.sentencia_datepicker').datepicker({
+      format:"yyyy-mm-dd",
+    });
+
+    $('.dictamen_datepicker').datepicker({
+      format:"yyyy-mm-dd",
+    });
+  }
+
+  function attach_dictamen_delete(){
+    $('.borrar-dictamen').off();
+    $('.borrar-dictamen').click(function(e){
+      e.preventDefault();
+      if(confirm("Está seguro de querer eliminar este dictamen")) {
+        let cant_dictamenes = $("#contador_dictamenes_parciales").val();
+        let dictamenes = parseInt(cant_dictamenes) - 1;
+        $(this).closest('.dictamen_cloned').remove();
+        $("#contador_dictamenes_parciales").val(dictamenes);
+      }
     });
   }
 

@@ -81,7 +81,7 @@ class JuzgadoTableSeeder extends Seeder
 		$juzgado->juzgado = '13° Civil';
 		$juzgado->juzgadotipo_id = 2;
 		$juzgado->save();
-		
+
 		$juzgado = new Juzgado();
 		$juzgado->juzgado = '1° Mercantil';
 		$juzgado->juzgadotipo_id = 2;
@@ -133,47 +133,47 @@ class JuzgadoTableSeeder extends Seeder
 		$juzgado->save();
 
 		$juzgado = new Juzgado();
-		$juzgado->juzgado = '1° Mercantil Oral';
+		$juzgado->juzgado = '11° Mercantil';
 		$juzgado->juzgadotipo_id = 2;
 		$juzgado->save();
 
 		$juzgado = new Juzgado();
-		$juzgado->juzgado = '2° Mercantil Oral';
+		$juzgado->juzgado = '12° Mercantil';
 		$juzgado->juzgadotipo_id = 2;
 		$juzgado->save();
 
 		$juzgado = new Juzgado();
-		$juzgado->juzgado = '3° Mercantil Oral';
+		$juzgado->juzgado = '13° Mercantil';
 		$juzgado->juzgadotipo_id = 2;
 		$juzgado->save();
 
 		$juzgado = new Juzgado();
-		$juzgado->juzgado = '4° Mercantil Oral';
+		$juzgado->juzgado = '14° Mercantil';
 		$juzgado->juzgadotipo_id = 2;
 		$juzgado->save();
 
 		$juzgado = new Juzgado();
-		$juzgado->juzgado = '5° Mercantil Oral';
+		$juzgado->juzgado = '15° Mercantil';
 		$juzgado->juzgadotipo_id = 2;
 		$juzgado->save();
 
 		$juzgado = new Juzgado();
-		$juzgado->juzgado = '6° Mercantil Oral';
+		$juzgado->juzgado = '16° Mercantil';
 		$juzgado->juzgadotipo_id = 2;
 		$juzgado->save();
 
 		$juzgado = new Juzgado();
-		$juzgado->juzgado = '7° Mercantil Oral';
+		$juzgado->juzgado = '17° Mercantil';
 		$juzgado->juzgadotipo_id = 2;
 		$juzgado->save();
 
 		$juzgado = new Juzgado();
-		$juzgado->juzgado = '8° Mercantil Oral';
+		$juzgado->juzgado = '18° Mercantil';
 		$juzgado->juzgadotipo_id = 2;
 		$juzgado->save();
 
 		$juzgado = new Juzgado();
-		$juzgado->juzgado = '9° Mercantil Oral';
+		$juzgado->juzgado = '19° Mercantil';
 		$juzgado->juzgadotipo_id = 2;
 		$juzgado->save();
 

@@ -462,6 +462,18 @@ class JuiciosController extends Controller
 
                 $sentencia = $juicio->sentencia()->first();
 
+                if($sentencia){
+                  $sentencia_to_save = Sentencia::where("id", $sentencia->id);
+                  $sentencia_to_save->fecha_sentencia = $sentencia_fecha_de_sentencia;
+                  $sentencia_to_save->cant_sentencia = $sentencia_cantidad_de_sentencia;
+                  $sentencia_to_save->moneda_id = $sentencia_moneda;
+                  $sentencia_to_save->fecha_presentacion = $sentencia_fecha_de_presentacion;
+                  $sentencia_to_save->monto_liquidado = $sentencia_monto_liquidado;
+                  $sentencia_to_save->fecha_causa_estado = $sentencia_fecha_causa_estado;
+                  $sentencia_to_save->monto_aprobado = $sentencia_monto_aprobado;
+                  $sentencia_to_save->save();
+                }
+
                 if(!empty($notas_originales) && Auth::user()->hasRole('administrador')) {
                   foreach ($notas_originales as $key => $nota_original) {
                     $nota_original_id = $id_notas_originales[$key];

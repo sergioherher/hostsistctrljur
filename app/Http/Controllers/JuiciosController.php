@@ -48,7 +48,11 @@ class JuiciosController extends Controller
         $juicios_oficios = Juicio::find($juicio_id)->juicios_oficios()->get();
         $sentencia = Juicio::find($juicio_id)->sentencia()->first();
 
-        $dictamenes = $sentencia->sentencias_dictamenes()->get();
+        if($sentencia){
+          $dictamenes = $sentencia->sentencias_dictamenes()->get();
+        } else {
+          $dictamenes = collect([]);
+        }
 
         $salaapelas = Salaapela::all();
         $juzgadotipos = Juzgadotipo::all();

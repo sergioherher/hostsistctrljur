@@ -705,13 +705,13 @@
                                   Fecha de sentencia
                                 </div>
                                 <div class="col-sm-6 col-md-2">
-                                  <input autocomplete="false" type="text" class="form-control sentencia_datepicker" id="sentencia_fecha_de_sentencia" name="sentencia_fecha_de_sentencia" placeholder="YYYY-MM-DD" value="{{ substr($sentencia->fecha_sentencia, 0, 10) }}" />
+                                  <input autocomplete="false" type="text" class="form-control sentencia_datepicker" id="sentencia_fecha_de_sentencia" name="sentencia_fecha_de_sentencia" placeholder="YYYY-MM-DD" value="{{ $sentencia ? substr($sentencia->fecha_sentencia, 0, 10) : "" }}" />
                                 </div>
                                 <div class="col-sm-6 col-md-2">
                                   Cantidad de sentencia
                                 </div>
                                 <div class="col-sm-6 col-md-2">
-                                  <input autocomplete="false" type="number" class="form-control sentencia_cantidad_de_sentencia" id="sentencia_cantidad_de_sentencia" name="sentencia_cantidad_de_sentencia" value="{{ $sentencia->cant_sentencia }}">
+                                  <input autocomplete="false" type="number" class="form-control sentencia_cantidad_de_sentencia" id="sentencia_cantidad_de_sentencia" name="sentencia_cantidad_de_sentencia" value="{{ $sentencia ? $sentencia->cant_sentencia : "" }}">
                                 </div>
                                 <div class="col-sm-6 col-md-2">
                                   <label for="select_sentencia_moneda">Moneda</label>
@@ -738,25 +738,25 @@
                                   Fecha de presentación
                                 </div>
                                 <div class="col-sm-6 col-md-3">
-                                  <input autocomplete="false" type="text" class="form-control sentencia_datepicker" id="sentencia_fecha_de_presentacion" name="sentencia_fecha_de_presentacion" placeholder="YYYY-MM-DD" value="{{ substr($sentencia->fecha_presentacion, 0, 10) }}" />
+                                  <input autocomplete="false" type="text" class="form-control sentencia_datepicker" id="sentencia_fecha_de_presentacion" name="sentencia_fecha_de_presentacion" placeholder="YYYY-MM-DD" value="{{ $sentencia ? substr($sentencia->fecha_presentacion, 0, 10) : "" }}" />
                                 </div>
                                 <div class="col-sm-6 col-md-3">
                                   Monto liquidado
                                 </div>
                                 <div class="col-sm-6 col-md-3">
-                                  <input autocomplete="false" type="number" class="form-control sentencia_monto_liquidado" id="sentencia_monto_liquidado" name="sentencia_monto_liquidado"  value="{{ $sentencia->monto_liquidado }}" />
+                                  <input autocomplete="false" type="number" class="form-control sentencia_monto_liquidado" id="sentencia_monto_liquidado" name="sentencia_monto_liquidado"  value="{{ $sentencia ? $sentencia->monto_liquidado : "" }}" />
                                 </div>
                                 <div class="col-sm-6 col-md-3">
                                   Fecha causa estado
                                 </div>
                                 <div class="col-sm-6 col-md-3">
-                                  <input autocomplete="false" type="text" class="form-control sentencia_datepicker" id="sentencia_fecha_causa_estado" name="sentencia_fecha_causa_estado" placeholder="YYYY-MM-DD"  value="{{ substr($sentencia->fecha_causa_estado, 0, 10) }}" />
+                                  <input autocomplete="false" type="text" class="form-control sentencia_datepicker" id="sentencia_fecha_causa_estado" name="sentencia_fecha_causa_estado" placeholder="YYYY-MM-DD"  value="{{ $sentencia ? substr($sentencia->fecha_causa_estado, 0, 10) : "" }}" />
                                 </div>
                                 <div class="col-sm-6 col-md-3">
                                   Monto aprobado
                                 </div>
                                 <div class="col-sm-6 col-md-3">
-                                  <input autocomplete="false" type="number" class="form-control sentencia_monto_aprobado" id="sentencia_monto_aprobado" name="sentencia_monto_aprobado"  value="{{ $sentencia->monto_aprobado }}" />
+                                  <input autocomplete="false" type="number" class="form-control sentencia_monto_aprobado" id="sentencia_monto_aprobado" name="sentencia_monto_aprobado"  value="{{ $sentencia ? $sentencia->monto_aprobado : "" }}" />
                                 </div>
                               </div>
                               <div class="row">

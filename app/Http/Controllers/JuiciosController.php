@@ -463,7 +463,7 @@ class JuiciosController extends Controller
                 $sentencia = $juicio->sentencia()->first();
 
                 if($sentencia){
-                  $sentencia_to_save = Sentencia::where("id", $sentencia->id);
+                  $sentencia_to_save = Sentencia::where("id", $sentencia->id)->first();
                   $sentencia_to_save->fecha_sentencia = $sentencia_fecha_de_sentencia;
                   $sentencia_to_save->cant_sentencia = $sentencia_cantidad_de_sentencia;
                   $sentencia_to_save->moneda_id = $sentencia_moneda;

@@ -507,6 +507,8 @@ class ComposerStaticInit0f595584662629cebc995d0d25fee625
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\Role' => __DIR__ . '/../..' . '/app/Role.php',
         'App\\Salaapela' => __DIR__ . '/../..' . '/app/Salaapela.php',
+        'App\\Sentencia' => __DIR__ . '/../..' . '/app/Sentencia.php',
+        'App\\SentenciasDictamen' => __DIR__ . '/../..' . '/app/SentenciasDictamen.php',
         'App\\Traits\\MpdfTrait' => __DIR__ . '/../..' . '/app/Traits/MpdfTrait.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'BeyondCode\\DumpServer\\DumpServerCommand' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src/DumpServerCommand.php',

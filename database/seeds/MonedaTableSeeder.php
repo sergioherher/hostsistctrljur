@@ -16,9 +16,9 @@ class MonedaTableSeeder extends Seeder
         $moneda->desc_moneda = "No aplica";
         $moneda->save();
 
-		$moneda = new Moneda();
-		$moneda->desc_moneda = "MXN";
-		$moneda->save();
+      	$moneda = new Moneda();
+      	$moneda->desc_moneda = "MXN";
+      	$moneda->save();
 
         $moneda = new Moneda();
         $moneda->desc_moneda = "USD";

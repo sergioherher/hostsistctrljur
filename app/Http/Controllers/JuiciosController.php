@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Juicio, App\Colaborator, App\Juzgado, App\Juiciotipo, App\Macroetapa, App\DocTipo, App\User, App\Estado, App\Salaapela, App\Juzgadotipo, App\Juiciouser, App\Demandado, App\DocJuicio, App\Moneda, App\Nota;
-use App\Oficio, App\JuiciosOficio;
+use App\Oficio, App\JuiciosOficio, App\Sentencia, App\SentenciasDictamen;
 use Validator, Mail, Auth;
 use App\Traits\MpdfTrait;
 use Illuminate\Support\Facades\Storage;
@@ -46,6 +46,13 @@ class JuiciosController extends Controller
         $salaapela = Juicio::find($juicio_id)->salaapela()->first();
         $moneda = Juicio::find($juicio_id)->moneda()->first();
         $juicios_oficios = Juicio::find($juicio_id)->juicios_oficios()->get();
+        $sentencia = Juicio::find($juicio_id)->sentencia()->first();
+
+        if($sentencia){
+          $dictamenes = $sentencia->sentencias_dictamenes()->get();
+        } else {
+          $dictamenes = collect([]);
+        }
 
         $salaapelas = Salaapela::all();
         $juzgadotipos = Juzgadotipo::all();
@@ -107,7 +114,9 @@ class JuiciosController extends Controller
                                                ->with('salaapela', $salaapela)
                                                ->with('notas', $notas)
                                                ->with('oficios', $oficios)
-                                               ->with('juicios_oficios', $juicios_oficios);
+                                               ->with('juicios_oficios', $juicios_oficios)
+                                               ->with('sentencia', $sentencia)
+                                               ->with('dictamenes', $dictamenes);
     }
 
     /**
@@ -198,6 +207,26 @@ class JuiciosController extends Controller
             $notas_originales = $request->input("notas_seguimiento_original");
             $id_notas_originales = $request->input("id-nota-seguimiento");
             $contador_notas_seguimiento = $request->input("contador_notas_seguimiento");
+
+            $sentencia_fecha_de_sentencia = $request->input("sentencia_fecha_de_sentencia");
+            $sentencia_cantidad_de_sentencia = $request->input("sentencia_cantidad_de_sentencia");
+            $sentencia_moneda = $request->input("sentencia_moneda");
+            $sentencia_fecha_de_presentacion = $request->input("sentencia_fecha_de_presentacion");
+            $sentencia_monto_liquidado = $request->input("sentencia_monto_liquidado");
+            $sentencia_fecha_causa_estado = $request->input("sentencia_fecha_causa_estado");
+            $sentencia_monto_aprobado = $request->input("sentencia_monto_aprobado");
+
+            $contador_dictamenes_parciales = $request->input("contador_dictamenes_parciales");
+            $dictamen_nombre_perito = $request->input("dictamen_nombre_perito");
+            $dictamen_valor_dictamen = $request->input("dictamen_valor_dictamen");
+            $dictamen_fecha_emision = $request->input("dictamen_fecha_emision");
+            $dictamen_tipo_perito = $request->input("dictamen_tipo_perito");
+
+            $original_dictamenes = $request->input("original_dictamenes");
+            $original_dictamen_nombre_perito = $request->input("original_dictamen_nombre_perito");
+            $original_dictamen_valor_dictamen = $request->input("original_dictamen_valor_dictamen");
+            $original_dictamen_fecha_emision = $request->input("original_dictamen_fecha_emision");
+            $original_dictamen_tipo_perito = $request->input("original_dictamen_tipo_perito");
 
             $contador_oficios_localizacion = $request->input("contador_oficios_localizacion");
             $oficio_localizacion_id = $request->input("oficio_localizacion_id");
@@ -304,6 +333,29 @@ class JuiciosController extends Controller
                 $juicio->moneda_id = $moneda;
                 $juicio->save();
 
+                $sentencia = new Sentencia;
+                $sentencia->juicio_id = $juicio->id;
+                $sentencia->fecha_sentencia = $sentencia_fecha_de_sentencia;
+                $sentencia->cant_sentencia = $sentencia_cantidad_de_sentencia;
+                $sentencia->moneda_id = $sentencia_moneda;
+                $sentencia->fecha_presentacion = $sentencia_fecha_de_presentacion;
+                $sentencia->monto_liquidado = $sentencia_monto_liquidado;
+                $sentencia->fecha_causa_estado = $sentencia_fecha_causa_estado;
+                $sentencia->monto_aprobado = $sentencia_monto_aprobado;
+                $sentencia->save();
+
+                if(!empty($dictamen_nombre_perito)) {
+                  foreach ($dictamen_nombre_perito as $key => $dictamen) {
+                    $sentencia_dictamen = new SentenciasDictamen;
+                    $sentencia_dictamen->sentencia_id = $sentencia->id;
+                    $sentencia_dictamen->nombre_perito = $dictamen_nombre_perito[$key];
+                    $sentencia_dictamen->valor_del_dictamen = $dictamen_valor_dictamen[$key];
+                    $sentencia_dictamen->fecha_de_emision = $dictamen_fecha_emision[$key];
+                    $sentencia_dictamen->tipo_de_perito = $dictamen_tipo_perito[$key];
+                    $sentencia_dictamen->save();
+                  }
+                }
+
                 if(!empty($notas)) {
                   foreach ($notas as $nota) {
                     $nota_to_save = new Nota;
@@ -408,12 +460,60 @@ class JuiciosController extends Controller
                 $juicio->moneda_id = $moneda;
                 $juicio->save();
 
+                $sentencia = $juicio->sentencia()->first();
+
+                if($sentencia){
+                  $sentencia_to_save = Sentencia::where("id", $sentencia->id)->first();
+                  $sentencia_to_save->fecha_sentencia = $sentencia_fecha_de_sentencia;
+                  $sentencia_to_save->cant_sentencia = $sentencia_cantidad_de_sentencia;
+                  $sentencia_to_save->moneda_id = $sentencia_moneda;
+                  $sentencia_to_save->fecha_presentacion = $sentencia_fecha_de_presentacion;
+                  $sentencia_to_save->monto_liquidado = $sentencia_monto_liquidado;
+                  $sentencia_to_save->fecha_causa_estado = $sentencia_fecha_causa_estado;
+                  $sentencia_to_save->monto_aprobado = $sentencia_monto_aprobado;
+                  $sentencia_to_save->save();
+                } else {
+                  $sentencia_to_save = new Sentencia;
+                  $sentencia_to_save->juicio_id = $juicio->id;
+                  $sentencia_to_save->fecha_sentencia = $sentencia_fecha_de_sentencia;
+                  $sentencia_to_save->cant_sentencia = $sentencia_cantidad_de_sentencia;
+                  $sentencia_to_save->moneda_id = $sentencia_moneda;
+                  $sentencia_to_save->fecha_presentacion = $sentencia_fecha_de_presentacion;
+                  $sentencia_to_save->monto_liquidado = $sentencia_monto_liquidado;
+                  $sentencia_to_save->fecha_causa_estado = $sentencia_fecha_causa_estado;
+                  $sentencia_to_save->monto_aprobado = $sentencia_monto_aprobado;
+                  $sentencia_to_save->save();
+                }
+
                 if(!empty($notas_originales) && Auth::user()->hasRole('administrador')) {
                   foreach ($notas_originales as $key => $nota_original) {
                     $nota_original_id = $id_notas_originales[$key];
                     $nota_to_update = Nota::where("id",$nota_original_id)->first();
                     $nota_to_update->nota = $nota_original;
                     $nota_to_update->save();
+                  }
+                }
+
+                if(!empty($original_dictamenes)) {
+                  foreach ($original_dictamenes as $key => $original_dictamen_id) {
+                    $sentencia_dictamen_to_save = SentenciasDictamen::where("id", $original_dictamen_id)->first();
+                    $sentencia_dictamen_to_save->nombre_perito = $original_dictamen_nombre_perito[$key];
+                    $sentencia_dictamen_to_save->valor_del_dictamen = $original_dictamen_valor_dictamen[$key];
+                    $sentencia_dictamen_to_save->fecha_de_emision = $original_dictamen_fecha_emision[$key];
+                    $sentencia_dictamen_to_save->tipo_de_perito = $original_dictamen_tipo_perito[$key];
+                    $sentencia_dictamen_to_save->save();
+                  }
+                }
+
+                if(!empty($dictamen_nombre_perito)) {
+                  foreach ($dictamen_nombre_perito as $key => $dictamen) {
+                    $sentencia_dictamen = new SentenciasDictamen;
+                    $sentencia_dictamen->sentencia_id = $sentencia->id;
+                    $sentencia_dictamen->nombre_perito = $dictamen_nombre_perito[$key];
+                    $sentencia_dictamen->valor_del_dictamen = $dictamen_valor_dictamen[$key];
+                    $sentencia_dictamen->fecha_de_emision = $dictamen_fecha_emision[$key];
+                    $sentencia_dictamen->tipo_de_perito = $dictamen_tipo_perito[$key];
+                    $sentencia_dictamen->save();
                   }
                 }
 
@@ -763,6 +863,27 @@ class JuiciosController extends Controller
                              'message'=> "Ocurrió un error al intentar eliminar el oficio",
                              'title' => "Eliminar nota",
                              "nota_id" => $nota_id);
+        }
+        return json_encode($resultado);
+    }
+
+    public function deleteDictamen(Request $request){
+        $dictamen_id = $request->input('dictamen_id');
+        $cant_dictamenes = $request->input('cant_dictamenes');
+        try {
+          $dictamen = SentenciasDictamen::where('id',$dictamen_id);
+          if($dictamen->delete()) {
+            $cant_dictamenes = $cant_dictamenes - 1;
+          }
+          $resultado = array('operacion' => true,
+                             'message'=> "Dictamen eliminado con éxito", 'title' => "Eliminar dictamen",
+                             "dictamen_id" => $dictamen_id,
+                             "cant_dictamenes" => $cant_dictamenes);
+        } catch (Exception $e) {
+          $resultado = array('operacion' => false,
+                             'message'=> "Ocurrió un error al intentar eliminar el dictamen",
+                             'title' => "Eliminar dictamen",
+                             "dictamen_id" => $dictamen_id);
         }
         return json_encode($resultado);
     }

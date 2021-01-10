@@ -268,21 +268,35 @@
 							</div>
 						</div>
 
-						<div class="form-group row">
-							<div class="col-lg-12">
-                <label class="col-form-label">Oficios de localización</label>
+						<div class="row">
+              <div class="col-lg-6">
+                <div class="form-group row">
+    							<div class="col-lg-12">
+                    <label class="col-form-label">Oficios de localización</label>
+                  </div>
+                  <div class="col-lg-4">
+    								<span class="kt-switch kt-switch--icon">
+    									<label>
+    										<input type="checkbox" disabled name="oficios_localizacion" id="oficios_loc_exist">
+    										<span></span>
+    									</label>
+    								</span>
+    							</div>
+                  <div class="col-lg-8">
+    								<button class="btn btn-success" id="boton_ver_oficios"><i class="fa fa-view"></i>Ver detalle</button>
+    							</div>
+                </div>
               </div>
-              <div class="col-lg-4">
-								<span class="kt-switch kt-switch--icon">
-									<label>
-										<input type="checkbox" disabled name="oficios_localizacion" id="oficios_loc_exist">
-										<span></span>
-									</label>
-								</span>
-							</div>
-              <div class="col-lg-8">
-								<button class="btn btn-success" id="boton_ver_oficios"><i class="fa fa-view"></i>Ver detalle</button>
-							</div>
+              <div class="col-lg-6">
+                <div class="form-group row">
+                  <div class="col-lg-12">
+                    <label class="col-form-label">Valores de sentencia y avaluos</label>
+                  </div>
+                  <div class="col-lg-12">
+    								<button class="btn btn-success" id="boton_sentencia"><i class="fa fa-view"></i>Ver detalle</button>
+    							</div>
+                </div>
+              </div>
 						</div>
 
 						<div class="form-group row">
@@ -466,6 +480,94 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="kt_modal_sentencia" tabindex="-1" role="dialog" aria-labelledby="detalle_sentencia" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="title_oficios_loc">Sentencia</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container_sentencia">
+                              <div class="row">
+                                <div class="col-12">
+                                  SENTENCIA
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-sm-6 col-md-2">
+                                  Fecha de sentencia
+                                </div>
+                                <div class="col-sm-6 col-md-2">
+                                  <input autocomplete="false" type="text" class="form-control sentencia_datepicker" id="sentencia_fecha_de_sentencia" name="sentencia_fecha_de_sentencia" placeholder="YYYY-MM-DD">
+                                </div>
+                                <div class="col-sm-6 col-md-2">
+                                  Cantidad de sentencia
+                                </div>
+                                <div class="col-sm-6 col-md-2">
+                                  <input autocomplete="false" type="number" class="form-control sentencia_cantidad_de_sentencia" id="sentencia_cantidad_de_sentencia" name="sentencia_cantidad_de_sentencia">
+                                </div>
+                                <div class="col-sm-6 col-md-2">
+                                  <label for="select_sentencia_moneda">Moneda</label>
+                                </div>
+                                <div class="col-sm-6 col-md-2">
+                                  <div class="form-group">
+                    								<select id="select_sentencia_moneda" name="sentencia_moneda" class="form-control">
+                    									@foreach ($monedas as $moneda)
+                    										@if (old('sentencia_moneda') == $moneda->id)
+                    											<option value="{{ $moneda->id }}" selected="selected">{{ $moneda->desc_moneda }}</option>
+                    										@else
+                    											<option value="{{ $moneda->id }}">{{ $moneda->desc_moneda }}</option>
+                    										@endif
+                    									@endforeach
+                    								</select>
+                  								</div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-12">
+                                  PLANILLA DE LIQUIDACIÓN DE SENTENCIA
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                  Fecha de presentación
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                  <input autocomplete="false" type="text" class="form-control sentencia_datepicker" id="sentencia_fecha_de_presentacion" name="sentencia_fecha_de_presentacion" placeholder="YYYY-MM-DD">
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                  Monto liquidado
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                  <input autocomplete="false" type="number" class="form-control sentencia_monto_liquidado" id="sentencia_monto_liquidado" name="sentencia_monto_liquidado" />
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                  Fecha causa estado
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                  <input autocomplete="false" type="text" class="form-control sentencia_datepicker" id="sentencia_fecha_causa_estado" name="sentencia_fecha_causa_estado" placeholder="YYYY-MM-DD" />
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                  Monto aprobado
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                  <input autocomplete="false" type="number" class="form-control sentencia_monto_aprobado" id="sentencia_monto_aprobado" name="sentencia_monto_aprobado">
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-12">
+                                  <button class="btn btn-success agregar_dictamen">Agregar nuevo dictamen</button>
+                                  <input type="hidden" id="contador_dictamenes_parciales" name="contador_dictamenes_parciales" value="0">
+                                </div>
+                              </div>
+                              <div class="container_dictamenes_parciales"></div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 					</form>
 				<div class="form-group row">
@@ -537,6 +639,51 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="container_dictamen_parcial_to_clone">
+  <div class="row">
+    <div class="col-12">
+      <hr />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 kt-align-right">
+      <button class="btn btn-sm btn-danger borrar-dictamen"><i class="fa fa-trash"></i></button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4">
+      <label for="dictamen_nombre_perito">Nombre de perito</label>
+    </div>
+    <div class="col-8">
+      <input autocomplete="false" type="text" class="form-control dictamen_nombre_perito" id="dictamen_nombre_perito" name="dictamen_nombre_perito[]" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4">
+      <label for="dictamen_valor_dictamen">Valor del dictamen</label>
+    </div>
+    <div class="col-8">
+      <input autocomplete="false" type="number" class="form-control dictamen_valor_dictamen" id="dictamen_valor_dictamen" name="dictamen_valor_dictamen[]" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4">
+      <label for="dictamen_fecha_emision">Fecha de emisión</label>
+    </div>
+    <div class="col-4">
+      <input autocomplete="false" type="text" class="form-control dictamen_datepicker" id="dictamen_fecha_emision" name="dictamen_fecha_emision[]" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4">
+      <label for="dictamen_tipo_perito">Tipo de perito</label>
+    </div>
+    <div class="col-8">
+      <input autocomplete="false" type="text" class="form-control dictamen_tipo_perito" id="dictamen_tipo_perito" name="dictamen_tipo_perito[]" />
+    </div>
+  </div>
 </div>
 <div class="container_oficios_loc_to_clone" style="display: none">
   <div class="form-group">
@@ -677,11 +824,17 @@
       $("#kt_modal_juicio_oficios_loc").modal("show");
     });
 
+    $("#boton_sentencia").click(function(e){
+      e.preventDefault();
+      $("#kt_modal_sentencia").modal("show");
+    });
+
 		$(".agregar-nota-seguimiento").attr("disabled", false);
 
 		$("#fecha_proxima_accion").datepicker({
 			format:"yyyy-mm-dd",
 		});
+
 		$("#ultima_fecha_boletin").datepicker({
 			format:"yyyy-mm-dd",
 		});
@@ -694,10 +847,31 @@
 			format:"yyyy-mm-dd",
 		});
 
+    $(".sentencia_datepicker").datepicker({
+			format:"yyyy-mm-dd",
+		});
+
+    $(".dictamen_datepicker").datepicker({
+			format:"yyyy-mm-dd",
+		});
+
     $("#agregar_oficio_localizacion").click(function(e){
       e.preventDefault();
       $("#kt_modal_juicio_oficios_loc").modal("hide");
       $("#kt_modal_oficios_loc").modal("show");
+    });
+
+    $(".agregar_dictamen").click(function(e){
+      e.preventDefault();
+      let cant_dictamenes = $("#contador_dictamenes_parciales").val();
+      let dictamenes = parseInt(cant_dictamenes) + 1;
+      $(".container_dictamen_parcial_to_clone").clone()
+                                               .appendTo('.container_dictamenes_parciales')
+                                               .show()
+                                               .attr("id", "container_dictamen_parcial_"+dictamenes)
+                                               .removeClass("container_dictamen_parcial_to_clone").addClass("dictamen_cloned");
+      attach_dictamen_delete();
+      attach_datepicker();
     });
 
     $('#cargar_oficio_a_modal').click(function(e){
@@ -862,13 +1036,21 @@
       $('.oficio_loc_datepicker').datepicker({
   			format:"yyyy-mm-dd",
   		});
+
+      $('.sentencia_datepicker').datepicker({
+  			format:"yyyy-mm-dd",
+  		});
+
+      $('.dictamen_datepicker').datepicker({
+  			format:"yyyy-mm-dd",
+  		});
     }
 
     function attach_oficio_delete(){
         $('.borrar-oficio').off();
         $('.borrar-oficio').click(function(e){
           e.preventDefault();
-          if(confirm("Está seguro de querer eliminar este oficio")) {           
+          if(confirm("Está seguro de querer eliminar este oficio")) {
             let cant_oficios = $("#contador_oficios_localizacion").val();
             let oficios = parseInt(cant_oficios) - 1;
             $(this).closest('.oficio_cloned').remove();
@@ -876,6 +1058,19 @@
               $("#oficios_loc_exist").attr("checked", false);
             }
             $("#contador_oficios_localizacion").val(oficios);
+          }
+        });
+      }
+
+      function attach_dictamen_delete(){
+        $('.borrar-dictamen').off();
+        $('.borrar-dictamen').click(function(e){
+          e.preventDefault();
+          if(confirm("Está seguro de querer eliminar este dictamen")) {
+            let cant_dictamenes = $("#contador_dictamenes_parciales").val();
+            let dictamenes = parseInt(cant_dictamenes) - 1;
+            $(this).closest('.dictamen_cloned').remove();
+            $("#contador_dictamenes_parciales").val(dictamenes);
           }
         });
       }

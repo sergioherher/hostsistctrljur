@@ -472,6 +472,17 @@ class JuiciosController extends Controller
                   $sentencia_to_save->fecha_causa_estado = $sentencia_fecha_causa_estado;
                   $sentencia_to_save->monto_aprobado = $sentencia_monto_aprobado;
                   $sentencia_to_save->save();
+                } else {
+                  $sentencia_to_save = new Sentencia;
+                  $sentencia_to_save->juicio_id = $juicio->id;
+                  $sentencia_to_save->fecha_sentencia = $sentencia_fecha_de_sentencia;
+                  $sentencia_to_save->cant_sentencia = $sentencia_cantidad_de_sentencia;
+                  $sentencia_to_save->moneda_id = $sentencia_moneda;
+                  $sentencia_to_save->fecha_presentacion = $sentencia_fecha_de_presentacion;
+                  $sentencia_to_save->monto_liquidado = $sentencia_monto_liquidado;
+                  $sentencia_to_save->fecha_causa_estado = $sentencia_fecha_causa_estado;
+                  $sentencia_to_save->monto_aprobado = $sentencia_monto_aprobado;
+                  $sentencia_to_save->save();
                 }
 
                 if(!empty($notas_originales) && Auth::user()->hasRole('administrador')) {

@@ -720,7 +720,7 @@
                                   <div class="form-group">
                     								<select id="select_sentencia_moneda" name="sentencia_moneda" class="form-control">
                     									@foreach ($monedas as $moneda)
-                    										@if (old('sentencia_moneda') == $moneda->id || $moneda->id == $sentencia->moneda_id)
+                    										@if (old('sentencia_moneda') == $moneda->id || ($sentencia && $moneda->id == $sentencia->moneda_id))
                     											<option value="{{ $moneda->id }}" selected="selected">{{ $moneda->desc_moneda }}</option>
                     										@else
                     											<option value="{{ $moneda->id }}">{{ $moneda->desc_moneda }}</option>

@@ -17,12 +17,12 @@ class CreateSentenciasTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('juicio_id');
             $table->dateTime('fecha_sentencia')->nullable();
-            $table->decimal('cant_sentencia')->nullable();
+            $table->decimal('cant_sentencia', 20, 2)->nullable();
             $table->unsignedBigInteger('moneda_id');
             $table->dateTime('fecha_presentacion')->nullable();
-            $table->decimal('monto_liquidado')->nullable();
+            $table->decimal('monto_liquidado', 20, 2)->nullable();
             $table->dateTime('fecha_causa_estado')->nullable();
-            $table->decimal('monto_aprobado')->nullable();
+            $table->decimal('monto_aprobado', 20, 2)->nullable();
             $table->timestamps();
 
             $table->foreign('juicio_id')->references('id')->on('juicios')->onDelete('cascade');

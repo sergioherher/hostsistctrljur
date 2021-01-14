@@ -17,7 +17,7 @@ class CreateSentenciasDictamensTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('sentencia_id');
             $table->text('nombre_perito')->nullable();
-            $table->decimal('valor_del_dictamen')->nullable();
+            $table->decimal('valor_del_dictamen', 20, 2)->nullable();
             $table->dateTime('fecha_de_emision')->nullable();
             $table->text('tipo_de_perito')->nullable();
             $table->timestamps();

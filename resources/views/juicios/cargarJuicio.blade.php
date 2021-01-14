@@ -641,7 +641,7 @@
     </div>
 </div>
 
-<div class="container_dictamen_parcial_to_clone">
+<div class="container_dictamen_parcial_to_clone" style="display: none">
   <div class="row">
     <div class="col-12">
       <hr />
